@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  IHE Cross Community Access (XCAD) WSDL defintions for Responding Gateway Query
+  -->
+<definitions 		
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+    xmlns="http://schemas.xmlsoap.org/wsdl/" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:ihe="urn:ihe:iti:xds-b:2007" 
+    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" 
+    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+    targetNamespace="urn:ihe:iti:xds-b:2007" 
+    xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" 
+    xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" 
+    name="RespondingGateway_Query">
+	<documentation>IHE XCA Responding Gateway Query</documentation>
+	<types>
+		<xsd:schema elementFormDefault="qualified">
+			<xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" 
+       schemaLocation="../schema/ebRS/rs.xsd"/>
+			<xsd:import namespace="urn:ihe:iti:xds-b:2007" 
+       schemaLocation="../schema/IHE/XDS.b_DocumentRepository.xsd"/>
+      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"  
+        schemaLocation="../schema/ebRS/query.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="CrossGatewayQuery_Message">
+		<documentation>Cross Gateway Query</documentation>
+		<part name="body" element="query:AdhocQueryRequest"/>
+	</message>
+	<message name="CrossGatewayQueryResponse_Message">
+		<documentation>Cross Gateway Query Response</documentation>
+		<part name="body" element="query:AdhocQueryResponse"/>
+	</message>
+	<portType name="RespondingGatewayQuery_PortType">
+		<operation name="RespondingGateway_CrossGatewayQuery">
+			<input message="ihe:CrossGatewayQuery_Message" 
+        wsaw:Action="urn:ihe:iti:2007:CrossGatewayQuery"/>
+			<output message="ihe:CrossGatewayQueryResponse_Message" 
+        wsaw:Action="urn:ihe:iti:2007:CrossGatewayQueryResponse"/>
+		</operation>
+	</portType>
+	<binding name="RespondingGatewayQuery_Binding_Soap12" type="ihe:RespondingGatewayQuery_PortType">
+		<soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="RespondingGateway_CrossGatewayQuery">
+			<soap12:operation soapAction="urn:ihe:iti:2007:CrossGatewayQuery"/>
+			<input>
+				<soap12:body use="literal"/>
+			</input>
+			<output>
+				<soap12:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="RespondingGatewayQuery_Service">
+		<port name="RespondingGatewayQuery_Port_Soap12" binding="ihe:RespondingGatewayQuery_Binding_Soap12">
+			<soap12:address location="http://servicelocation/RespondingGatewayQuery_Service"/>
+		</port>
+	</service>
+</definitions>

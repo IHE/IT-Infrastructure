@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  IHE Cross Community Access (XCAD) WSDL defintions for Responding Gateway Retrieve
+  -->
+<definitions 		
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+    xmlns="http://schemas.xmlsoap.org/wsdl/" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:ihe="urn:ihe:iti:xds-b:2007" 
+    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" 
+    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+    targetNamespace="urn:ihe:iti:xds-b:2007" 
+    xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" 
+    xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" 
+    name="XCA_RespondingGateway_Retrieve">
+	<documentation>IHE XCA Responding Gateway Retrieve</documentation>
+	<types>
+		<xsd:schema elementFormDefault="qualified">
+			<xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" 
+       schemaLocation="../schema/ebRS/rs.xsd"/>
+			<xsd:import namespace="urn:ihe:iti:xds-b:2007" 
+       schemaLocation="../schema/IHE/XDS.b_DocumentRepository.xsd"/>
+      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"  
+        schemaLocation="../schema/ebRS/query.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="CrossGatewayRetrieve_Message">
+		<documentation>Cross Gateway Retrieve</documentation>
+		<part name="body" element="ihe:RetrieveDocumentSetRequest"/>
+	</message>
+	<message name="CrossGatewayRetrieveResponse_Message">
+		<documentation>Cross Gateway Retrieve Response</documentation>
+		<part name="body" element="ihe:RetrieveDocumentSetResponse"/>
+	</message>
+	<portType name="RespondingGatewayRetrieve_PortType">
+		<operation name="RespondingGateway_CrossGatewayRetrieve">
+			<input message="ihe:CrossGatewayRetrieve_Message" 
+        wsaw:Action="urn:ihe:iti:2007:CrossGatewayRetrieve"/>
+			<output message="ihe:CrossGatewayRetrieveResponse_Message" 
+        wsaw:Action="urn:ihe:iti:2007:CrossGatewayRetrieveResponse"/>
+		</operation>
+	</portType>
+	<binding name="RespondingGatewayRetrieve_Binding_Soap12" type="ihe:RespondingGatewayRetrieve_PortType">
+		<soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="RespondingGateway_CrossGatewayRetrieve">
+			<soap12:operation soapAction="urn:ihe:iti:2007:CrossGatewayRetrieve"/>
+			<input>
+				<soap12:body use="literal"/>
+			</input>
+			<output>
+				<soap12:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="RespondingGatewayRetrieve_Service">
+		<port name="RespondingGatewayRetrieve_Port_Soap12" binding="ihe:RespondingGatewayRetrieve_Binding_Soap12">
+			<soap12:address location="http://servicelocation/RespondingGatewayRetrieve_Service"/>
+		</port>
+	</service>
+</definitions>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This wsdl file is for an XCA Initiating Gateway Actor which
+     implements the XDS Affinity Domain Option.  It contains only the Retrieve
+     portion of the interface due to the split of web services endpoints
+     to support MTOM versus non-MTOM processing.  -->
+<!-- 
+  IHE Cross Community Access (XCA) WSDL defintions for Initiating Gateway Retrieve
+  -->
+<definitions 		
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+    xmlns="http://schemas.xmlsoap.org/wsdl/" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:ihe="urn:ihe:iti:xds-b:2007" 
+    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" 
+    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+    targetNamespace="urn:ihe:iti:xds-b:2007" 
+    xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" 
+    xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" 
+    name="InitiatingGateway_Retrieve">
+	<documentation>IHE XCA Initiating Gateway Retrieve</documentation>
+	<types>
+		<xsd:schema elementFormDefault="qualified">
+			<xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" 
+       schemaLocation="../schema/ebRS/rs.xsd"/>
+			<xsd:import namespace="urn:ihe:iti:xds-b:2007" 
+       schemaLocation="../schema/IHE/XDS.b_DocumentRepository.xsd"/>
+      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"  
+        schemaLocation="../schema/ebRS/query.xsd"/>
+		</xsd:schema>
+	</types>
+    <message name="RetrieveDocumentSet_Message">
+    <documentation>Retrieve Document Set</documentation>
+    <part name="body" element="ihe:RetrieveDocumentSetRequest" />
+    </message>
+    <message name="RetrieveDocumentSetResponse_Message">
+    <documentation>Retrieve Document Set Response</documentation>
+    <part name="body" element="ihe:RetrieveDocumentSetResponse"  />
+    </message>
+
+  <portType name="InitiatingGatewayRetrieve_PortType">
+    <operation name="DocumentRepository_RetrieveDocumentSet">
+    <input message="ihe:RetrieveDocumentSet_Message"
+    wsaw:Action="urn:ihe:iti:2007:RetrieveDocumentSet" />
+    <output message="ihe:RetrieveDocumentSetResponse_Message"
+    wsaw:Action="urn:ihe:iti:2007:RetrieveDocumentSetResponse" />
+    </operation>
+ 
+ </portType>
+
+
+
+	<binding name="InitiatingGatewayRetrieve_Binding_Soap12" 
+	type="ihe:InitiatingGatewayRetrieve_PortType">
+      <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+  <!-- Added to support Affinity Domain option -->
+    <operation name="DocumentRepository_RetrieveDocumentSet">
+      <soap12:operation soapAction="urn:ihe:iti:2007:RetrieveDocumentSet" />
+      <input>
+        <soap12:body use="literal" />
+      </input>
+      <output>
+        <soap12:body use="literal" />
+      </output>
+    </operation>
+    
+  </binding>
+  
+      <service name="InitiatingGatewayRetrieve_Service">
+        <port name="InitiatingGatewayRetrieve_Port_Soap12" 
+        binding="ihe:InitiatingGatewayRetrieve_Binding_Soap12">
+		  <soap12:address location="http://servicelocation/InitiatingGatewayRetrieve_Service"/>
+		</port>
+	  </service>
+</definitions>

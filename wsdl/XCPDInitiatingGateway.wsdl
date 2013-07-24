@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- NOTE:
+   This wsdl is only used if the Initiating Gateway is using the Deferred Response option of XCPD.
+-->
+<wsdl:definitions name="XCPDInitiatingGateway" targetNamespace="urn:ihe:iti:xcpd:2009"
+    xmlns:tns="urn:ihe:iti:xcpd:2009" 
+    xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" 
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsaw="http://www.w3.org/2007/05/addressing/metadata"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:hl7="urn:hl7-org:v3">
+    <wsdl:documentation>
+    Example WSDL for XCPD Initiating Gateway using the Deferred Response option
+    </wsdl:documentation>
+<wsdl:types>
+	<xsd:schema elementFormDefault="qualified" targetNamespace="urn:hl7-org:v3" xmlns:hl7="urn:hl7-org:v3">
+		<!-- Include the message schema -->
+		<xsd:include schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201306UV02.xsd"/>
+	</xsd:schema>
+	<xsd:schema elementFormDefault="qualified" targetNamespace="urn:hl7-org:v3" xmlns:hl7="urn:hl7-org:v3">
+		<!-- Include the message schema -->
+		<xsd:include schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/MCCI_IN000002UV01.xsd"/>
+	</xsd:schema>
+</wsdl:types>
+<wsdl:message name="PRPA_IN201306UV02_Message">
+	<wsdl:part name="Body" element="hl7:PRPA_IN201306UV02"/>
+</wsdl:message>
+<wsdl:message name="MCCI_IN000002UV01_Message">
+	<wsdl:part name="Body" element="hl7:MCCI_IN000002UV01"/>
+</wsdl:message>
+<wsdl:portType name="InitiatingGatewayDeferredResponse_PortType">
+	<wsdl:operation name="InitiatingGateway_Deferred_PRPA_IN201306UV02">
+		<wsdl:input message="tns:PRPA_IN201306UV02_Message" wsaw:Action="urn:hl7-org:v3:PRPA_IN201306UV02:Deferred:CrossGatewayPatientDiscovery"/>
+		<wsdl:output message="tns:MCCI_IN000002UV01_Message" wsaw:Action="urn:hl7-org:v3:MCCI_IN000002UV01"/>
+	</wsdl:operation>
+</wsdl:portType>
+<wsdl:binding name="InitiatingGatewayDeferredResponse_Binding" type="tns:InitiatingGatewayDeferredResponse_PortType">
+	<soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+	<wsdl:operation name="InitiatingGateway_Deferred_PRPA_IN201306UV02">
+		<wsdl:input>
+			<soap12:body use="literal"/>
+		</wsdl:input>
+		<wsdl:output>
+			<soap12:body use="literal"/>
+		</wsdl:output>
+	</wsdl:operation>
+</wsdl:binding>
+<wsdl:service name="InitiatingGateway_Service">
+    <wsdl:port binding="tns:InitiatingGatewayDeferredResponse_Binding" name="InitiatingGateway_Port_Soap12">
+        <soap12:address location="https://example.org/InitiatingGateway_Soap12"/>
+    </wsdl:port>
+</wsdl:service>
+</wsdl:definitions>
