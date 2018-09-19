@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema elementFormDefault="qualified" targetNamespace="urn:ihe" xmlns:dsml="urn:oasis:names:tc:DSML:2:0:core"
+    xmlns="urn:ihe" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    
+    <!-- Include DSML -->
+    <xsd:import namespace="urn:oasis:names:tc:DSML:2:0:core" schemaLocation="DSMLv2.xsd"/>
+
+    <xsd:simpleType name="NotBlank">
+        <xsd:annotation>
+            <xsd:documentation>
+                A non-blank token.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+            <xsd:pattern value=".*\S.*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="DirectoryId">
+        <xsd:annotation>
+            <xsd:documentation>
+                A non-blank directory ID to which the request has to be sent.
+                The directory Id would be identifying the specific directory to which a request would be sent by an intermediary. 
+                In case of no intermediaries, the directory Id will be the same as the destination directory Id
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:union memberTypes="xsd:token NotBlank"/>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="FederatedRequestId">
+        <xsd:annotation>
+            <xsd:documentation>
+                A non-blank request ID which is used for federation. 
+                This is a globally unique id that is created by the initiator of the Provider Information Query transaction and is present as part of the control element. 
+                This request Id should be retained by all intermediaries that federate the request to additional directories. 
+                In other words it should not be modified.The use of the attribute is to ensure that there are no loops during federation, where a request is sent back to the originator of the request.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:union memberTypes="dsml:RequestID NotBlank"/>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="DirectoryURI">
+        <xsd:annotation>
+            <xsd:documentation>
+                A non-blank Directory URI that can be used for requesting data from a particular Provider Directory Server represented by the URI.
+                In a federated environment, where the directories that are being federated are not compliant with HPD Interface, 
+                then the Directory ID and URI will correspond to the directory which is performing the federation.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:union memberTypes="xsd:anyURI NotBlank"/>
+    </xsd:simpleType>
+    
+    <xsd:complexType name="SearchResultEntryMetadata">
+        <xsd:annotation>
+            <xsd:documentation>
+                This is metadata about each search result entry returned as part of a DSML SearchResponse.
+                This would be base64 encoded and placed within the controlValue of the control element which is part of the 
+                DSML SearchResultEntry element.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="directoryId" type="DirectoryId" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="directoryURI" type="DirectoryURI" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="FederatedResponseStatus">
+        <xsd:annotation>
+            <xsd:documentation>
+                A Federated Error Response contains the necessary details about the errors from a particular federated directory..
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="federatedRequestId" type="FederatedRequestId" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="directoryId" type="DirectoryId" minOccurs="1" maxOccurs="1"/>
+            
+            <!-- Choice of result Code for overall federated directory is “Other” when any sub-directories have issues in responding, 
+                and the overall federated directory will use “success” if all of underneath directories succeed without errors. 
+                Note: DuplicateRequestId can be mapped to existing loopDetect resultCode
+                      QueryRulesViolation can be mapped to existing unwillingToPerform resultCode when enforcing local policies.
+            -->
+            <xsd:element name="resultCode" type="dsml:LDAPResultCode" minOccurs="1"/>
+            <xsd:element name="resultMessage" type="xsd:string" minOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="FederatedRequestData">
+        <xsd:annotation>
+            <xsd:documentation>
+                A Federated HPD Request which contains the necessary data for federation.This data will be base64 encoded and placed as part of the ControlValue element
+                within a Control element of a DSML Search Request.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="federatedRequestId" type="FederatedRequestId" minOccurs="1"/>
+            <xsd:element name="directoryId" type="DirectoryId" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="FederatedSearchResponseData">
+        <xsd:annotation>
+            <xsd:documentation>
+                A Federated HPD Request which contains the necessary data as part of the federation response.
+                This data will be base64 encoded and placed as part of the ControlValue element
+                within a Control element of a DSML SearchResultDone element .
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <!-- There is one federatedResponseStatus element for each directory that is being federated when the 
+                federated directories implement the HPD specification. If the directories do not conform to the HPD specification
+                then there will be only one of these elements for the directory which is orchestrating the federation -->
+            <xsd:element name="federatedResponseStatus" type="FederatedResponseStatus" minOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+</xsd:schema>
