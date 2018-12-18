@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<StructureDefinition xmlns="http://hl7.org/fhir">
+  <url value="http://ihe.net/fhir/StructureDefinition/IHE_QEDm_Provenance" />
+  <name value="QEDm Provenance" />
+  <status value="draft" />
+  <date value="2018-12-17" />
+  <publisher value="Integrating the Healthcare Enterprise (IHE)"/>
+  <contact>
+    <name value="John Moehrke" />
+  </contact>
+  <description value="Provenance profile for use in QEDm when the data-elements (Resources pointed to by target) come from an XDS or MHD document. See [Profile Description](http://wiki.ihe.net/index.php/Query_for_Existing_Data_for_Mobile)" />
+  <copyright value="IHE [Intellectual Property rules/rights](http://www.ihe.net/Governance/#Intellectual_Property)"/>
+  <fhirVersion value="4.0.0" />
+  <kind value="resource" />
+  <abstract value="false" />
+  <type value="Provenance" />
+  <baseDefinition value="http://hl7.org/fhir/StructureDefinition/Provenance" />
+  <derivation value="constraint" />
+  <differential>
+    <element id="Provenance.policy">
+      <path value="Provenance.policy" />
+      <min value="1" />
+      <max value="1" />
+      <fixedUri value="urn:ihe:pcc:qedm:2017:document-provenance-policy" />
+    </element>
+    <element id="Provenance.activity">
+      <path value="Provenance.activity" />
+      <min value="1" />
+    </element>
+    <element id="Provenance.activity.system">
+      <path value="Provenance.activity.system" />
+      <min value="1" />
+      <fixedUri value="http://hl7.org/fhir/w3c-provenance-activity-type" />
+    </element>
+    <element id="Provenance.activity.code">
+      <path value="Provenance.activity.code" />
+      <min value="1" />
+      <fixedCode value="Derivation" />
+    </element>
+    <element id="Provenance.activity.display">
+      <extension url="http://hl7.org/fhir/StructureDefinition/elementdefinition-translatable">
+        <valueBoolean value="true" />
+      </extension>
+      <path value="Provenance.activity.display" />
+      <short value="wasDerivedFrom" />
+      <definition value="A transformation of an entity into another, an update of an entity resulting in a new one, or the construction of a new entity based on a pre-existing entity. For an entity to be transformed from, created from, or resulting from an update to another, there must be some underpinning activity or activities performing the necessary action(s) resulting in such a derivation." />
+    </element>
+    <element id="Provenance.agent">
+      <path value="Provenance.agent" />
+      <max value="1" />
+    </element>
+    <element id="Provenance.agent.role.coding.system">
+      <path value="Provenance.agent.role.coding.system" />
+      <min value="1" />
+      <fixedUri value="http://hl7.org/fhir/v3/ParticipationFunction" />
+    </element>
+    <element id="Provenance.agent.role.coding.code">
+      <path value="Provenance.agent.role.coding.code" />
+      <min value="1" />
+      <fixedCode value="ASSEMBLER" />
+    </element>
+<-- need to provide who requirements in R4 terms -->
+	</differential>
+</StructureDefinition>
