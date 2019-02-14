@@ -1,0 +1,55 @@
+1/9/2019
+
+XCA Deferred Response option
+Working Session
+John, Victor, Mauro, Spencer, Elliot
+
+Minutes
+JM Will have to create variant of this transaction in both async flavors
+JM Don't worry about moving alternatives to closed
+Encourage responding directly to me if must
+In option: all of the UCs are applicable but this would be used if response would be longer than X.
+What happens if async and deferred are combined?
+Discussing query returning AdhocQueryResponse for ack message
+SL Consider relating messages in the body
+Send HCID instead of endpoint, requiring lookup?
+	SL Sometimes concern about getting a raw endpoint not via a directory
+	JM Yes, some concern, but not compelling. You already trust the requester.
+	JM Leaning towards HCID alone
+MZ working on CP to add notification to DSUB
+	Broker can be notified a subscription was canceled
+	Might extend reason
+	Subscriber can define subscription time
+	Probably needs indicator of whether resubscription is suggested or not
+		All work has been done
+SL Like the option of a common sync/deferred mechanism, to handle already scanned docs
+Need to add error code that means "come back with a deferred call"
+	Still have this problem when one or two interfaces
+	If has some ready and some that take time, do what?
+		Maybe return PartialSuccess + come back deferred error
+JM https://wiki.ihe.net/index.php/ITI_Vocabulary_Registry_and_Data_Dictionary#Coded_Terminology
+
+Actions - open
+- JL Generate remaining example messages
+- JL Find out if AS4 can be used with deferred
+- In option: all of the UCs are applicable but this would be used if response would be longer than X. (allude to UC)
+- JL Reach out to community - ask about deferred XCPD + async
+	How does RelatesTo work?
+- JL Add option to use AdhocQueryResponse for ack message
+- MZ send CP to Joe
+
+Actions - completed
+- JL Generated example query and ack messages
+- Debug my internet - done
+- Need FHIR option that uses sub + DocRef - done
+	We evaluated; it failed because it doesn't leverage XCPD/XCA
+- Add cons for XDW - too complex - done
+	Add kind of XDW
+- Con for DSUB - all participants would have to know responder requires DSUB - done
+- Add Async flavors as alternatives, move to closed - done
+- Ask community - done, but only recent. No feedback yet.
+- Get rid of the polling option - done
+- Write up A-B test for DSUB - done
+
+Questions
+Why is routing tough for DSUB?

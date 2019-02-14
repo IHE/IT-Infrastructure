@@ -1,0 +1,77 @@
+12/12/2018
+
+XCA Deferred Response option
+Working Session
+John, Matt, Elliott, Mauro, Spencer
+
+Minutes
+Sharing Word is a problem
+DSUB
+	Piecemeal
+DSUB+XDW
+Need FHIR option
+JM In theory we are supposed to evaluate all
+Group: XDW option is overkill
+They like just DSUB
+	JM IG would have to know responder needs DSUB
+	JM Not worried about the "no end" problem
+		Could define a terminal message
+		M Ask community to cancel subscription when it's done?
+	There is a model in DSUB - please create, please delete subscription
+	There is another model - server decides to cancel
+		Server needs a way to notify
+		Can cancel
+		New notification type
+		There is a CP (Mauro owns) destruction event
+		JM DSUB allows to cancel
+JM Could responder return special error code saying to use deferred?
+	Always allow to return
+	Initiator could start with deferred or wait for error code
+Discussion about
+	JM Schemas are never normative
+	Message comes in that you don't understand, throw an error
+	Should fail gracefully
+	Me: we don't say what to do in arbitrary XML
+	JM We have to resolve that - must be based on previous normative statements - can't add one
+		Maybe ask community if this and this and this are sufficient
+Option: explicitly limit deferred
+	JM This is really a policy issue. Solved by the failure modes we talked about.
+Option: Add Deferred to XDS.b
+	JM Why not?
+Option: use new deferred error code
+
+JM wants new error code on the RG to say try deferred
+	Use that same code for XDS.b
+JM If these are uniquely non-XDS gateways we don't have 
+JM Add to Doc Consumer only, say no value to Doc Registry
+JM Are any other interested parties triggered by XDS?
+	JM Just do the work
+	Spencer Would there be issue promoting this if nobody implemented XDS Deferred?
+	JM We've carved up supplements before; proceed optimistically
+Can we proceed writing this, and leaving an open issue for DSUB?
+	JM Yes
+	DSUB still needs cross community; routing is still tough
+JM Either way works; both take work
+MZ Use Google group to discuss these options
+	A-B test
+	ITI Tech, XDS Implementers
+JM Advantage of deferred - initiator can discover inline whether to use deferred
+	But could use an error to direct towards DSUB
+Advantage for deferred - if you have a system that supports XCA, smaller lift than adding new infrastructure
+JM DSUB requires more infrastructure changes in the backbone
+Me: Use Doodle poll?
+	JM Might be useful to indicate preference
+	JM Lot of people don't like to hit reply on email
+JM Adding cross community to DSUB helps for later use cases - care plan, etc.
+
+Actions
+Debug my internet
+Need FHIR option that uses sub + DocRef
+	We evaluated; it failed because it doesn't leverage XCPD/XCA
+Add cons for XDW - too complex
+	Add kind of XDW
+Con for DSUB - all participants would have to know responder requires DSUB
+Add Async flavors as alternatives, move to closed
+Ask community
+Get rid of the polling option
+Write up A-B test for DSUB

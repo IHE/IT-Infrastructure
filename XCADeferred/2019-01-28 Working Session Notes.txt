@@ -1,0 +1,90 @@
+1/28/2019
+
+XCA Deferred Response option
+Working Session
+John, Victor, Umberto, Spencer, Elliot
+
+Minutes
+Expectation getting to Feb F2F?
+JM Want to present alternatives at F2F
+Feb 18 - let's confirm
+Should be nothing new at F2F
+Still need proper survey?
+	May not uncover much more
+Survey implementers
+	Can be hard
+Warning/info code to say please use deferred/async
+	JM Don't worry for now about making general
+	ES Not a Vol 1 discussion
+	Clients may need to apply business logic to be sync
+Walked through XCA Deferred choices
+Walked through DSUB Cross gateway
+New CP 832 - notification that ?? is done
+	Still waiting for the CP
+	Wait and see
+JM Need diagram with higher level
+	Normal query/response showing hint
+	Then subscribe
+	When you see subscription get canceled you know it is done
+VP Concerned cancel notification contradicts underlying specs
+VP DSUB states you subscribe then query
+JM DSUB only returns what's registered after you subscribe
+Decision meeting for decision
+Feb F2F depending on which solution, Vol 1 may vary greatly
+JM Other possibility is write as separate profile
+	Orchestrate cross community DSUB by profile invoking rather than Vol 2
+	Could describe UC requiring init and resp and set of actions
+	Kind of like mXDE, realize those are met by invoking another profile
+VP Concern we are using subscription transactions for a different use case
+Continue discussing over email
+VP When we create solution look at where docs exist but require manual inspection
+Service has indicated more is available - shift modes
+VP Whole point of app level notification is performance reasons
+VP Suggest add that UC to Vol 1
+JM Invent as many abstract transactions as might be needed in Vol 1
+	They can be collapsed later
+DSUB to solve Vassil's UC?
+	Doc exists but isn't yet available for the requester
+		Requester is patient, diagnosis cancer, lab hold
+	Business rule
+	VP Or manual review
+JM Need to make sure that DSUB advocates know this extra UC would negate it
+There is no Vol 1 public comment
+PC for approval into TI - all Vols
+
+
+Actions - open
+- JL Confirm everything posted on both
+- JL Get Mauro's CP and see if we need an additional trigger
+	For later
+- JL Consider relating messages in the body if AS4 problem
+- Option: HCID alone
+- JL Generate remaining example messages
+- JL Find out if both flavors of async can be used with deferred
+- JL In option: all of the UCs are applicable but this would be used if response would be longer than X. (allude to UC)
+- JL Reach out to community - ask about deferred XCPD + async
+	How does RelatesTo work?
+- JL Add option to use AdhocQueryResponse for ack message
+- JL Advance option to use same request for both
+- MZ send CP to add notification to DSUB to Joe
+	- JL Review for applicability
+- JL Add error code that means "come back with a deferred call"
+	Still have this problem when one or two interfaces
+	If has some ready and some that take time, do what?
+		Maybe return PartialSuccess + come back deferred error
+
+Actions - completed
+- JL Generated example query and ack messages
+- Debug my internet - done
+- Need FHIR option that uses sub + DocRef - done
+	We evaluated; it failed because it doesn't leverage XCPD/XCA
+- Add cons for XDW - too complex - done
+	Add kind of XDW
+- Con for DSUB - all participants would have to know responder requires DSUB - done
+- Add Async flavors as alternatives, move to closed - done
+- Ask community - done, but only recent. No feedback yet.
+- Get rid of the polling option - done
+- Write up A-B test for DSUB - done
+
+Questions
+- Why is routing tough for DSUB?

@@ -1,0 +1,82 @@
+11/26/18
+
+XCA Deferred Response option
+First Working Session
+Mauro, Ben, John, Vassil, Matt, Spencer
+
+Agenda
+- Goals for the meeting
+- Planning working sessions: today, 12/12, 1/9, 1/28, 2/18
+- Review use cases
+	- Any additional? Any more details?
+	- Consider use case: emergency, need docs as they come - subscription?
+- Review XCA Deferred straw proposal
+- Examine alternate solutions to XCA Deferred
+	- DSUB
+	- DSUB+XDW
+	- XDW+XDR
+	- XPID
+	- Homework?
+
+Minutes
+M Vol 1 by Feb F2F
+Choose tech soln by end of this year
+Collect feedback from group not online
+Fill out spreadsheet with criteria comparing solns
+Spencer - addl UC - data holder wants to add human review before releasing docs
+	Sounds like partial result
+	JM Don't create impression that normal result has missing parts without saying so
+	JM We want query consumers to know query tomorrow might be different from query today
+	JM Don't invalidate existing model for not sure whether to return
+		Human review could work with subsequent sync queries, so deferred is not required
+Not adding emergency UC here
+Q Do you have to know ahead of time?
+Could we support an RG that could do either way?
+	Likely would increase scope
+	Little investigation
+	Include in open issues
+VP We probably need explicit deferred flag in body
+VP Explicit endpoint (vs HCID) in body probably better
+	MB Consider scalability
+Q: Deferred XDS.b?
+JM What about local PDQ to XCPD Deferred IG?
+Why do the extra work for responding side?
+Tentative - deferred for Doc Consumer only, explain others in open issues
+- DSUB
+	- Need to add cross-gateway flavor
+	- Wouldn't know when we were done
+- DSUB+XDW
+	Interest made through DSUB
+		Can specify a format code that says 
+		Do to a specific doc id
+			Could be a workflow doc
+		First doc back is XDW doc that says "working"
+		Then get clin docs
+		Then updated XDW doc "done"
+- XDW+XDR
+	- XDW doc would need query filter info
+- XPID
+	Not an alternate solution, just something to think about with XCA Deferred
+	BL If you send a query 
+
+JM Intro text of supplement can be pages long
+Public comment can come back and say start over
+JM This could be exemplar of quicker cycle
+VP Consider XDW+XDR out of scope
+VP Next time list solns, pros/cons
+	What is required for each soln?
+If query for patient and it's been merged...
+M Could be addressed as CP on XCA
+	Would be supplement but drafted as CP
+	Look at RESTful ATNA
+
+Actions/Issues
+- JL Start on the actual supplement, intro, UC sections
+	Look at CP template, full new profile template
+- Note: If we wanted to combine deferred with AS4, couldn't use an extra SOAP header unless you defined a field in AS4
+- JL Could deferred/sync be done by same transaction, not knowing a priori?
+- JL If XCPD deferred can work with AS4
+- JL Generate example messages for group
+- JL Dig deeper with deferred XDS.b
+- JL Do alternate solns
+- Q: What happens if patient merge or etc. between query and deferred response?
