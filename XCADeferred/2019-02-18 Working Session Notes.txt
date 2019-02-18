@@ -1,0 +1,66 @@
+2/18/2019
+
+XCA Deferred Response option
+Working Session
+John, Vassil, Matt, Spencer, Mauro
+
+Agenda/Minutes
+Walked through reasoning for decision - XCA Deferred over Cross-Gateway DSUB
+	MB In FHIR space, are they doing triggered query
+	JM Way too early in FHIR space to know how they would handle
+	Bulk data pattern might be tried
+		Large task be satisfied and notify when ready
+	Group consensus acheived
+Expectation getting to Feb F2F?
+	JM Normally end of next week done with Vol 1
+	Under continuous, can hit whatever milestones I want
+	Could wrap Vol 1 early and Vol 2 later in week
+	We as group help with consensus stds eval for Vol 2
+	Go to PC with Vol 1 and 2 complete
+In theory supposed to be phased - choose std after consensus
+Next week will have a formal notion we will be done with Vol 1
+Every F2F is a decision meeting
+	JM But for co-chair benefit, tell them we think a specific session is for approval of Vol 1
+When we do stds eval, we can do criteria
+	We have spreadsheet to capture this
+	JM and JL will take offline
+Reviewed proposed Vol 1 text
+How much info in Vol 1 compared to XCPD?
+	No feedback from group
+	Will carry this question to F2F
+	JL May draft diagram for use
+No further technical discussion today
+
+Actions - open
+- JL Look into case Initiating Gateway, grouped with a Document Consumer
+	Should it instead be grouped with Doc Registry/Repository?
+- JL Confirm everything posted on both - done
+- JL Warning/info code to say please use deferred/async
+- JL Consider relating messages in the body if AS4 problem
+- JL Consider Option: HCID alone
+- JL Generate remaining example messages
+- JL Find out if both flavors of async can be used with deferred
+- JL In option: all of the UCs are applicable but this would be used if response would be longer than X. (allude to UC)
+- JL Reach out to community - ask about deferred XCPD + async
+	How does RelatesTo work?
+- JL Add option to use AdhocQueryResponse for ack message
+- JL Advance option to use same request for both
+- JL Add error code that means "come back with a deferred call"
+	Still have this problem when one or two interfaces
+	If has some ready and some that take time, do what?
+		Maybe return PartialSuccess + come back deferred error
+
+Actions - completed
+- JL Generated example query and ack messages
+- Debug my internet - done
+- Need FHIR option that uses sub + DocRef - done
+	We evaluated; it failed because it doesn't leverage XCPD/XCA
+- Add cons for XDW - too complex - done
+	Add kind of XDW
+- Con for DSUB - all participants would have to know responder requires DSUB - done
+- Add Async flavors as alternatives, move to closed - done
+- Ask community - done, but only recent. No feedback yet.
+- Get rid of the polling option - done
+- Write up A-B test for DSUB - done
+
+Questions
