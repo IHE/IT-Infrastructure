@@ -49,15 +49,15 @@
       <path value="Provenance.agent" />
       <max value="1" />
     </element>
-    <element id="Provenance.agent.role.coding.system">
-      <path value="Provenance.agent.role.coding.system" />
+    <element id="Provenance.agent.type.coding.system">
+      <path value="Provenance.agent.type.coding.system" />
       <min value="1" />
       <fixedUri value="http://hl7.org/fhir/v3/ParticipationFunction" />
     </element>
-    <element id="Provenance.agent.role.coding.code">
-      <path value="Provenance.agent.role.coding.code" />
+    <element id="Provenance.agent.type.coding.code">
+      <path value="Provenance.agent.type.coding.code" />
       <min value="1" />
-      <fixedCode value="ASSEMBLER" />
+      <fixedCode value="assembler" />
     </element>
 <-- need to provide who requirements in R4 terms -->
 	</differential>
