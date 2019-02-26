@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:ihe:iti:svs:2008" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:hl7="urn:hl7-org:v3"
+	targetNamespace="urn:ihe:iti:svs:2008" elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
+		schemaLocation="http://www.w3.org/2001/xml.xsd"/>
+	<!-- Put proper import here to pull in the HL7 CDA datatypes -->
+	<xs:include schemaLocation="../HL7V3/NE2008/coreschemas/datatypes-base.xsd"/>
+	<xs:simpleType name="valueSetIdType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-2](\.(0|[1-9][0-9]*))*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ConceptListType">
+		<xs:sequence>
+			<xs:element name="Concept" minOccurs="1" maxOccurs="unbounded" type="CE"/>
+		</xs:sequence>
+		<xs:attribute ref="xml:lang" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="GroupType">
+		<xs:sequence maxOccurs="unbounded" minOccurs="0">
+			<xs:element name="Keyword" type="xs:string"/>
+		</xs:sequence>
+		<xs:attribute name="ID" type="valueSetIdType"/>
+		<xs:attribute form="unqualified" name="sourceOrganization" type="xs:string"/>
+		<xs:attribute name="displayName" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="ValueSetType" abstract="true">
+		<xs:attribute name="ID" type="valueSetIdType" use="required"/>
+		<xs:attribute name="displayName" use="required" type="xs:string"/>
+		<xs:attribute name="version" use="required" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="ValueSetRequestType">
+		<xs:complexContent>
+			<xs:extension base="ValueSetType">
+				<xs:attribute ref="xml:lang" use="optional"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ValueSetExtendedType" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="ValueSetType">
+				<xs:sequence>
+					<xs:element name="ConceptList" type="ConceptListType" minOccurs="1"
+						maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ValueSetResponseType">
+		<xs:complexContent>
+			<xs:restriction base="ValueSetExtendedType">
+				<xs:sequence>
+					<xs:element name="ConceptList" type="ConceptListType" minOccurs="1"
+						maxOccurs="1"/>
+				</xs:sequence>
+				<xs:attribute name="ID" type="valueSetIdType" use="required"/>
+				<xs:attribute name="displayName" use="required" type="xs:string"/>
+				<xs:attribute name="version" use="required" type="xs:string"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RetrieveValueSetRequestType">
+		<xs:sequence>
+			<xs:element name="ValueSet" minOccurs="1" maxOccurs="1" type="ValueSetRequestType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RetrieveValueSetResponseType">
+		<xs:sequence>
+			<xs:element name="ValueSet" minOccurs="1" maxOccurs="1" type="ValueSetResponseType"/>
+		</xs:sequence>
+		<xs:attribute name="cacheExpirationHint" use="optional" type="xs:dateTime"/>
+	</xs:complexType>
+	<xs:element name="RetrieveValueSetRequest" type="RetrieveValueSetRequestType"/>
+	<xs:element name="RetrieveValueSetResponse" type="RetrieveValueSetResponseType"/>
+	<xs:complexType name="RetrieveMultipleValueSetsResponseType">
+		<xs:sequence maxOccurs="unbounded" minOccurs="0">
+			<xs:element name="DescribedValueSet" minOccurs="1" type="DescribedValueSet"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DescribedValueSet">
+		<!--This type extends the value set to include metadata describing the value set -->
+		<xs:complexContent>
+			<xs:extension base="ValueSetExtendedType">
+				<xs:sequence>
+					<xs:element name="Source" type="xs:string"/>
+					<xs:element name="SourceURI" type="xs:anyURI" minOccurs="0"/>
+					<xs:element name="Purpose" type="xs:string" minOccurs="0"/>
+					<xs:element name="Definition" type="xs:string" minOccurs="0"/>
+					<xs:element name="Type" minOccurs="1">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="Intensional"/>
+								<xs:enumeration value="Extensional"/>
+								<xs:enumeration value="Expanded"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="Binding" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="Static"/>
+								<xs:enumeration value="Dynamic"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="Status" type="xs:string" minOccurs="0"/>
+					<xs:element name="EffectiveDate" type="xs:date" minOccurs="0"/>
+					<xs:element name="ExpirationDate" type="xs:date" minOccurs="0"/>
+					<xs:element name="CreationDate" type="xs:date" minOccurs="0"/>
+					<xs:element name="RevisionDate" type="xs:date" minOccurs="0"/>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" minOccurs="0" name="Group"
+							type="GroupType"> </xs:element>
+					</xs:sequence>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="RetrieveMultipleValueSetsResponse"
+		type="RetrieveMultipleValueSetsResponseType"/>
+	<xs:element name="RetrieveMultipleValueSetsRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="ID" type="valueSetIdType"/>
+				<xs:element name="DisplayNameContains" type="xs:string" minOccurs="0"/>
+				<xs:element minOccurs="0" name="SourceContains" type="xs:string"/>
+				<xs:element minOccurs="0" name="PurposeContains" type="xs:string"/>
+				<xs:element minOccurs="0" name="DefinitionContains" type="xs:string"/>
+				<xs:element minOccurs="0" name="GroupContains" type="xs:string"/>
+				<xs:element minOccurs="0" name="GroupOID" type="valueSetIdType"/>
+				<xs:element minOccurs="0" name="EffectiveDateBefore" type="xs:date"/>
+				<xs:element minOccurs="0" name="EffectiveDateAfter" type="xs:date"/>
+				<xs:element minOccurs="0" name="ExpirationDateBefore" type="xs:date"/>
+				<xs:element minOccurs="0" name="ExpirationDateAfter" type="xs:date"/>
+				<xs:element minOccurs="0" name="CreationDateBefore" type="xs:date"/>
+				<xs:element minOccurs="0" name="CreationDateAfter" type="xs:date"/>
+				<xs:element minOccurs="0" name="RevisionDateBefore" type="xs:date"/>
+				<xs:element minOccurs="0" name="RevisionDateAfter" type="xs:date"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

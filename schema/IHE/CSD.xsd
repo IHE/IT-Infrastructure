@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xforms="http://www.w3.org/2002/xforms"
+  elementFormDefault="qualified" targetNamespace="urn:ihe:iti:csd:2013" xmlns="urn:ihe:iti:csd:2013"
+  xmlns:xml="http://www.w3.org/XML/1998/namespace">
+  <xs:import namespace="http://www.w3.org/2001/XMLSchema"
+    schemaLocation="http://www.w3.org/2001/XMLSchema.xsd"/>
+  <xs:import namespace="http://www.w3.org/2002/xforms"
+    schemaLocation="http://www.w3.org/MarkUp/Forms/2002/XForms-Schema.xsd"/>
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace"/>
+
+
+  <xs:complexType name="uniqueID">
+    <xs:attribute name="entityID" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Should be a valid UUID represented as an URN.  
+Example: "urn:uuid:53347B2E-185E-4BC3-BCDA-7FAB5D521FE7"</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="otherID">
+    <xs:attribute name="code" type="xs:string" use="required"/>
+    <xs:attribute name="assigningAuthorityName" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Use of an OID is encouraged.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+
+
+  <xs:complexType name="extension">
+    <xs:sequence>
+      <xs:any minOccurs="0" namespace="##any" processContents="skip"/>
+    </xs:sequence>
+    <xs:attribute name="type" use="required"> </xs:attribute>
+    <xs:attribute name="urn" type="xs:string" use="required"> </xs:attribute>
+    <xs:anyAttribute/>
+  </xs:complexType>
+
+
+  <xs:complexType name="codedtype">
+    <xs:annotation>
+      <xs:documentation>The text content of this element may optionally be used to provide translations to the local language of a coded value.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="code" use="required"/>
+        <xs:attribute name="codingScheme" use="required"/>
+        <xs:anyAttribute/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+
+  <xs:complexType name="record">
+    <xs:attribute name="created" type="xs:dateTime" use="required"/>
+    <xs:attribute name="updated" type="xs:dateTime" use="required"/>
+    <xs:attribute name="status" type="xs:string" use="required"/>
+    <xs:attribute name="sourceDirectory" type="xs:anyURI"/>
+  </xs:complexType>
+
+  <!--intended to be compatible with HPD information model)-->
+  <xs:complexType name="organization">
+    <xs:complexContent>
+      <xs:extension base="uniqueID">
+        <xs:sequence>
+          <xs:element name="otherID" type="otherID" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="codedType" type="codedtype" maxOccurs="unbounded"/>
+          <xs:element name="primaryName" type="xs:string"/>
+          <xs:element name="otherName" minOccurs="0" maxOccurs="unbounded">
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute ref="xml:lang"/>
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="address" type="address" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="contact">
+            <xs:complexType>
+              <xs:choice>
+                <xs:element name="provider" type="uniqueID"/>
+                <xs:element name="person" type="person"/>
+              </xs:choice>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="credential" type="credential" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="language" type="codedtype" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="specialization" type="codedtype" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="contactPoint" type="contactPoint" maxOccurs="unbounded" minOccurs="0"/>
+          <xs:element name="parent" type="uniqueID" minOccurs="0"/>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="extension" type="extension"/>
+          <xs:element name="record" type="record"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!--intended to be compatible with WHO MFL draft and HL7-OMG HSD data dictionary; modified per recommendations from openHIE FR community)-->
+  <xs:complexType name="facility">
+    <xs:complexContent>
+      <xs:extension base="uniqueID">
+        <xs:sequence>
+          <xs:element name="otherID" type="otherID" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="codedType" type="codedtype" maxOccurs="unbounded"/>
+          <xs:element name="primaryName" type="xs:string"/>
+          <xs:element name="otherName" minOccurs="0" maxOccurs="unbounded">
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute ref="xml:lang"/>
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="address" type="address" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="contact">
+            <xs:complexType>
+              <xs:choice>
+                <xs:element name="provider" type="uniqueID"/>
+                <xs:element name="person" type="person"/>
+              </xs:choice>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="geocode" type="geocode" minOccurs="0"/>
+          <xs:element name="language" type="codedtype" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="contactPoint" type="contactPoint" maxOccurs="unbounded" minOccurs="0"/>
+          <xs:element name="organizations" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="organization" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:complexContent>
+                      <xs:extension base="uniqueID">
+                        <xs:sequence>
+                          <xs:element name="service" maxOccurs="unbounded" minOccurs="0">
+                            <xs:complexType>
+                              <xs:complexContent>
+                                <xs:extension base="uniqueID">
+                                  <xs:sequence>
+                                    <xs:element name="name" type="name" minOccurs="0"
+                                      maxOccurs="unbounded"/>
+                                    <xs:element name="language" type="codedtype" minOccurs="0"
+                                      maxOccurs="unbounded"/>
+                                    <xs:element name="operatingHours" type="operatingHours"
+                                      minOccurs="0" maxOccurs="unbounded"/>
+                                    <xs:element name="freeBusyURI" minOccurs="0" type="xs:anyURI"> </xs:element>
+                                    <xs:element minOccurs="0" maxOccurs="unbounded" name="extension"
+                                      type="extension"/>
+                                  </xs:sequence>
+                                </xs:extension>
+                              </xs:complexContent>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element minOccurs="0" maxOccurs="unbounded" name="extension"
+                            type="extension"/>
+                        </xs:sequence>
+                      </xs:extension>
+                    </xs:complexContent>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="operatingHours" type="operatingHours" minOccurs="0"
+            maxOccurs="unbounded"/>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="extension" type="extension"/>
+          <xs:element name="record" type="record"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!--intended to be compatible with information model from HPD; modified based on suggesetions from openHIE PR community)-->
+  <xs:complexType name="provider">
+    <xs:complexContent>
+      <xs:extension base="uniqueID">
+        <xs:sequence>
+          <xs:element name="otherID" type="otherID" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="codedType" type="codedtype" maxOccurs="unbounded"/>
+          <xs:element name="demographic" type="person"/>
+          <xs:element name="language" type="codedtype" maxOccurs="unbounded" minOccurs="0"/>
+          <xs:element name="organizations" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="organization" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:complexContent>
+                      <xs:extension base="uniqueID">
+                        <xs:sequence>
+                          <xs:element minOccurs="0" maxOccurs="unbounded" name="extension"
+                            type="extension"/>
+                          <xs:element name="address" type="address" minOccurs="0"
+                            maxOccurs="unbounded"/>
+                          <xs:element name="contactPoint" type="contactPoint" minOccurs="0"
+                            maxOccurs="unbounded"/>
+                        </xs:sequence>
+                      </xs:extension>
+                    </xs:complexContent>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="facilities" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="facility" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:complexContent>
+                      <xs:extension base="uniqueID">
+                        <xs:sequence>
+                          <xs:element name="service" maxOccurs="unbounded" minOccurs="0">
+                            <xs:complexType>
+                              <xs:complexContent>
+                                <xs:extension base="uniqueID">
+                                  <xs:sequence>
+                                    <xs:element name="name" type="name" minOccurs="0"
+                                      maxOccurs="unbounded"/>
+                                    <xs:element minOccurs="0" name="organization" type="uniqueID"/>
+                                    <xs:element name="language" type="codedtype" minOccurs="0"
+                                      maxOccurs="unbounded"/>
+                                    <xs:element name="operatingHours" type="operatingHours"
+                                      minOccurs="0" maxOccurs="unbounded"/>
+                                    <xs:element name="freeBusyURI" minOccurs="0" type="xs:anyURI"> </xs:element>
+                                    <xs:element minOccurs="0" maxOccurs="unbounded" name="extension"
+                                      type="extension"/>
+                                  </xs:sequence>
+                                </xs:extension>
+                              </xs:complexContent>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="operatingHours" type="operatingHours" minOccurs="0"
+                            maxOccurs="unbounded"/>
+                          <xs:element minOccurs="0" maxOccurs="unbounded" name="extension"
+                            type="extension"/>
+                        </xs:sequence>
+                      </xs:extension>
+                    </xs:complexContent>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="credential" type="credential" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="specialty" type="codedtype" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="extension" type="extension"/>
+          <xs:element name="record" type="record"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+
+  <!--informed by government specification from France and by OASIS names spec: http://xml.coverpages.org/namesAndAddresses.html)-->
+  <xs:complexType name="name">
+    <xs:sequence>
+      <xs:element name="commonName" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string"> </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="honorific" type="xs:string" minOccurs="0"/>
+      <xs:element name="forename" type="xs:string" minOccurs="0"/>
+      <xs:element name="otherName" type="codedtype" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="surname" type="xs:string" minOccurs="0"/>
+      <xs:element name="suffix" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="person">
+    <xs:sequence>
+      <xs:element name="name" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="name">
+              <xs:attribute ref="xml:lang"/>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="contactPoint" type="contactPoint" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="address" type="address" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="gender" type="xs:string" minOccurs="0"/>
+      <xs:element minOccurs="0" name="dateOfBirth" type="xs:date"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!--ref HL7-OMG HSD data dictionary and IHE HPD)-->
+  <xs:complexType name="contactPoint">
+    <xs:sequence>
+      <xs:element name="codedType" type="codedtype"/>
+      <xs:element name="equipment" type="xs:string" minOccurs="0"/>
+      <xs:element name="purpose" type="xs:string" minOccurs="0"/>
+      <xs:element name="certificate" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!--informed by OASIS names and addresses spec: http://xml.coverpages.org/namesAndAddresses.html)-->
+  <xs:complexType name="address">
+    <xs:sequence>
+      <xs:element name="addressLine" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <!--could model extensions using address type attributes; these types could be defined by implementing jurisdiction; e.g. village, sector, etc.)-->
+              <xs:attribute name="component" type="xs:string" use="optional"/>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="type"/>
+  </xs:complexType>
+
+  <!--intended to be backward compatible with HPD and informed by HL7-OMG HSD spec)-->
+  <xs:complexType name="credential">
+    <xs:sequence>
+      <xs:element name="codedType" type="codedtype"/>
+      <xs:element name="number" type="xs:string"/>
+      <xs:element name="issuingAuthority" type="xs:string" minOccurs="0"/>
+      <xs:element name="credentialIssueDate" type="xs:date" minOccurs="0"/>
+      <xs:element name="credentialRenewalDate" type="xs:date" minOccurs="0"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="extension" type="extension"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="geocode">
+    <xs:sequence>
+      <xs:element name="latitude" type="xs:decimal"/>
+      <xs:element name="longitude" type="xs:decimal"/>
+      <xs:element name="altitude" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="coordinateSystem" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <!--informed by HL7-OMG HSD spec; Sunday=0, Monday=1...)-->
+  <xs:complexType name="operatingHours">
+    <xs:sequence>
+      <xs:element name="openFlag" type="xs:boolean"/>
+      <xs:element name="dayOfTheWeek" type="xs:integer" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element name="beginningHour" type="xs:time" minOccurs="0"/>
+      <xs:element name="endingHour" type="xs:time" minOccurs="0"/>
+      <xs:element name="beginEffectiveDate" type="xs:date"/>
+      <xs:element name="endEffectiveDate" type="xs:date" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!--informed by HL7-OMG HSD spec)-->
+  <xs:complexType name="service">
+    <xs:complexContent>
+      <xs:extension base="uniqueID">
+        <xs:sequence>
+          <xs:element name="codedType" type="codedtype"/>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="extension" type="extension"/>
+          <xs:element name="record" type="record"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="CSD">
+    <xs:sequence>
+      <xs:element name="organizationDirectory">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="organization" type="organization" minOccurs="0" maxOccurs="unbounded"
+            />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="serviceDirectory">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="service" type="service" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="facilityDirectory">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="facility" type="facility" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="providerDirectory">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="provider" type="provider" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="CSD" type="CSD"/>
+
+
+
+  <xs:element name="careServicesRequest">
+    <xs:complexType>
+      <xs:choice>
+        <xs:element name="expression">
+          <xs:complexType>
+            <xs:attribute name="encapsulated" type="xs:boolean" use="required">
+              <xs:annotation>
+                <xs:documentation>Boolean flag to control response type. Defaults to true, in which case the result of the xquery is wrapped in a &lt;result/&gt; under a &lt;careServicesResponse&gt; by the Care Services InfoManager. If false, the raw xquery result is passed back from the Care Services InfoManager.
+                  </xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="content-type" type="xs:string" use="required">
+              <xs:annotation>
+                <xs:documentation>The content or mime-type of the query result.  If the Service Finder requests an encapsulated result than the this should be value of the corrsesponding attribute in &lt;careServicesResult&gt;.  If the Service Finder requests an unencapsulated result, then this content-type should be returned as an HTTP header.
+            
+Values must be conformant to: 
+ http://tools.ietf.org/html/rfc2045
+ http://tools.ietf.org/html/rfc2046</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:anyAttribute>
+              <xs:annotation>
+                <xs:documentation>Extension point for implementation specific attributes</xs:documentation>
+              </xs:annotation>
+            </xs:anyAttribute>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="function">
+          <xs:annotation>
+            <xs:documentation>A stored function to be executed by the Care Services InfoManager which must be defined by a &lt;careServicesFunction/&gt;. If such a &lt;careServicesFunction/&gt; has been defined and a child node exists, then the Care Services InfoManager may choose to validate the the child node against any schema or binding designated by the &lt;careServicesFunction/&gt; following the rules set forth for an &lt;xforms:instance&gt; in http://www.w3.org/TR/xforms/ </xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:any minOccurs="0" namespace="##any" processContents="skip"/>
+            </xs:sequence>
+            <xs:attribute name="urn" use="required" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>Refers to a URN identifying a &lt;careServicesFunction/&gt; to be processed by the Care Services InfoManager.  These stored queries must be defined in a &lt;careServicesFunction/&gt;.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="encapsulated" type="xs:boolean" use="required">
+              <xs:annotation>
+                <xs:documentation>Boolean flag to control response type. Defaults to true, in which case the result, which is conformant to the xquery used to define the function, is wrapped in a &lt;result/&gt; under a &lt;careServicesResponse/&gt; by the Care Services InfoManager before being sent to the Service Finder. If false, the raw result xquery is passed back from the Care Services InfoManager to the Service Finder.
+                  </xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:anyAttribute>
+              <xs:annotation>
+                <xs:documentation>Extension point for implementation specific attributes</xs:documentation>
+              </xs:annotation>
+            </xs:anyAttribute>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="careServicesResponse">
+    <xs:complexType>
+      <xs:choice>
+        <xs:element name="error">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute name="code" type="xs:integer"/>
+                <xs:anyAttribute>
+                  <xs:annotation>
+                    <xs:documentation>Extension point for implementation specific attributes</xs:documentation>
+                  </xs:annotation>
+                </xs:anyAttribute>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="result" type="xs:anyType"/>
+      </xs:choice>
+      <xs:attribute name="content-type" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The content or mime-type of the query result. 
+
+Values must be conformant to
+ http://tools.ietf.org/html/rfc2045
+ http://tools.ietf.org/html/rfc2046</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:anyAttribute>
+        <xs:annotation>
+          <xs:documentation>Extension point for implementation specific attributes</xs:documentation>
+        </xs:annotation>
+      </xs:anyAttribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="careServicesFunction">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="description" minOccurs="0" type="xs:anyType">
+          <xs:annotation>
+            <xs:documentation>An optional description of what this query performs
+              </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="definition" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>The xquery which defines the result that the Care Services InfoManager will return upon request by the Service Finder to execute the query.
+                
+The function will assumed to be exectued such that against the root node of CSD document managed by the InfoManager.  Any parameters passed to the function are accesible in the dynamic context of the function under the variable $careServicesRequest.
+             </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="xforms:instance" minOccurs="0"/>
+        <xs:element ref="xs:schema" minOccurs="0" maxOccurs="1"/>
+        <xs:element ref="xforms:bind" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element maxOccurs="unbounded" minOccurs="0" name="extension" type="extension"/>
+      </xs:sequence>
+      <xs:attribute name="urn" use="required" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>URN used to identify the stored function, in particular by the Service Finder.  Must conform to RFC 4122 http://www.ietf.org/rfc/rfc4122.txt</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="content-type" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>The content or mime-type of the query result. If the Service Finder requests an encapsulated result than the this should be value of the corrsesponding attribute in &lt;careServicesResult&gt;.  If the Service Finder requests an unencapsulated result, then this content-type should be returned as an HTTP header.
+            
+Values must be conformant to: 
+ http://tools.ietf.org/html/rfc2045
+ http://tools.ietf.org/html/rfc2046</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="schema" type="xforms:anyURIList" use="optional"/>
+      <xs:anyAttribute>
+        <xs:annotation>
+          <xs:documentation>Extension point for implementation specific attributes</xs:documentation>
+        </xs:annotation>
+      </xs:anyAttribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getModificationsRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="lastModified" type="xs:dateTime"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getModificationsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="CSD"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
+
