@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  IHE Retrieve Form for Data Capture (RFD) XML Schema
+  for usage in WSDL defintions.
+  
+  Distributed in package 4 for 2009 Trial Implementation
+  -->
+<xs:schema xmlns="urn:ihe:iti:rfd:2007" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ihe="urn:ihe:iti:rfd:2007" targetNamespace="urn:ihe:iti:rfd:2007" elementFormDefault="qualified">
+	<xs:complexType name="anyXMLContentType">
+		<xs:sequence>
+			<xs:any namespace="##any" processContents="skip" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="workflowDataType">
+		<xs:sequence>
+			<xs:element name="formID" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>
+						The identifier of the form to be retrieved.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="encodedResponse" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>
+						true - return either Structured or Unstructured inline form
+						content false - return a URL to the form
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="archiveURL" type="xs:anyURI" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+						The URL that the Form Filler provides to the Form Manager so
+						that the returned form can have the archive location prefilled.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="context" type="anyXMLContentType" nillable="true">
+				<xs:annotation>
+					<xs:documentation>tbd an IHE Content Profile</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="instanceID" type="xs:string" nillable="true">
+				<xs:annotation>
+					<xs:documentation> An optional form instanceID returned by the Form Manager</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="clarificationDataType">
+		<xs:sequence>
+			<xs:element name="orgID" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>
+						The identifier of the organization for which clarifications are to be retrieved.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="encodedResponse" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>
+						true - return either Structured or Unstructured inline form
+						content false - return a URL to the form
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="archiveURL" type="xs:anyURI" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+						The URL that the Form Filler provides to the Form Manager so
+						that the returned form can have the archive location prefilled.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="context" type="anyXMLContentType" nillable="true">
+				<xs:annotation>
+					<xs:documentation>tbd an IHE Content Profile</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="formDataType">
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="Structured" type="anyXMLContentType">
+					<xs:annotation>
+						<xs:documentation>XML encoding of form</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Unstructured" type="xs:base64Binary">
+					<xs:annotation>
+						<xs:documentation> base64Binary encoding of from </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="URL" type="xs:anyURI">
+					<xs:annotation>
+						<xs:documentation> URL of form that can be directly launched into a web browser
+							application </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+			<xs:element name="instanceID" type="xs:string" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation> An optional form instanceID returned by the Form Manager</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RetrieveFormRequestType">
+		<xs:sequence>
+			<xs:element name="prepopData" type="anyXMLContentType" nillable="true">
+				<xs:annotation>
+					<xs:documentation> Include the XML to provide the context for the form to be
+						retrieved, and optionally data to be used by the FormManager to prefill the
+						form prior to returning. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="workflowData" type="workflowDataType" nillable="true">
+				<xs:annotation>
+					<xs:documentation>
+						Includes the workflow data, including the formID, necessary for form retrieval.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RetrieveFormRequest" type="RetrieveFormRequestType"/>
+	<xs:complexType name="RetrieveFormResponseType">
+		<xs:sequence>
+			<xs:element name="form" type="formDataType">
+				<xs:annotation>
+					<xs:documentation>The retrieved form and optional associated information</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="contentType" type="xs:string">
+				<xs:annotation>
+					<xs:documentation> The MIME type associated with the retrieved form. This is
+						has no meaning when encodedResponse='false'. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="responseCode" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RetrieveFormResponse" type="RetrieveFormResponseType"/>
+	<xs:element name="SubmitFormRequest" type="anyXMLContentType"/>
+	<xs:complexType name="SubmitFormResponseType">
+		<xs:sequence>
+			<xs:element name="content" type="formDataType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>If there is a content to be returned based on a subsequent
+						need to have the FormFiller present a form, then it would be present there.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="contentType" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation> The MIME type associated with the response content. The
+						submitting form will be designed in such a way that works in coordination
+						with a FormReceiver that returns this. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="responseCode" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="SubmitFormResponse" type="SubmitFormResponseType"/>
+	<xs:element name="ArchiveFormRequest" type="anyXMLContentType"/>
+	<xs:complexType name="ArchiveFormResponseType">
+		<xs:sequence>
+			<xs:element name="responseCode" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ArchiveFormResponse" type="ArchiveFormResponseType"/>
+	<xs:complexType name="RetrieveClarificationsRequestType">
+		<xs:sequence>
+			<xs:element name="clarificationData" type="clarificationDataType">
+				<xs:annotation>
+					<xs:documentation>
+						Includes the clarification request data, including the organization id.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RetrieveClarificationsRequest" type="RetrieveClarificationsRequestType"/>
+	<xs:element name="RetrieveClarificationsResponse" type="RetrieveFormResponseType"/>
+</xs:schema>

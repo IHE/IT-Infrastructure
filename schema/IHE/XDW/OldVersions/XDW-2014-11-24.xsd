@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xs:schema targetNamespace="urn:ihe:iti:2011:xdw" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns="urn:ihe:iti:2011:xdw"
+    xmlns:ht="http://docs.oasis-open.org/ns/bpel4people/ws-humantask/types/200803"
+    xmlns:mif="urn:hl7-org:v3/mif" xmlns:cda="urn:hl7-org:v3" elementFormDefault="qualified">
+    <!-- ****************************************************************************************** -->
+    <xs:annotation>
+        <xs:documentation>Generated using schema builder version 2.0. Stylesheets:
+RoseTreeToMIFStaticModel.xsl version: 1.1
+StaticMifToXsd.xsl version 2.0</xs:documentation>
+    </xs:annotation>
+    <!-- other namespaces -->
+    <xs:import namespace="http://docs.oasis-open.org/ns/bpel4people/ws-humantask/types/200803"
+        schemaLocation="ws-humantask-types.xsd"/>
+    <xs:import namespace="urn:hl7-org:v3" schemaLocation="POCD_MT000040.xsd"/>
+    <!-- end of imported schemas -->
+
+    <xs:element name="XDW.WorkflowDocument" type="tXDW.WorkflowDocument"/>
+    <xs:complexType name="tXDW.WorkflowDocument">
+        <xs:sequence>
+            <xs:element name="id" type="cda:II"/>
+            <xs:element name="title" type="cda:ST" minOccurs="0"/>
+            <xs:element name="effectiveTime" type="cda:TS"/>
+            <xs:element name="confidentialityCode" type="cda:CE"/>
+            <xs:element name="languageCode" type="cda:CS" minOccurs="0"/>
+            <xs:element name="patient" maxOccurs="1" type="tXDWpatient"/>
+            <xs:element name="author" type="tXDWAuthor" maxOccurs="1"/>       <!--changed from maxOccurs="unbounded"  -->
+       
+            <xs:element name="workflowInstanceId">
+                <xs:annotation>
+                    <xs:documentation>This identifies the workflow in general.  So every version of the workflow will have the same ID value.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:anyURI"> </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="workflowDocumentSequenceNumber">
+                <xs:annotation>
+                    <xs:documentation>Version of this particular instance of the workflow document.  Starts with 1 and increments for each new version.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:minInclusive value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="workflowStatus">
+                <xs:annotation>
+                    <xs:documentation>This indicates whether future versions of this document are expected.  An "OPEN" workflow is expected to have tasks changed or added.  A "CLOSED" workflow is not expected to change.
+
+ </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="OPEN"/>
+                        <xs:enumeration value="CLOSED"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="workflowStatusHistory" minOccurs="1">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="documentEvent" maxOccurs="unbounded" minOccurs="1"
+                            type="tXDWdocumentEvent_type"/>
+                        <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="workflowDefinitionReference" maxOccurs="unbounded" type="xs:anyURI">
+                <xs:annotation>
+                    <xs:documentation>Reference to document that defines the workflow</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="TaskList" type="TaskList_type"/>
+            <xs:any maxOccurs="unbounded" minOccurs="0" namespace=""/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TaskList_type">
+        <xs:sequence>
+            <xs:element name="XDWTask" maxOccurs="unbounded" type="tXDWTask"/>
+            <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="tXDWTask">
+        <xs:sequence>
+            <xs:element name="taskData" type="ht:tTaskInstanceData"/>
+            <xs:element name="taskEventHistory" minOccurs="1" type="tXDWeventHistory"/>
+            <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="tXDWeventHistory">
+        <xs:sequence>
+            <xs:element name="taskEvent" maxOccurs="unbounded" minOccurs="1" type="taskEvent_type"/>
+            <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="tXDWAuthor">
+        <xs:sequence>
+            <xs:element name="assignedAuthor" type="cda:POCD_MT000040.AssignedAuthor"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="tXDWpatient">
+        <xs:sequence>
+            <xs:element minOccurs="1" name="id" type="cda:II"/>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="name" type="cda:PN"/>
+            <xs:element minOccurs="0" name="administrativeGenderCode" type="cda:CE"/>
+            <xs:element minOccurs="0" name="birthTime" type="cda:TS"/>
+            <xs:element minOccurs="0" name="maritalStatusCode" type="cda:CE"/>
+            <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other"/>
+        </xs:sequence>
+        <xs:attribute name="nullFlavor" type="cda:NullFlavor" use="optional"/>
+        <xs:attribute fixed="PSN" name="classCode" type="cda:EntityClass" use="optional"/>
+        <xs:attribute fixed="INSTANCE" name="determinerCode" type="cda:EntityDeterminer"
+            use="optional"/>
+    </xs:complexType>
+    <xs:complexType name="taskEvent_type">
+        <xs:annotation>
+            <xs:documentation>
+               A detailed event that represnts a change in the task's state. 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <!--  event id - unique per task -->
+            <xs:element name="id" type="xs:integer"/>
+            <!--  event  date time -->
+            <xs:element name="eventTime" type="xs:dateTime"/>
+            <!--  task ID -->
+            <xs:element name="identifier" type="xs:anyURI"/>
+            <xs:element name="principal" minOccurs="0" nillable="true" type="xs:string"/>
+            <!--  Event type. Note - using a restricted type limits extensibility to add custom event types. -->
+            <xs:element name="eventType" type="ht:tTaskEventType"/>
+            <!--  actual owner of the task before the event -->
+            <xs:element name="startOwner" minOccurs="0" nillable="true" type="xs:string"/>
+            <!--  actual owner of the task after the event -->
+            <xs:element name="endOwner" minOccurs="0" nillable="true" type="xs:string"/>
+            <!--  WSHT task status -->
+            <xs:element name="status" type="ht:tStatus"/>
+            <!-- boolean to indicate this event has optional data -->
+            <xs:element name="hasData" minOccurs="0" type="xs:boolean"/>
+            <!-- aggiungere spiegazione e cambiare opzionalità-->
+            <xs:element name="eventData" minOccurs="0" nillable="true" type="xs:anyType"/>
+            <xs:element name="faultName" minOccurs="0" nillable="true" type="xs:string"/>
+            <!-- extensibility -->
+            <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="tXDWdocumentEvent_type">
+        <xs:annotation>
+            <xs:documentation>
+               A detailed event that represnts a change in the workflowStatus element of the document. 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <!--  event  date time -->
+            <xs:element name="eventTime" type="xs:dateTime"/>
+            <!--  Event type. Note - using a restricted type limits extensibility to add custom event types. -->
+            <!--  These types are defined in the HumanTask specification (C. WS-HumanTask Data Types Schema, Defines the human task event types) -->
+            <xs:element name="eventType" type="ht:tTaskEventType"/>
+            <!-- Reference to the taskEvent that solicits the modification of the workflowStatus -->
+            <xs:element name="taskEventIdentifier" type="xs:anyURI"/>
+            <!--  actual owner of the taskEvent that solicits the change of the workflowStatus-->
+            <xs:element name="author" nillable="true" type="xs:string"/>
+            <!--  previous value of the workflowStatus -->
+            <xs:element name="previousStatus">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="OPEN"/>
+                        <xs:enumeration value="CLOSED"/>
+                        <xs:enumeration value=""/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <!-- new value of the actual workflowStatus -->
+            <xs:element name="actualStatus">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="OPEN"/>
+                        <xs:enumeration value="CLOSED"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <!-- extensibility -->
+            <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="homeCommunityId" type="cda:uid"/> 
+</xs:schema>
