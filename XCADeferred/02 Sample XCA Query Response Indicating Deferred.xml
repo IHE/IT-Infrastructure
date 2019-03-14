@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope" xmlns:wsa="http://www.w3.org/2005/08/addressing">
+    <S:Header>
+        <wsa:Action>urn:ihe:iti:2007:CrossGatewayQueryResponse</wsa:Action>
+        <wsa:MessageID>uuid:1795bb7a-8dc2-403a-9914-fbeab9e2a77e</wsa:MessageID>
+        <wsa:RelatesTo>uuid:df9b89ed-395e-40a7-8510-0b4a390434c4</wsa:RelatesTo>
+    </S:Header>
+    <S:Body>
+        <query:AdhocQueryResponse
+            xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+            xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
+            xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
+            status="urn:ihe:iti:2007:ResponseStatusType:PartialSuccess">
+            
+            <!-- Results not available now -->
+            <rs:ResponseSlotList>
+                <rim:Slot name="DeferredProcessingRequired">
+                    <rim:ValueList>
+                        <rim:Value>'This query requires more time. The full results will be returned on the Deferred Response endpoint.'</rim:Value>
+                    </rim:ValueList>
+                </rim:Slot>
+                <rim:Slot name="DeferredProcessingEstimatedCompletion">
+                    <rim:ValueList>
+                        <rim:Value>PT20M</rim:Value>
+                    </rim:ValueList>
+                </rim:Slot>
+            </rs:ResponseSlotList>
+            
+            <!-- Errors available now -->
+            <rim:RegistryErrorList>
+            </rim:RegistryErrorList>
+            
+            <!-- Registry objects available now -->
+            <rim:RegistryObjectList>
+            </rim:RegistryObjectList>
+            
+        </query:AdhocQueryResponse>
+    </S:Body>
+</S:Envelope>

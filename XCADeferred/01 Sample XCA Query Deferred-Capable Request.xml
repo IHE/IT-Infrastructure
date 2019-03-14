@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope" xmlns:wsa="http://www.w3.org/2005/08/addressing"
+    xmlns:ihe=TBD>
+    <S:Header>
+        <wsa:Action>urn:ihe:iti:2007:CrossGatewayQuery</wsa:Action>
+        <wsa:MessageID>urn:uuid:df9b89ed-395e-40a7-8510-0b4a390434c4</wsa:MessageID>
+        <ihe:DeferredResponseEndpoint S:mustUnderstand="false">https://myorg.com/my_response_endpoint</ihe:DeferredResponseEndpoint>
+    </S:Header>
+    <S:Body>
+        <query:AdhocQueryRequest
+            xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+            xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
+            xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
+            id="urn:uuid:df9b89ed-395e-40a7-8510-0b4a390434c4">
+            <query:ResponseOption returnComposedObjects="true" returnType="LeafClass"/>
+            <rim:AdhocQuery
+                <rim:Slot name="$XDSDocumentEntryPatientId">
+                    <rim:ValueList>
+                        <rim:Value>'N600001^^^&amp;2.16.840.1.113883.3.333&amp;ISO'</rim:Value>
+                    </rim:ValueList>
+                </rim:Slot>
+                <rim:Slot name="$XDSDocumentEntryStatus">
+                    <rim:ValueList>
+                        <rim:Value>('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')</rim:Value>
+                    </rim:ValueList>
+                </rim:Slot>
+            </rim:AdhocQuery>
+        </query:AdhocQueryRequest>
+    </S:Body>
+</S:Envelope>

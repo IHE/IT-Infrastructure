@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope" xmlns:wsa="http://www.w3.org/2005/08/addressing">
+    <S:Header>
+        <wsa:Action>urn:ihe:iti:2007:CrossGatewayQueryDeferredResultsAcknowledgement</wsa:Action>
+        <wsa:MessageID>urn:uuid:D6C21225-8E7B-454E-9750-821622C099DB</wsa:MessageID>
+        <wsa:RelatesTo>urn:uuid:1795bb7a-8dc2-403a-9914-fbeab9e2a77e</wsa:RelatesTo>
+    </S:Header>
+    <S:Body>
+        <rs:RegistryResponse
+            xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
+            status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success">
+        </rs:RegistryResponse>
+    </S:Body>
+</S:Envelope>

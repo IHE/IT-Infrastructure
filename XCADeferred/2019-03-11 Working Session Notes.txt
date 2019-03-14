@@ -1,0 +1,43 @@
+3/11/2019
+
+XCA Deferred Response option
+Working Session
+
+Minutes
+Chris Melo
+John Moehrke
+Umberto
+Victor
+Tabassum
+Elliott
+
+Decisions made at F2F:
+	Allow multiple response messages
+		To handle varying processing time in federated sources and multiple RGs
+	Return everything in query responses, including what had been returned already
+	Return only content now available in retrieve responses, so all responses must be received to have all results
+	SL For query, need to maintain complete list of all responses its gotten back
+		Initiating actor needs to know what it had asked for
+		Not a problem for retrieve, because what you ask for is explicit
+	Reorganized content
+	Renamed the deferred response message to Deferred Results
+JL Gave initial response to AS4 questions
+Review of supplement
+Idea: requester passes value to indicate how long they would wait for responses
+Open question: Should IG be able to cache results from RGs and return them in groups?
+Ended here: 3.38.4.1.3.3
+
+Actions - done
+Add open issue - should canceling an ongoing deferred request be supported? - done
+Add open issue - Idea: requester passes value to indicate how long they would wait for responses - done
+Add open issue - Should IG be able to cache results from RGs and return them in groups? - done
+
+Actions - open
+Confirm SOAP requires no fault on receipt of not understood
+	What about app-level response failure?
+Add deep search use case
+LF Move Doc Consumer into XCA
+	Pretend it's there
+Go to Web sequence diagrams
+Add ref to URI type in appendix
+In long deferred response timeline, IG can still abandon a RG that takes too long and return response with error
