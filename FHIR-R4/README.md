@@ -2,7 +2,7 @@ This Public Comment ballot contains a subset of IHE profiles that leverage FHIR.
 
 
 Ballot comment disposition
-* During the week of February 25, 2019 comments will be resolved using https://docs.google.com/spreadsheets/d/1G3kimc_j3TOLx1dv03l_C0ymmGGfUFFlq73qKKKLkVw/edit?usp=sharing
+* During the week of February 25, 2019 comments were resolved using https://docs.google.com/spreadsheets/d/1G3kimc_j3TOLx1dv03l_C0ymmGGfUFFlq73qKKKLkVw/edit?usp=sharing
 
 Summary of Changes:
 
