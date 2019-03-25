@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope" xmlns:wsa="http://www.w3.org/2005/08/addressing"
+    xmlns:ihe=TBD>
+    <S:Header>
+        <wsa:Action>urn:ihe:iti:2007:CrossGatewayRetrieve</wsa:Action>
+        <wsa:MessageID>urn:uuid:df9b89ed-395e-40a7-8510-0b4a390434c4</wsa:MessageID>
+        <ihe:DeferredResponseEndpoint S:mustUnderstand="false">https://myorg.com/my_response_endpoint</ihe:DeferredResponseEndpoint>
+        <ihe:DeferredResponseRequestId S:mustUnderstand="false">urn:uuid:df9b89ed-395e-40a7-8510-0b4a390434c4</ihe:DeferredResponseEndpoint>
+    </S:Header>
+    <S:Body>
+        <RetrieveDocumentSetRequest xmlns="urn:ihe:iti:xds-b:2007">
+            <DocumentRequest>
+                <homeCommunityId>urn:oid:1.2.3.4</homeCommunityId>
+                <RepositoryUniqueId>1.3.6.1.4...1000</RepositoryUniqueId>
+                <DocumentUniqueId>1.3.6.1.4...2300</DocumentUniqueId>
+            </DocumentRequest>
+            <DocumentRequest>
+                <homeCommunityId>urn:oid:1.2.3.4</homeCommunityId>
+                <RepositoryUniqueId>1.3.6.1.4...1000</RepositoryUniqueId>
+                <DocumentUniqueId>1.3.6.1.4...2301</DocumentUniqueId>
+            </DocumentRequest>
+        </RetrieveDocumentSetRequest>
+    </S:Body>
+</S:Envelope>
