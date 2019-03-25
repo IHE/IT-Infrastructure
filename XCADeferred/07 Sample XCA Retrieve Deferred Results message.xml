@@ -3,13 +3,13 @@
     <S:Header>
         <wsa:Action>urn:ihe:iti:2007:CrossGatewayRetrieveDeferredResults</wsa:Action>
         <wsa:MessageID>urn:uuid:1795bb7a-8dc2-403a-9914-fbeab9e2a77e</wsa:MessageID>
-        <ihe:DeferredResponseRequestId S:mustUnderstand="false">urn:uuid:df9b89ed-395e-40a7-8510-0b4a390434c4</ihe:DeferredResponseEndpoint>
     </S:Header>
     <S:Body>
         <RetrieveDocumentSetResponse xmlns="urn:ihe:iti:xds-b:2007"
             xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
             xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
             <rs:RegistryResponse
+                requestId="urn:uuid:df9b89ed-395e-40a7-8510-0b4a390434c4"
                 status="urn:ihe:iti:2007:ResponseStatusType:PartialSuccess">
                 
                 <!-- Results not available now -->
