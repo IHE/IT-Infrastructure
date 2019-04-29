@@ -1,0 +1,50 @@
+3/25/2019
+
+XCA Deferred Response option
+Working Session
+
+John Moehrke
+Spencer
+Umberto
+Lauren ten Hoor - Forcare
+Bharat - SSA
+Tabassum - FHA CONNECT
+Chris Melo
+Elliot
+Sovann Huynh
+
+Minutes
+Discussing the AS4 conversation
+JM I advance the decision that was made
+	Move to public comment
+	At that point we may realize others speak up
+European Connectathon - will get info on market adoption of AS4
+Closed issues
+New text
+Go with mustUnderstand
+Open issues
+ES Cancel will probably be needed
+	Otherwise a lot of unnecc work
+	Avoid picking up phone
+Requested timeout - could CP later
+Retrieve examples
+	Use MessageID
+
+Actions - done
+Add open issue - should canceling an ongoing deferred request be supported? - done
+Add open issue - Idea: requester passes value to indicate how long they would wait for responses - done
+Add open issue - Should IG be able to cache results from RGs and return them in groups? - done
+
+Actions - open
+Follow up offline with Pim about AS4
+Review and make sure that all requirements still make sense when combining with async
+	Look at Vol 1 for addl text
+
+Confirm SOAP requires no fault on receipt of not understood
+	What about app-level response failure?
+Add deep search use case
+LF Move Doc Consumer into XCA
+	Pretend it's there
+Go to Web sequence diagrams
+Add ref to URI type in appendix
+In long deferred response timeline, IG can still abandon a RG that takes too long and return response with error
