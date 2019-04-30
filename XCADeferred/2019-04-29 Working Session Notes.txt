@@ -1,0 +1,38 @@
+4/29/2019
+
+XCA Deferred Response option
+Working Session - at ITI F2F
+
+John Moehrke (byLight) Chris Melo (Philips) Lynn Fellhofer (ITI Tech manager) Joe Lamy (AEGIS- SSA) Umberto Cappellini (Grapevine) Sylvie Colas (ASIP Santé) Luke Duncan (IntraHealth) George Dixon (Allscripts) Gregorio Canal (Arsenal) Mauro Zanardini (Arsenal)
+
+Minutes
+EU Connectathon - very little interest in testing AS4 outside European Commission
+	Might be too soon
+	Massi and Spirit tested with them
+Reviewed open issues
+Reviewed Vol 1 structure and Lynn’s edits
+Reviewed 3.38 Message Semantics structure and 3.18 - will need to change 3.18Goal: Would like all transactions to be searchable by Deferred Response Option
+Lynn to look at whether 3.18.4.1.2.5 is referenced. May reorg to subsections for on-demand and deferred
+
+Actions - open
+Incorporate Lynn's edits
+Move DEF-1, 15 to closed
+Find out Is canceling a response supported in AS4?
+Figure 18.3.3-3 - add another Documents ready, then ...
+Update wiki page
+Check other named options to see if SOAP compatibility language is consistent
+Add deep search use case
+Go to Web sequence diagrams
+Add ref to URI type in appendix
+In long deferred response timeline, IG can still abandon a RG that takes too long and return response with error
+Review and make sure that all requirements still make sense when combining with async
+	Look at Vol 1 for addl text
+
+Actions - done
+Follow up offline with Pim about AS4 - done
+LF Move Doc Consumer into XCA, using AS4 changes - done
+Number the open/closed issues - done
+Confirm SOAP requires no fault on receipt of not understood - done
+	Is silent - doesn't forbid fault, but doesn't require it not to be sent either
+	Did not add processing requirements - pointed to SOAP
+
