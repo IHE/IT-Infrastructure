@@ -1,0 +1,34 @@
+5/2/2019
+
+XCA Deferred Response option
+Working Session - at ITI F2F
+
+Minutes
+Comments in PC version? No
+Started at 3.18.4.2, also hit changes
+Reviewed most of everything
+
+Actions - open
+Fix samples to use absolute time
+Fix wording of IG abandoning unresponsive RG
+Make sure all wording is consistent
+Update wiki page
+Check with Luke about saving sequence diag source
+Write CP to address WSP201
+CP for response/transaction
+CP for checking actual WSDL for soap action
+CP schema="IHEXDS.xsd"
+
+Actions - done
+Incorporate AS4 supplement - done
+Incorporate CP 1130 - done
+Figure 18.3.3-3 updates - done
+	Use Web sequence diagrams
+	Add another Documents ready, then ...
+Review and make sure that all requirements still make sense when combining with async - done
+	Added grouping language in Vol 1
+	Added comment in Results WSDLs about shall/may
+Add ref to URI type in appendix - done, not actually anything in appendix
+In long deferred response timeline, IG can still abandon a RG that takes too long and return response with error - done for 3.38
+Looked into security considerations - XCPD Deferred didn't have any extra
+

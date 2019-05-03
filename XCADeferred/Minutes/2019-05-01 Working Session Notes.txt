@@ -1,0 +1,37 @@
+5/1/2019
+
+XCA Deferred Response option
+Working Session - at ITI F2F
+
+Minutes
+Incorporate CP 1130? Yes
+Beginning page-by-page review
+Issues with GutHub/Word versions and line numbers
+	In Joe's 4/30 version with tracked changes on, 3.18 header is at line 725
+	With tracked changes off (final) line 574
+	In Spencer's, at 790, and can't see second half of new interaction diagram
+	Tracked changes off fixes line number, but still can't see full diagramx
+Looking at 3.18 section that defines the new response slots for deferred
+	Should we move this from 4.1.3 (Expected actions) to 4.1.2 (Message Semantics) because it just defines format and not behavior?
+	Left as is but added comment
+Stopped at 3.18.4.2
+
+Actions - open
+Incorporate CP 1130
+In long deferred response timeline, IG can still abandon a RG that takes too long and return response with error
+Review and make sure that all requirements still make sense when combining with async
+	Look at Vol 1 for addl text
+Go to Web sequence diagrams
+	Figure 18.3.3-3 - add another Documents ready, then ...
+Update wiki page
+Add ref to URI type in appendix
+
+Actions - done
+Check other named options to see if SOAP compatibility language is consistent - done
+	Not mentioned with CorrelationTimeToLive
+	No mention of mustUnderstand outside of WS-Addressing
+Review and incorporate Lynn's edits - done
+Find out Is canceling a response supported in AS4? No
+Move a few issues to closed and renumber - done
+Add deep search use case - done
+
