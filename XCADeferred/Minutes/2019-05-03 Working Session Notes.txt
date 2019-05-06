@@ -1,0 +1,22 @@
+5/3/2019
+
+XCA Deferred Response option
+Working Session - at ITI F2F
+
+Minutes
+
+
+Actions - open
+Update samples – durationUpdate WSDL – year in Action	201901020304
+Update wiki page
+Add sequence diag source per PRIM
+Write CP to address WSP201
+CP for response/transaction
+CP for checking actual WSDL for soap action
+CP schema="IHEXDS.xsd"
+
+Actions - done
+Fix samples to use absolute time - done
+Fix wording of IG abandoning unresponsive RG - done
+Make sure all wording is consistent - done
+
