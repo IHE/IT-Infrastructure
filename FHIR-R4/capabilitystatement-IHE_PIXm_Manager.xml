@@ -1,0 +1,44 @@
+<CapabilityStatement xmlns="http://hl7.org/fhir">
+ 	<id value="IHE_PIXm_Manager" />  
+	<text><status value="additional"/><div xmlns="http://www.w3.org/1999/xhtml"> 
+		CapabilityStatement for Manager Actor in the IHE IT Infrastructure Technical Framework Supplement 
+		<a href="http://wiki.ihe.net/index.php/PIXm">Patient Identity Cross-Reference for Mobile (PIXm)</a> 
+		The IHE Profile text is Normative, this conformance resource is Informative. 
+	</div></text> 
+ 	<url value="http://ihe.net/fhir/CapabilityStatement/IHE_PIXm_Manager" />  
+ 	<name value="IHE_PIXm_Manager" />  
+ 	<title value="IHE ITI Patient Identity Cross-Reference for Mobile (PIXm) - Manager (server)" />  
+	<status value="draft" />
+	<experimental value="false" />
+ 	<date value="2019-06-14" />  
+	<publisher value="Integrating the Healthcare Enterprise (IHE)" />
+	<contact> 
+		<name value="IHE"/> 
+		<telecom> 
+			<system value="url"/> 
+			<value value="http://ihe.net"/> 
+		</telecom> 
+	</contact> 
+   <description value="CapabilityStatement for Manager Actor in the IHE IT Infrastructure Technical Framework Supplement IHE PIXm. See http://wiki.ihe.net/index.php/PIXm. The IHE Profile text is Normative, this conformance resource is Informative." />  
+ 	<copyright value="IHE http://www.ihe.net/Governance/#Intellectual_Property" /> 
+	<kind value="requirements" />
+	<fhirVersion value="4.0.0" />
+	<format value="application/fhir+xml" />
+	<format value="application/fhir+json" />
+
+	<rest>
+		<mode value="server" />
+		<documentation value="PIXm server provides capability to query for Patient Identity Cross-Reference matching a query parameters" />
+		<security>
+			<cors value="false" />
+			<description value="Recommend IUA or SMART" />
+		</security>
+		<resource>
+			<type value="Patient" />
+			<operation>
+		  	  <name value="$ihe-pix"/>
+			  <definition value="http://ihe.net/fhir/OperationDefinition/IHE_PIXm_pix"/>
+			</operation>
+		</resource>  
+	</rest>
+</CapabilityStatement>
