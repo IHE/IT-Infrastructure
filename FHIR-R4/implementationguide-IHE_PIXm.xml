@@ -1,45 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ImplementationGuide xmlns="http://hl7.org/fhir">
-  <id value="IHE_PIXm" />
-  <text>
-    <status value="additional" /><div xmlns="http://www.w3.org/1999/xhtml">
+
+	<text>
+		<status value="additional" />
+		<div xmlns="http://www.w3.org/1999/xhtml">
       ImplementationGuide for IHE IT Infrastructure Technical Framework Supplement - Patient Identity Cross-Reference for Mobile.
       This conformance resource is Informative. The Normative content can be found through <a href="http://wiki.ihe.net/index.php/PIXm">Patient Identity Cross-Refernece for Mobile (PIXm)</a>
-    </div></text>
-  <url value="http://ihe.net/fhir/ImplementationGuide/IHE_PIXm" />
-  <name value="IHE_PIXm" />
-  <status value="draft" />
-  <experimental value="false" />
-  <date value="2019-06-14" />
-  <publisher value="Integrating the Healthcare Enterprise (IHE)" />
-  <contact>
-    <name value="IHE" />
-    <telecom>
-      <system value="url" />
-      <value value="http://ihe.net" />
-    </telecom>
-  </contact>
-  <description value="Implementation Guide for IHE Patient Identity Cross-Reference for Mobile (PIXm). See  https://wiki.ihe.net/index.php/PIXm" />
-  <copyright value="IHE http://www.ihe.net/Governance/#Intellectual_Property" />
-  <fhirVersion value="4.0.0" />
-  <definition>
-    <resource>
-      <example value="false" />
-      <name value="$ihe-pix" />
-      <description value="PIXm cross-reference operation" />
-      <sourceUri value="http://ihe.net/fhir/OperationDefinition/IHE_PIXm_pix" />
-    </resource>
-    <resource>
-      <example value="false" />
-      <name value="PIXm Manager" />
-      <description value="PIXm Manager Actor" />
-      <sourceUri value="http://ihe.net/fhir/CapabilityStatement/IHE_PIXm_Manager" />
-    </resource>
-    <resource>
-      <example value="false" />
-      <name value="PIXm Consumer" />
-      <description value="PIXm Consumer Actor" />
-      <sourceUri value="http://ihe.net/fhir/CapabilityStatement/IHE_PIXm_Consumer" />
-    </resource>
-  </definition>
+		</div>
+	</text>
+	<url value="http://ihe.net/fhir/ImplementationGuide/IHE_PIXm" />
+	<name value="IHE_PIXm" />
+	<status value="draft" />
+	<experimental value="false" />
+	<date value="2019-07-05" />
+	<publisher value="Integrating the Healthcare Enterprise (IHE)" />
+	<contact>
+		<name value="IHE" />
+		<telecom>
+			<system value="url" />
+			<value value="http://ihe.net" />
+		</telecom>
+	</contact>
+	<description value="Implementation Guide for IHE Patient Identity Cross-Reference for Mobile (PIXm). See  https://wiki.ihe.net/index.php/PIXm" />
+	<copyright value="IHE http://www.ihe.net/Governance/#Intellectual_Property" />
+	<packageId value="ihe.PIXm.fhir" />
+	<fhirVersion value="4.0.0" />
+	<manifest>
+		<rendering value="https://wiki.ihe.net/index.php/PIXm" />
+
+		<resource>
+			<reference>
+				<reference value="http://ihe.net/fhir/OperationDefinition/IHE_PIXm_pix" />
+			</reference>
+		</resource>
+		<resource>
+			<reference>
+				<reference value="http://ihe.net/fhir/CapabilityStatement/IHE_PIXm_Manager" />
+			</reference>
+		</resource>
+		<resource>
+			<reference>
+				<reference value="http://ihe.net/fhir/CapabilityStatement/IHE_PIXm_Consumer" />
+			</reference>
+		</resource>
+	</manifest>
 </ImplementationGuide>

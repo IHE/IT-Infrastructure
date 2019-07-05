@@ -1,5 +1,5 @@
 <CapabilityStatement xmlns="http://hl7.org/fhir">
- 	<id value="IHE_PIXm_Manager" />  
+
 	<text><status value="additional"/><div xmlns="http://www.w3.org/1999/xhtml"> 
 		CapabilityStatement for Manager Actor in the IHE IT Infrastructure Technical Framework Supplement 
 		<a href="http://wiki.ihe.net/index.php/PIXm">Patient Identity Cross-Reference for Mobile (PIXm)</a> 
@@ -10,7 +10,7 @@
  	<title value="IHE ITI Patient Identity Cross-Reference for Mobile (PIXm) - Manager (server)" />  
 	<status value="draft" />
 	<experimental value="false" />
- 	<date value="2019-06-14" />  
+ 	<date value="2019-07-05" />  
 	<publisher value="Integrating the Healthcare Enterprise (IHE)" />
 	<contact> 
 		<name value="IHE"/> 

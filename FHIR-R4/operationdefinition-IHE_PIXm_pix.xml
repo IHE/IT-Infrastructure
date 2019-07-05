@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <OperationDefinition xmlns="http://hl7.org/fhir">
-  <id value="ihe-pix"/> 
+
   <text> 
     <status value="generated"/> 
     <div xmlns="http://www.w3.org/1999/xhtml">
@@ -134,11 +134,12 @@
     <valueCode value="trial-use"/> 
   </extension> 
   <url value="http://ihe.net/fhir/OperationDefinition/IHE_PIXm_pix"/> 
-  <version value="2.0.0"/> 
-  <name value="Find patient matches using IHE-PIXm Profile"/> 
+  <version value="2.0.0"/>
+  <name value="IHE_PIXm_pix" />  
+  <title value="Find patient matches using IHE-PIXm Profile"/> 
   <status value="draft"/> 
   <kind value="operation"/> 
-  <date value="2019-06-14"/> 
+  <date value="2019-07-05"/> 
   <publisher value="Integrating the Healthcare Enterprise (IHE)"/> 
   <contact> 
     <telecom> 
@@ -187,7 +188,8 @@ To ask an MPI to match a patient, clients use the &quot;$match&quot; operation, 
     <min value="1"/> 
     <max value="1"/> 
     <documentation value="The Patient identifier search parameter that will be used by the Patient Identifier Cross-reference Manager to find cross matching identifiers associated with the Patient Resource. See Section 3.83.4.1.2.1."/> 
-    <type value="Token"/> 
+    <type value="string"/>
+<searchType value="token" />	
   </parameter> 
   <parameter> 
     <name value="targetSystem"/> 
@@ -195,7 +197,8 @@ To ask an MPI to match a patient, clients use the &quot;$match&quot; operation, 
     <min value="0"/> 
     <max value="1"/> 
     <documentation value="The target Patient Identifier Assigning Authority from which the returned identifiers should be selected. See Section 3.83.4.1.2.2."/> 
-    <type value="uri"/> 
+	<type value="string" />
+    <searchType value="uri"/> 
   </parameter> 
   <parameter> 
     <name value="_format"/> 
@@ -203,7 +206,8 @@ To ask an MPI to match a patient, clients use the &quot;$match&quot; operation, 
     <min value="0"/> 
     <max value="1"/> 
     <documentation value="The requested format of the response. See ITI TF-2x: Appendix Z.6"/> 
-    <type value="mime-type"/> 
+    <type value="string"/> 
+	<searchType value="token" />
   </parameter> 
   <parameter> 
     <name value="targetIdentifier"/> 
@@ -218,7 +222,7 @@ To ask an MPI to match a patient, clients use the &quot;$match&quot; operation, 
     <use value="out"/> 
     <min value="0"/> 
     <max value="*"/> 
-    <documentation value=" The URL of the Patient Resource "/> 
-    <type value="Reference(Patient)"/> 
+    <documentation value="The URL of the Patient Resource "/> 
+    <type value="Reference"/> 
   </parameter> 
 </OperationDefinition> 
