@@ -1377,7 +1377,7 @@ The Authorization Client should:
 
 > GET /example/url/to/resource/location HTTP/1.1
 >
-> Authorization: IHE-JWT fFBGasru1FQd\[...omitted for
+> Authorization: Bearer fFBGasru1FQd\[...omitted for
 > brevity...\]44sdfAfgTa3Zg Host: examplehost.com
 
 The remainder of the transaction requirements are established by the
