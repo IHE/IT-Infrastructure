@@ -195,8 +195,8 @@ To ask an MPI to match a patient, clients use the &quot;$match&quot; operation, 
     <name value="targetSystem"/> 
     <use value="in"/> 
     <min value="0"/> 
-    <max value="1"/> 
-    <documentation value="The target Patient Identifier Assigning Authority from which the returned identifiers should be selected. See Section 3.83.4.1.2.2."/> 
+    <max value="*"/> 
+    <documentation value="The Assigning Authorities for the Patient Identity Domains from which the returned identifiers shall be selected. See Section 3.83.4.1.2.2." />
 	<type value="string" />
     <searchType value="uri"/> 
   </parameter> 
@@ -205,7 +205,7 @@ To ask an MPI to match a patient, clients use the &quot;$match&quot; operation, 
     <use value="in"/> 
     <min value="0"/> 
     <max value="1"/> 
-    <documentation value="The requested format of the response. See ITI TF-2x: Appendix Z.6"/> 
+    <documentation value="The requested format of the response from the mime-type value set. See ITI TF-2x: Appendix Z.6"/> 
     <type value="string"/> 
 	<searchType value="token" />
   </parameter> 
