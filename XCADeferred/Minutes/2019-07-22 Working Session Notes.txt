@@ -1,0 +1,26 @@
+7/22/2019
+
+XCA Deferred Response option
+Working Session - at ITI F2F
+
+Minutes
+Reviewed comments and resolution - notes in spreadsheet
+	Got through 16 - about half
+Discussed whether this supplement will be held up by AS4
+	Can address later
+LF to review latest for structure
+Comments spreadsheet file is corrupt - Joe to fix
+
+Actions - open
+Fix and re-upload spreadsheet, and check
+Check XCPD deferred/AS4
+Update samples – durationUpdate WSDL – year in Action	201901020304
+Update wiki page
+Add sequence diag source per PRIM
+Write CP to address WSP201
+CP for response/transaction
+CP for checking actual WSDL for soap action
+CP schema="IHEXDS.xsd"
+
+Actions - done
+
