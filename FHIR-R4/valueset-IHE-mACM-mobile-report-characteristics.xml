@@ -1,0 +1,41 @@
+{
+  "resourceType": "ValueSet",
+  "id": "IHE-mACM-mobile-report-characteristics",
+  "url": "http://ihe.net/fhir/ValueSet/IHE-mACM-mobile-report-characteristics
+  "name": "IHE_mACM_Mobile_Report_Characteristics",
+  "title": "IHE mACM: Mobile Report Characteristics",
+  "status": "active",
+  "experimental": false,
+  "publisher": "IHE",
+  "contact": [
+    {
+      "telecom": [
+        {
+          "system": "url",
+          "value": "http://ihe.net"
+        }
+      ]
+    }
+  ],
+  "description": "IHE mACM ValueSet for: Mobile Report Characteristics",
+  "compose": {
+    "include": [
+      {
+        "system": "1.3.6.1.4.1.19376.1.2.5.3.1"
+      },
+      {
+        "system": "1.3.6.1.4.1.19376.1.2.5.3.2"
+      },
+      {
+        "system": "1.3.6.1.4.1.19376.1.2.5.3.3"
+      },
+      {
+        "system": "1.3.6.1.4.1.19376.1.2.5.3.4"
+      },
+      {
+        "system": "1.3.6.1.4.1.19376.1.2.5.3.5"
+      }
+    ]
+  }
+}
+

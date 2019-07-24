@@ -1,0 +1,28 @@
+{
+  "resourceType": "CodeSystem",
+  "id": "1.3.6.1.4.1.19376.1.2.5.3.1",
+  "url": "1.3.6.1.4.1.19376.1.2.5.3.1",
+  "name": "1.3.6.1.4.1.19376.1.2.5.3.1",
+  "title": "IHE mACM: Mobile Report Characteristics: Abnormal Type",
+  "publisher": "IHE",
+  "contact": [
+    {
+      "telecom": [
+        {
+          "system": "url",
+          "value": "http://ihe.net"
+        }
+      ]
+    }
+  ],
+  "description": "IHE mACM CodeSystem for: Mobile Report Alert Characteristics: Abnormal Type",
+  "content": "complete",
+  "concept": [
+    { "code": "N", "display": "Abnormal Type: Normal, not abnormal" },
+    { "code": "L", "display": "Abnormal Type: Below low normal" },
+    { "code": "LL", "display": "Abnormal Type: Below lower panic limits" },
+    { "code": "H", "display": "Abnormal Type: Above high normal" },
+    { "code": "HH", "display": "Abnormal Type: Above higher panic limits" },
+    { "code": "A", "display": "Abnormal Type: Abnormal (for non-numeric results)" }
+  ]
+}

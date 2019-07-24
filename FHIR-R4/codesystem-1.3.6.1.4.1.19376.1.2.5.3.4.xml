@@ -1,0 +1,26 @@
+{
+  "resourceType": "CodeSystem",
+  "id": "1.3.6.1.4.1.19376.1.2.5.3.4",
+  "url": "1.3.6.1.4.1.19376.1.2.5.3.4",
+  "name": "1.3.6.1.4.1.19376.1.2.5.3.4",
+  "title": "IHE mACM: Mobile Report Characteristics: Inactivation State",
+  "publisher": "IHE",
+  "contact": [
+    {
+      "telecom": [
+        {
+          "system": "url",
+          "value": "http://ihe.net"
+        }
+      ]
+    }
+  ],
+  "description": "IHE mACM CodeSystem for: Mobile Report Alert Characteristics: Inactivation State",
+  "content": "complete",
+  "concept": [
+    { "code": "alarm-paused", "display": "Inactivation State: Alarm is paused" },
+    { "code": "alarm-off", "display": "Inactivation State: Alarm is off" },
+    { "code": "audio-paused", "display": "Inactivation State: Audio is paused" },
+    { "code": "audio-off", "display": "Inactivation State: Audio is off" }
+  ]
+}

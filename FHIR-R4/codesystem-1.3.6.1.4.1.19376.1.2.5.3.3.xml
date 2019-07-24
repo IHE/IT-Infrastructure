@@ -1,0 +1,26 @@
+{
+  "resourceType": "CodeSystem",
+  "id": "1.3.6.1.4.1.19376.1.2.5.3.3",
+  "url": "1.3.6.1.4.1.19376.1.2.5.3.3",
+  "name": "1.3.6.1.4.1.19376.1.2.5.3.3",
+  "title": "IHE mACM: Mobile Report Characteristics: Alert Source",
+  "publisher": "IHE",
+  "contact": [
+    {
+      "telecom": [
+        {
+          "system": "url",
+          "value": "http://ihe.net"
+        }
+      ]
+    }
+  ],
+  "description": "IHE mACM CodeSystem for: Mobile Report Alert Characteristics: Alert Source",
+  "content": "complete",
+  "concept": [
+    { "code": "SP", "display": "Alert Source: alarm – physiological" },
+    { "code": "ST", "display": "Alert Source: alarm – technical" },
+    { "code": "SA", "display": "Alert Source: alarm – advisory" },
+    { "code": "SP", "display": "Alert Source: alarm – physiological" }
+  ]
+}

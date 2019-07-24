@@ -1,0 +1,25 @@
+{
+  "resourceType": "CodeSystem",
+  "id": "1.3.6.1.4.1.19376.1.2.5.3.5",
+  "url": "1.3.6.1.4.1.19376.1.2.5.3.5",
+  "name": "1.3.6.1.4.1.19376.1.2.5.3.5",
+  "title": "IHE mACM: Mobile Report Characteristics: Alert State",
+  "publisher": "IHE",
+  "contact": [
+    {
+      "telecom": [
+        {
+          "system": "url",
+          "value": "http://ihe.net"
+        }
+      ]
+    }
+  ],
+  "description": "IHE mACM CodeSystem for: Mobile Report Alert Characteristics: Alert State",
+  "content": "complete",
+  "concept": [
+    { "code": "inactive", "display": "Alert State: inactive" },
+    { "code": "active", "display": "Alert State: active" },
+    { "code": "latched", "display": "Alert State: latched" }
+  ]
+}

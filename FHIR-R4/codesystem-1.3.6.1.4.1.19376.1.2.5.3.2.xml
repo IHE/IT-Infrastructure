@@ -1,0 +1,35 @@
+{
+  "resourceType": "CodeSystem",
+  "id": "1.3.6.1.4.1.19376.1.2.5.3.2",
+  "url": "1.3.6.1.4.1.19376.1.2.5.3.2",
+  "name": "1.3.6.1.4.1.19376.1.2.5.3.2",
+  "title": "IHE mACM: Mobile Report Characteristics: Event Phase",
+  "publisher": "IHE",
+  "contact": [
+    {
+      "telecom": [
+        {
+          "system": "url",
+          "value": "http://ihe.net"
+        }
+      ]
+    }
+  ],
+  "description": "IHE mACM CodeSystem for: Mobile Report Alert Characteristics: Event Phase",
+  "content": "complete",
+  "concept": [
+    { "code": "tpoint", "display": "Event Phase: time point" },
+    { "code": "star", "display": "	Event Phase: start (of an interval event/alert) – an end is expected" },
+    { "code": "start_only", "display": "Event Phase: start – continue and end are not to be expected" },
+    { "code": "continue", "display": "Event Phase: continuation (of an ongoing interval event/alert)" },
+    { "code": "end", "display": "Event Phase: end (of an interval event/alert)" },
+    { "code": "present", "display": "Event Phase: event/alert is active at this time" },
+    { "code": "update", "display": "Event Phase: Update" },
+    { "code": "escalate", "display": "Event Phase: escalation of an ongoing alert/alarm" },
+    { "code": "inactivate", "display": "Event Phase: Inactivation (e.g., silence)" },
+    { "code": "deescalate", "display": "Event Phase: de-escalation of an ongoing alert/alarm" },
+    { "code": "reset", "display": "Event Phase: clear latched alarm" },
+    { "code": "stop", "display": "Event Phase: pause an event/alert; could restart with same ID later" },
+    { "code": "update", "display": "Event Phase: change" }
+  ]
+}
