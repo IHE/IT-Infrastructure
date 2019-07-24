@@ -2,8 +2,9 @@
   "resourceType": "CodeSystem",
   "id": "1.3.6.1.4.1.19376.1.2.5.3.4",
   "url": "1.3.6.1.4.1.19376.1.2.5.3.4",
-  "name": "1.3.6.1.4.1.19376.1.2.5.3.4",
+  "name": "IHE_mACM_Mobile_Report_Characteristics_Inactivation_State",
   "title": "IHE mACM: Mobile Report Characteristics: Inactivation State",
+  "status": "active",
   "publisher": "IHE",
   "contact": [
     {

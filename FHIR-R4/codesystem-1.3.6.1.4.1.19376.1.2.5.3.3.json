@@ -2,8 +2,9 @@
   "resourceType": "CodeSystem",
   "id": "1.3.6.1.4.1.19376.1.2.5.3.3",
   "url": "1.3.6.1.4.1.19376.1.2.5.3.3",
-  "name": "1.3.6.1.4.1.19376.1.2.5.3.3",
+  "name": "IHE_mACM_Mobile_Report_Characteristics_Alert_Source",
   "title": "IHE mACM: Mobile Report Characteristics: Alert Source",
+  "status": "active",
   "publisher": "IHE",
   "contact": [
     {
@@ -21,6 +22,5 @@
     { "code": "SP", "display": "Alert Source: alarm – physiological" },
     { "code": "ST", "display": "Alert Source: alarm – technical" },
     { "code": "SA", "display": "Alert Source: alarm – advisory" },
-    { "code": "SP", "display": "Alert Source: alarm – physiological" }
   ]
 }

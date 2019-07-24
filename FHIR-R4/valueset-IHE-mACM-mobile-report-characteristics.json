@@ -1,7 +1,7 @@
 {
   "resourceType": "ValueSet",
   "id": "IHE-mACM-mobile-report-characteristics",
-  "url": "http://ihe.net/fhir/ValueSet/IHE-mACM-mobile-report-characteristics
+  "url": "http://ihe.net/fhir/ValueSet/IHE-mACM-mobile-report-characteristics",
   "name": "IHE_mACM_Mobile_Report_Characteristics",
   "title": "IHE mACM: Mobile Report Characteristics",
   "status": "active",

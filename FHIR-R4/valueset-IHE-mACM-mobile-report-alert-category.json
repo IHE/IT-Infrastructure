@@ -1,7 +1,7 @@
 {
   "resourceType": "ValueSet",
   "id": "IHE-mACM-mobile-report-alert-category",
-  "url": "http://ihe.net/fhir/ValueSet/IHE-mACM-mobile-report-alert-category
+  "url": "http://ihe.net/fhir/ValueSet/IHE-mACM-mobile-report-alert-category",
   "name": "IHE_mACM_Mobile_Report_Alert_Category",
   "title": "IHE mACM: Mobile Report Alert Category",
   "status": "active",
@@ -26,4 +26,3 @@
     ]
   }
 }
-
