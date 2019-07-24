@@ -1,0 +1,49 @@
+7/24/2019
+
+XCA Deferred Response option
+Working Session - at ITI F2F
+
+Minutes
+Reviewed Walco issue about SMTP
+Reviewed other closed issues
+
+PL
+Review clarification of DeferredResponseEndpoint namespace
+
+TI Checklist
+Did we line-by-line the entire document
+How ready is it to go out for TI: Completely, Almost, Soonish, Hmmm
+How did the work fit in the allocated bandwidth? (Time to spare? Just right? Things were left undone?)
+Review the evaluation. Which complexity/uncertainty/effort points missed the mark?
+Or alternatively, estimate how many points you went over and assign the overage effort/complexity/uncertainty to the appropriate points.
+Are all the open issues closed?
+What significant debates in TI-prep were not anticipated in the Kickoff or PC-Prep
+What residual risks are worth noting
+Does it feel we've met all the use cases
+Did the promised resources manifest
+What vendors are engaged (for each actor)
+Who should specifically be targeted for TI notification (implementors & advocates)
+When will we have sample data/objects
+Do you need any tcons between now and TI Publication
+Was the profile where it needed to be at the start of the TI meeting, if not what was the gap
+Was the profile where it needed to be at the end of the TI meeting, if not what was the gap
+
+Actions - open
+- Update samples – change to absolute time, add ihe namespace- Update WSDL – year in Action	201901020304
+- Update wiki page
+- Write CP to address WSP201
+- CP for response/transaction
+- CP for checking actual WSDL for soap action
+- CP schema="IHEXDS.xsd"
+
+Actions - done
+- Draft brief closed issue for SMTP
+- Add parent section headers in Vol 2
+- Add actor headers for long sections like 3.38.4.1.3.3 (like 3.18)
+	Added to 3.18.4.1.3, 3.38.4.1.3.3
+- Duplicate language from 3.38.4.1.3.3 in 3.39 - about including deferred results in synchronous response
+- Add sequence diag source per PRIM, mACM, mCSD, etc.
+- Clarify namespace of DeferredResponseEndpoint
+- Check XCPD deferred + AS4
+	They can be combined. 3.55.4.1.2 maps the CorrelationTimeToLive SOAP header block to a ebXML Message Property.
+	For XCA Deferred, we'd need to do the same for DeferredResponseEndpoint, and also address the corresponding mustUnderstand attribute and the WS-Addressing MessageID header used by the Retrieve transactions. Some editing would be necessary. It wouldn't be difficult, but should be done via a CP if the need arises.
