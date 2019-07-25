@@ -1,0 +1,72 @@
+7/25/2019
+
+XCA Deferred Response option
+Working Session - at ITI F2F
+
+Minutes
+Process for WSDL
+	Under implementation material on FTP
+	ftp://ftp.ihe.net/TF_Implementation_Material/ITI/
+	Same files as used by Final Text
+Closed out Public Comments spreadsheet
+Reviewed remaining issues
+	Order of ack message - done
+	Behavior to consolidate deferred info to non-XDS triggerer - done, not specifying
+	References from Deferred Results Expected Actions - clarify? No, good enough
+Clarified DC requirements in 3.18.4.1.3
+Voted to approve for publication - passed
+
+Completed TI Checklist
+Did we line-by-line the entire document?
+	Yes, not WSDL or schema though
+How ready is it to go out for TI: Completely, Almost, Soonish, Hmmm
+	Completely
+How did the work fit in the allocated bandwidth? (Time to spare? Just right? Things were left undone?)
+	Went over by one F2F, but the new continuous process relieved pressure to rush it. Also, shooting for an earlier F2F made progress happen continuously.
+Review the evaluation. Which complexity/uncertainty/effort points missed the mark?
+	Nailed it.
+Or alternatively, estimate how many points you went over and assign the overage effort/complexity/uncertainty to the appropriate points.
+Are all the open issues closed?
+	Yes
+What significant debates in TI-prep were not anticipated in the Kickoff or PC-Prep
+	None. Nailed it.
+What residual risks are worth noting
+	Industry uptake
+		Will address with new webinar
+		Can pitch to Sequoia
+		Epic interested
+	Partial overlap with AS4
+Does it feel we've met all the use cases
+	Yes
+Did the promised resources manifest
+	Yes, review was great, AS4 support was great, editor top notch
+What vendors are engaged (for each actor)
+	CIOX (Responding Gateway), CONNECT (both Gateways), SSA (Initiating Gateway), Epic (TBD actors)
+Who should specifically be targeted for TI notification (implementors & advocates)
+	No specific ones
+When will we have sample data/objects
+	Got em
+Do you need any tcons between now and TI Publication
+	No
+Was the profile where it needed to be at the start of the TI meeting, if not what was the gap
+	Yes
+Was the profile where it needed to be at the end of the TI meeting, if not what was the gap
+	Yessirree
+
+Actions - open
+- Upload/update official WSDL, schema, samples
+	ftp://ftp.ihe.net/TF_Implementation_Material/ITI/
+- Update Deferred wiki page
+	http://wiki.ihe.net/index.php?title=Asynchronous_Messaging
+- Update XCA, XDS wikis
+- Record TI webinar
+- XCA/XDS cheatsheet? Annotated sequence diagram?
+	Put in wiki
+- Write CP to address WSP201
+- Write CP for response/transaction
+- Write CP for checking actual WSDL for soap action
+	I added it for Deferred to match pattern of others
+- Write CP schema="IHEXDS.xsd"
+
+Actions - done
+- Update samples – change to absolute time, add IHE namespace- Update WSDL – year in Action needs to be 2019- Fix Vol 1 diagram in doc and source
