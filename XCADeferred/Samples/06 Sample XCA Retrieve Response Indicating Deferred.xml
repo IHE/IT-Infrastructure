@@ -21,7 +21,7 @@
                     </rim:Slot>
                     <rim:Slot name="DeferredProcessingEstimatedCompletion">
                         <rim:ValueList>
-                            <rim:Value>PT20M</rim:Value>
+                            <rim:Value>201906020304</rim:Value>
                         </rim:ValueList>
                     </rim:Slot>
                 </rs:ResponseSlotList>
