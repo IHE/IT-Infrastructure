@@ -20,7 +20,9 @@
        schemaLocation="../schema/ebRS/rs.xsd"/>
 			<xsd:import namespace="urn:ihe:iti:xds-b:2007" 
        schemaLocation="../schema/IHE/XDS.b_DocumentRepository.xsd"/>
-      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"  
+            <xsd:import namespace="urn:ihe:iti:xds-b:2007"
+       schemaLocation="../schema/IHE/XDS.b_Deferred.xsd"/>
+      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
         schemaLocation="../schema/ebRS/query.xsd"/>
 		</xsd:schema>
 	</types>

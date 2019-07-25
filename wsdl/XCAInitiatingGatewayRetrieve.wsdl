@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This wsdl file is for an XCA Initiating Gateway Actor which
-     implements the XDS Affinity Domain Option.  It contains only the Retrieve
+     implements the XDS Affinity Domain Option and Deferred Response Options.  It contains only the Retrieve
      portion of the interface due to the split of web services endpoints
      to support MTOM versus non-MTOM processing.  -->
 <!-- 
@@ -24,7 +24,9 @@
        schemaLocation="../schema/ebRS/rs.xsd"/>
 			<xsd:import namespace="urn:ihe:iti:xds-b:2007" 
        schemaLocation="../schema/IHE/XDS.b_DocumentRepository.xsd"/>
-      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"  
+            <xsd:import namespace="urn:ihe:iti:xds-b:2007"
+       schemaLocation="../schema/IHE/XDS.b_Deferred.xsd"/>
+      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
         schemaLocation="../schema/ebRS/query.xsd"/>
 		</xsd:schema>
 	</types>
@@ -36,6 +38,14 @@
     <documentation>Retrieve Document Set Response</documentation>
     <part name="body" element="ihe:RetrieveDocumentSetResponse"  />
     </message>
+    <message name="CrossGatewayRetrieveDeferredResults_Message">
+    <documentation>Cross Gateway Retrieve Deferred Results</documentation>
+    <part name="body" element="ihe:RetrieveDocumentSetResponse"/>
+    </message>
+    <message name="CrossGatewayRetrieveDeferredResultsAcknowledgement_Message">
+    <documentation>Cross Gateway Retrieve Deferred Results Acknowledgement</documentation>
+    <part name="body" element="rs:RegistryResponse"/>
+    </message>
 
   <portType name="InitiatingGatewayRetrieve_PortType">
     <operation name="DocumentRepository_RetrieveDocumentSet">
@@ -44,10 +54,13 @@
     <output message="ihe:RetrieveDocumentSetResponse_Message"
     wsaw:Action="urn:ihe:iti:2007:RetrieveDocumentSetResponse" />
     </operation>
- 
+    <operation name="InitiatingGateway_CrossGatewayRetrieveDeferredResults">
+    <input message="ihe:CrossGatewayRetrieveDeferredResults_Message"
+    wsaw:Action="urn:ihe:iti:2019:CrossGatewayRetrieveDeferredResults"/>
+    <output message="ihe:CrossGatewayRetrieveDeferredResultsAcknowledgement_Message"
+    wsaw:Action="urn:ihe:iti:2019:CrossGatewayRetrieveDeferredResultsAcknowledgement"/>
+    </operation>
  </portType>
-
-
 
 	<binding name="InitiatingGatewayRetrieve_Binding_Soap12" 
 	type="ihe:InitiatingGatewayRetrieve_PortType">
@@ -64,6 +77,17 @@
       </output>
     </operation>
     
+    <!-- Added to support Deferred Response option -->
+    <operation name="InitiatingGateway_CrossGatewayRetrieveDeferredResults">
+        <soap12:operation soapAction="urn:ihe:iti:2019:CrossGatewayRetrieveDeferredResults"/>
+        <input>
+            <soap12:body use="literal"/>
+        </input>
+        <output>
+            <soap12:body use="literal"/>
+        </output>
+    </operation>
+
   </binding>
   
       <service name="InitiatingGatewayRetrieve_Service">

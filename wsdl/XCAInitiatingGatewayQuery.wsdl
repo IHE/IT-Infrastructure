@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This wsdl file is for an XCA Initiating Gateway Actor which
-     implements the XDS Affinity Domain Option.  It contains only the Query
+     implements the XDS Affinity Domain and Deferred Response Options.  It contains only the Query
      portion of the interface due to the split of web services endpoints
      to support MTOM versus non-MTOM processing.  -->
 <!-- 
@@ -24,8 +24,10 @@
        schemaLocation="../schema/ebRS/rs.xsd"/>
 			<xsd:import namespace="urn:ihe:iti:xds-b:2007" 
        schemaLocation="../schema/IHE/XDS.b_DocumentRepository.xsd"/>
-      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"  
+            <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
         schemaLocation="../schema/ebRS/query.xsd"/>
+        <xsd:import namespace="urn:ihe:iti:xds-b:2007"
+        schemaLocation="../schema/IHE/XDS.b_Deferred.xsd"/>
 		</xsd:schema>
 	</types>
     <message name="RegistryStoredQuery_Message">
@@ -36,6 +38,14 @@
     <documentation>Registry Stored Query Response</documentation>
     <part name="body" element="query:AdhocQueryResponse" />
     </message>
+    <message name="CrossGatewayQueryDeferredResults_Message">
+        <documentation>Cross Gateway Query Deferred Results</documentation>
+        <part name="body" element="query:AdhocQueryResponse"/>
+    </message>
+    <message name="CrossGatewayQueryDeferredResultsAcknowledgement_Message">
+        <documentation>Cross Gateway Query Deferred Results Acknowledgement</documentation>
+        <part name="body" element="rs:RegistryResponse"/>
+    </message>
 
   <portType name="InitiatingGatewayQuery_PortType">
     <operation name="DocumentRegistry_RegistryStoredQuery">
@@ -44,10 +54,13 @@
     <output message="ihe:RegistryStoredQueryResponse_Message"
     wsaw:Action="urn:ihe:iti:2007:RegistryStoredQueryResponse" />
     </operation>
- 
+    <operation name="InitiatingGateway_CrossGatewayQueryDeferredResults">
+    <input message="ihe:CrossGatewayQueryDeferredResults_Message"
+    wsaw:Action="urn:ihe:iti:2019:CrossGatewayQueryDeferredResults"/>
+    <output message="ihe:CrossGatewayQueryDeferredResultsAcknowledgement_Message"
+    wsaw:Action="urn:ihe:iti:2019:CrossGatewayQueryDeferredResultsAcknowledgement"/>
+    </operation>
  </portType>
-
-
 
 	<binding name="InitiatingGatewayQuery_Binding_Soap" type="ihe:InitiatingGatewayQuery_PortType">
       <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
@@ -63,10 +76,20 @@
       </output>
     </operation>
     
+  <!-- Added to support Deferred Response option -->
+  <operation name="InitiatingGateway_CrossGatewayQueryDeferredResults">
+        <soap12:operation soapAction="urn:ihe:iti:2019:CrossGatewayQueryDeferredResults"/>
+        <input>
+            <soap12:body use="literal"/>
+        </input>
+        <output>
+            <soap12:body use="literal"/>
+        </output>
+    </operation>
   </binding>
   
       <service name="InitiatingGatewayQuery_Service">
-        <port name="InitiatingGatewayQuery_Port_Soap12" binding="ihe:InitiatingGatewayQuery_Binding_Soap12">
+        <port name="InitiatingGatewayQuery_Port_Soap12" binding="ihe:InitiatingGatewayQuery_Binding_Soap">
 		  <soap12:address location="http://servicelocation/InitiatingGatewayQuery_Service"/>
 		</port>
 	  </service>

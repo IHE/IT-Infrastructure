@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+ This wsdl file is for an XDS.b Document Consumer Actor which
+ implements the Deferred Response Option.
+ It contains only the Retrieve portion of the interface due to the split of web services endpoints
+ to support MTOM versus non-MTOM processing.
+  -->
+<definitions
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:ihe="urn:ihe:iti:xds-b:2007"
+    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
+    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+    targetNamespace="urn:ihe:iti:xds-b:2007"
+    xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+    xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+    name="DocumentConsumer_Retrieve">
+    <documentation>IHE XDS.b Document Consumer Retrieve</documentation>
+    <types>
+        <xsd:schema elementFormDefault="qualified">
+            <xsd:import
+            namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+            schemaLocation="../schema/ebRS/query.xsd"/>
+            <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
+            schemaLocation="../schema/ebRS/rs.xsd"/>
+            <xsd:import namespace="urn:ihe:iti:xds-b:2007"
+            schemaLocation="../schema/IHE/XDS.b_DocumentRepository.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="RetrieveDocumentSetDeferredResults_Message">
+        <documentation>Retrieve Document Set Deferred Results</documentation>
+        <part name="body" element="ihe:RetrieveDocumentSetResponse"/>
+    </message>
+    <message name="RetrieveDocumentSetDeferredResultsAcknowledgement_Message">
+        <documentation>Retrieve Document Set Deferred Results Acknowledgement</documentation>
+        <part name="body" element="rs:RegistryResponse"/>
+    </message>
+    <portType name="DocumentConsumerRetrieve_PortType">
+        <operation name="DocumentConsumer_RetrieveDocumentSetDeferredResults">
+            <input message="ihe:RetrieveDocumentSetDeferredResults_Message"
+            wsaw:Action="urn:ihe:iti:2019:RetrieveDocumentSetDeferredResults"/>
+            <output message="ihe:RetrieveDocumentSetDeferredResultsAcknowledgement_Message"
+            wsaw:Action="urn:ihe:iti:2019:RetrieveDocumentSetDeferredResultsAcknowledgement"/>
+        </operation>
+    </portType>
+    <binding name="DocumentConsumerRetrieve_Binding_Soap12" type="ihe:DocumentConsumerRetrieve_PortType">
+        <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="DocumentConsumer_RetrieveDocumentSetDeferredResults">
+            <soap12:operation soapAction="urn:ihe:iti:2019:RetrieveDocumentSetDeferredResults"/>
+            <input>
+                <soap12:body use="literal"/>
+            </input>
+            <output>
+                <soap12:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="DocumentConsumerRetrieve_Service">
+        <port name="DocumentConsumerRetrieve_Port_Soap12" binding="ihe:DocumentConsumerRetrieve_Binding_Soap12">
+            <soap12:address location="http://servicelocation/DocumentConsumerRetrieve_Service"/>
+        </port>
+    </service>
+</definitions>
