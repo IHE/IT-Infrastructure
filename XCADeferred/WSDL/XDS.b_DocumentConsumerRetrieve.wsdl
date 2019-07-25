@@ -39,15 +39,15 @@
     <portType name="DocumentConsumerRetrieve_PortType">
         <operation name="DocumentConsumer_RetrieveDocumentSetDeferredResults">
             <input message="ihe:RetrieveDocumentSetDeferredResults_Message"
-            wsaw:Action="urn:ihe:iti:2007:RetrieveDocumentSetDeferredResults"/>
+            wsaw:Action="urn:ihe:iti:2019:RetrieveDocumentSetDeferredResults"/>
             <output message="ihe:RetrieveDocumentSetDeferredResultsAcknowledgement_Message"
-            wsaw:Action="urn:ihe:iti:2007:RetrieveDocumentSetDeferredResultsAcknowledgement"/>
+            wsaw:Action="urn:ihe:iti:2019:RetrieveDocumentSetDeferredResultsAcknowledgement"/>
         </operation>
     </portType>
     <binding name="DocumentConsumerRetrieve_Binding_Soap12" type="ihe:DocumentConsumerRetrieve_PortType">
         <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <operation name="DocumentConsumer_RetrieveDocumentSetDeferredResults">
-            <soap12:operation soapAction="urn:ihe:iti:2007:RetrieveDocumentSetDeferredResults"/>
+            <soap12:operation soapAction="urn:ihe:iti:2019:RetrieveDocumentSetDeferredResults"/>
             <input>
                 <soap12:body use="literal"/>
             </input>

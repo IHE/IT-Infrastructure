@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope" xmlns:wsa="http://www.w3.org/2005/08/addressing">
     <S:Header>
-        <wsa:Action>urn:ihe:iti:2007:CrossGatewayRetrieveDeferredResults</wsa:Action>
+        <wsa:Action>urn:ihe:iti:2019:CrossGatewayRetrieveDeferredResults</wsa:Action>
         <wsa:MessageID>urn:uuid:1795bb7a-8dc2-403a-9914-fbeab9e2a77e</wsa:MessageID>
     </S:Header>
     <S:Body>
@@ -21,7 +21,7 @@
                     </rim:Slot>
                     <rim:Slot name="DeferredProcessingEstimatedCompletion">
                         <rim:ValueList>
-                            <rim:Value>PT20M</rim:Value>
+                            <rim:Value>201906020304</rim:Value>
                         </rim:ValueList>
                     </rim:Slot>
                 </rs:ResponseSlotList>

@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope" xmlns:wsa="http://www.w3.org/2005/08/addressing"
-    xmlns:ihe=TBD>
+    xmlns:ihe="urn:ihe:iti:xds-b:2007">
     <S:Header>
         <wsa:Action>urn:ihe:iti:2007:CrossGatewayQuery</wsa:Action>
         <wsa:MessageID>urn:uuid:df9b89ed-395e-40a7-8510-0b4a390434c4</wsa:MessageID>

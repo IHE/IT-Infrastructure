@@ -56,9 +56,9 @@
     </operation>
     <operation name="InitiatingGateway_CrossGatewayRetrieveDeferredResults">
     <input message="ihe:CrossGatewayRetrieveDeferredResults_Message"
-    wsaw:Action="urn:ihe:iti:2007:CrossGatewayRetrieveDeferredResults"/>
+    wsaw:Action="urn:ihe:iti:2019:CrossGatewayRetrieveDeferredResults"/>
     <output message="ihe:CrossGatewayRetrieveDeferredResultsAcknowledgement_Message"
-    wsaw:Action="urn:ihe:iti:2007:CrossGatewayRetrieveDeferredResultsAcknowledgement"/>
+    wsaw:Action="urn:ihe:iti:2019:CrossGatewayRetrieveDeferredResultsAcknowledgement"/>
     </operation>
  </portType>
 
@@ -79,7 +79,7 @@
     
     <!-- Added to support Deferred Response option -->
     <operation name="InitiatingGateway_CrossGatewayRetrieveDeferredResults">
-        <soap12:operation soapAction="urn:ihe:iti:2007:CrossGatewayRetrieveDeferredResults"/>
+        <soap12:operation soapAction="urn:ihe:iti:2019:CrossGatewayRetrieveDeferredResults"/>
         <input>
             <soap12:body use="literal"/>
         </input>

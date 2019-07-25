@@ -6,9 +6,11 @@ Working Session - at ITI F2F
 Minutes
 Reviewed Walco issue about SMTP
 Reviewed other closed issues
-
-PL
-Review clarification of DeferredResponseEndpoint namespace
+Editor boxes: "Amend" instead of "Update"? No
+Reviewed clarification of DeferredResponseEndpoint namespace
+Reviewed remaining issues for tomorrow's discussion
+	Order of ack message
+	References from Deferred Results Expected Actions - clarify?
 
 TI Checklist
 Did we line-by-line the entire document
@@ -34,6 +36,7 @@ Actions - open
 - Write CP to address WSP201
 - CP for response/transaction
 - CP for checking actual WSDL for soap action
+	I added it for Deferred to match pattern of others
 - CP schema="IHEXDS.xsd"
 
 Actions - done

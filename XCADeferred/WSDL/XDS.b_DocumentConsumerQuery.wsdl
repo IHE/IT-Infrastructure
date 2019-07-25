@@ -37,16 +37,16 @@
     <portType name="DocumentConsumerQuery_PortType">
         <operation name="DocumentConsumer_RegistryStoredQueryDeferredResults">
             <input message="ihe:RegistryStoredQueryDeferredResults_Message"
-            wsaw:Action="urn:ihe:iti:2007:RegistryStoredQueryDeferredResults"/>
+            wsaw:Action="urn:ihe:iti:2019:RegistryStoredQueryDeferredResults"/>
             <output message="ihe:RegistryStoredQueryDeferredResultsAcknowledgement_Message"
-            wsaw:Action="urn:ihe:iti:2007:RegistryStoredQueryDeferredResultsAcknowledgement"/>
+            wsaw:Action="urn:ihe:iti:2019:RegistryStoredQueryDeferredResultsAcknowledgement"/>
         </operation>
     </portType>
     
 	<binding name="DocumentConsumerQuery_Binding_Soap12" type="ihe:DocumentConsumerQuery_PortType">
 		<soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 		<operation name="DocumentConsumer_RegistryStoredQueryDeferredResults">
-			<soap12:operation soapAction="urn:ihe:iti:2007:RegistryStoredQueryDeferredResults"/>
+			<soap12:operation soapAction="urn:ihe:iti:2019:RegistryStoredQueryDeferredResults"/>
 			<input>
 				<soap12:body use="literal"/>
 			</input>
