@@ -1,0 +1,28 @@
+7/23/2019
+
+XCA Deferred Response option
+Working Session - at ITI F2F
+
+Minutes
+Structure of 3.18
+	Consider informtive annotated sequence diagram
+Finished reviewing comments and resolution - notes in spreadsheet
+
+Actions - open
+Draft brief closed issue for SMTP
+Add actor headers for long sections like 3.38.4.1.3.3 (like 3.18)
+Dupe 1202 in 3.39
+Will add parents in Vol 2
+Discuss remaining open issues
+Check XCPD deferred/AS4
+Update samples – durationUpdate WSDL – year in Action	201901020304
+Update wiki page
+Add sequence diag source per PRIM, mACM, mCSD, etc.
+Write CP to address WSP201
+CP for response/transaction
+CP for checking actual WSDL for soap action
+CP schema="IHEXDS.xsd"
+
+Actions - done
+Fix and re-upload spreadsheet, and check
+
