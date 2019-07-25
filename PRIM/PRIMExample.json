@@ -1,0 +1,33 @@
+{
+  "resourceType": "Bundle",
+  "type": "message",
+  "entry": [
+    {
+      "resourceType": "MessageHeader",
+      "eventUri": "urn:ihe:iti:prim:2019:patient-link",
+      "focus": [
+        {
+          "reference": "Patient/123"
+        }
+      ],
+      "destination": [
+        {
+          "endpoint": "http://example.com/patientEndpoint"
+        }
+      ]
+    },
+    {
+      "resourceType": "Patient",
+      "id": "123",
+      "active": false,
+      "link": [
+        {
+          "other": {
+            "reference": "Patient/456"
+          },
+          "type": "replaced-by"
+        }
+      ]
+    }
+  ]
+}
