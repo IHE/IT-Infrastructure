@@ -927,13 +927,13 @@ Table 3.71.2-1: Actor Roles
 
 -   RFC 6750 OAuth 2.0 Authorization Framework: Bearer Token Usage
 
--   RFC-draft JSON Web Token (JWT) *draft-ietf-oauth-json-web-token*
+-   RFC 7519 JSON Web Token (JWT)
 
--   RFC-draft JSON Web Token (JWT) Bearer Token Profiles for OAuth 2.0
-    *draft-ietf-oauth-jwt-bearer*
+-   RFC 7523 JSON Web Token (JWT) Profile for OAuth 2.0 Client
+    Authentication and Authorization Grants
 
--   RFC-draft SAML 2.0 Profile for OAuth 2.0 Client Authentication and
-    Authorization Grants *draft-ietf-oauth-saml2-bearer*
+-   RFC 7522 SAML 2.0 Profile for OAuth 2.0 Client Authentication and
+    Authorization Grants
 
 ### 3.71.4 Interaction Diagram {#interaction-diagram .ListParagraph}
 
