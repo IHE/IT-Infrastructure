@@ -12,7 +12,7 @@ height="0.9166666666666666in"}
 
 **Trial Implementation**
 
-Date: August 31, 2015
+Date: September 21, 2019
 
 Author: ITI Technical Committee
 
@@ -184,7 +184,7 @@ The current version of the IHE Technical Framework can be found at:
 
 [3.72.4.1.2 Message Semantics 26](#message-semantics-1)
 
-[3.72.4.1.2.1 SAML Token Option 26](#saml-token-option-2)
+[3.72.4.1.2.1 SAML Token Option 26](#section)
 
 [3.72.4.1.2.2 OAuth Bearer Token Option
 27](#oauth-bearer-token-option-2)
@@ -557,7 +557,7 @@ Table 34.1-1: IUA Profile - Actors and Transactions
 
 ### **34.1.1 Actor Descriptions and Actor Profile Requirements** {#actor-descriptions-and-actor-profile-requirements .ListParagraph}
 
-The IUA actors are e34pected to be combined with other actors that
+The IUA actors are expected to be combined with other actors that
 perform HTTP RESTful transactions. Combining an Authorization Client
 with another actor means that this other actor will provide an
 authorization token as part of the HTTP transaction to a HTTP RESTful
@@ -640,8 +640,8 @@ The OAuth Bearer Token Option provides basic compatibility to minimal
 OAuth implementations and does not carry the healthcare attribute
 extensions.
 
-The JWT Token type and the SAML Token type enable the Resource Server to
-make additional Access Control Decisions.
+The JWT Token type enables the Resource Server to make additional Access
+Control Decisions.
 
 Table 34.2-1: IUA - Actors and Options
 
@@ -649,18 +649,17 @@ Table 34.2-1: IUA - Actors and Options
   IUA Actor              Option Name          Reference
   Authorization Server   SAML Token           34.2.1
                          OAuth Bearer Token   34.2.2
-  Resource Server        SAML Token           34.2.1
-                         OAuth Bearer Token   34.2.2
+  Resource Server        OAuth Bearer Token   34.2.2
   Authorization Client   SAML Token           34.2.1
                          OAuth Bearer Token   34.2.2
   ---------------------- -------------------- -----------
 
 ### 34.2.1 SAML Token Option {#saml-token-option .ListParagraph}
 
-An Authorization Client, Resource Server, or Authorization Serv that
-claims the SAML Token Option shall be able to use or generate the SAML
-tokens defined in the SAML Token Option as the access token for IUA. See
-ITI TF-2c:3.71.4.1.2.2 and 3.72.4.1.2.1.
+An Authorization Client or Authorization Server that claims the SAML
+Token Option shall be able to use or generate the SAML tokens defined in
+the SAML Token Option to exchange it for an OAuth access token for IUA.
+See ITI TF-2c:3.71.4.1.2.2 and 3.72.4.1.2.1.
 
 This option allows deployments that are using the Web Services
 transactions and SAML Tokens to use the same SAML-based identity
@@ -864,6 +863,11 @@ public literature. This profile does not introduce new considerations to
 those analyses. We have not identified any new healthcare related
 issues.*
 
+\[RFC6819, Section 3.6\] categorizes four OAuth2.0 deployment scenarios,
+depending on the client\'s capabilities. For confidential apps, a
+deployment scenario where the client is registered using a client\_id,
+client\_secret, and with a fixed redirect\_uri is recommended.
+
 *It is important to understand that IUA does not address the issues
 around issuing and revoking client\_ids. OAuth 2.0 depends upon the
 client\_id to establish the degree of trust in a client. OAuth 2.0 does
@@ -904,6 +908,31 @@ Add Section 3.71
 3.71 Get Authorization Token {#get-authorization-token .ListParagraph}
 ----------------------------
 
+This transaction is used to obtain access token for use in a HTTP
+RESTful resource request. There are many methods to obtain a token, most
+of them are project-and deployment-specific. \[RFC6749\] defines the
+following methods:
+
+-   *Authorization Code Grant* \[RFC6749, Section 4.1\]. It is optimized
+    for confidential clients who make use of User Agents (e.g., web
+    browsers)
+
+-   *Implicit Grant* \[RFC6749, Section 4.2\]. It is optimized for
+    public clients known to operate a particular redirect URI
+
+-   *Resource Owner Password Credential Grant* \[RFC6749, Section 4.3\].
+    It is optimized for resource owners in a trust relationship with the
+    client.
+
+-   *Client Credentials Grant* \[RFC6749, Section 4.4\]. It is optimized
+    for clients requesting access tokens using only its client
+    credentials, for confidential clients (e.g., medical devices,
+    backend applications).
+
+This profile is scoped to confidential clients, thus the option
+*Authorization Code Grant* MUST be supported*,* and *Client Credentials
+Grant* SHOULD be supported by the Authorization Server.
+
 ### 3.71.1 Scope {#scope .ListParagraph}
 
 This transaction is used to obtain the access token for use in a HTTP
@@ -925,15 +954,13 @@ Table 3.71.2-1: Actor Roles
 
 -   RFC 6749 OAuth 2.0 Authorization Framework
 
--   RFC 6750 OAuth 2.0 Authorization Framework: Bearer Token Usage
+-   -   RFC 7519 JSON Web Token (JWT)
 
--   RFC-draft JSON Web Token (JWT) *draft-ietf-oauth-json-web-token*
+-   RFC 7523 JSON Web Token (JWT) Profile for OAuth 2.0 Client
+    Authentication and Authorization Grants
 
--   RFC-draft JSON Web Token (JWT) Bearer Token Profiles for OAuth 2.0
-    *draft-ietf-oauth-jwt-bearer*
-
--   RFC-draft SAML 2.0 Profile for OAuth 2.0 Client Authentication and
-    Authorization Grants *draft-ietf-oauth-saml2-bearer*
+-   RFC 7522 SAML 2.0 Profile for OAuth 2.0 Client Authentication and
+    Authorization Grants
 
 ### 3.71.4 Interaction Diagram {#interaction-diagram .ListParagraph}
 
@@ -1025,10 +1052,9 @@ the SAML token format or OAuth Bearer Token Options.
 ###### 3.71.4.1.2.1 JSON Web Token (JWT)  {#json-web-token-jwt .ListParagraph}
 
 The Authorization Client and Authorization Server actors shall support
-the JWS (signed) alternative of the JWT token as specified in
-*draft-ietf-oauth-json-web-token* and *draft-ietf-oauth-jwt-bearer*. Any
-actor that supports this transaction may support the JWE (unsigned but
-encrypted) alternative of the JWT token.
+the JWS (signed) alternative of the JWT token as specified in *RFC
+7519*. Any actor that supports this transaction may support the JWE
+(unsigned but encrypted) alternative of the JWT token.
 
 The JWT token attribute requirements are shown in Table-3.71.4.1.2.1.
 The required attributes are indicated by "R". Optional attributes are
@@ -1038,15 +1064,16 @@ accordance with OAuth and JWT specifications.
 Table 3.71.4.1.2.1-1: JWT Token requirements
 
   Parameter   Req   Definition                      RFC Reference
-  ----------- ----- ------------------------------- --------------------------------
-  iss         R     Issuer of token                 Draft json-web-token Section 4
-  sub         R     Subject of token (e.g., user)   Draft json-web-token Section 4
-  aud         R     Audience of token               Draft json-web-token Section 4
-  exp         R     Expiration time                 Draft json-web-token Section 4
-  nbf         O     Not before time                 Draft json-web-token Section 4
-  iat         O     Issued at time                  Draft json-web-token Section 4
-  typ         O     Type                            Draft json-web-token Section 4
-  jti         R     JWT ID                          Draft json-web-token Section 4
+  ----------- ----- ------------------------------- ---------------------------------
+  iss         R     Issuer of token                 RFC 7519 Section 4
+  sub         R     Subject of token (e.g., user)   OpenID Connect Core Section 5.1
+  name        O     Plain text user's name          OpenID Connect Core Section 5.1
+  aud         R     Audience of token               RFC 7519 Section 4
+  exp         R     Expiration time                 RFC 7519 Section 4
+  nbf         O     Not before time                 RFC 7519 Section 4
+  iat         O     Issued at time                  RFC 7519 Section 4
+  typ         O     Type                            RFC 7519 Section 4
+  jti         R     JWT ID                          RFC 7519 Section 4
 
 The Authorized Client, Authorization Server, and Resource Server shall
 support the following extensions to the JWT parameters. All of these
@@ -1057,31 +1084,31 @@ in this table for convenience.
 Table 3.71.4.1.2.1-2: Extensions to JWT Parameters
 
   XUA Attribute                XUA Definition                                                                                JWT Parameter
-  ---------------------------- --------------------------------------------------------------------------------------------- ----------------------------
-  SubjectID                    Plain text user's name                                                                        SubjectID
-  SubjectOrganization          Plain text description of the Organization                                                    SubjectOrganization
-  SubjectOrganizationID                                                                                                      SubjectOrganizationID
-  HomeCommunityID              Home Community ID where request originated                                                    HomeCommunityID
-  NationalProviderIdentifier                                                                                                 NationalProviderIdentifier
-  Subject:Role                                                                                                               SubjectRole
-  docid                        Patient Privacy Policy Acknowledgement Document ID                                            docid
-  acp                          Patient Privacy Policy Identifier                                                             acp
-  PurposeOfUse                 Purpose of Use for the request                                                                PurposeOfUse
-  Resource-ID                  Patient ID related to the Patient Privacy Policy Identifier                                   resourceID
-                               Patient ID, Citizen ID, or other similar public ID used for health identification purposes.   personID
+  ---------------------------- --------------------------------------------------------------------------------------------- -------------------------------------------------
+  SubjectID                    Plain text user's name                                                                        name
+  SubjectOrganization          Plain text description of the Organization                                                    urn:ihe:iti:iua:2019:SubjectOrganization
+  SubjectOrganizationID                                                                                                      urn:ihe:iti:iua:2019:SubjectOrganizationID
+  HomeCommunityID              Home Community ID where request originated                                                    urn:ihe:iti:iua:2019:HomeCommunityID
+  NationalProviderIdentifier                                                                                                 urn:ihe:iti:iua:2019:NationalProviderIdentifier
+  Subject:Role                                                                                                               urn:ihe:iti:iua:2019:SubjectRole
+  docid                        Patient Privacy Policy Acknowledgement Document ID                                            urn:ihe:iti:iua:2019:docid
+  acp                          Patient Privacy Policy Identifier                                                             urn:ihe:iti:iua:2019:acp
+  PurposeOfUse                 Purpose of Use for the request                                                                urn:ihe:iti:iua:2019:PurposeOfUse
+  Resource-ID                  Patient ID related to the Patient Privacy Policy Identifier                                   urn:ihe:iti:iua:2019:resourceID
+                               Patient ID, Citizen ID, or other similar public ID used for health identification purposes.   urn:ihe:iti:iua:2019:personID
 
 ###### 3.71.4.1.2.2 SAML Token Option {#saml-token-option-1 .ListParagraph}
 
 This option enables integration of environments that use both SAML
 identity federation and OAuth authorization infrastructure.
 
-An Authorized Client, Authorization Server, and Resource Server Actor
-claiming conformance with the SAML Token Option shall comply with the
-SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization
-Grants (RFC- *draft-ietf-oauth-saml2-bearer*) rules for issuing and
-using SAML assertions and tokens. All of the SAML attributes in Table
-3.71.4.1.2.1-1 shall be supported. The SAML assertion contents shall
-comply with XUA SAML assertion rules (see ITI TF-2b:3.40).
+Authorized Client and Authorization Server Actors claiming conformance
+with the SAML Token Option shall comply with the SAML 2.0 Profile for
+OAuth 2.0 Client Authentication and Authorization Grants (RFC- *7522*)
+rules for issuing and using SAML assertions and tokens. All of the SAML
+attributes in Table 3.71.4.1.2.1-1 shall be supported. The SAML
+assertion contents shall comply with XUA SAML assertion rules (see ITI
+TF-2b:3.40).
 
 ###### 3.71.4.1.2.3 OAuth Bearer Token Option {#oauth-bearer-token-option-1 .ListParagraph}
 
@@ -1278,14 +1305,11 @@ Table 3.72.2-1: Actor Roles
 
 -   RFC 6750 OAuth 2.0 Authorization Framework: Bearer Token Usage
 
--   RFC-draft JSON Web Token (JWT) *draft-ietf-oauth-json-web-token-07
-    (or most recent)*
+-   RFC 7519 JSON Web Token (JWT)
 
--   RFC-draft JSON Web Token (JWT) Bearer Token Profiles for OAuth 2.0
-    *draft-ietf-oauth-jwt-bearer*
+-   RFC 7523 JSON Web Token (JWT) Bearer Token Profiles for OAuth 2.0
 
--   RFC-draft SAML 2.0 Profile for OAuth 2.0 Client Authentication and
-    Authorization Grants *draft-ietf-oauth-saml2-bearer*
+-   
 
 #### 3.72.3.1 Related IHE Profiles {#related-ihe-profiles .ListParagraph}
 
@@ -1324,9 +1348,9 @@ end
 Main Flow:
 
 1.  The device sends a resource request to the resource server, together
-    with the authorization token. The authorization token may be an SAML
-    token, a JWT Bearer token, or another token type that is mutually
-    agreed between Client, Resource Service and the token source.
+    with the authorization token. The authorization token may be a JWT
+    Bearer token, or another access token type that is mutually agreed
+    between Client, Resource Service and the token source.
 
 <!-- -->
 
@@ -1366,14 +1390,10 @@ The Authorization Client should:
     the Authorization: header depend upon the token option chosen. The
     access token may be:
 
--   A JWT token, encoded as defined in
-    *draft-ietf-oauth-json-web-token*, *draft-ietf-oauth-jwt-bearer,*
-    and ITI TF-2b: 3.71.4.1.2.1 JSON Web Token.
+-   A JWT token, encoded as defined in *RFC 7519*, *RFC 7523,* and ITI
+    TF-2b: 3.71.4.1.2.1 JSON Web Token.
 
--   A SAML token encoded defined in *draft-ietf-oauth-saml2-bearer* and
-    ITI TF-2b: 3.40.4.1.2 Message Semantics.
-
--   A token of another type.
+-   -   A token of another type.
 
 > GET /example/url/to/resource/location HTTP/1.1
 >
@@ -1383,35 +1403,7 @@ The Authorization Client should:
 The remainder of the transaction requirements are established by the
 HTTP RESTful transaction being protected.
 
-Note: The draft RFCs have not specified the authorization code yet.
-Until there are official codes assigned, IHE will use IHE-JWT.
-
-###### 3.72.4.1.2.1 SAML Token Option {#saml-token-option-2 .ListParagraph}
-
-An Authorization Client that supports the SAML Token Option shall be
-able to accept and use a SAML assertion that complies with the XUA
-specification (see ITI TF-2b: 3.40.4.1.2 Message Semantics) as the
-access token for this request. A Resource Server that supports the SAML
-Token Option shall be able to accept and use a SAML assertion that
-complies with the XUA specification as the access token for a request.
-
-The SAML assertion shall be encoded as specified by SAML 2.0 Profile for
-OAuth 2.0 Client Authentication and Authorization Grants (RFC-
-*draft-ietf-oauth-saml2-bearer*). This shall be included in the HTTP
-headers as an Authorization of type IHE-SAML.
-
-> GET /example/url/to/resource/location HTTP/1.1
->
-> Authorization: IHE-SAML fFBGRNJru1FQd\[...omitted for
-> brevity...\]44AzqT3Zg
->
-> Host: examplehost.com
-
-Notes: 1. WS-Trust defines methods for converting between SAML and JWT
-tokens. This transaction does not specialize or change those methods.
-
-2\. The draft RFCs have not specified the authorization code yet. Until
-there are official codes assigned, IHE will use IHE-SAML.
+######  {#section .ListParagraph}
 
 ###### 3.72.4.1.2.2 OAuth Bearer Token Option {#oauth-bearer-token-option-2 .ListParagraph}
 
@@ -1456,22 +1448,5 @@ where:
 
 -   **user** is the required content of the JWT token's "sub" parameter
 
--   **issuer** is the JWT token's "iss" parameter
-
-When an ATNA Audit message needs to be generated by the Resource Server
-and the user is authenticated by way of a SAML Token, the ATNA Audit
-message **UserName** element shall record the SAML token information
-using the following encoding:
-
-**alias\"\<\"user\"@\"issuer\"\>\"**
-
-where:
-
--   **alias** is the optional string within the SAML Assertion\'s
-    Subject element SPProvidedID attribute
-
--   **user** is the required content of the SAML Assertion\'s Subject
-    element
-
--   **issuer** is the X-Assertion Provider entity ID contained with the
-    content of SAML Assertion\'s Issuer element
+-   -   -   -   -   -   -   -   -   **issuer** is the JWT token's "iss"
+    parameter
