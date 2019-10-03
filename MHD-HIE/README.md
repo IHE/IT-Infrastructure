@@ -4,8 +4,9 @@ The first step is to identify all the additional requirements that an HIE infras
 
 * Persistence of Document, DocumentManifest, List, and DocumentReference
     * ability to transform FHIR xml <--> json for these three resources 
-* Subscribe or be configured as an endpoint of the PRIM patient feed
-    * Update DocumentReference.subject, DocumentManifest.subject, and List.subject when a Merge occurs 
+* Subscribe or be configured as an endpoint of the PRIM patient feed -- Update metadata when Merge occurs
+    * Update DocumentReference.subject, DocumentManifest.subject, and List.subject 
+	* Update DocumentReference.author, List.source, DocumentManifest.recipient 
 * Seems the PRIM manager should be part of the central infrastructure. So that clients can use PDQm, PIXm, or PRIM feed to be up-to-date on patient identity. Right?
 * Management of metadata rules, and verification of new submissions meet those rules -- This is the set of allowed metadata as we describe in the Metadata Handbook
     * might bring in the SVSm for this?  Seems it would be good to have this right away 
@@ -14,6 +15,8 @@ The first step is to identify all the additional requirements that an HIE infras
     * mandatory use of ATNA fhir flavors -- consistency with XDS  
     * Recommendation for use of IUA? Or should this be mandated with operational allowance for other client side security to be used? 
 * Privacy - ??? We don't have any privacy demanded in XDS, and we don't yet have Consent covered in IHE profiles.
+	* do we just impose this at the business rule level?
+	* do we kickoff a project to create FHIR Consent function?
 * Is there reason to add FHIR Provenance? It seems redundant given that DocumentReference and DocumentManifest cover this function already.
 * Is the function of QEDm server a useful option? Not mandated, but declared option?
     * some have discussed an actor that pulls FHIR Resources (element level) and produces a FHIR Document that gets registered. This seems interesting, but not clearly needs driven 
