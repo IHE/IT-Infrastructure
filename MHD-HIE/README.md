@@ -20,6 +20,9 @@ The first step is to identify all the additional requirements that an HIE infras
 * Is there reason to add FHIR Provenance? It seems redundant given that DocumentReference and DocumentManifest cover this function already.
 * Is the function of QEDm server a useful option? Not mandated, but declared option?
     * some have discussed an actor that pulls FHIR Resources (element level) and produces a FHIR Document that gets registered. This seems interesting, but not clearly needs driven 
+* different rules than XDS-on-FHIR ?
+	* such as not using contained resources for author and authenticator  - so that they align with mCDS registry.
+	* clearly source must still be contained. right?
 
 I was not expecting to have two actors like XDS to represent Registry and Repository. This is possible, but I am not hearing from the target audience that they desire this. I don't want to impose this architecture if it is not clearly within the environmental need of the target. Yes I understand that XDS has this architecture, but just because XDS has it does not mean that the MHD-HIE must have it. I want to be needs driven, not perceived architecture driven.  I suspect we will learn in Trial-Implementation if this simplifiying architecture is correct.
 
