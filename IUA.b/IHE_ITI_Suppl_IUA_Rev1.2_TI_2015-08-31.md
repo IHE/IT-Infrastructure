@@ -908,6 +908,10 @@ PDQm and other FHIR-based IHE profiles. The exchange of an XUA token for
 a JWT can take place without additional authorization, so it can be
 easily implemented by protocol translation gateways.
 
+FHIR-based services can declare support for IUA in their
+CapabilityStatement using the element
+**CapabilityStatement.rest.security.**
+
 []{#_Toc336000611 .anchor}Volume 2 -- Transactions
 
 Add Section 3.71
