@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AuditMessageSpecification isDicomCompatible="true" forceDicomCompatibility="true" isDeprecated="false">
+    <lastChanged>2019-11-11T15:58:30.726+01:00</lastChanged>
+    <lastModifierId>gcanal</lastModifierId>
+    <name>IHE - ITI-86 Document Administrator audit message</name>
+    <oid>1.3.6.1.4.1.12559.11.1.2.1.12.116</oid>
+    <affinityDomain>IHE</affinityDomain>
+    <Document> IHE IT Infrastructure Remove Document Set (RMD) Trial Implementation Supplement</Document>
+    <section>3.86.5.1.1</section>
+    <schema>/opt/XDStarClient/xsd/RFC3881.xsd</schema>
+    <Event>
+        <EventID optionality="M" value="EV('110110', 'DCM', 'Patient Record')"/>
+        <EventActionCode optionality="M" value="D"/>
+        <EventDateTime optionality="U"/>
+        <EventOutcomeIndicator optionality="U"/>
+        <EventTypeCode optionality="M" value="EV('ITI-86', 'IHE Transactions', 'Remove Documents')"/>
+    </Event>
+    <ActiveParticipants min="1" max="1" name="Source" distinguisher="RoleIDCode[@code='110153']">
+        <UserID optionality="U"/>
+        <AlternativeUserID optionality="M"/>
+        <UserName optionality="U"/>
+        <UserIsRequestor optionality="U"/>
+        <RoleIDCode optionality="M" value="EV('110153', 'DCM', 'Source')"/>
+        <NetworkAccessPointTypeCode optionality="M" regex="^1|2$"/>
+        <NetworkAccessPointID optionality="M"/>
+    </ActiveParticipants>
+    <ActiveParticipants min="1" max="1" name="Destination" distinguisher="RoleIDCode[@code='110152']">
+        <UserID optionality="M"/>
+        <AlternativeUserID optionality="U"/>
+        <UserName optionality="U"/>
+        <UserIsRequestor optionality="U"/>
+        <RoleIDCode optionality="M" value="EV('110152', 'DCM', 'Destination')"/>
+        <NetworkAccessPointTypeCode optionality="M" regex="^1|2$"/>
+        <NetworkAccessPointID optionality="M"/>
+    </ActiveParticipants>
+    <ActiveParticipants min="0" max="*" name="HumanRequestor" distinguisher="not(RoleIDCode) or RoleIDCode[@code!='110153' and @code!='110152']">
+        <UserID optionality="M"/>
+        <AlternativeUserID optionality="U"/>
+        <UserName optionality="U"/>
+        <UserIsRequestor optionality="U"/>
+        <RoleIDCode optionality="M"/>
+        <NetworkAccessPointTypeCode optionality="U"/>
+        <NetworkAccessPointID optionality="U"/>
+    </ActiveParticipants>
+    <AuditSource min="1" max="1">
+        <AuditSourceID optionality="U"/>
+        <AuditEnterpriseSiteID optionality="U"/>
+        <AuditSourceTypeCode optionality="U"/>
+    </AuditSource>
+    <ParticipantObjectIdentifications distinguisher="@ParticipantObjectTypeCode='2' and @ParticipantObjectTypeCodeRole='3'" min="1" max="*" name="Document">
+        <ParticipantObjectTypeCode optionality="M" value="2"/>
+        <ParticipantObjectTypeCodeRole optionality="M" value="3"/>
+        <ParticipantObjectDataLifeCycle optionality="U"/>
+        <ParticipantObjectIDTypeCode optionality="U"/>
+        <ParticipantObjectSensitivity optionality="U"/>
+        <ParticipantObjectID optionality="M"/>
+        <ParticipantObjectName optionality="U"/>
+        <ParticipantObjectQuery optionality="U"/>
+        <ParticipantObjectDetail optionality="M"/>
+    </ParticipantObjectIdentifications>
+    <ParticipantObjectIdentifications distinguisher="@ParticipantObjectTypeCode='1' and @ParticipantObjectTypeCodeRole='1'" min="0" max="1" name="Patient">
+        <ParticipantObjectTypeCode optionality="M" value="1"/>
+        <ParticipantObjectTypeCodeRole optionality="M" value="1"/>
+        <ParticipantObjectDataLifeCycle optionality="U"/>
+        <ParticipantObjectIDTypeCode optionality="U"/>
+        <ParticipantObjectSensitivity optionality="U"/>
+        <ParticipantObjectID optionality="M" regex="^.+?\^\^\^.*?&amp;.+?&amp;ISO(\^.*){0,4}$"/>
+        <ParticipantObjectName optionality="U"/>
+        <ParticipantObjectQuery optionality="U"/>
+        <ParticipantObjectDetail optionality="U"/>
+    </ParticipantObjectIdentifications>
+    <ExtraConstraintSpecifications kind="warning" xpath="false()" description="This condition is not checked by the validator: Destination/UserID SHALL be valued with SOAP endpoint URI"/>
+    <ExtraConstraintSpecifications kind="warning" xpath="false()" description="This condition is not checked by the validator: Source/NetworkAccessPointID and Destination/NetworkAccessPointID SHALL be valued with the machine name or with the IP address"/>
+    <ExtraConstraintSpecifications kind="warning" xpath="false()" description="This condition is not checked by the validator: Destination/NetworkAccessPointTypeCode and Source/NetworkAccessPointTypeCode SHALL be valued with “1” for machine (DNS) name or with “2” for IP address"/>
+    <ExtraConstraintSpecifications kind="warning" xpath="false()" description="This condition is not checked by the validator: source/AlternativeUserID SHALL be valued with the process ID as used within the local operating system in the local system logs"/>
+    <ExtraConstraintSpecifications kind="warning" xpath="false()" description="&#x9;This condition is not checked by the validator: HumanReuestor/UserID SHALL be valued with the identity of the human that initiated the transaction."/>
+    <ExtraConstraintSpecifications kind="warning" xpath="false()" description="This condition is not checked by the validator: HumanReuestor/UserID SHALL be valued with the access Control role(s) the user holds that allows this transaction"/>
+    <ExtraConstraintSpecifications kind="warning" xpath="false()" description="This condition is not checked by the validator : Document/ParticipantObjectDetail SHALL have the value of “urn:ihe:iti:xds:2007:repositoryUniqueId” as the value of the attribute type and the value of the repositoryUniqueId as the value of the attribute value. "/>
+    <ExtraConstraintSpecifications kind="warning" xpath="false()" description="This condition is not checked by the validator : Document/ParticipantObjectId SHALL be the value of XDSDocumentEntry.uniqueId."/>
+    <ExtraConstraintSpecifications kind="warning" xpath="false()" description="This condition is not checked by the validator : Patient ID for profiles that conforms to Metadata used in Document Sharing profiles (IHE ITI TF Vol3, Cross-Transaction Specifications and Content Specifications) SHALL use the CX HL7 v2.5 Identifier restricted to the use of two components, the ID Number, and the Assigning Authority (AA). The Assigning  Authority identifies  the &quot;domain&quot;  over which  the Id Number represents a unique  entity. In Document Sharing profiles, the AA is characterized by the ISO Object Identifiers as Universal Id and Type. No  other values/modifications  in  other components or  subcomponents are allowed.  Specifically,  components 2 and  3 shall be  empty."/>
+</AuditMessageSpecification>
