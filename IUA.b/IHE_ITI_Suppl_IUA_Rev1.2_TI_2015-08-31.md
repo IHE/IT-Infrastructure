@@ -899,7 +899,18 @@ client requirements than the general access authorization requirements.*
 34.6 IUA Cross Profile Considerations {#iua-cross-profile-considerations .ListParagraph}
 -------------------------------------
 
-None
+The XUA profile provides equivalent functionality for SOAP based
+transactions. In addition, the SAML token option in IUA enables an
+Identity Provider (Authorization Server) to exchange an XUA compatible
+SAML token for an OpenID Connect compatible token which can subsequently
+be used as an access token in all RESTful transactions specified in MHD,
+PDQm and other FHIR-based IHE profiles. The exchange of an XUA token for
+a JWT can take place without additional authorization, so it can be
+easily implemented by protocol translation gateways.
+
+FHIR-based services can declare support for IUA in their
+CapabilityStatement using the element
+**CapabilityStatement.rest.security.**
 
 []{#_Toc336000611 .anchor}Volume 2 -- Transactions
 
@@ -1371,10 +1382,10 @@ the HTTP request for that other HTTP RESTful transaction.
 
 ##### 3.72.4.1.1 Trigger Events {#trigger-events-1 .ListParagraph}
 
-The client system needs to make a HTTP RESTful transaction to a Resource
-Server that performs access authorization. The Authorization client has
-already obtained the necessary access token, either by means of another
-IHE transaction or by some other means.
+The client system needs to make an HTTP RESTful transaction to a
+Resource Server that performs access authorization. The Authorization
+client has already obtained the necessary access token, either by means
+of another IHE transaction or by some other means.
 
 ##### 3.72.4.1.2 Message Semantics {#message-semantics-1 .ListParagraph}
 
@@ -1417,7 +1428,7 @@ Bearer Token Usage.
 The Resource Server shall enforce the authorization and may further
 restrict based on Access Control decisions. The actor that is combined
 with the Resource Server will determine the responses and expected
-actions. The Resource Server should return an HTTP 401 (UnAuthorized)
+actions. The Resource Server should return an HTTP 401 (Unauthorized)
 error if the token is not accepted and the combined actor does not have
 a specified method for responses when access is denied.
 
@@ -1426,7 +1437,7 @@ a specified method for responses when access is denied.
 The Authorization Client and client software shall meet the requirements
 of being an OAuth confidential client. The OAuth analysis indicates that
 without this requirement, the system is not sufficiently secure. The
-Authorization Client and client software may be grouped with a ATNA
+Authorization Client and client software may be grouped with an ATNA
 Secure Node or Secure Application if a higher level of security is
 appropriate. Resource Server and Authorization Server should provide
 equivalent protection.
