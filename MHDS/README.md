@@ -6,7 +6,7 @@ The central HIE infrastructure might be a virtual cloud of the existing profile 
 MHDS does include mXDE informatively as it is a bridge that is compatible with MHDS, but there is no specific requirements.
 
 # Plan
-* January 7, 2020, 10 am Central -- Decision t-con to approve draft for first public comment
+* January 7, 2020, 10 am Central -- Decision t-con to approve draft for first public comment -- APPROVED
 * February 17-21, 2020, face-to-face -- resolve public comment, and approve for second public comment
 * May 4-8, 2020, face-to-face -- resolve public comment, and approve for trial implementations
 
@@ -17,3 +17,4 @@ MHDS does include mXDE informatively as it is a bridge that is compatible with M
 3.	Can Document Author be recorded as a link to data in the mCSD managed Directory, or must it continue to be mandated to be ‘contained’? Clearly it can be included as contained but is this still a mandate when the Organization and Practitioner are known to be managed. ***	This profile includes an option that allows the Document Registry to authorize the use of References where MHD forces contained. The necessary change to MHD has not been done yet in order to get feed back from Public Comment.
 4.	Can sourcePatientInfo be a version specific link to the centrally managed (PMIR) identity? Clearly it can continue to be contained but is this still a mandate when the Patient is known to be managed.***	There seems to be feedback that the need identified in XDS for sourcePatientInfo has not been important. Many exchanges recommend this element be left empty as one either has good control of patient identity. If one doesn’t have good control, the sourcePatientInfo element is only going to add to the confusion.
 5.	As diagrammed here there is no formal Document Repository, although the functionality is provided virtually. That is that a Document Source can choose to not include the document as a Binary resource, but rather include a URL to a repository that is recognized as part of the trust domain. This distinction is available in MHD today, although it is not pointed out as such and thus not well known.  The only value to creating a Document Repository is to define input transaction as different from output transaction. Specifically by defining a Document Repository we enable third-party Repository systems. A Document Repository could be supported as is today, but is not defined by IHE MHDS profile. 
+6.	The Figure X.1-1 is a high-level picture of the overall solution. It is not typical picture for an IHE profile. This high-level picture is used in the appendix in more detail. Is there comments or recommendations on how to improve this diagram?
