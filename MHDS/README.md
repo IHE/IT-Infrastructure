@@ -1,4 +1,4 @@
-This profile only Volume 1, as it orchestrates other profiles into an HIE infrastructure.   This cloud of HIE infrastructure will be made up of many existing actors and one new actor(s) that have some business functionality discussed below. 
+This profile only a Volume 1, as it orchestrates other profiles into an HIE infrastructure.   This cloud of HIE infrastructure is be made up of many existing actors and one new actor(s) that have some business functionality discussed below. 
 
 # Central HIE Infrastructure 
 The central HIE infrastructure might be a virtual cloud of the existing profile specific actors to enable modularity. Modularity where each function could be provided by different vendors, possibly different vendors providing different instances of the same actor. Trying to leverage as much as possible on reference implementations of FHIR Server, and also leverage as much as possible of modularity enabled by defined interoperability interfaces (IHE Profiles). Possibly for those that desire it, ONE common-use FHIR server (e.g. HAPI server, FIRELY server, etc) could serve as the whole central HIE Infrastructure. 
@@ -6,9 +6,8 @@ The central HIE infrastructure might be a virtual cloud of the existing profile 
 MHDS does include mXDE informatively as it is a bridge that is compatible with MHDS, but there is no specific requirements.
 
 # Plan
-* January 7, 2020, 10 am Central -- Decision t-con to approve draft for first public comment -- APPROVED
-* February 17-21, 2020, face-to-face -- resolve public comment, and approve for second public comment
-* May 4-8, 2020, face-to-face -- resolve public comment, and approve for trial implementations
+May 2020 virtual face-to-face to resolve public comment and release for Trial Implementation.
+* March 2020 [Public Comment resolution spreadsheet](https://docs.google.com/spreadsheets/d/11zMY4NQYO5QdtKRs8Whv1lAmeoZRRIwpta05KiO0Rus/edit?usp=sharing)
 
 # Open Issues
 
