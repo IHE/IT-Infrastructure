@@ -1435,13 +1435,13 @@ Table 50.5.3.2‑: Sample Access Control Policies
 
 | Confidentiality vs Role             | U | L | M | N | R | V |
 | ----------------------------------- | - | - | - | - | - | - |
-| Administrative Staff                |   | P | P |   |   |   |
-| Dietary Staff                       |   |   | P |   |   |   |
-| General Care Provider               |   |   | P | P |   |   |
-| Direct Care Provider                |   |   | P | P | P | P |
-| Emergency Care Provider (e.g., EMT) |   |   |   | P |   |   |
-| Researcher                          | P |   |   |   |   |   |
-| Patient or Legal Representative     |   | P | P | P | P |   |
+| Administrative Staff                |   | X | X |   |   |   |
+| Dietary Staff                       |   |   | X |   |   |   |
+| General Care Provider               |   |   | X | X |   |   |
+| Direct Care Provider                |   |   | X | X | X | X |
+| Emergency Care Provider (e.g., EMT) |   |   |   | X |   |   |
+| Researcher                          | X |   |   |   |   |   |
+| Patient or Legal Representative     |   | X | X | X | X |   |
 
 Then documents can be labeled with one or more of the codes on the
 columns, and results in the specified Functional Roles to be given
@@ -1572,103 +1572,16 @@ found in the profile text or through other webinars.
 
 Table 50.5.4-1: Profiles relationship to Controls
 
-<table>
-<thead>
-<tr class="header">
-<th><p> Security &amp; Privacy Controls</p>
-<p>IHE Profile</p></th>
-<th>Audit Log</th>
-<th>Identification and Authentication</th>
-<th>Data Access Control (Authorization)</th>
-<th>Secrecy</th>
-<th>Data Integrity</th>
-<th>Non-Repudiation</th>
-<th>Patient Privacy</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Audit Trails and Node Authentication</td>
-<td>√</td>
-<td>√</td>
-<td>√</td>
-<td>√</td>
-<td>√</td>
-<td>√</td>
-<td>√</td>
-</tr>
-<tr class="even">
-<td>Consistent Time</td>
-<td>√</td>
-<td>∙</td>
-<td></td>
-<td></td>
-<td></td>
-<td>√</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Internet User Authorization</td>
-<td></td>
-<td>√</td>
-<td>√</td>
-<td></td>
-<td></td>
-<td>∙</td>
-<td>∙</td>
-</tr>
-<tr class="even">
-<td>Cross-Enterprise User Assertion</td>
-<td></td>
-<td>√</td>
-<td>∙</td>
-<td></td>
-<td></td>
-<td>∙</td>
-<td>∙</td>
-</tr>
-<tr class="odd">
-<td>Basic Patient Privacy Consents</td>
-<td></td>
-<td></td>
-<td>∙</td>
-<td></td>
-<td></td>
-<td></td>
-<td>√</td>
-</tr>
-<tr class="even">
-<td>Mobile Care Services Discovery</td>
-<td></td>
-<td>√</td>
-<td>∙</td>
-<td></td>
-<td></td>
-<td>∙</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Document Digital Signature</td>
-<td></td>
-<td>√</td>
-<td></td>
-<td></td>
-<td>√</td>
-<td>√</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Document Encryption</td>
-<td></td>
-<td></td>
-<td>√</td>
-<td>√</td>
-<td>∙</td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Function vs Profile                  | Audit Log | Identification and Authentication | Data Access Control (Authorization) | Secrecy | Data Integrity | Non-Repudiation | Patient Privacy |
+| ------------------------------------ | --------- | --------------------------------- | ----------------------------------- | ------- | -------------- | --------------- | --------------- |
+| Audit Trails and Node Authentication | √         | √                                 | √                                   | √       | √              | √               | √               |
+| Consistent Time                      | √         | ∙                                 |                                     |         |                | √               |                 |
+| Internet User Authorization          |           | √                                 | √                                   |         |                | ∙               | ∙               |
+| Cross-Enterprise User Assertion      |           | √                                 | ∙                                   |         |                | ∙               | ∙               |
+| Basic Patient Privacy Consents       |           |                                   | ∙                                   |         |                |                 | √               |
+| Mobile Care Services Discovery       |           | √                                 | ∙                                   |         |                | ∙               |                 |
+| Document Digital Signature           |           | √                                 |                                     |         | √              | √               |                 |
+| Document Encryption                  |           |                                   | √                                   | √       | ∙              |                 |                 |
 
 ## 50.6 MHDS Cross Profile Considerations
 
