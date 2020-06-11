@@ -481,6 +481,14 @@ Closed Issues {#closed-issues .ListParagraph}
 |                                   | -   SAML Token, using the XUA     |
 |                                   |     extensions                    |
 +-----------------------------------+-----------------------------------+
+| 11                                |                                   |
++-----------------------------------+-----------------------------------+
+|                                   |                                   |
++-----------------------------------+-----------------------------------+
+|                                   |                                   |
++-----------------------------------+-----------------------------------+
+|                                   |                                   |
++-----------------------------------+-----------------------------------+
 
 General Introduction {#general-introduction .ListParagraph}
 ====================
@@ -641,14 +649,21 @@ make additional Access Control Decisions.
 
 Table 34.2-1: IUA - Actors and Options
 
-  ---------------------- -------------------- -----------
-  IUA Actor              Option Name          Reference
-  Authorization Server   SAML Token           34.2.1
-                         OAuth Bearer Token   34.2.2
-  Resource Server        OAuth Bearer Token   34.2.1
-  Authorization Client   SAML Token           34.2.1
-                         OAuth Bearer Token   34.2.2
-  ---------------------- -------------------- -----------
++----------------------+--------------------+-----------+
+| IUA Actor            | Option Name        | Reference |
++----------------------+--------------------+-----------+
+| Authorization Server | SAML Token         | 34.2.1    |
++----------------------+--------------------+-----------+
+|                      | OAuth Bearer Token | 34.2.2    |
++----------------------+--------------------+-----------+
+| Resource Server      | OAuth Bearer Token | 34.2.1    |
+|                      |                    |           |
+|                      | SAML Token         |           |
++----------------------+--------------------+-----------+
+| Authorization Client | SAML Token         | 34.2.1    |
++----------------------+--------------------+-----------+
+|                      | OAuth Bearer Token | 34.2.2    |
++----------------------+--------------------+-----------+
 
 ### 34.2.1 SAML Token Option {#saml-token-option .ListParagraph}
 
@@ -751,14 +766,14 @@ coordinate different authorization mechanisms with each of these dozens
 of providers.
 
 This pattern is a common Internet usage and there are already vendors of
-authorization services that are being used to solve this problem. These
-include Facebook, Google, and a variety of other service providers in
-different commercial and governmental sectors. Some countries may use
-their citizen identity card to access their governmental services. These
-overlap with providers of authentication services. These services allow
-a patient to establish an authentication and authorization relationship
-with minimal provisioning by the healthcare provider. The user can
-specify "use vendor X" to their healthcare provider.
+bs that are being used to solve this problem. These include Facebook,
+Google, and a variety of other service providers in different commercial
+and governmental sectors. Some countries may use their citizen identity
+card to access their governmental services. These overlap with providers
+of authentication services. These services allow a patient to establish
+an authentication and authorization relationship with minimal
+provisioning by the healthcare provider. The user can specify "use
+vendor X" to their healthcare provider.
 
 The pre-requisites for this use case are:
 
@@ -1083,26 +1098,41 @@ Table 3.71.4.1.2.1-1: JWT Token requirements
   jti         R     JWT ID                          RFC 7519 Section 4
 
 The Authorized Client, Authorization Server, and Resource Server shall
-support the following extensions to the JWT parameters. All of these
-parameters are optional in the JWT token. The parameter content shall be
-the same as the content defined in ITI-40. The definition is summarized
-in this table for convenience.
+support the following extensions to the JWT claims. All of these claims
+are optional in the JWT token. However, if present, the claims shall be
+wrapped in an "extensions" claim object that consists of the key
+'ihe\_iua' and a value of a JSON object containing the claims, as such
 
-Table 3.71.4.1.2.1-2: Extensions to JWT Parameters
+\"extensions\" : {
 
-  XUA Attribute                XUA Definition                                                                                JWT Parameter
-  ---------------------------- --------------------------------------------------------------------------------------------- -------------------------------------------------
-  SubjectID                    Plain text user's name                                                                        name
-  SubjectOrganization          Plain text description of the Organization                                                    urn:ihe:iti:iua:2019:SubjectOrganization
-  SubjectOrganizationID                                                                                                      urn:ihe:iti:iua:2019:SubjectOrganizationID
-  HomeCommunityID              Home Community ID where request originated                                                    urn:ihe:iti:iua:2019:HomeCommunityID
-  NationalProviderIdentifier                                                                                                 urn:ihe:iti:iua:2019:NationalProviderIdentifier
-  Subject:Role                                                                                                               urn:ihe:iti:iua:2019:SubjectRole
-  docid                        Patient Privacy Policy Acknowledgement Document ID                                            urn:ihe:iti:iua:2019:docid
-  acp                          Patient Privacy Policy Identifier                                                             urn:ihe:iti:iua:2019:acp
-  PurposeOfUse                 Purpose of Use for the request                                                                urn:ihe:iti:iua:2019:PurposeOfUse
-  Resource-ID                  Patient ID related to the Patient Privacy Policy Identifier                                   urn:ihe:iti:iua:2019:resourceID
-                               Patient ID, Citizen ID, or other similar public ID used for health identification purposes.   urn:ihe:iti:iua:2019:personID
+\"ihe\_iua\" : {
+
+\"subject\_id\":\"John Iyouay\",
+
+\...
+
+}
+
+}
+
+The claim content shall be the same as the content defined in ITI-40.
+The definition is summarized in this table for convenience.
+
+Table 3.71.4.1.2.1-2: Extensions to JWT Claims
+
+  XUA Attribute                XUA Definition                                                                                JWT Claim
+  ---------------------------- --------------------------------------------------------------------------------------------- --------------------------------
+  SubjectID                    Plain text user's name                                                                        subject\_id
+  SubjectOrganization          Plain text description of the Organization                                                    subject\_organization
+  SubjectOrganizationID                                                                                                      subject\_organization\_id
+  HomeCommunityID              Home Community ID where request originated                                                    home\_community\_id
+  NationalProviderIdentifier                                                                                                 national\_provider\_identifier
+  Subject:Role                                                                                                               subject\_role
+  docid                        Patient Privacy Policy Acknowledgement Document ID                                            doc\_id
+  acp                          Patient Privacy Policy Identifier                                                             acp
+  PurposeOfUse                 Purpose of Use for the request                                                                purpose\_of\_use
+  Resource-ID                  Patient ID related to the Patient Privacy Policy Identifier                                   patient\_id
+                               Patient ID, Citizen ID, or other similar public ID used for health identification purposes.   person\_id
 
 ###### 3.71.4.1.2.2 SAML Token Option {#saml-token-option-1 .ListParagraph}
 
