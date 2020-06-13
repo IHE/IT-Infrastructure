@@ -1,7 +1,6 @@
 **Integrating the Healthcare Enterprise**
 
-![IHE\_LOGO\_for\_tf-docs](./media/image1.jpeg){width="1.7916666666666667in"
-height="0.9166666666666666in"}
+![IHE\_LOGO\_for\_tf-docs](media/IHE-logo.jpeg)
 
 **IHE ITI**
 
@@ -16,7 +15,7 @@ Date: September 21, 2019
 
 Author: ITI Technical Committee
 
-Email: iti\@ihe.net
+Email: iti@ihe.net
 
 **Please verify you have the most recent version of this document.** See
 [here](http://ihe.net/Technical_Frameworks/) for Trial Implementation
@@ -68,132 +67,123 @@ The current version of the IHE Technical Framework can be found at:
 
 **CONTENTS**
 
-[Introduction to this Supplement 5](#introduction-to-this-supplement)
+[Introduction to this Supplement](#introduction-to-this-supplement)
 
-[**Problem Statement** 5](#problem-statement)
+[**Problem Statement**](#problem-statement)
 
-[**Background on the problem environment**
-6](#background-on-the-problem-environment)
+[**Background on the problem environment**](#background-on-the-problem-environment)
 
-[Open Issues and Question 7](#open-issues-and-question)
+[Open Issues and Question](#open-issues-and-question)
 
-[Closed Issues 8](#closed-issues)
+[Closed Issues](#closed-issues)
 
-[General Introduction 9](#general-introduction)
+[General Introduction](#general-introduction)
 
-[Appendix A - Actor Summary Definitions 9](#_Toc428776515)
+[Appendix A - Actor Summary Definitions](#_Toc428776515)
 
-[Appendix B - Transaction Summary Definitions 9](#_Toc428776516)
+[Appendix B - Transaction Summary Definitions](#_Toc428776516)
 
-[**Volume 1 -- Profiles 10**](#_Toc428776517)
+[**Volume 1 -- Profiles**](#_Toc428776517)
 
 [34 IUA Profile 10](#_Toc428776518)
 
-[34.1 IUA Actors, Transactions, and Content Modules
-10](#iua-actors-transactions-and-content-modules)
+[34.1 IUA Actors, Transactions, and Content Modules](#iua-actors-transactions-and-content-modules)
 
-[**34.1.1 Actor Descriptions and Actor Profile Requirements**
-11](#actor-descriptions-and-actor-profile-requirements)
+[34.1.1 Actor Descriptions and Actor Profile Requirements](#actor-descriptions-and-actor-profile-requirements)
 
-[34.1.1.1 Authorization Client 11](#authorization-client)
+[34.1.1.1 Authorization Client](#authorization-client)
 
-[34.1.1.2 Authorization Server 11](#authorization-server)
+[34.1.1.2 Authorization Server](#authorization-server)
 
-[34.1.1.3 Resource Server 12](#resource-server)
+[34.1.1.3 Resource Server](#resource-server)
 
-[34.2 IUA Actor Options 12](#iua-actor-options)
+[34.2 IUA Actor Options](#iua-actor-options)
 
-[34.2.1 SAML Token Option 13](#saml-token-option)
+[34.2.1 SAML Token Option](#saml-token-option)
 
-[34.2.2 OAuth Bearer Token Option 13](#oauth-bearer-token-option)
+[34.2.2 OAuth Bearer Token Option](#oauth-bearer-token-option)
 
-[34.3 IUA Required Actor Groupings 13](#iua-required-actor-groupings)
+[34.3 IUA Required Actor Groupings](#iua-required-actor-groupings)
 
-[34.4 IUA Overview 13](#iua-overview)
+[34.4 IUA Overview](#iua-overview)
 
-[**34.4.1 Concepts** 13](#concepts)
+[34.4.1 Concepts](#concepts)
 
-[34.4.2 Use Cases 14](#use-cases)
+[34.4.2 Use Cases](#use-cases)
 
-[34.4.2.1 Simple Authorization 15](#simple-authorization)
+[34.4.2.1 Simple Authorization](#simple-authorization)
 
-[34.4.2.2 Delegation 15](#delegation)
+[34.4.2.2 Delegation](#delegation)
 
-[34.4.2.2.1 Obtaining a token 16](#obtaining-a-token)
+[34.4.2.2.1 Obtaining a token](#obtaining-a-token)
 
-[34.5 IUA Security Considerations 16](#iua-security-considerations)
+[34.5 IUA Security Considerations](#iua-security-considerations)
 
-[34.6 IUA Cross Profile Considerations
-17](#iua-cross-profile-considerations)
+[34.6 IUA Cross Profile Considerations](#iua-cross-profile-considerations)
 
-[**Volume 2 -- Transactions 18**](#_Toc336000611)
+[Volume 2 -- Transactions 18](#_Toc336000611)
 
-[3.71 Get Authorization Token 18](#get-authorization-token)
+[3.71 Get Authorization Token](#get-authorization-token)
 
-[3.71.1 Scope 18](#scope)
+[3.71.1 Scope](#scope)
 
-[3.71.2 Actor Roles 18](#actor-roles)
+[3.71.2 Actor Roles](#actor-roles)
 
-193.71.3 Referenced Standards
+[3.71.3 Referenced Standards](#referenced-standards)
 
-[3.71.4 Interaction Diagram 19](#interaction-diagram)
+[3.71.4 Interaction Diagram](#interaction-diagram)
 
-[3.71.4.1 Authorization Request 20](#authorization-request)
+[3.71.4.1 Authorization Request](#authorization-request)
 
-[3.71.4.1.1 Trigger Events 20](#trigger-events)
+[3.71.4.1.1 Trigger Events](#trigger-events)
 
-[3.71.4.1.2 Message Semantics 20](#message-semantics)
+[3.71.4.1.2 Message Semantics](#message-semantics)
 
-21[3.71.4.1.2.1 JSON Web Token (JWT)](\l)
+[3.71.4.1.2.1 JSON Web Token (JWT)](\l)
 
-22[3.71.4.1.2.2 SAML Token Option](\l)
+[3.71.4.1.2.2 SAML Token Option](\l)
 
-[3.71.4.1.2.3 OAuth Bearer Token Option
-22](#oauth-bearer-token-option-1)
+[3.71.4.1.2.3 OAuth Bearer Token Option](#oauth-bearer-token-option-1)
 
 [3.71.4.1.3 Expected Actions 22](#expected-actions)
 
 [3.71.5 Security Considerations 22](#security-considerations)
 
-23[3.71.5.1 Security Audit Considerations](\l)
+[3.71.5.1 Security Audit Considerations](\l)
 
-23[3.71.5.1.1 Authorization Server Specific Security Considerations](\l)
+[3.71.5.1.1 Authorization Server Specific Security Considerations](\l)
 
-23[3.71.5.1.2 Client Authorization Agent Specific Security
-Considerations](\l)
+[3.71.5.1.2 Client Authorization Agent Specific Security Considerations](\l)
 
-[3.72 Incorporate Authorization Token
-24](#incorporate-authorization-token)
+[3.72 Incorporate Authorization Token](#incorporate-authorization-token)
 
-[3.72.1 Scope 24](#scope-1)
+[3.72.1 Scope](#scope-1)
 
-[3.72.2 Actor Roles 24](#actor-roles-1)
+[3.72.2 Actor Roles](#actor-roles-1)
 
-25[3.72.3 Referenced Standards](\l)
+[3.72.3 Referenced Standards](\l)
 
-[3.72.3.1 Related IHE Profiles 25](#related-ihe-profiles)
+[3.72.3.1 Related IHE Profiles](#related-ihe-profiles)
 
-[3.72.4 Interaction Diagram 25](#interaction-diagram-1)
+[3.72.4 Interaction Diagram](#interaction-diagram-1)
 
-[3.72.4.1 Authorization Request message
-26](#authorization-request-message)
+[3.72.4.1 Authorization Request message](#authorization-request-message)
 
-[3.72.4.1.1 Trigger Events 26](#trigger-events-1)
+[3.72.4.1.1 Trigger Events](#trigger-events-1)
 
-[3.72.4.1.2 Message Semantics 26](#message-semantics-1)
+[3.72.4.1.2 Message Semantics](#message-semantics-1)
 
-27[3.72.4.1.2.1 SAML Token Option](\l)
+[3.72.4.1.2.1 SAML Token Option](\l)
 
-[3.72.4.1.2.2 OAuth Bearer Token Option
-27](#oauth-bearer-token-option-2)
+[3.72.4.1.2.2 OAuth Bearer Token Option](#oauth-bearer-token-option-2)
 
-[3.72.4.1.3 Expected Actions 27](#expected-actions-1)
+[3.72.4.1.3 Expected Actions](#expected-actions-1)
 
-28[3.72.5 Security Considerations](\l)
+[3.72.5 Security Considerations](\l)
 
-28[3.72.5.1 Security Audit Considerations](\l)
+[3.72.5.1 Security Audit Considerations](\l)
 
-28[3.72.5.1.1 Resource Server Specific Security Considerations](\l)
+[3.72.5.1.1 Resource Server Specific Security Considerations](\l)
 
  Introduction to this Supplement {#introduction-to-this-supplement .ListParagraph}
 ===============================
@@ -300,8 +290,6 @@ Similar issues arise with:
 -   In house application distribution that needs to authorization for
     devices used within the facility.
 
-<!-- -->
-
 -   The in house IT staff wants a common method to authorize use of in
     house web applications and access to in house resources.
 
@@ -317,12 +305,8 @@ Similar issues arise with:
 -   Efficient user workflow requires minimizing the number of times a
     person is challenged for authentication by interactive applications.
 
-<!-- -->
-
 -   Providers and Specialists have authorization needs for dealing with
     other organizations.
-
-<!-- -->
 
 -   Providers and specialists need to deal with hundreds of resource
     services. A provider panel of 10,000 patients will need hundreds of
@@ -337,8 +321,6 @@ Similar issues arise with:
 
 -   Efficient user workflow requires minimizing the number of times a
     person is challenged for credentials for interactive applications.
-
-<!-- -->
 
 -   Granting subset access to specialized provider. E.g., read access to
     cardiac info to physical therapy organization, forbidding access to
@@ -541,6 +523,8 @@ RESTful request is authorized. It blocks unauthorized uses. For
 authorized uses, it provides the information from the authorization
 token to the other server actor(s) for use as part of access control
 decisions.
+
+![IUA Actor Diagram](media/1_IUA-actor-diagram.png)
 
 Figure 34.1-1: IUA Actor Diagram
 
@@ -962,6 +946,8 @@ RESTful Resource request.
 
 ### 3.71.2 Actor Roles {#actor-roles .ListParagraph}
 
+![ITI-71 Use Case Diagram](media/2_IUA-use-case-diagram-ITI-71.png)
+
 Figure 3.71.2-1: Use Case Diagram
 
 Table 3.71.2-1: Actor Roles
@@ -976,7 +962,7 @@ Table 3.71.2-1: Actor Roles
 
 -   RFC 6749 OAuth 2.0 Authorization Framework
 
--   -   RFC 7519 JSON Web Token (JWT)
+-   RFC 7519 JSON Web Token (JWT)
 
 -   RFC 7523 JSON Web Token (JWT) Profile for OAuth 2.0 Client
     Authentication and Authorization Grants
@@ -986,8 +972,7 @@ Table 3.71.2-1: Actor Roles
 
 ### 3.71.4 Interaction Diagram {#interaction-diagram .ListParagraph}
 
-![simple-iauth](./media/image2.png){width="6.041666666666667in"
-height="2.875in"}
+![ITI-71 Flow Diagram](media/3_IUA-basic-flow-diagram-ITI-71.png)
 
 Figure 3.71.4-1: Basic Process Flow for Obtain HTTP RESTful
 Authorization and Incorporate Authorization Token Transaction
@@ -1020,10 +1005,7 @@ Main Flow:
 
 1.  The user provides user authentication and the intended resource
     request information to the authorization server.
-
-<!-- -->
-
-1.  The authorization server generates an authorization token that
+2.  The authorization server generates an authorization token that
     indicates that this user is authorized to have access to this
     resource.
 
@@ -1103,17 +1085,12 @@ are optional in the JWT token. However, if present, the claims shall be
 wrapped in an "extensions" claim object that consists of the key
 'ihe\_iua' and a value of a JSON object containing the claims, as such
 
-\"extensions\" : {
-
-\"ihe\_iua\" : {
-
-\"subject\_id\":\"John Iyouay\",
-
-\...
-
-}
-
-}
+\"extensions\" : {  
+\"ihe\_iua\" : {  
+\"subject\_id\":\"John Iyouay\",  
+\...  
+}  
+}  
 
 The claim content shall be the same as the content defined in ITI-40.
 The definition is summarized in this table for convenience.
@@ -1326,6 +1303,7 @@ specification.
 
 ### 3.72.2 Actor Roles {#actor-roles-1 .ListParagraph}
 
+![ITI-72 Use Case Diagram](media/4_IUA-use-case-diagram-ITI-72.png)
 Figure 3.72.2-1: Use Case Diagram
 
 Table 3.72.2-1: Actor Roles
@@ -1360,29 +1338,20 @@ XUA Cross-Enterprise User Assertion -- Attribute Extension
 ![simple-iauth](./media/image2.png){width="6.041666666666667in"
 height="2.875in"}
 
+![simple-iauth](./media/5_IUA-basic-flow-diagram-ITI-72.png)
+
 Figure 3.72.4-1: Process flow for Incorporate Authorization Token
 Transaction
 
-\@startuml
-
-group Get Authorization Token \[ITI-71\]
-
-AuthorizationClient -\> AuthorizationServer : Authorization Request
-
-AuthorizationClient \<- AuthorizationServer : Authorization Response +
-Authorization Token
-
-end
-
-group Incorporate Authorization Token \[ITI-72\]
-
-AuthorizationClient -\> ResourceServer : Resource Request +
-Authorization Token
-
-AuthorizationClient \<- ResourceServer : Resource Response
-
-end
-
+\@startuml  
+group Get Authorization Token \[ITI-71\]   
+AuthorizationClient -\> AuthorizationServer : Authorization Request  
+AuthorizationClient \<- AuthorizationServer : Authorization Response \+ Authorization Token  
+end  
+group Incorporate Authorization Token \[ITI-72\]  
+AuthorizationClient -\> ResourceServer : Resource Request + Authorization Token  
+AuthorizationClient \<- ResourceServer : Resource Response  
+end  
 \@enduml
 
 Main Flow:
@@ -1392,9 +1361,6 @@ Main Flow:
     token, a JWT Bearer token, or another access token type that is
     mutually agreed between Client, Resource Service and the token
     source.
-
-<!-- -->
-
 2.  The resource service provider makes an access control decision based
     upon the user identity, authorization token, and resource requested.
     It may provide the resource, a subset of the resource, or reject the
@@ -1423,24 +1389,17 @@ The Authorization Client should:
 
 1.  Confirm that the access token is still valid. Attempts to
     communicate using an expired token will result in an error.
-
-<!-- -->
-
 3.  Include an Authorization: header in the HTTP transaction that has
     the access token value. See RFC 6750 Section 2.1. Further fields in
     the Authorization: header depend upon the token option chosen. The
     access token may be:
-
 -   A JWT token, encoded as defined in *RFC 7519*, *RFC 7523,* and ITI
     TF-2b: 3.71.4.1.2.1 JSON Web Token.
-
 -   A SAML token encoded defined in *RFC 7522* and ITI TF-2b: 3.40.4.1.2
     Message Semantics.
-
 -   A token of another type.
 
 > GET /example/url/to/resource/location HTTP/1.1
->
 > Authorization: Bearer fFBGasru1FQd\[...omitted for
 > brevity...\]44sdfAfgTa3Zg Host: examplehost.com
 
@@ -1462,10 +1421,8 @@ OAuth 2.0 Client Authentication and Authorization Grants (RFC-
 headers as an Authorization of type IHE-SAML.
 
 > GET /example/url/to/resource/location HTTP/1.1
->
 > Authorization: IHE-SAML fFBGRNJru1FQd\[...omitted for
 > brevity...\]44AzqT3Zg
->
 > Host: examplehost.com
 
 Notes: 1. WS-Trust defines methods for converting between SAML and JWT
@@ -1512,11 +1469,8 @@ using the following encoding:
 **alias\"\<\"user\"@\"issuer\"\>\"**
 
 where:
-
 -   **alias** is the JWT token's "aud" parameter
-
 -   **user** is the required content of the JWT token's "sub" parameter
-
 -   **issuer** is the JWT token's "iss" parameter
 
 When an ATNA Audit message needs to be generated by the Resource Server
@@ -1527,12 +1481,9 @@ using the following encoding:
 **alias\"\<\"user\"@\"issuer\"\>\"**
 
 where:
-
 -   **alias** is the optional string within the SAML Assertion\'s
     Subject element SPProvidedID attribute
-
 -   **user** is the required content of the SAML Assertion\'s Subject
     element
-
 -   **issuer** is the X-Assertion Provider entity ID contained with the
     content of SAML Assertion\'s Issuer element
