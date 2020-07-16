@@ -512,20 +512,19 @@ profiles and transactions that need authorization.
 34.1 IUA Actors, Transactions, and Content Modules {#iua-actors-transactions-and-content-modules .ListParagraph}
 --------------------------------------------------
 
-The actors in the IUA Profile manage the tokens used for authorization of access to HTTP RESTful services. The Authorization Client provides the authorization token that is incorporated into HTTP RESTful transactions to indicate that this transaction is authorized. The Authorization Client can also manage the interactions with an
-Authorization Server to obtain the authorization token.
+The actors in the IUA Profile manage the tokens used for authorization of access to HTTP RESTful services. The Authorization Client provides the authorization token that is incorporated into HTTP RESTful transactions to indicate that this transaction is authorized. The Authorization Client can also manage the interactions with an Authorization Server to obtain the authorization token.
 
-The Oauth 2.0 Authorization Framework requires client identification, which may be based on a *client_id* parameter [RFC 6749, Section 3.2.1]. Depending on the OAuth 2.0 grant type, the use of the *client_id* MAY be required. For example the *Authorization Code* grant type requires the use of the *client_id* for client identification [RFC 6749, Section 4.1.3], while the *Client Credential* grant type does not [RFC 6749, Section 4.4.2].
+The OAuth 2.0 Authorization Framework requires client identification, which may be based on a *client_id* parameter [RFC 6749, Section 3.2.1]. Depending on the OAuth 2.0 grant type, the use of the *client_id* MAY be required. For example the *Authorization Code* grant type requires the use of the *client_id* for client identification [RFC 6749, Section 4.1.3], while the *Client Credential* grant type does not [RFC 6749, Section 4.4.2].
 
-The OAuth 2.0 Authorization Framework also requires client authentication for confidential clients [RFC 6749, Section 2.3], where any suitable HTTP based authentication scheme matching the security policy of the Autorization Server [RFC 6749, Section 2.3.2] may be used.
+The OAuth 2.0 Authorization Framework also requires client authentication for confidential clients [RFC 6749, Section 2.3], where any suitable HTTP based authentication scheme matching the security policy of the Authorization Server [RFC 6749, Section 2.3.2] may be used.
 
 This profile requires the use of a *client_id* for client identification and a *client_secret* for client authentication of confidential clients, if no other methods for identification and authentication are used.  
 
-Depending on the grant type, the OAuth 2.0 Framework also requires user (or resource owner) authentication. For example, the *Authorization Code* grant type covered by this profile requires user authentication [RFC 6749, Section 4.1], while the *Client Credentional* grant type does not [RFC 6749, Section 4.4]. The methods used by the authoriztaion server to authentcate the resource owner (e.g., username and password login, session cookies, delegation to Authentication Server) is not scoped in the OAuth 2.0 Authorization Framework [RFC 6749, 3.1].
+Depending on the grant type, the OAuth 2.0 Framework also requires user (or resource owner) authentication. For example, the *Authorization Code* grant type covered by this profile requires user authentication [RFC 6749, Section 4.1], while the *Client Credential* grant type does not [RFC 6749, Section 4.4]. The methods used by the authorization server to authenticate the resource owner (e.g., username and password login, session cookies, delegation to Authentication Server) is not scoped in the OAuth 2.0 Authorization Framework [RFC 6749, 3.1].
 
 Since user (resource owner) authentication methods chosen depend on the projects or national security policy, it is not scoped in this profile and SHALL be defined in the specific implementation projects or national extensions of this profile. If the user (resource owner) authentication is not implemented in the Authorization Server, the use of OpenID Connect with the Authorization Grant or Hybrid flow is recommended.
 
-Following the Auth 2.0 Authorization Framework, the Resource Server enforces the authorization policies based on the information provided in the access token. The Authorization Server may provide the information from the access token to actors it is grouped with, or by delegatin authoriztion decisions to other actors, e.g, by implementing the Authorization Decisons Verifier actor of the Secure Retrieve (SeR) supplement.   
+As defined in the Auth 2.0 Authorization Framework, the Resource Server enforces the authorization policies based on the information provided in the access token. The Ressource Server may provide the information from the access token to actors it is grouped with, or by delegating the authorization decisions to other actors, e.g, by implementing the Authorization Decisons Verifier actor of the Secure Retrieve (SeR) supplement.   
 
 ![IUA Actor Diagram](media/1.1_IUA-actor-diagram.png)
 
