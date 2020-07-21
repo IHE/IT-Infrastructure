@@ -1138,15 +1138,9 @@ Where:
 |                 | RoleIDCode      | M               | EV(110150, DCM, "Application")  |
 |                 | NetworkAccessPointTypeCode  | M               | "1" for machine (DNS) name, "2" for IP address
 |                 | NetworkAccessPointID  | M               | The machine name or IP address       |
-
-|                                   | Field Name              | Opt             | Value Constraints|
-|-----------------                  |-----------------        |-----------------|------------------|
 | **Audit Source** AuditMessage/ AuditSourceIdentification    | *AuditSourceID* | *U* | *not specialized* |
 |                                                             | *AuditEnterpriseSiteID* | *U* | *not specialized* |
 |                                                             | *AuditSourceTypeCode*   | *U* | *not specialized* |
-
-|                                   | Field Name              | Opt             | Value Constraints|
-|-----------------                  |-----------------        |-----------------|------------------|
 | **Token** (AuditMessage/ ParticipantObjectIdentification)  | ParticipantObjectTypeCode | M               | "2" (System)    |
 |                 | ParticipantObjectTypeCodeRole | M               | "13" (Security Resource) |
 |                 | *ParticipantObjectDataLifeCycle* | *U*         | *not specialized*            |
