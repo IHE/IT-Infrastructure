@@ -521,13 +521,13 @@ All actors are required to support at least the JSON Web Token format
 
 There are two token options:
 
-The SAML Token Option enables integration of environments that use both
+1. The **SAML Token Option** enables integration of environments that use both
 SAML identity federation and OAuth authorization infrastructure. This
 enables the end user to control authorization of applications through
 OAuth when the user identity authentication is already provided through
 SAML identity federation.
 
-The OAuth Bearer Token Option provides basic compatibility to minimal
+2. The **OAuth Bearer Token Option** provides basic compatibility to minimal
 OAuth implementations and does not carry the healthcare attribute
 extensions.
 
@@ -977,9 +977,7 @@ Table 3.71.4.1.2.1-1: JWT Token requirements
   |jti         |R     |JWT ID                          |RFC 7519 Section 4.1.7
 
 
-The Authorized Client, Authorization Server, and Resource Server SHALL support the optional extensions defined in table 3.71.4.1.2.1-1. However, if present, the claims shall be
-wrapped in an "extensions" claim object that consists of the key 'ihe\_iua' and a value
-of a JSON object containing the claims, as such
+The Authorization Client, Authorization Server, and Resource Server SHALL support the optional extensions defined in table 3.71.4.1.2.1-1. However, if present, the claims shall be wrapped in an "extensions" claim object that consists of the key 'ihe\_iua' and a value of a JSON object containing the claims, as such
 
 ```
 "extensions" : {  
@@ -1011,7 +1009,7 @@ Table 3.71.4.1.2.1-2: Extensions to JWT Claims
 
 The following is a non-normative example of JWT:
 
-JOSE Header:
+JWS Header:
 ```
 {
 "typ": "IUA-JWT",
@@ -1019,7 +1017,7 @@ JOSE Header:
 }
 ```
 
-JOSE Payload:
+JWS Payload:
 ```
 {
     "iss": "urn:tiani-spirit:sts",
