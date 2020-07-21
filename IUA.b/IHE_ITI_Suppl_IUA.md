@@ -522,7 +522,7 @@ This profile requires the use of a *client_id* for client identification and a *
 
 Depending on the grant type, the OAuth 2.0 Framework also requires user (or resource owner) authentication. For example, the *Authorization Code* grant type covered by this profile requires user authentication [RFC 6749, Section 4.1], while the *Client Credential* grant type does not [RFC 6749, Section 4.4]. The methods used by the authorization server to authenticate the resource owner (e.g., username and password login, session cookies, delegation to Authentication Server) is not scoped in the OAuth 2.0 Authorization Framework [RFC 6749, 3.1].
 
-Since user (resource owner) authentication methods chosen depend on the projects or national security policy, it is not scoped in this profile and SHALL be defined in the specific implementation projects or national extensions of this profile. If the user (resource owner) authentication is not implemented in the Authorization Server, the use of OpenID Connect with the Authorization Grant or Hybrid flow is recommended.
+Since user (resource owner) authentication methods chosen depend on the projects or national security policy, they are not scoped in this profile and SHALL be defined in the specific implementation projects or national extensions of this profile. If the user (resource owner) authentication is not implemented in the Authorization Server, the use of OpenID Connect with the Authorization Grant or Hybrid flow is recommended.
 
 As defined in the Auth 2.0 Authorization Framework, the Resource Server enforces the authorization policies based on the information provided in the access token. The Ressource Server may provide the information from the access token to actors it is grouped with, or by delegating the authorization decisions to other actors, e.g, by implementing the Authorization Decisons Verifier actor of the Secure Retrieve (SeR) supplement.   
 
@@ -1080,11 +1080,7 @@ Other algorithms such as:
 
 are RECOMMENDED. Other algorithms MAY be used except the "NONE" that MUST NOT be supported.
 
-TBD: a word on the optionality in RFC 7519.
-
-The JWT token attribute requirements are shown in Table-3.71.4.1.2.1.
-The required attributes are indicated by "R". Optional attributes are
-indicated by "O". If present, the optional attributes shall be used in
+The JWT token attribute requirements are shown in Table-3.71.4.1.2.1. The required attributes are indicated by "R". Optional attributes are indicated by "O". If present, the optional attributes shall be used in
 accordance with OAuth and JWT specifications.
 
 Table 3.71.4.1.2.1-1: JWT Token requirements
