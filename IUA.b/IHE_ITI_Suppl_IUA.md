@@ -185,10 +185,10 @@ The current version of the IHE Technical Framework can be found at:
 
 [3.72.5.1.1 Resource Server Specific Security Considerations](\l)
 
- Introduction to this Supplement {#introduction-to-this-supplement .ListParagraph}
+ Introduction to this Supplement
 ===============================
 
-**Problem Statement** {#problem-statement .ListParagraph}
+**Problem Statement**
 ---------------------
 
 This profile is motivated by customer requirements for authorizing
