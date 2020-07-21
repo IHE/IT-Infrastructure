@@ -69,9 +69,9 @@ The current version of the IHE Technical Framework can be found at:
 
 [Introduction to this Supplement](#introduction-to-this-supplement)
 
-[**Problem Statement**](#problem-statement)
+[Problem Statement](#problem-statement)
 
-[**Background on the problem environment**](#background-on-the-problem-environment)
+[Background on the problem environment](#background-on-the-problem-environment)
 
 [Open Issues and Question](#open-issues-and-question)
 
@@ -83,7 +83,7 @@ The current version of the IHE Technical Framework can be found at:
 
 [Appendix B - Transaction Summary Definitions](#_Toc428776516)
 
-[**Volume 1 -- Profiles**](#_Toc428776517)
+[Volume 1 -- Profiles](#_Toc428776517)
 
 [34 IUA Profile 10](#_Toc428776518)
 
@@ -185,11 +185,10 @@ The current version of the IHE Technical Framework can be found at:
 
 [3.72.5.1.1 Resource Server Specific Security Considerations](\l)
 
- Introduction to this Supplement
-===============================
 
-**Problem Statement**
----------------------
+# Introduction to this Supplement
+
+### Problem Statement
 
 This profile is motivated by customer requirements for authorizing
 network transactions, when using HTTP RESTful transports. IHE has
@@ -253,7 +252,7 @@ The IUA Profile does convey the identifiers and signatures needed to
 establish traceability between the Authorized HTTP RESTful transaction
 and the policies and consents behind that authorization.
 
-### **Background on the problem environment** {#background-on-the-problem-environment .ListParagraph}
+### Background on the problem environment
 
 One common pattern is to interact directly with the application to
 communicate with the authorization service. The application interacts
@@ -347,170 +346,74 @@ and a provider that the provider will provide medical records to a
 healthcare proxy that is identified and authorized by the patient. BPPC
 is one way to document that agreement.
 
-Open Issues and Question {#open-issues-and-question .ListParagraph}
-------------------------
+# Open Issues and Question
 
-+-----------------------------------+-----------------------------------+
+
 | Issue                             | Description                       |
-+===================================+===================================+
-| 1                                 | This profile does not specify the |
-|                                   | internal structure of             |
-|                                   | "client\_id". This is a major     |
-|                                   | concern for operations and        |
-|                                   | security management. But, OAuth   |
-|                                   | does not provide a full           |
-|                                   | specification for client\_id. It  |
-|                                   | just specifies its purpose.       |
-|                                   |                                   |
-|                                   | DICOM's equivalent information    |
-|                                   | attributes are: Manufacturer,     |
-|                                   | Model, Software Versions, and     |
-|                                   | Serial Number.                    |
-|                                   |                                   |
-|                                   | The OAuth client ID must identify |
-|                                   | the device, the application       |
-|                                   | (including any necessary version  |
-|                                   | information), the particular      |
-|                                   | instance, and any other           |
-|                                   | information needed to identify    |
-|                                   | the client application uniquely.  |
-|                                   |                                   |
-|                                   | Registration of clients is a      |
-|                                   | significant operational and       |
-|                                   | security problem that is being    |
-|                                   | postponed until there is more     |
-|                                   | experience with problems in the   |
-|                                   | field and reasonable solutions.   |
-|                                   | There is known danger from        |
-|                                   | spoofing of client\_id.           |
-|                                   |                                   |
-|                                   | At this time, the method for      |
-|                                   | assignment of client\_id is not   |
-|                                   | included in the profile. In the   |
-|                                   | field there are a variety of      |
-|                                   | methods being tried. Many depend  |
-|                                   | upon physical distribution        |
-|                                   | methods or out of band            |
-|                                   | communications to manage the      |
-|                                   | authentication problems.          |
-+-----------------------------------+-----------------------------------+
-| 2                                 | This profile mandates support for |
-|                                   | JWT token format. It has an XUA   |
-|                                   | SAML Option defined by IHE for    |
-|                                   | ease of integration with the IHE  |
-|                                   | WS-Security environment. You may  |
-|                                   | also use other token formats as   |
-|                                   | part of a deployment.             |
-+-----------------------------------+-----------------------------------+
-| 3                                 | Audit messages are only defined   |
-|                                   | for clients that are also Secure  |
-|                                   | Applications. There is no defined |
-|                                   | auditing for other clients.       |
-+-----------------------------------+-----------------------------------+
-| 4                                 | This profile does not require     |
-|                                   | client grouping with Secure Node  |
-|                                   | or Secure Application because it  |
-|                                   | is using the OAuth issuance rules |
-|                                   | for client\_id, see the security  |
-|                                   | consideration section. It assumes |
-|                                   | that the client\_id management    |
-|                                   | will deal with these security     |
-|                                   | considerations in a manner        |
-|                                   | similar to the certificate        |
-|                                   | management assumptions made for   |
-|                                   | TLS and other certificate users.  |
-+-----------------------------------+-----------------------------------+
+|-----------------------------------|-----------------------------------|
+| 1                                 | This profile does not specify the internal structure of "client\_id". This is a major concern for operations and security management. But, OAuth does not provide a full specification for client\_id. It just specifies its purpose.       |
+|                                   | DICOM's equivalent information attributes are: Manufacturer, Model, Software Versions, and  Serial Number. |
+|                                   | The OAuth client ID must identify the device, the application (including any necessary version  information), the particular instance, and any other  information needed to identify the client application uniquely.  |
+|                                   | Registration of clients is a significant operational and security problem that is being postponed until there is more experience with problems in the field and reasonable solutions. There is known danger from spoofing of client\_id. |
+|                                   | At this time, the method for  assignment of client\_id is not included in the profile. In the field there are a variety of methods being tried. Many depend upon physical distribution  methods or out of band communications to manage the authentication problems.          |
+| 2                                 | This profile mandates support for JWT token format. It has an XUA SAML Option defined by IHE for ease of integration with the IHE WS-Security environment. You may also use other token formats as part of a deployment.             |
+| 3                                 | Audit messages are only defined for clients that are also Secure Applications. There is no defined auditing for other clients.       |
+| 4                                 | This profile does not require client grouping with Secure Node or Secure Application because it is using the OAuth issuance rules for client\_id, see the security consideration section. It assumes that the client\_id management will deal with these security considerations in a manner similar to the certificate management assumptions made for TLS and other certificate users.  |
 
-Closed Issues {#closed-issues .ListParagraph}
--------------
+# Closed Issues
 
-+-----------------------------------+-----------------------------------+
-| Issue                             | Description                       |
-+===================================+===================================+
-| 8                                 | This profile uses only the        |
-|                                   | Authorization: header for         |
-|                                   | conveying the authorization       |
-|                                   | information. The parameter form   |
-|                                   | is not prohibited but is not      |
-|                                   | compliant with the profile.       |
-+-----------------------------------+-----------------------------------+
-| 9                                 | This profile does not explain the |
-|                                   | ways that some Resource Servers   |
-|                                   | utilize HTTP redirects to         |
-|                                   | automate some kinds of            |
-|                                   | authorization activities. The     |
-|                                   | actual HTTP transactions used for |
-|                                   | Obtain Authorization Token and    |
-|                                   | Authorized RESTful Transaction    |
-|                                   | are as defined within this        |
-|                                   | profile. The other transactions   |
-|                                   | are under the control of the      |
-|                                   | Resource Server and its design.   |
-|                                   |                                   |
-|                                   | Is an IHE explanation of how this |
-|                                   | works needed, or is the extensive |
-|                                   | industry documentation and        |
-|                                   | tutorials used in other fields    |
-|                                   | sufficient? No.                   |
-+-----------------------------------+-----------------------------------+
-| 10                                | The selected standards are        |
-|                                   |                                   |
-|                                   | -   The OAuth 2.0 Framework       |
-|                                   |                                   |
-|                                   | -   JWT Token, with defined       |
-|                                   |     extensions                    |
-|                                   |                                   |
-|                                   | -   SAML Token, using the XUA     |
-|                                   |     extensions                    |
-+-----------------------------------+-----------------------------------+
-| 11                                |                                   |
-+-----------------------------------+-----------------------------------+
-|                                   |                                   |
-+-----------------------------------+-----------------------------------+
-|                                   |                                   |
-+-----------------------------------+-----------------------------------+
-|                                   |                                   |
-+-----------------------------------+-----------------------------------+
 
-General Introduction {#general-introduction .ListParagraph}
-====================
+| Issue                             | Description                      
+|-----                              |-----
+| 8                                 | This profile uses the Authorization header only for conveying the authorization information. The parameter form is not prohibited but is not compliant with the profile.       |
+| 9                                 | This profile does not explain the ways that some Resource Servers utilize HTTP redirects to automate some kinds of  authorization activities. The actual HTTP transactions used for Obtain Authorization Token and Authorized RESTful Transaction are as defined within this profile. The other transactions  are under the control of the Resource Server and its design.   |
+|                                   |                                   |
+|                                   | Is an IHE explanation of how this works needed, or is the extensive industry documentation and tutorials used in other fields sufficient? No.        |
+| 10                                | The selected standards are: |
+|                                   | - The OAuth 2.0 Framework, |
+||-JWT Token, with defined extensions,
+||-SAML Token, using the XUA extensions                    |
+
+
+# General Introduction
 
 Update the following Appendices to the General Introduction as indicated
 below. Note that these are not appendices to Volume but rather to the
 General Introduction.
 
-[]{#_Toc428776515 .anchor}Appendix A - Actor Summary Definitions
+**Appendix A - Actor Summary Definitions**
 
 Add the following actors to the IHE Technical Frameworks General
 Introduction list of actors:
 
-  Actor                  Definition
-  ---------------------- ----------------------------------------------------------------------
-  Authorization Client   A client that presents authorization tokens as part of transactions.
-  Authorization Server   A server that provides authorization tokens to requesting clients
-  Resource Server        A server that provides services that need authorization
+|Actor                |Definition                                                         |
+|-----                |----------                                                         |
+|Authorization Client |A client that presents authorization tokens as part of transactions|
+|Authorization Server |A server that provides authorization tokens to requesting clients  |
+|Resource Server      |A server that provides services that need authorization            |
 
-[]{#_Toc428776516 .anchor}Appendix B - Transaction Summary Definitions
+
+**Appendix B - Transaction Summary Definitions**
 
 Add the following transactions to the IHE Technical Frameworks General
 Introduction list of Transactions:
 
-  Transaction                                  Definition
-  -------------------------------------------- -------------------------------------------------------------------------------------------------------------
-  Incorporate Authorization Token \[ITI-72\]   Add an authorization token to a transaction.
-  Get Authorization Token \[ITI-71\]           A transaction that is used to request and obtain an authorization token for use in Authorized transactions.
+|Transaction                                |Definition |
+|-----------                                |---------- |
+|Incorporate Authorization Token \[ITI-72\] |Add an authorization token to a transaction|
+|Get Authorization Token \[ITI-71\]         |A transaction that is used to request and obtain an authorization token for use in Authorized transactions.|
 
-[]{#_Toc428776517 .anchor}Volume 1 -- Profiles
 
-34 IUA Profile {#iua-profile .ListParagraph}
-==============
+# Volume 1 -- Profiles
+
+
+# 34 IUA Profile
 
 The IUA Profile adds authorization information to HTTP RESTful
 transactions. The IUA actors and behavior will be added to other
 profiles and transactions that need authorization.
 
-34.1 IUA Actors, Transactions, and Content Modules {#iua-actors-transactions-and-content-modules .ListParagraph}
---------------------------------------------------
+## 34.1 IUA Actors, Transactions, and Content Modules
 
 The actors in the IUA Profile manage the tokens used for authorization of access to HTTP RESTful services. The Authorization Client provides the authorization token that is incorporated into HTTP RESTful transactions to indicate that this transaction is authorized. The Authorization Client can also manage the interactions with an Authorization Server to obtain the authorization token.
 
@@ -537,15 +440,14 @@ optional transactions (labeled "O").
 
 Table 34.1-1: IUA Profile - Actors and Transactions
 
-  ---------------------- --------------------------------- ------------- -----------------
-  Actors                 Transactions                      Optionality   Reference
-  Authorization Client   Incorporate Authorization Token   R             ITI TF-2c: 3.72
-                         Get Authorization Token           O             ITI TF-2c: 3.71
-  Authorization Server   Get Authorization Token           R             ITI TF-2c: 3.71
-  Resource Server        Incorporate Authorization Token   R             ITI TF-2c: 3.72
-  ---------------------- --------------------------------- ------------- -----------------
+|Actors               |Transactions                     |Optionality|Reference      |
+|----                 |----                             |---        |-----          |
+|Authorization Client |Incorporate Authorization Token  |R          |ITI TF-2c: 3.72|
+|                     |Get Authorization Token          |O          |ITI TF-2c: 3.71|
+|Authorization Server |Get Authorization Token          |R          |ITI TF-2c: 3.71|
+|Resource Server      |Incorporate Authorization Token  |R          |ITI TF-2c: 3.72|
 
-### **34.1.1 Actor Descriptions and Actor Profile Requirements** {#actor-descriptions-and-actor-profile-requirements .ListParagraph}
+### 34.1.1 Actor Descriptions and Actor Profile Requirements
 
 The IUA actors are expected to be combined with other actors that
 perform HTTP RESTful transactions. Combining an Authorization Client
@@ -556,7 +458,7 @@ authorization token. The corresponding HTTP RESTful server should be
 combined with the Resource Service to indicate that the server can
 perform access control.
 
-#### 34.1.1.1 Authorization Client {#authorization-client .ListParagraph}
+#### 34.1.1.1 Authorization Client
 
 The Authorization Client performs the network transactions and user
 interactions needed to obtain an authorization token and to attach that
@@ -583,7 +485,7 @@ associated transactions:
     protected from copying or modification, so they must be protected by
     the Authorization Client and transactions.
 
-#### 34.1.1.2 Authorization Server {#authorization-server .ListParagraph}
+#### 34.1.1.2 Authorization Server
 
 The Authorization Server provides authorization tokens to requesting
 clients. In IUA, the Authorization Server uses an authenticated user
@@ -592,7 +494,7 @@ to determine whether HTTP RESTful transactions are allowed. If they are
 allowed, the Authorization Server provides a token indicating that HTTP
 RESTful service access is authorized.
 
-#### 34.1.1.3 Resource Server {#resource-server .ListParagraph}
+#### 34.1.1.3 Resource Server
 
 The Resource Server provides services that need authorization. In IUA
 the Resource Server accepts a HTTP RESTful transaction request with an
@@ -612,8 +514,7 @@ This does not change the actor requirements or transactions used.
 2\. Many Resource Servers will perform additional access control
 decisions and may restrict responses even for authorized transactions.
 
-34.2 IUA Actor Options {#iua-actor-options .ListParagraph}
-----------------------
+## 34.2 IUA Actor Options
 
 All actors are required to support at least the JSON Web Token format
 (JWT). They may support the SAML Token or OAuth Bearer Token options.
@@ -635,23 +536,16 @@ make additional Access Control Decisions.
 
 Table 34.2-1: IUA - Actors and Options
 
-+----------------------+--------------------+-----------+
 | IUA Actor            | Option Name        | Reference |
-+----------------------+--------------------+-----------+
+|----------------------|--------------------|-----------|
 | Authorization Server | SAML Token         | 34.2.1    |
-+----------------------+--------------------+-----------+
 |                      | OAuth Bearer Token | 34.2.2    |
-+----------------------+--------------------+-----------+
 | Resource Server      | OAuth Bearer Token | 34.2.1    |
-|                      |                    |           |
 |                      | SAML Token         |           |
-+----------------------+--------------------+-----------+
 | Authorization Client | SAML Token         | 34.2.1    |
-+----------------------+--------------------+-----------+
 |                      | OAuth Bearer Token | 34.2.2    |
-+----------------------+--------------------+-----------+
 
-### 34.2.1 SAML Token Option {#saml-token-option .ListParagraph}
+### 34.2.1 SAML Token Option
 
 An Authorization Client , Resource Server, or Authorization Server that
 claims the SAML Token Option shall be able to use or generate the SAML
@@ -662,37 +556,34 @@ This option allows deployments that are using the Web Services
 transactions and SAML Tokens to use the same SAML-based identity
 mechanisms for HTTP RESTful transactions.
 
-### 34.2.2 OAuth Bearer Token Option {#oauth-bearer-token-option .ListParagraph}
+### 34.2.2 OAuth Bearer Token Option
 
 An Authorization Client, Resource Server, or Authorization Server that
 claims the OAuth Bearer Token Option shall be able to use or generate
 the OAuth Bearer tokens defined in the OAuth 2.0 framework as the access
 token for IUA. See ITI TF-2c:3.71.4.1.2.3 and 3.72.4.1.2.2.
 
-34.3 IUA Required Actor Groupings  {#iua-required-actor-groupings .ListParagraph}
-----------------------------------
+## 34.3 IUA Required Actor Groupings
 
 An actor from this profile (Column 1) shall implement all of the
 required transactions and/or content modules in this profile ***in
 addition to*** all of the transactions required for the grouped actor
 (Column 2).
 
-  ---------------------- -------------------------- ---------------------------- ----------------------------
-  IUA Actor              Actor to be grouped with   Reference                    Content Bindings Reference
-  Authorization Server   Time Client                ITI TF-1:7 Consistent Time   
-  Resource Server        Time Client                ITI TF-1:7 Consistent Time   
-  Authorization Client   \--                        \--                          
-  ---------------------- -------------------------- ---------------------------- ----------------------------
+  |IUA Actor            |Actor to be grouped with   |Reference                    |Content Bindings Reference |
+  |----                 |-----                      |-----                        |-----                      |
+  |Authorization Server |Time Client                |ITI TF-1:7 Consistent Time   |                           |
+  |Resource Server      |Time Client                |ITI TF-1:7 Consistent Time   |                           |
+  |Authorization Client |                           |                             |                           |
 
 This profile does not require client grouping with and ATNA Secure Node
 or Secure Application. The security requirements for either of those
 actors may be excessive for some of the clients that will be using HTTP
 RESTful transactions.
 
-34.4 IUA Overview {#iua-overview .ListParagraph}
------------------
+## 34.4 IUA Overview
 
-### **34.4.1 Concepts** {#concepts .ListParagraph}
+### 34.4.1 Concepts
 
 The term "authorization" and "access control" are used colloquially for
 a variety of related activities. All of the concepts listed below are
@@ -731,7 +622,7 @@ activities. These are:
 Within this profile, authorization is limited to the definition of
 authorization above.
 
-### 34.4.2 Use Cases {#use-cases .ListParagraph}
+### 34.4.2 Use Cases
 
 The primary use cases are for obtaining authorization for access to a
 resource using HTTP RESTful HTTP transactions. There are other use cases
@@ -774,7 +665,7 @@ The pre-requisites for this use case are:
 -   The authentication and authorization services have agreed to be used
     by the User and resource service provider.
 
-#### 34.4.2.1 Simple Authorization {#simple-authorization .ListParagraph}
+#### 34.4.2.1 Simple Authorization
 
 A user with a mobile device wishes to retrieve a medical document to
 which they have authorized access.
@@ -788,7 +679,7 @@ The User could be any kind of participant, and the resource use could be
 retrieval, query, or storage of a resource by means of HTTP
 transactions.
 
-#### 34.4.2.2 Delegation  {#delegation .ListParagraph}
+#### 34.4.2.2 Delegation
 
 There are multiple reasons to perform delegations. These cases primarily
 involve patient delegation choices. Providers rarely have the authority
@@ -825,7 +716,7 @@ Expiration, re-authorization, etc. also need to be covered. Revocation
 is not just a response to breaches and failures. Revocation is a normal
 response to changes in people, equipment, and relationships.
 
-##### 34.4.2.2.1 Obtaining a token  {#obtaining-a-token .ListParagraph}
+##### 34.4.2.2.1 Obtaining a token
 
 The Incorporate Authorization Token transactions use an authorization
 token to indicate that this transaction is authorized. This token can be
@@ -849,8 +740,7 @@ In these cases, the authorization token implicitly identifies the device that is
 The use case section highlights three common deployment models: Applications running on a web application server, JavaScript applications running in a web browser and the usage of medical devices. For this deployment scenario, the Get Authorization Token [ITI-72] transaction mandates the usage of the Authorization Code Grant [RFC6749, Section 4.1], and the Client Credentials Grant [RFC6749, Section 4.4].
 
 
-34.5 IUA Security Considerations {#iua-security-considerations .ListParagraph}
---------------------------------
+# 34.5 IUA Security Considerations
 
 IUA uses OAuth and the OAuth RFC has references to some relevant
 security analyses. There are also a wide variety of analyses in the
@@ -893,8 +783,7 @@ precisely managed list of client\_id and resource content access
 requirements. This can deal with resources that have more specific
 client requirements than the general access authorization requirements.*
 
-34.6 IUA Cross Profile Considerations {#iua-cross-profile-considerations .ListParagraph}
--------------------------------------
+# 34.6 IUA Cross Profile Considerations
 
 The XUA profile provides equivalent functionality for SOAP based
 transactions. In addition, the SAML token option in IUA enables an
@@ -906,20 +795,16 @@ a JWT can take place without additional authorization, so it can be
 easily implemented by protocol translation gateways.
 
 FHIR-based services can declare support for IUA in their
-CapabilityStatement using the element
-**CapabilityStatement.rest.security.**
+CapabilityStatement using the element **CapabilityStatement.rest.security.**
 
-[]{#_Toc336000611 .anchor}Volume 2 -- Transactions
+# Volume 2 -- Transactions
 
 Add Section 3.71
 
-3.71 Get Authorization Token {#get-authorization-token .ListParagraph}
-----------------------------
+# 3.71 Get Authorization Token
 
 This transaction is used to obtain access token for use in a HTTP
-RESTful resource request. There are many methods to obtain a token, most
-of them are project-and deployment-specific. The OAuth 2.0 Authorization
-Framework [RFC 6749] defines the following authorization grant types:
+RESTful resource request. There are many methods to obtain a token, most of them are project-and deployment-specific. The OAuth 2.0 Authorization Framework [RFC 6749] defines the following authorization grant types:
 
 -   *Authorization Code Grant* \[RFC6749, Section 4.1\]. It is optimized
     for confidential clients who make use of User Agents (e.g., web
@@ -951,12 +836,12 @@ This profile is scoped to the *Authorization Code* and *Client Credential* grant
 Future versions of this profile will also support the PCKE and Device Authorization grant types.   
 
 
-### 3.71.1 Scope {#scope .ListParagraph}
+### 3.71.1 Scope
 
 This transaction is used to obtain the access token for use in a HTTP
 RESTful Resource request.
 
-### 3.71.2 Actor Roles {#actor-roles .ListParagraph}
+### 3.71.2 Actor Roles
 
 ![ITI-71 Use Case Diagram](media/2_IUA-use-case-diagram-ITI-71.png)
 
@@ -964,13 +849,13 @@ Figure 3.71.2-1: Use Case Diagram
 
 Table 3.71.2-1: Actor Roles
 
-  **Actor:**   Authorization Client
-  ------------ -------------------------------------------------------------
-  **Role:**    Authorization portion of a HTTP RESTful transaction client.
-  **Actor:**   Authorization Server
-  **Role:**    Server that grants access tokens
+|Actor                  |Role                                                         |
+|-------                |-----                                                        |
+|Authorization Client   | Authorization portion of a HTTP RESTful transaction client  |
+|Authorization Server   | Server that grants access tokens                            |
 
-### 3.71.3 Referenced Standards {#referenced-standards .ListParagraph}
+
+### 3.71.3 Referenced Standards
 
 - RFC 6749:   OAuth 2.0 Authorization Framework
 - RFC-6750:   OAuth 2.0 Authorization Framework: Bearer Token Usage
@@ -982,34 +867,30 @@ Table 3.71.2-1: Actor Roles
 - RFC 7523:   JSON Web Token (JWT) Profile for OAuth 2.0 Client Authentication and Authorization Grants
 
 
-### 3.71.4 Interaction Diagram {#interaction-diagram .ListParagraph}
+### 3.71.4 Interaction Diagram
 
 ![ITI-71 Flow Diagram](media/3_IUA-basic-flow-diagram-ITI-71.png)
 
 Figure 3.71.4-1: Basic Process Flow for Obtain HTTP RESTful
 Authorization and Incorporate Authorization Token Transaction
 
+```
 \@startuml
 
 group Get Authorization Token \[ITI-71\]
-
 AuthorizationClient -\> AuthorizationServer : Authorization Request
-
 AuthorizationClient \<- AuthorizationServer : Authorization Response +
 Authorization Token
-
 end
 
 group Incorporate Authorization Token \[ITI-72\]
-
 AuthorizationClient -\> ResourceServer : Resource Request +
 Authorization Token
-
 AuthorizationClient \<- ResourceServer : Resource Response
-
 end
 
 \@enduml
+```
 
 **Pre-conditions**:
 
@@ -1036,13 +917,13 @@ Note: There are other means by which a device can get an authorization
 token. Some devices may be configured by device specific methods with an
 appropriate token.
 
-#### 3.71.4.1 Authorization Request {#authorization-request .ListParagraph}
+#### 3.71.4.1 Authorization Request
 
 The Authorization request is an HTTP GET transaction used to obtain an
 authorization token that will be used for subsequent HTTP RESTful
 transactions.
 
-##### 3.71.4.1.1 Trigger Events {#trigger-events .ListParagraph}
+##### 3.71.4.1.1 Trigger Events
 
 This transaction takes place whenever an Authorization Client needs an
 access token authorizing a HTTP RESTful transaction. This may be due to
@@ -1050,7 +931,7 @@ expiration of an existing token, a resource request has indicated that a
 new token is required, configuration or installation of a device, or as
 a routine request for new transactions.
 
-##### 3.71.4.1.2 Message Semantics {#message-semantics .ListParagraph}
+##### 3.71.4.1.2 Message Semantics
 
 The Authorization Client and Authorization Server actors shall comply
 with OAuth 2.0 RFC 6749. This covers the HTTP transactions and content
@@ -1065,7 +946,7 @@ The request includes the token type requested. All actors are required
 to support at least the JSON Web Token format (JWT). They may support
 the SAML token format or OAuth Bearer Token Options.
 
-###### 3.71.4.1.2.1 JSON Web Token (JWT)  {#json-web-token-jwt .ListParagraph}
+###### 3.71.4.1.2.1 JSON Web Token (JWT)
 
 The Authorization Client and Authorization Server actors shall support
 the JWS (signed) alternative of the JWT token as specified in *JSON Web Token* [RFC
@@ -1085,15 +966,15 @@ accordance with OAuth and JWT specifications.
 
 Table 3.71.4.1.2.1-1: JWT Token requirements
 
-  Parameter   Req   Definition                      RFC Reference
-  ----------- ----- ------------------------------- ---------------------------------
-  iss         R     Issuer of token                 RFC 7519 Section 4.1.1
-  sub         R     Subject of token (e.g., user)   RFC 7519 Section 4.1.2
-  aud         R     Audience of token               RFC 7519 Section 4.1.3
-  exp         R     Expiration time                 RFC 7519 Section 4.1.4
-  nbf         O     Not before time                 RFC 7519 Section 4.1.5
-  iat         O     Issued at time                  RFC 7519 Section 4.1.6
-  jti         R     JWT ID                          RFC 7519 Section 4.1.7
+  |Parameter   |Req   |Definition                      |RFC Reference
+  |----------- |----- |------------------------------- |---------------------------------
+  |iss         |R     |Issuer of token                 |RFC 7519 Section 4.1.1
+  |sub         |R     |Subject of token (e.g., user)   |RFC 7519 Section 4.1.2
+  |aud         |R     |Audience of token               |RFC 7519 Section 4.1.3
+  |exp         |R     |Expiration time                 |RFC 7519 Section 4.1.4
+  |nbf         |O     |Not before time                 |RFC 7519 Section 4.1.5
+  |iat         |O     |Issued at time                  |RFC 7519 Section 4.1.6
+  |jti         |R     |JWT ID                          |RFC 7519 Section 4.1.7
 
 
 The Authorized Client, Authorization Server, and Resource Server SHALL support the optional extensions defined in table 3.71.4.1.2.1-1. However, if present, the claims shall be
@@ -1113,20 +994,19 @@ The claim content shall be the same as the content defined in the XUA specificat
 
 Table 3.71.4.1.2.1-2: Extensions to JWT Claims
 
-  XUA Attribute                XUA Definition                                                                                JWT Claim
-  ---------------------------- --------------------------------------------------------------------------------------------- --------------------------------
-  SubjectID                    Plain text user's name                                                                        subject\_id
-  SubjectOrganization          Plain text description of the Organization                                                    subject\_organization
-  SubjectOrganizationID                                                                                                      subject\_organization\_id
-  HomeCommunityID              Home Community ID where request originated                                                    home\_community\_id
-  NationalProviderIdentifier                                                                                                 national\_provider\_identifier
-  Subject:Role                                                                                                               subject\_role
-  docid                        Patient Privacy Policy Acknowledgement Document ID                                            doc\_id
-  acp                          Patient Privacy Policy Identifier                                                             acp
-  PurposeOfUse                 Purpose of Use for the request                                                                purpose\_of\_use
-  Resource-ID                  Patient ID related to the Patient Privacy Policy Identifier                                   patient\_id
-                               Patient ID, Citizen ID, or other similar public ID used for health identification purposes.   person\_id
-
+|XUA Attribute               |XUA Definition                                                                              |JWT Claim
+|--------------------------- |--------------------------------------------------------------------------------------------|-----------------------------
+|SubjectID                   |Plain text user's name                                                                      |subject\_id
+|SubjectOrganization         |Plain text description of the Organization                                                  |subject\_organization
+|SubjectOrganizationID       |                                                                                            |subject\_organization\_id
+|HomeCommunityID             |Home Community ID where request originated                                                  |home\_community\_id
+|NationalProviderIdentifier  |                                                                                            |national\_provider\_identifier|
+|Subject:Role                |                                                                                            |subject\_role
+|docid                       |Patient Privacy Policy Acknowledgement Document ID                                          |doc\_id
+|acp                         |Patient Privacy Policy Identifier                                                           |acp
+|PurposeOfUse                |Purpose of Use for the request                                                              |purpose\_of\_use
+|Resource-ID                 |Patient ID related to the Patient Privacy Policy Identifier                                 |patient\_id
+|                            |Patient ID, Citizen ID, or other similar public ID used for health identification purposes. |person\_id
 
 
 The following is a non-normative example of JWT:
@@ -1175,7 +1055,7 @@ JOSE Payload:
 ```
 
 
-###### 3.71.4.1.2.2 SAML Token Option {#saml-token-option-1 .ListParagraph}
+###### 3.71.4.1.2.2 SAML Token Option
 
 This option enables integration of environments that use both SAML
 identity federation and OAuth authorization infrastructure.
@@ -1188,7 +1068,7 @@ attributes in Table 3.71.4.1.2.1-1 shall be supported. The SAML
 assertion contents shall comply with XUA SAML assertion rules (see ITI
 TF-2b:3.40).
 
-###### 3.71.4.1.2.3 OAuth Bearer Token Option {#oauth-bearer-token-option-1 .ListParagraph}
+###### 3.71.4.1.2.3 OAuth Bearer Token Option
 
 An Authorized Client, Authorization Server, and Resource Server Actor
 claiming conformance with the OAuth Bearer Token Option shall comply
@@ -1196,7 +1076,7 @@ with the requirements in RFC 6750 OAuth 2.0 Authorization Framework:
 Bearer Token Usage. This option does not convey the healthcare
 information defined in Table 3.71.4.1.2.1-1.
 
-##### 3.71.4.1.3 Expected Actions {#expected-actions .ListParagraph}
+##### 3.71.4.1.3 Expected Actions
 
 The response token shall be in the requested format. All actors are
 required to support at least the JSON Web Token format (JWT). They may
@@ -1209,7 +1089,7 @@ rules and auditing requirements. The end result will be either an error
 response, as defined in the RFCs, or an access token that can be used in
 the Incorporate Authorization Token \[ITI-72\] transaction.
 
-### 3.71.5 Security Considerations {#security-considerations .ListParagraph}
+### 3.71.5 Security Considerations
 
 The Authorization Client and client software shall meet the requirements
 of being an OAuth confidential client. The OAuth analysis indicates that
@@ -1218,145 +1098,70 @@ Authorization Client and client software may be grouped with a ATNA
 Secure Node or Secure Application if a higher level of security is
 appropriate.
 
-#### 3.71.5.1 Security Audit Considerations {#security-audit-considerations .ListParagraph}
+#### 3.71.5.1 Security Audit Considerations
 
-##### 3.71.5.1.1 Authorization Server Specific Security Considerations {#authorization-server-specific-security-considerations .ListParagraph}
+##### 3.71.5.1.1 Authorization Server Specific Security Considerations
 
 The Authorization Servers typically produce an audit record for any
 failed attempt to obtain authorization. IHE does not specify the format
 of audit records for authorization servers. IHE does not specify the
 means of obtaining audit records.
 
-##### 3.71.5.1.2 Client Authorization Agent Specific Security Considerations {#client-authorization-agent-specific-security-considerations .ListParagraph}
+##### 3.71.5.1.2 Client Authorization Agent Specific Security Considerations
 
 The Authorization Client may generate an audit message when an
 authorized transaction is performed or attempted. The Authorization
 Client is sometimes a device that lacks audit access or has very limited
 audit capabilities, so this audit capability is not mandated.
 
-+-----------------+-----------------+-----------------+-----------------+
-|                 | Field Name      | Opt             | Value           |
-|                 |                 |                 | Constraints     |
-+=================+=================+=================+=================+
-| Event           | EventID         | M               | EV(110114, DCM, |
-|                 |                 |                 | "User           |
-| AuditMessage/\  |                 |                 | Authentication" |
-| EventIdentifica |                 |                 | )               |
-| tion            |                 |                 |                 |
-+-----------------+-----------------+-----------------+-----------------+
-|                 | EventActionCode | M               | "E" (Execute)   |
-+-----------------+-----------------+-----------------+-----------------+
-|                 | *EventDateTime* | *M*             | *not            |
-|                 |                 |                 | specialized*    |
-+-----------------+-----------------+-----------------+-----------------+
-|                 | *EventOutcomeIn | *M*             | *not            |
-|                 | dicator*        |                 | specialized*    |
-+-----------------+-----------------+-----------------+-----------------+
-|                 | EventTypeCode   | M               | EV("ITI-71",    |
-|                 |                 |                 | IHE, "User      |
-|                 |                 |                 | Authorization") |
-+-----------------+-----------------+-----------------+-----------------+
-| **Source (1)**  |                 |                 |                 |
-+-----------------+-----------------+-----------------+-----------------+
-| **Human         |                 |                 |                 |
-| Requestor (0)** |                 |                 |                 |
-+-----------------+-----------------+-----------------+-----------------+
-| **Destination   |                 |                 |                 |
-| (0)**           |                 |                 |                 |
-+-----------------+-----------------+-----------------+-----------------+
-| **Audit Source  |                 |                 |                 |
-| (Client         |                 |                 |                 |
-| Authentication  |                 |                 |                 |
-| Agent) (1)**    |                 |                 |                 |
-+-----------------+-----------------+-----------------+-----------------+
-| **Participant   |                 |                 |                 |
-| Object (1)**    |                 |                 |                 |
-+-----------------+-----------------+-----------------+-----------------+
+|                                   | Field Name              | Opt             | Value Constraints|
+|-----------------                  |-----------------        |-----------------|------------------|
+| **Event** (AuditMessage/EventIdentification)                             | EventID                 | M               | EV(110114, DCM, "User Authentication") |
+|                                   | EventActionCode         | M               | "E" (Execute)   |
+|                                   | *EventDateTime*         | *M*             | *not specialized* |
+|                                   | *EventOutcomeIndicator* | *M*             | *not specialized* |
+|                                   | EventTypeCode           | M               | EV("ITI-71", IHE, "User Authorization")|
+| **Source (1)**                    |                 |                 |                 |
+| **Human Requestor (0)**           |                 |                 |                 |
+| **Destination  (0)**              |                 |                 |                 |
+| **Audit Source (Client Authentication  Agent) (1)** ||                |                 |                
+| **Participant Object (1)**        |                 |                 |                 |
 
 Where:
 
-+-----------------+-----------------+-----------------+-----------------+
-| Source          | UserID          | M               | The process ID  |
-|                 |                 |                 | as used within  |
-| AuditMessage/\  |                 |                 | the local       |
-| ActiveParticipa |                 |                 | operating       |
-| nt              |                 |                 | system in the   |
-|                 |                 |                 | local system    |
-|                 |                 |                 | logs.           |
-+-----------------+-----------------+-----------------+-----------------+
-|                 | 1.  *Alternativ | 2.  *U*         | *not            |
-|                 | eUserID*        |                 | specialized*    |
-+-----------------+-----------------+-----------------+-----------------+
-|                 | *UserName*      | 3.  *U*         | *not            |
-|                 |                 |                 | specialized*    |
-+-----------------+-----------------+-----------------+-----------------+
-|                 | 4.  *UserIsRequ | 5.  *M*         | *not            |
-|                 | estor*          |                 | specialized*    |
-+-----------------+-----------------+-----------------+-----------------+
-|                 | RoleIDCode      | M               | EV(110150, DCM, |
-|                 |                 |                 | "Application")  |
-+-----------------+-----------------+-----------------+-----------------+
-|                 | NetworkAccessPo | M               | "1" for machine |
-|                 | intTypeCode     |                 | (DNS) name, "2" |
-|                 |                 |                 | for IP address  |
-+-----------------+-----------------+-----------------+-----------------+
-|                 | NetworkAccessPo | M               | The machine     |
-|                 | intID           |                 | name or IP      |
-|                 |                 |                 | address         |
-+-----------------+-----------------+-----------------+-----------------+
+|                                   | Field Name              | Opt             | Value Constraints|
+|-----------------                  |-----------------        |-----------------|------------------|
+| **Source** (AuditMessage/ActiveParticipant) | UserID          | M               | The process ID as used within the local operating system in the local system logs.|
+|                 | *Alternative UserID*  |  *U*       | *not specialized*            |
+|                 | *UserName*      | *U*         | *not specialized*            |
+|                 | *UserIsRequestor*  |  *M*         | *not specialized*           |
+|                 | RoleIDCode      | M               | EV(110150, DCM, "Application")  |
+|                 | NetworkAccessPointTypeCode  | M               | "1" for machine (DNS) name, "2" for IP address
+|                 | NetworkAccessPointID  | M               | The machine name or IP address       |
 
-+---------------------------+-------------------------+-----+-------------------+
-| Audit Source              | *AuditSourceID*         | *U* | *not specialized* |
-|                           |                         |     |                   |
-| AuditMessage/\            |                         |     |                   |
-| AuditSourceIdentification |                         |     |                   |
-+===========================+=========================+=====+===================+
-|                           | *AuditEnterpriseSiteID* | *U* | *not specialized* |
-+---------------------------+-------------------------+-----+-------------------+
-|                           | *AuditSourceTypeCode*   | *U* | *not specialized* |
-+---------------------------+-------------------------+-----+-------------------+
+|                                   | Field Name              | Opt             | Value Constraints|
+|-----------------                  |-----------------        |-----------------|------------------|
+| **Audit Source** AuditMessage/ AuditSourceIdentification    | *AuditSourceID* | *U* | *not specialized* |
+|                                                             | *AuditEnterpriseSiteID* | *U* | *not specialized* |
+|                                                             | *AuditSourceTypeCode*   | *U* | *not specialized* |
 
-+-----------------+-----------------+-----------------+-----------------+
-| Token           | ParticipantObje | M               | "2" (System)    |
-|                 | ctTypeCode      |                 |                 |
-| (AuditMessage/\ |                 |                 |                 |
-| ParticipantObje |                 |                 |                 |
-| ctIdentificatio |                 |                 |                 |
-| n)              |                 |                 |                 |
-+=================+=================+=================+=================+
-|                 | ParticipantObje | M               | "13" (Security  |
-|                 | ctTypeCodeRole  |                 | Resource)       |
-+-----------------+-----------------+-----------------+-----------------+
-|                 | *ParticipantObj | 6.  *U*         | *not            |
-|                 | ectDataLifeCycl |                 | specialized*    |
-|                 | e*              |                 |                 |
-+-----------------+-----------------+-----------------+-----------------+
-|                 | 7.  *Participan | 8.  *U*         | *not            |
-|                 | tObjectIDTypeCo |                 | specialized*    |
-|                 | de*             |                 |                 |
-+-----------------+-----------------+-----------------+-----------------+
-|                 | *ParticipantObj | 9.  *U*         | *not            |
-|                 | ectSensitivity* |                 | specialized*    |
-+-----------------+-----------------+-----------------+-----------------+
-|                 | 10. *Participan | 11. *U*         | *not            |
-|                 | tObjectID*      |                 | specialized*    |
-+-----------------+-----------------+-----------------+-----------------+
-|                 | *ParticipantObj | 12. *U*         | *not            |
-|                 | ectName*        |                 | specialized*    |
-+-----------------+-----------------+-----------------+-----------------+
-|                 | ParticipantObje | M               | URL requested   |
-|                 | ctQuery         |                 |                 |
-+-----------------+-----------------+-----------------+-----------------+
-|                 | *ParticipantObj | 13. *U*         | *not            |
-|                 | ectDetail*      |                 | specialized*    |
-+-----------------+-----------------+-----------------+-----------------+
+|                                   | Field Name              | Opt             | Value Constraints|
+|-----------------                  |-----------------        |-----------------|------------------|
+| **Token** (AuditMessage/ ParticipantObjectIdentification)  | ParticipantObjectTypeCode | M               | "2" (System)    |
+|                 | ParticipantObjectTypeCodeRole | M               | "13" (Security Resource) |
+|                 | *ParticipantObjectDataLifeCycle* | *U*         | *not specialized*            |
+|                 | *ParticipantObjectIDTypeCode* | *U*         | *not specialized*           |
+|                 | *ParticipantObjectSensitivity*  | *U*         | *not specialized*           |
+|                 | *ParticipantObjectID*   | *U*         | *not specialized*            |
+|                 | *ParticipantObjectName*  | *U*         | *not specialized*            |
+|                 | ParticipantObjectQuery | M               | URL requested   |
+|                 | *ParticipantObjectDetail* | *U*         | *not specialized*           |
 
 Add Section 3.72
 
-3.72 Incorporate Authorization Token {#incorporate-authorization-token .ListParagraph}
-------------------------------------
+## 3.72 Incorporate Authorization Token
 
-### 3.72.1 Scope {#scope-1 .ListParagraph}
+### 3.72.1 Scope
 
 This transaction is used to provide authorization information as part of
 a HTTP RESTful transaction. This transaction specified some headers and
@@ -1365,20 +1170,20 @@ HTTP RESTful transaction specification for the URL, parameters, other
 headers, and other transaction contents is in another profile or
 specification.
 
-### 3.72.2 Actor Roles {#actor-roles-1 .ListParagraph}
+### 3.72.2 Actor Roles
 
 ![ITI-72 Use Case Diagram](media/4_IUA-use-case-diagram-ITI-72.png)
 Figure 3.72.2-1: Use Case Diagram
 
 Table 3.72.2-1: Actor Roles
 
-  **Actor:**   Authorization Client
-  ------------ -------------------------------------------------------------
-  **Role:**    Authorization portion of a HTTP RESTful transaction client.
-  **Actor:**   Resource Server
-  **Role:**    Authorization portion of a HTTP RESTful transaction server.
+|Actor        |Role
+|------------ |-------------------------------------------------------------
+| Authorization Client|    Authorization portion of a HTTP RESTful transaction client.
+| Resource Server | Authorization portion of a HTTP RESTful transaction server.
 
-### 3.72.3 Referenced Standards {#referenced-standards-1 .ListParagraph}
+
+### 3.72.3 Referenced Standards
 
 -   RFC 6749: OAuth 2.0 Authorization Framework
 -   RFC 6750: OAuth 2.0 Authorization Framework: Bearer Token Usage
@@ -1390,11 +1195,11 @@ Table 3.72.2-1: Actor Roles
     OAuth 2.0 Client Authentication and Authorization Grants
 -   RFC 7523: JSON Web Token (JWT) Profile for OAuth 2.0 Client Authentication and Authorization Grants
 
-#### 3.72.3.1 Related IHE Profiles {#related-ihe-profiles .ListParagraph}
+#### 3.72.3.1 Related IHE Profiles
 
 XUA Cross-Enterprise User Assertion -- Attribute Extension
 
-### 3.72.4 Interaction Diagram {#interaction-diagram-1 .ListParagraph}
+### 3.72.4 Interaction Diagram
 
 ![simple-iauth](./media/image2.png){width="6.041666666666667in"
 height="2.875in"}
@@ -1404,6 +1209,7 @@ height="2.875in"}
 Figure 3.72.4-1: Process flow for Incorporate Authorization Token
 Transaction
 
+```
 \@startuml  
 group Get Authorization Token \[ITI-71\]   
 AuthorizationClient -\> AuthorizationServer : Authorization Request  
@@ -1414,6 +1220,7 @@ AuthorizationClient -\> ResourceServer : Resource Request + Authorization Token
 AuthorizationClient \<- ResourceServer : Resource Response  
 end  
 \@enduml
+```
 
 Main Flow:
 
@@ -1437,14 +1244,14 @@ the HTTP request for that other HTTP RESTful transaction.
 
 ### Authorization Request message
 
-##### 3.72.4.1.1 Trigger Events {#trigger-events-1 .ListParagraph}
+##### 3.72.4.1.1 Trigger Events
 
 The client system needs to make an HTTP RESTful transaction to a
 Resource Server that performs access authorization. The Authorization
 client has already obtained the necessary access token, either by means
 of another IHE transaction or by some other means.
 
-##### 3.72.4.1.2 Message Semantics {#message-semantics-1 .ListParagraph}
+##### 3.72.4.1.2 Message Semantics
 
 The Authorization Client should include an Authorization: header in the HTTP transaction that has
 the access token value. See RFC 6750 Section 2.1. Further fields in the Authorization: header depend upon the token option chosen.
@@ -1464,7 +1271,7 @@ The remainder of the transaction requirements are established by the HTTP RESTfu
 
 Note: it is a major design of OAuth2.0 to have the token opaque to the client. For this reason, the Bearer token type is used.
 
-###### 3.72.4.1.2.1 SAML Token Option {#saml-token-option-2 .ListParagraph}
+###### 3.72.4.1.2.1 SAML Token Option
 
 An Authorization Client that supports the SAML Token Option shall be
 able to accept and use a SAML assertion that complies with the XUA
@@ -1485,14 +1292,14 @@ tokens. This transaction does not specialize or change those methods.
 2\. The draft RFCs have not specified the authorization code yet. Until
 there are official codes assigned, IHE will use IHE-SAML.
 
-###### 3.72.4.1.2.2 OAuth Bearer Token Option {#oauth-bearer-token-option-2 .ListParagraph}
+###### 3.72.4.1.2.2 OAuth Bearer Token Option
 
 An Authorized Client, Authorization Server, and Resource Server Actor
 claiming conformance with the OAuth Bearer Token Option shall comply
 with the requirements in RFC 6750 OAuth 2.0 Authorization Framework:
 Bearer Token Usage.
 
-##### 3.72.4.1.3 Expected Actions {#expected-actions-1 .ListParagraph}
+##### 3.72.4.1.3 Expected Actions
 
 The Resource Server shall determine the content of the token by inspection and validate the signature of the token afterwards.
 
@@ -1503,7 +1310,7 @@ actions. The Resource Server should return an HTTP 401 (Unauthorized)
 error if the token is not accepted and the combined actor does not have
 a specified method for responses when access is denied.
 
-### 3.72.5 Security Considerations {#security-considerations-1 .ListParagraph}
+### 3.72.5 Security Considerations
 
 The Authorization Client and client software shall meet the requirements
 of being an OAuth confidential client. The OAuth analysis indicates that
@@ -1513,9 +1320,9 @@ Secure Node or Secure Application if a higher level of security is
 appropriate. Resource Server and Authorization Server should provide
 equivalent protection.
 
-#### 3.72.5.1 Security Audit Considerations {#security-audit-considerations-1 .ListParagraph}
+#### 3.72.5.1 Security Audit Considerations
 
-##### 3.72.5.1.1 Resource Server Specific Security Considerations {#resource-server-specific-security-considerations .ListParagraph}
+##### 3.72.5.1.1 Resource Server Specific Security Considerations
 
 When an ATNA Audit message needs to be generated by the Resource Server
 and the user is authenticated by way of a JWT Token, the ATNA Audit
