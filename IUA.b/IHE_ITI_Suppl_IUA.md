@@ -369,10 +369,7 @@ is one way to document that agreement.
 | 9                                 | This profile does not explain the ways that some Resource Servers utilize HTTP redirects to automate some kinds of  authorization activities. The actual HTTP transactions used for Obtain Authorization Token and Authorized RESTful Transaction are as defined within this profile. The other transactions  are under the control of the Resource Server and its design.   |
 |                                   |                                   |
 |                                   | Is an IHE explanation of how this works needed, or is the extensive industry documentation and tutorials used in other fields sufficient? No.        |
-| 10                                | The selected standards are: |
-|                                   | - The OAuth 2.0 Framework, |
-||-JWT Token, with defined extensions,
-||-SAML Token, using the XUA extensions                    |
+| 10                                | The selected standards are: <br/> - The OAuth 2.0 Framework, <br/> - JWT Token, with defined extensions,<br/> - SAML Token, using the XUA extensions                    |
 
 
 # General Introduction
@@ -427,7 +424,7 @@ Depending on the grant type, the OAuth 2.0 Framework also requires user (or reso
 
 Since user (resource owner) authentication methods chosen depend on the projects or national security policy, they are not scoped in this profile and SHALL be defined in the specific implementation projects or national extensions of this profile. If the user (resource owner) authentication is not implemented in the Authorization Server, the use of OpenID Connect with the Authorization Grant or Hybrid flow is recommended.
 
-As defined in the Auth 2.0 Authorization Framework, the Resource Server enforces the authorization policies based on the information provided in the access token. The Ressource Server may provide the information from the access token to actors it is grouped with, or by delegating the authorization decisions to other actors, e.g, by implementing the Authorization Decisons Verifier actor of the Secure Retrieve (SeR) supplement.   
+As defined in the Auth 2.0 Authorization Framework, the Resource Server enforces the authorization policies based on the information provided in the access token. The Ressource Server may provide the information from the access token to actors it is grouped with, or by delegating the access decisions to other actors, e.g, by implementing the Authorization Decisons Verifier actor of the Secure Retrieve (SeR) supplement.   
 
 ![IUA Actor Diagram](media/1.1_IUA-actor-diagram.png)
 
@@ -506,7 +503,9 @@ are specific to the requested service. The Resource Server may then
 allow the transaction to proceed, subject to access control constraints
 that may also be in place.
 
-Notes: 1. For implementation and deployment reasons the Resource Server
+Notes:
+
+1\. For implementation and deployment reasons the Resource Server
 and Authorization Server can be combined into an integrated product
 together with user authentication, access control, and other services.
 This does not change the actor requirements or transactions used.
@@ -1114,7 +1113,7 @@ audit capabilities, so this audit capability is not mandated.
 
 |                                   | Field Name              | Opt             | Value Constraints|
 |-----------------                  |-----------------        |-----------------|------------------|
-| **Event** (AuditMessage/EventIdentification)                             | EventID                 | M               | EV(110114, DCM, "User Authentication") |
+| **Event**<br/>(AuditMessage/EventIdentification)                             | EventID                 | M               | EV(110114, DCM, "User Authentication") |
 |                                   | EventActionCode         | M               | "E" (Execute)   |
 |                                   | *EventDateTime*         | *M*             | *not specialized* |
 |                                   | *EventOutcomeIndicator* | *M*             | *not specialized* |
@@ -1129,17 +1128,17 @@ Where:
 
 |                                   | Field Name              | Opt             | Value Constraints|
 |-----------------                  |-----------------        |-----------------|------------------|
-| **Source** (AuditMessage/ActiveParticipant) | UserID          | M               | The process ID as used within the local operating system in the local system logs.|
+| **Source** <br/>(AuditMessage/ActiveParticipant) | UserID          | M               | The process ID as used within the local operating system in the local system logs.|
 |                 | *Alternative UserID*  |  *U*       | *not specialized*            |
 |                 | *UserName*      | *U*         | *not specialized*            |
 |                 | *UserIsRequestor*  |  *M*         | *not specialized*           |
 |                 | RoleIDCode      | M               | EV(110150, DCM, "Application")  |
 |                 | NetworkAccessPointTypeCode  | M               | "1" for machine (DNS) name, "2" for IP address
 |                 | NetworkAccessPointID  | M               | The machine name or IP address       |
-| **Audit Source** AuditMessage/ AuditSourceIdentification    | *AuditSourceID* | *U* | *not specialized* |
+| **Audit Source**<br/> AuditMessage/ AuditSourceIdentification    | *AuditSourceID* | *U* | *not specialized* |
 |                                                             | *AuditEnterpriseSiteID* | *U* | *not specialized* |
 |                                                             | *AuditSourceTypeCode*   | *U* | *not specialized* |
-| **Token** (AuditMessage/ ParticipantObjectIdentification)  | ParticipantObjectTypeCode | M               | "2" (System)    |
+| **Token** <br/>(AuditMessage/ ParticipantObjectIdentification)  | ParticipantObjectTypeCode | M               | "2" (System)    |
 |                 | ParticipantObjectTypeCodeRole | M               | "13" (Security Resource) |
 |                 | *ParticipantObjectDataLifeCycle* | *U*         | *not specialized*            |
 |                 | *ParticipantObjectIDTypeCode* | *U*         | *not specialized*           |
@@ -1193,8 +1192,7 @@ XUA Cross-Enterprise User Assertion -- Attribute Extension
 
 ### 3.72.4 Interaction Diagram
 
-![simple-iauth](./media/image2.png){width="6.041666666666667in"
-height="2.875in"}
+![simple-iauth](./media/image2.png)
 
 ![simple-iauth](./media/5_IUA-basic-flow-diagram-ITI-72.png)
 
@@ -1278,7 +1276,9 @@ The SAML assertion shall be encoded as specified by SAML 2.0 Profile for OAuth 2
 > Authorization: IHE-SAML fFBGRNJru1FQd\[...omitted for brevity...\]44AzqT3Zg
 > Host: examplehost.com
 
-Notes: 1. WS-Trust defines methods for converting between SAML and JWT
+Notes:
+
+1\. WS-Trust defines methods for converting between SAML and JWT
 tokens. This transaction does not specialize or change those methods.
 
 2\. The draft RFCs have not specified the authorization code yet. Until
