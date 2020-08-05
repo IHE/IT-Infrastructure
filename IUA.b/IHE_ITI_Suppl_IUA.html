@@ -770,7 +770,6 @@ pre {
 <p><a href="#resource-server">34.1.1.3 Resource Server</a></p>
 <p><a href="#iua-actor-options">34.2 IUA Actor Options</a></p>
 <p><a href="#saml-token-option">34.2.1 SAML Token Option</a></p>
-<p><a href="#oauth-bearer-token-option">34.2.2 OAuth Bearer Token Option</a></p>
 <p><a href="#iua-required-actor-groupings">34.3 IUA Required Actor Groupings</a></p>
 <p><a href="#iua-overview">34.4 IUA Overview</a></p>
 <p><a href="#concepts">34.4.1 Concepts</a></p>
@@ -795,7 +794,6 @@ pre {
 <p><a href="#authorization-code-grant-type">3.71.6.2 Authorization Code grant type</a></p>
 <p><a href="#json-web-token">3.71.6.3 JSON Web Token</a></p>
 <p><a href="#saml-token-option">3.71.6.4 SAML Token Option</a></p>
-<p><a href="#oauth-bearer-token-option">3.71.6.5 OAuth Bearer Token Option</a></p>
 <p><a href="#expected-actions">3.71.7 Expected Actions</a></p>
 <p><a href="#message-examples">3.71.8 Message Examples</a></p>
 <p><a href="#client-credential-grant-type">3.71.8.1 Client Credential grant type</a></p>
@@ -813,7 +811,6 @@ pre {
 <p><a href="#trigger-events-1">3.72.5 Trigger Events</a></p>
 <p><a href="#message-semantics-1">3.72.6 Message Semantics</a></p>
 <p><a href="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/%5Cl">3.72.6.1 SAML Token Option</a></p>
-<p><a href="#oauth-bearer-token-option-2">3.72.6.2 OAuth Bearer Token Option</a></p>
 <p><a href="#expected-actions-1">3.72.7 Expected Actions</a></p>
 <p><a href="#message-examples-1">3.72.8 Message Examples</a></p>
 <p><a href="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/%5Cl">3.72.9 Security Considerations</a></p>
@@ -1029,8 +1026,8 @@ device requests information about sexually transmitted disease diagnosis it will
 <a id="user-content-341-iua-actors-transactions-and-content-modules" class="anchor" href="#341-iua-actors-transactions-and-content-modules" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.1 IUA Actors, Transactions, and Content Modules</h2>
 <p>The actors in the IUA Profile manage the tokens used for authorization of access to HTTP RESTful services. The Authorization Client provides the access token that is incorporated into HTTP RESTful transactions to indicate that this transaction is authorized. The Authorization Client can also manage the interactions with an Authorization Server to obtain the access token.</p>
 <p>The OAuth 2.1 Authorization Framework requires client identification, which may be based on a <em>client_id</em> parameter [OAuth 2.1, Section 2.2]. Depending on the grant type, the use of the <em>client_id</em> MAY be required. For example the <em>Authorization Code</em> grant type requires the use of the <em>client_id</em> for client identification [OAuth 2.1, Section 4.1], while the <em>Client Credential</em> grant type does not [OAuth 2.1, Section 4.2].</p>
-<p>The OAuth 2.0 Authorization Framework also requires client authentication for confidential and credential clients [OAuth 2.1, Section 2.3]. It recommends the use of to use asymmetric (public-key based) methods for client authentication [OAuth 2.1, Section 9.1], but allows other suitable HTTP based authentication schemes matching the security policy of the Authorization Server.</p>
-<p>This profile requires the use of a <em>client_id</em> for client identification and a <em>client_secret</em> for client authentication of confidential clients, if no other methods for identification and authentication are used.</p>
+<p>The OAuth 2.0 Authorization Framework also requires client authentication for confidential and credential clients [OAuth 2.1, Section 2.3]. It recommends the use of to use asymmetric (public-key based) methods for client authentication [OAuth 2.1, Section 9.1], but allows other suitable HTTP based authentication schemes matching the security policy of the Authorization Server [OAuth 2.1, Section 2.3.2].</p>
+<p>This profile requires the use of a <em>client_id</em> for client identification and a <em>client_secret</em> used with the HTTP Basic Authentocation scheme for client authentication of confidential and credential clients, if no other methods for identification and authentication are used.</p>
 <p>Depending on the grant type, the OAuth 2.0 Framework also requires user authentication. For example, the <em>Authorization Code</em> grant type covered by this profile requires user authentication [OAuth 2.1, Section 4.1], while the <em>Client Credential</em> grant type does not [OAuth 2.1, Section 4.2]. The methods used by the authorization server to authenticate the resource owner (e.g., username and password login, session cookies, delegation to Authentication Server) is not scoped in the OAuth 2.1 Authorization Framework [OAuth 2.1, Section 3.1].</p>
 <p>Since user (resource owner) authentication methods chosen depend on the projects or national security policy, they are not scoped in this profile and SHALL be defined in the specific implementation projects or national extensions of this profile. If the user (resource owner) authentication is not implemented in the Authorization Server, the use of OpenID Connect with the Authorization Grant or Hybrid flow is recommended.</p>
 <p>It is the responsibility of the Resource Server to enforce the authorization policies based on the transaction performed and the information provided in the access token. Therefore the Resource Server must be able to rely upon the decisions made by the Authorization Server (e.g., client identification, user authentication), which requires that a trust relation between the Resource Server and the Authorization Server was established beforehand.</p>
@@ -1110,17 +1107,9 @@ device requests information about sexually transmitted disease diagnosis it will
 </ol>
 <h2>
 <a id="user-content-342-iua-actor-options" class="anchor" href="#342-iua-actor-options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.2 IUA Actor Options</h2>
-<p>All actors are required to support at least the JSON Web Token format (JWT). They may support the SAML Token or OAuth Bearer Token options.</p>
-<p>There are two token options:</p>
-<p>TBD: correct</p>
-<ol>
-<li>
+<p>TBD: refactor whole section</p>
 <p>The <strong>SAML Token Option</strong> enables integration of environments that use both SAML identity federation and OAuth authorization infrastructure. This enables the end user to control authorization of applications through OAuth when the user identity authentication is already provided through SAML identity federation.</p>
-</li>
-<li>
-<p>The <strong>OAuth Bearer Token Option</strong> provides basic compatibility to minimal OAuth implementations and does not carry the healthcare attribute extensions.</p>
-</li>
-</ol>
+<p>All actors are required to support at least the JSON Web Token format (JWT). They may support the SAML Token option.</p>
 <p>The JWT Token type and the SAML Token type enable the Resource Server to make additional Access Control Decisions.</p>
 <p>Table 34.2-1: IUA - Actors and Options</p>
 <table>
@@ -1134,44 +1123,49 @@ device requests information about sexually transmitted disease diagnosis it will
 <tbody>
 <tr>
 <td>Authorization Server</td>
-<td>SAML Token</td>
-<td>34.2.1</td>
+<td>JWT Token</td>
+<td>TBD</td>
 </tr>
 <tr>
 <td></td>
-<td>OAuth Bearer Token</td>
-<td>34.2.2</td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td>Resource Server</td>
-<td>OAuth Bearer Token</td>
-<td>34.2.1</td>
+<td>JWT Token</td>
+<td></td>
 </tr>
 <tr>
 <td></td>
 <td>SAML Token</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
 <td></td>
 </tr>
 <tr>
 <td>Authorization Client</td>
-<td>SAML Token</td>
-<td>34.2.1</td>
+<td>JWT Token</td>
+<td>TBD</td>
 </tr>
 <tr>
 <td></td>
-<td>OAuth Bearer Token</td>
-<td>34.2.2</td>
+<td>SAML Token</td>
+<td>TBD</td>
 </tr>
 </tbody>
 </table>
 <h3>
 <a id="user-content-3421-saml-token-option" class="anchor" href="#3421-saml-token-option" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.2.1 SAML Token Option</h3>
-<p>An Authorization Client , Resource Server, or Authorization Server that claims the SAML Token Option shall be able to use or generate the SAML tokens defined in the SAML Token Option. See ITI TF-2c:3.71.4.1.2.2 and 3.72.4.1.2.1.</p>
-<p>This option allows deployments that are using the Web Services transactions and SAML Tokens to use the same SAML-based identity mechanisms for HTTP RESTful transactions.</p>
-<h3>
-<a id="user-content-3422-oauth-bearer-token-option" class="anchor" href="#3422-oauth-bearer-token-option" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.2.2 OAuth Bearer Token Option</h3>
-<p>TBD: clarify</p>
-<p>An Authorization Client, Resource Server, or Authorization Server that claims the OAuth Bearer Token Option shall be able to use or generate the OAuth Bearer tokens defined in the OAuth 2.0 framework as the access token for IUA.</p>
+<p>An Authorization Client or Resource Server that claims the SAML Token Option shall be able to use or generate the SAML tokens defined in the SAML Token Option. See ITI TF-2c:3.71.4.1.2.2 and 3.72.4.1.2.1.</p>
+<p>TBD:</p>
+<ul>
+<li>the SAML token option requires the Authorization Client to implement the Get X-User Assertion transaction of the XUA Profile.</li>
+<li>Since XUA uses ATNA Node Authentication for client authentication, the Authorization Client must use ATNA Node Authentication in the SAML Token Option.</li>
+</ul>
 <h2>
 <a id="user-content-343-iua-required-actor-groupings" class="anchor" href="#343-iua-required-actor-groupings" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.3 IUA Required Actor Groupings</h2>
 <p>An actor from this profile (Column 1) shall implement all of the required transactions and/or content modules in this profile <em><strong>in addition to</strong></em> all of the transactions required for the grouped actor (Column 2).</p>
@@ -1205,7 +1199,6 @@ device requests information about sexually transmitted disease diagnosis it will
 </tr>
 </tbody>
 </table>
-<p>This profile does not require client grouping with and ATNA Secure Node or Secure Application. The security requirements for either of those actors may be excessive for some of the clients that will be using HTTP RESTful transactions.</p>
 <h2>
 <a id="user-content-344-iua-overview" class="anchor" href="#344-iua-overview" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.4 IUA Overview</h2>
 <h3>
@@ -1355,7 +1348,7 @@ device requests information about sexually transmitted disease diagnosis it will
 <h3>
 <a id="user-content-3714-interaction-diagram" class="anchor" href="#3714-interaction-diagram" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.4 Interaction Diagram</h3>
 <p><a href="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/basic-flow.png" target="_blank" rel="noopener noreferrer"><img src="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/basic-flow.png" alt="ITI-71 Flow Diagram" style="max-width:100%;"></a></p>
-<p>Figure 3.71.4-1: Basic Process Flow to obtain RESTful Authorization and Incorporate Authorization Token Transaction</p>
+<p>Figure 3.71.4-1: Basic Process of the Authorization Token Request and Incorporate Authorization Token transaction</p>
 <pre><code>\@startuml
 
 group Get Authorization Token \[ITI-71\]
@@ -1370,18 +1363,21 @@ end
 
 \@enduml
 </code></pre>
-<p><strong>Pre-conditions</strong>:</p>
 <p>Main Flow:</p>
 <ol>
 <li>
-<p>The user provides user authentication and the intended resource request information to the authorization server.</p>
+<p>The Authorization Client authenticates to the Authorization Sever and provides claims related to the intended request to acces protected resources of the Resource Server.</p>
 </li>
 <li>
-<p>The authorization server generates an access token that indicates that the Authorization Client actor is authorized to access protected resources from the Resource Server actors.</p>
+<p>The Authorization Server authenticates the client, vaidates the claims against the resource owner consent and generates an access token that authorizes the Authorization Client actor to request the protected resources from the Resource Server.</p>
+</li>
+<li>
+<p>The Authorization Server incorporates the access token to the requests of the protected resources to the Resource Server.</p>
+</li>
+<li>
+<p>The Resource Server evaluates the access token and the resource request and enforces the access policies.</p>
 </li>
 </ol>
-<p><strong>Post-conditions:</strong></p>
-<p>The Authorization Client actor possesses an access token to be used with the Incorporate Authorization Token transaction.</p>
 <h4>
 <a id="user-content-37141-get-authorization-token-request" class="anchor" href="#37141-get-authorization-token-request" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.4.1 Get Authorization Token Request</h4>
 <p>The sequence of HTTP(S) requests to perform an Get Authorization Token transaction depends on the grant type chosen.</p>
@@ -1389,19 +1385,18 @@ end
 <a id="user-content-371411-client-credential-grant-type" class="anchor" href="#371411-client-credential-grant-type" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.4.1.1 Client Credential grant type</h5>
 <p><a href="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/client-credential-grant.png" target="_blank" rel="noopener noreferrer"><img src="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/client-credential-grant.png" alt="ITI-71 Client Credential" style="max-width:100%;"></a></p>
 <p>Figure 3.71.4.1.1-1: Sequence of HTTP(S) requests in the client credential grant type.</p>
-<p>This grant type SHALL only be used by confidential clients [OAuth 2.1, Section 4.2].</p>
-<p>TBD: The Authorization Client actor requests an access token using its client credentials (or other supported means of authentication).</p>
+<p>The Authorization Client actor requests an access token using its client credentials (or other supported means of authentication). This grant type SHALL be used by confidential clients only [OAuth 2.1, Section 4.2].</p>
 <p>The Authorization Client actor makes a HTTP(s) POST request to the token endpoint with the following parameters in the HTTP request entity-body [OAuth 2.1, Section 4.2.2]:</p>
 <ul>
 <li>
-<p><em>grant_type</em> (REQUIRED): The value of the parameter SHALL be   <em>client_credentials</em>.</p>
+<p><em>grant_type</em> (REQUIRED): The value of the parameter SHALL be <em>client_credentials</em>.</p>
 </li>
 <li>
 <p><em>scope</em> (OPTIONAL): The scope of the access request.</p>
 </li>
 </ul>
 <p>The request SHALL use the <em>application/x-www-form-urlencoded</em> format with a character encoding of UTF-8 [OAuth 2.1, Section 4.4.2].</p>
-<p>A non-normative example of the request with <em>client_id</em> and <em>client_secret</em> client authentication method, MAY look like:</p>
+<p>A non-normative example of the access token request with client authentication using the <em>client_id</em> and <em>client_secret</em> in the HTTP Authorization header, MAY be as follows:</p>
 <pre><code>POST /token HTTP/1.1
 Host: server.example.com
 Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
@@ -1435,18 +1430,19 @@ Pragma: no-cache
 {
   "token_type": "Bearer",
   "access_token": "2YotnFZFEjr1zCsicMWpAA",
-  "scope": cope_1 scope_2 ... scope_N
+  "scope": scope_1 scope_2 ... scope_M
   "expires_in": 3600,
   "example_parameter": "example_value"
 }
 </code></pre>
+<p>The Authorization Server SHALL respond an error response as defined in the OAuth 2.0 Authorization Franework [OAuth 2.1, Section 5.2] if the request does not match the requirements or is not understood.</p>
 <h5>
 <a id="user-content-371412-authorization-code-grant-type" class="anchor" href="#371412-authorization-code-grant-type" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.4.1.2 Authorization Code grant type</h5>
 <p><a href="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/authorization-code-grant.png" target="_blank" rel="noopener noreferrer"><img src="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/authorization-code-grant.png" alt="ITI-71 Authorization Code" style="max-width:100%;"></a></p>
 <p>Figure 3.71.4.1.1-1: Sequence of HTTP(S) requests in the client authorization code and PCKE grant type.</p>
 <p>This grant type SHALL be used by confidential, credential and public clients, when the explicit consent of the user is required to authorize the Authorization Client actor to access data on behalf of the user.</p>
 <p>TBD: The authorization code grant type is used to obtain both access tokens and refresh tokens. Since this is a redirect-based flow, the client must be capable of interacting with the resource owner’s user-agent (typically a web browser) and capable of receiving incoming requests (via redirection) from the authorization server.</p>
-<p>The Authorization Client actor directs the user-agent to make a HTTP(s) GET request to the authorization endpoint with the following parameters using the "application/x-www-form-urlencoded" format [OAuth 2.1, Section 4.1.1.3]:</p>
+<p>The Authorization Client actor directs the user-agent to make a HTTP GET request to the authorization endpoint with the following parameters using the "application/x-www-form-urlencoded" format [OAuth 2.1, Section 4.1.1.3]:</p>
 <ul>
 <li>
 <p><em>response_type</em> (REQUIRED): The value must be <em>code</em>.</p>
@@ -1455,39 +1451,41 @@ Pragma: no-cache
 <p><em>client_id</em> (REQUIRED): The identifier the Authorization Client is registered at the Authorization Server.</p>
 </li>
 <li>
+<p><em>state</em> (REQUIRED): An unguessable value used by the client to track the state between the authorization request and the callback to the redirect URI. While this parameter is optional in the OAuth 2.1 Authorization Framework [OAuth 2.1, Section 4.1.1.3] it is required in this profile for security reasons.</p>
+</li>
+<li>
 <p><em>code_challenge</em> (REQUIRED): TBD</p>
 </li>
 <li>
 <p><em>code_challenge_method</em> (OPTIONAL): TBD</p>
 </li>
 <li>
-<p><em>redirect_uri</em> (OPTIONAL) TBD</p>
+<p><em>redirect_uri</em> (OPTIONAL): The absolute URI of the Authorization Client callback endpoint to which the authorization server will send the user agent back once access is granted (or denied). This parameter is required if the Authorization Client is registered at the Authorization Server with multiple redirect URI, optional otherwise [OAuth 2.1, Section 3.1.2.3].</p>
 </li>
 <li>
-<p><em>scope</em> (OPTIONAL): The scope of the access request.</p>
-</li>
-<li>
-<p><em>state</em> (OPTIONAL): TBD An opaque value used by the client to maintain state between the request and callback. The authorization server includes this value when redirecting the user-agent back to the client.</p>
+<p><em>scope</em> (OPTIONAL): TBD The scope of the access request.</p>
 </li>
 </ul>
 <p>A non-normative example of the authorization request is as follows:</p>
+<p>TBD: add scope</p>
 <pre><code>GET /authorize?response_type=code&amp;client_id=s6BhdRkqt3&amp;state=xyz&amp;redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb
-&amp;code_challenge=6fdkQaPm51l13DSukcAH3Mdx7_ntecHYd1vi3n0hMZY&amp;code_challenge_method=S256 HTTP/1.1
+&amp;code_challenge=6fdkQaPm51l13DSukcAH3Mdx7_ntecHYd1vi3n0hMZY&amp;code_challenge_method=S256 
+HTTP/1.1
 Host: server.example.com
 </code></pre>
-<p>If the user grants the access request, the Authorization Server directs the user agent to the Authorization Clients redirect uri with the authorization response parameter in the <em>application/x-www-form-urlencoded</em> format. The response parameter SHALL be as follows:</p>
+<p>If the user grants the access request, the Authorization Server directs the user agent to the Authorization Clients redirect URI with the authorization response parameter in the <em>application/x-www-form-urlencoded</em> format. The response parameter SHALL be as follows:</p>
 <ul>
 <li>
 <p><em>code</em> (REQUIRED) - The authorization code generated by the Authorization Server.</p>
 </li>
 <li>
-<p><em>state</em> (OPTIONAL) - TBD: REQUIRED if the <em>state</em> parameter was used in the authorization request.</p>
+<p><em>state</em> (REQUIRED) - An unguessable value used by the client to track the state between the authorization request and the callback.</p>
 </li>
 </ul>
 <pre><code>HTTP/1.1 302 Found
 Location: https://client.example.com/cb?code=SplxlOBeZQQYbYS6WxSbIA&amp;state=xyz
 </code></pre>
-<p>The Authorization Client SHALL use the <em>authorization code</em> to retrieve an access token and access token metadata from the Authorization Server in an access token request. It makes a HTTP(s) POST request to the token endpoint with the following parameters in the HTTP request entity-body [OAuth 2.1, Section 4.1.3]:</p>
+<p>The Authorization Client SHALL use the <em>authorization code</em> in an access token request to retrieve an access token and token metadata from the Authorization Server. It makes a HTTP POST request to the token endpoint with the following parameters in the HTTP request entity-body [OAuth 2.1, Section 4.1.3]:</p>
 <ul>
 <li>
 <p><em>grant_type</em> (REQUIRED): The value SHALL be "authorization_code".</p>
@@ -1496,7 +1494,7 @@ Location: https://client.example.com/cb?code=SplxlOBeZQQYbYS6WxSbIA&amp;state=xy
 <p><em>code</em> (REQUIRED): The authorization code received from the Authorization Server in the authorization response.</p>
 </li>
 <li>
-<p><em>redirect_uri</em> (REQUIRED): The "redirect_uri" parameter as presented in the authorization request.</p>
+<p><em>redirect_uri</em> (REQUIRED): The redirect URI of the Authorization Client callback. The value SHALL match the redirect URI the Authorization Client is registered at the Authorization Server and the value of the <em>redirect_uri</em>, if presented in the authorization request.</p>
 </li>
 <li>
 <p><em>client_id</em> (REQUIRED): TBD if the client is not authenticating with the authorization server as described in Section 3.2.1.</p>
@@ -1505,8 +1503,7 @@ Location: https://client.example.com/cb?code=SplxlOBeZQQYbYS6WxSbIA&amp;state=xy
 <p><em>code_verifier</em> (REQUIRED) TBD if the "code_challenge" parameter was included in the authorization request. MUST NOT be used otherwise. The original code verifier string.</p>
 </li>
 </ul>
-<p>TBD: Confidential or credentialed clients MUST authenticate with the authorization server as described in [OAuth 2.1, Section 3.2.1].</p>
-<p>A non-normative example of the access token with <em>client_id</em> and <em>client_secret</em> client authentication method, MAY look like:</p>
+<p>A non-normative example of the access token request with client authentication using the <em>client_id</em> and <em>client_secret</em> in the HTTP Authorization header, MAY be as follows:</p>
 <pre><code>POST /token HTTP/1.1
 Host: server.example.com
 Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
@@ -1517,7 +1514,7 @@ grant_type=authorization_code
 &amp;redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb
 &amp;code_verifier=3641a2d12d66101249cdf7a79c000c1f8c05d2aafcf14bf146497bed
 </code></pre>
-<p>If the access token request is valid and authorized, the Authorization Server responds an access token response message in JSON format with the following attributes [OAuth 2.1, Section 4.1.4]:</p>
+<p>If the access token request is valid and authorized, the Authorization Server responds with an access token response message in JSON format with the following attributes [OAuth 2.1, Section 4.1.4]:</p>
 <ul>
 <li>
 <p><em>token_type</em> (REQUIRED): The value of the parameter SHALL be <em>Bearer</em>.</p>
@@ -1532,7 +1529,7 @@ grant_type=authorization_code
 <p><em>expires_in</em> (OPTIONAL): This parameter MAY be used to inform the Authorization Client on the access token lifetime.</p>
 </li>
 <li>
-<p><em>refresh_token</em> (OPTIONAL):  A token provided by the Authorization Server which can be used by the Authorization Client to obtain new access tokens using the same authorization grant.</p>
+<p><em>refresh_token</em> (OPTIONAL):  TBD A token provided by the Authorization Server which can be used by the Authorization Client to obtain new access tokens using the same authorization grant.</p>
 </li>
 </ul>
 <p>The access token response MAY contain other parameter or extensions depending on the implementation details of the Authorization Server actor[OAuth 2.1, Section 4.2.3].</p>
@@ -1544,27 +1541,20 @@ Cache-Control: no-store
 Pragma: no-cache
 
 {
-"access_token": "2YotnFZFEjr1zCsicMWpAA",
 "token_type": "Bearer",
+"access_token": "2YotnFZFEjr1zCsicMWpAA",
+"scope": scope_1 scope_2 ... scope_M
 "expires_in": 3600,
 "refresh_token": "tGzv3JOkF0XG5Qx2TlKWIA",
 "example_parameter": "example_value"
 }
 </code></pre>
+<p>The Authorization Server SHALL respond an error response as defined in the OAuth 2.0 Authorization Franework [OAuth 2.1, Section 5.2 and 4.1.2.1] if a request does not match the requirements or is not understood.</p>
 <h3>
 <a id="user-content-3715-trigger-events" class="anchor" href="#3715-trigger-events" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.5 Trigger Events</h3>
 <p>This transaction takes place whenever an Authorization Client needs an access token authorizing a HTTP RESTful transaction. This may be due to expiration of an existing token, a resource request has indicated that a new token is required, configuration or installation of a device, or as a routine request for new transactions.</p>
 <h3>
 <a id="user-content-3716-message-semantics" class="anchor" href="#3716-message-semantics" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.6 Message Semantics</h3>
-<p>TBD</p>
-<p>The Authorization Client and Authorization Server actors shall comply with the OAuth 2.1 Authorization Framework [OAuth 2.1]. This covers the HTTP transactions and content needed for requesting an access token. The client shall comply with the rules for a confidential client. Client identification and authentication requirements are specified by the OAuth 2.1 Authorization Framework [OAuth 2.1], plus requirements and procedures set by the Authorization Server. (E.g., the Authorization Server may have patient registration procedures that must be followed before authorization will be granted.)</p>
-<p>The request includes the token type requested. All actors are required to support at least the JSON Web Token format (JWT). They may support the SAML token format or OAuth Bearer Token Options.</p>
-<h4>
-<a id="user-content-37161-client-credential-grant-type" class="anchor" href="#37161-client-credential-grant-type" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.6.1 Client Credential grant type</h4>
-<p>TBD</p>
-<h4>
-<a id="user-content-37162-authorization-code-grant-type" class="anchor" href="#37162-authorization-code-grant-type" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.6.2 Authorization Code grant type</h4>
-<p>TBD</p>
 <h4>
 <a id="user-content-37163-json-web-token-jwt" class="anchor" href="#37163-json-web-token-jwt" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.6.3 JSON Web Token (JWT)</h4>
 <p>TBD</p>
@@ -1595,43 +1585,43 @@ Pragma: no-cache
 <td>iss</td>
 <td>R</td>
 <td>Issuer of token</td>
-<td>RFC 7519 Section 4.1.1</td>
+<td>RFC 7519, Section 4.1.1</td>
 </tr>
 <tr>
 <td>sub</td>
 <td>R</td>
 <td>Subject of token (e.g., user)</td>
-<td>RFC 7519 Section 4.1.2</td>
+<td>RFC 7519, Section 4.1.2</td>
 </tr>
 <tr>
 <td>aud</td>
 <td>R</td>
 <td>Audience of token</td>
-<td>RFC 7519 Section 4.1.3</td>
+<td>RFC 7519, Section 4.1.3</td>
 </tr>
 <tr>
 <td>exp</td>
 <td>R</td>
 <td>Expiration time</td>
-<td>RFC 7519 Section 4.1.4</td>
+<td>RFC 7519, Section 4.1.4</td>
 </tr>
 <tr>
 <td>nbf</td>
 <td>O</td>
 <td>Not before time</td>
-<td>RFC 7519 Section 4.1.5</td>
+<td>RFC 7519, Section 4.1.5</td>
 </tr>
 <tr>
 <td>iat</td>
 <td>O</td>
 <td>Issued at time</td>
-<td>RFC 7519 Section 4.1.6</td>
+<td>RFC 7519, Section 4.1.6</td>
 </tr>
 <tr>
 <td>jti</td>
 <td>R</td>
 <td>JWT ID</td>
-<td>RFC 7519 Section 4.1.7</td>
+<td>RFC 7519, Section 4.1.7</td>
 </tr>
 </tbody>
 </table>
@@ -1812,25 +1802,20 @@ Pragma: no-cache
 <p>TBD: clarify, no identify federation</p>
 <p>This option enables integration of environments that use both SAML identity federation and OAuth authorization infrastructure.</p>
 <p>Authorized Client and Authorization Server Actors claiming conformance with the SAML Token Option shall comply with the SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants [RFC 7522] rules for issuing and using SAML assertions and tokens. All of the SAML attributes in Table 3.71.4.1.2.1-1 shall be supported. The SAML assertion contents shall comply with XUA SAML assertion rules (see ITI TF-2b:3.40).</p>
-<h4>
-<a id="user-content-37165-oauth-bearer-token-option" class="anchor" href="#37165-oauth-bearer-token-option" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.6.5 OAuth Bearer Token Option</h4>
-<p>An Authorized Client, Authorization Server, and Resource Server Actor claiming conformance with the OAuth Bearer Token Option shall comply with the requirements in RFC 6750 OAuth 2.0 Authorization Framework: Bearer Token Usage. This option does not convey the healthcare information defined in Table 3.71.4.1.2.1-1.</p>
 <h3>
 <a id="user-content-3717-expected-actions" class="anchor" href="#3717-expected-actions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.7 Expected Actions</h3>
-<p>The response token shall be in the requested format. All actors are required to support at least the JSON Web Token format (JWT). They may support the XUA SAML token format or OAuth Bearer Token format.</p>
+<p>The response token shall be in the requested format. All actors are required to support at least the JSON Web Token format (JWT). They may support the XUA SAML token format.</p>
 <p>The specific HTTP transactions are defined in the OAuth standards in Section X.X.X Referenced Standards. This transaction does not modify them other than through the definition of additional token attribute rules and auditing requirements. The end result will be either an error response, as defined in the RFCs, or an access token that can be used in the Incorporate Authorization Token [ITI-72] transaction.</p>
 <h3>
 <a id="user-content-3718-message-examples" class="anchor" href="#3718-message-examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.8 Message Examples</h3>
-<p>TBD</p>
-<h4>
-<a id="user-content-37181-client-credential-grant-type" class="anchor" href="#37181-client-credential-grant-type" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.8.1 Client Credential grant type</h4>
-<p>TBD</p>
-<h4>
-<a id="user-content-37182-authorization-code-grant-type" class="anchor" href="#37182-authorization-code-grant-type" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.8.2 Authorization Code grant type</h4>
-<p>TBD</p>
+<p>Intentionally left blanc.</p>
 <h3>
 <a id="user-content-3719-security-considerations" class="anchor" href="#3719-security-considerations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.9 Security Considerations</h3>
-<p>The Authorization Client and client software shall meet the requirements of being an OAuth confidential client. The OAuth analysis indicates that without this requirement, the system is not sufficiently secure. The Authorization Client and client software may be grouped with a ATNA Secure Node or Secure Application if a higher level of security is appropriate.</p>
+<p>TBD:</p>
+<ul>
+<li>All HTTP transaction must be secured by using TLS or equivalent transport security.</li>
+<li>The Authorization Client may be grouped with a ATNA Secure Node or Secure Application if a higher level of security is appropriate.</li>
+</ul>
 <h4>
 <a id="user-content-37191-security-audit-considerations" class="anchor" href="#37191-security-audit-considerations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.9.1 Security Audit Considerations</h4>
 <h5>
@@ -2103,13 +2088,12 @@ end
 <p>Main Flow:</p>
 <ol>
 <li>
-<p>The device sends a resource request to the resource server, together with the access token. The access token may be an SAML token, a JWT Bearer token, or another access token type that is mutually agreed between Client, Resource Service and the token source.</p>
+<p>The device sends a resource request to the resource server, together with the access token. The access token may be a JWT token or a XUA SAML token.</p>
 </li>
 <li>
 <p>The resource service provider makes an access control decision based upon the user identity, access token, and resource requested. It may provide the resource, a subset of the resource, or reject the request.</p>
 </li>
 </ol>
-<p>Note: The token source in the diagram is not necessarily an IHE actor. It is any system that provides an access token. It can be the Authorization Server, or it can be some other system.</p>
 <p>This transaction works in conjunction with some other HTTP RESTful transaction. It extends the other transaction by adding information to the HTTP request for that other HTTP RESTful transaction.</p>
 <h3>
 <a id="user-content-3725-trigger-events" class="anchor" href="#3725-trigger-events" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.5 Trigger Events</h3>
@@ -2144,9 +2128,6 @@ Host: examplehost.com</p>
 Authorization: IHE-SAML fFBGRNJru1FQd[...omitted for brevity...]44AzqT3Zg
 Host: examplehost.com</p>
 </blockquote>
-<h4>
-<a id="user-content-37262-oauth-bearer-token-option" class="anchor" href="#37262-oauth-bearer-token-option" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.6.2 OAuth Bearer Token Option</h4>
-<p>An Authorization Client, Authorization Server, and Resource Server Actor claiming conformance with the OAuth Bearer Token Option shall comply with the requirements in RFC 6750 OAuth 2.0 Authorization Framework: Bearer Token Usage.</p>
 <h3>
 <a id="user-content-3727-expected-actions" class="anchor" href="#3727-expected-actions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.7 Expected Actions</h3>
 <p>TBD</p>
@@ -2154,7 +2135,7 @@ Host: examplehost.com</p>
 <p>The Resource Server shall enforce the authorization and may further restrict access based on Access Control decisions. The actor that is combined with the Resource Server will determine the responses and expected actions. The Resource Server should return an HTTP 401 (Unauthorized) error if the token is not accepted and the combined actor does not have a specified method for responses when access is denied.</p>
 <h3>
 <a id="user-content-3728-message-examples" class="anchor" href="#3728-message-examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.8 Message examples</h3>
-<p>TBD</p>
+<p>Intentionally left blanc.</p>
 <h3>
 <a id="user-content-3729-security-considerations" class="anchor" href="#3729-security-considerations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.9 Security Considerations</h3>
 <p>The Authorization Client and client software may be grouped with an ATNA Secure Node or Secure Application if a higher level of security is appropriate. Resource Server and Authorization Server should provide equivalent protection.</p>
