@@ -1108,7 +1108,7 @@ device requests information about sexually transmitted disease diagnosis it will
 <h2>
 <a id="user-content-342-iua-actor-options" class="anchor" href="#342-iua-actor-options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.2 IUA Actor Options</h2>
 <p>TBD: refactor whole section</p>
-<p>The <strong>SAML Token Option</strong> enables integration of environments that use both SAML identity federation and OAuth authorization infrastructure. This enables the end user to control authorization of applications through OAuth when the user identity authentication is already provided through SAML identity federation.</p>
+<p>The <strong>SAML Token Option</strong> enables integration of environments that use both, SAML access token and the OAuth authorization infrastructure.</p>
 <p>All actors are required to support at least the JSON Web Token format (JWT). They may support the SAML Token option.</p>
 <p>The JWT Token type and the SAML Token type enable the Resource Server to make additional Access Control Decisions.</p>
 <p>Table 34.2-1: IUA - Actors and Options</p>
@@ -1116,44 +1116,46 @@ device requests information about sexually transmitted disease diagnosis it will
 <thead>
 <tr>
 <th>IUA Actor</th>
-<th>Option Name</th>
+<th>Option</th>
+<th>Optionality</th>
 <th>Reference</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Authorization Server</td>
+<td>Authorization Client</td>
 <td>JWT Token</td>
+<td>R</td>
 <td>TBD</td>
 </tr>
 <tr>
 <td></td>
+<td>SAML Token</td>
+<td>O</td>
+<td>TBD</td>
+</tr>
+<tr>
+<td>Authorization Server</td>
+<td>JWT Token</td>
+<td>R</td>
+<td>TBD</td>
+</tr>
+<tr>
 <td></td>
-<td></td>
+<td>SAML Token</td>
+<td>O</td>
+<td>TBD</td>
 </tr>
 <tr>
 <td>Resource Server</td>
 <td>JWT Token</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>SAML Token</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Authorization Client</td>
-<td>JWT Token</td>
+<td>R</td>
 <td>TBD</td>
 </tr>
 <tr>
 <td></td>
 <td>SAML Token</td>
+<td>O</td>
 <td>TBD</td>
 </tr>
 </tbody>
@@ -1161,11 +1163,6 @@ device requests information about sexually transmitted disease diagnosis it will
 <h3>
 <a id="user-content-3421-saml-token-option" class="anchor" href="#3421-saml-token-option" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.2.1 SAML Token Option</h3>
 <p>An Authorization Client or Resource Server that claims the SAML Token Option shall be able to use or generate the SAML tokens defined in the SAML Token Option. See ITI TF-2c:3.71.4.1.2.2 and 3.72.4.1.2.1.</p>
-<p>TBD:</p>
-<ul>
-<li>the SAML token option requires the Authorization Client to implement the Get X-User Assertion transaction of the XUA Profile.</li>
-<li>Since XUA uses ATNA Node Authentication for client authentication, the Authorization Client must use ATNA Node Authentication in the SAML Token Option.</li>
-</ul>
 <h2>
 <a id="user-content-343-iua-required-actor-groupings" class="anchor" href="#343-iua-required-actor-groupings" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.3 IUA Required Actor Groupings</h2>
 <p>An actor from this profile (Column 1) shall implement all of the required transactions and/or content modules in this profile <em><strong>in addition to</strong></em> all of the transactions required for the grouped actor (Column 2).</p>
@@ -1283,10 +1280,10 @@ device requests information about sexually transmitted disease diagnosis it will
 <p>While the XUA profile relies on ATNA Node Authentication to authenticate the client (or client network node), IUA uses the mechanism defined in the OAuth 2.1 Authorization Framework to authenticiate client applications.</p>
 </li>
 <li>
-<p>While XUA supports SAML 2 Assertions only, the IUA profile supports the use of JWT and SAML 2.0 Assertions.</p>
+<p>While XUA supports SAML 2 Assertions only, the IUA profile supports access token in JWT and SAML 2.0 Assertion format.</p>
 </li>
 </ul>
-<p>The SAML token option in IUA enables an Authorization Client actor to retrieve the access token from a XUA compliant X-Assertion Provider and use it in the Incorporate Authorization Token [ITI-72] when accessing protected data from a Resource Server via RESTful transactions.</p>
+<p>The SAML token option in IUA enables an Authorization Client actor to incorporate access token originally retrieved and issued from a XUA X-Assertion Provider and use it in the Incorporate Authorization Token [ITI-72] transaction, when accessing protected data from a Resource Server via RESTful transactions.</p>
 <h1>
 <a id="user-content-volume-2----transactions" class="anchor" href="#volume-2----transactions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Volume 2 -- Transactions</h1>
 <p>Add Section 3.71</p>
@@ -1751,10 +1748,6 @@ Pragma: no-cache
 <td>patient_id</td>
 <td>Resource-ID</td>
 </tr>
-<tr>
-<td>person_id</td>
-<td></td>
-</tr>
 </tbody>
 </table>
 <p>The following is a non-normative example of JWT:</p>
@@ -1804,7 +1797,6 @@ Pragma: no-cache
 <p>Authorized Client and Authorization Server Actors claiming conformance with the SAML Token Option shall comply with the SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants [RFC 7522] rules for issuing and using SAML assertions and tokens. All of the SAML attributes in Table 3.71.4.1.2.1-1 shall be supported. The SAML assertion contents shall comply with XUA SAML assertion rules (see ITI TF-2b:3.40).</p>
 <h3>
 <a id="user-content-3717-expected-actions" class="anchor" href="#3717-expected-actions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.7 Expected Actions</h3>
-<p>The response token shall be in the requested format. All actors are required to support at least the JSON Web Token format (JWT). They may support the XUA SAML token format.</p>
 <p>The specific HTTP transactions are defined in the OAuth standards in Section X.X.X Referenced Standards. This transaction does not modify them other than through the definition of additional token attribute rules and auditing requirements. The end result will be either an error response, as defined in the RFCs, or an access token that can be used in the Incorporate Authorization Token [ITI-72] transaction.</p>
 <h3>
 <a id="user-content-3718-message-examples" class="anchor" href="#3718-message-examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.8 Message Examples</h3>
@@ -2088,7 +2080,7 @@ end
 <p>Main Flow:</p>
 <ol>
 <li>
-<p>The device sends a resource request to the resource server, together with the access token. The access token may be a JWT token or a XUA SAML token.</p>
+<p>The device sends a resource request to the resource server, together with the access token. The access token may be a JWT token or a XUA compliant SAML 2.0 Assertion.</p>
 </li>
 <li>
 <p>The resource service provider makes an access control decision based upon the user identity, access token, and resource requested. It may provide the resource, a subset of the resource, or reject the request.</p>
@@ -2122,7 +2114,7 @@ Host: examplehost.com</p>
 <h4>
 <a id="user-content-37261-saml-token-option" class="anchor" href="#37261-saml-token-option" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.6.1 SAML Token Option</h4>
 <p>An Authorization Client that supports the SAML Token Option SHALL be able to incorporate a XUA compliant SAML assertion (see ITI TF-2b: 3.40.4.1.2 Message Semantics) as access token. A Resource Server that supports the SAML Token Option SHALL be able to accept and use a SAML assertion that complies with the XUA specification as the access token for requests.</p>
-<p>The SAML assertion shall be encoded as specified by SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants [RFC 7522] rules for issuing and using SAML. This shall be included in the HTTP headers as an Authorization of type IHE-SAML.</p>
+<p>The SAML assertion shall be encoded as specified by SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants [RFC 7522] rules for issuing and using SAML 2.0 Assertions. This shall be included in the HTTP headers as an Authorization of type IHE-SAML.</p>
 <blockquote>
 <p>GET /example/url/to/resource/location HTTP/1.1
 Authorization: IHE-SAML fFBGRNJru1FQd[...omitted for brevity...]44AzqT3Zg
@@ -2143,6 +2135,10 @@ Host: examplehost.com</p>
 <a id="user-content-37291-security-audit-considerations" class="anchor" href="#37291-security-audit-considerations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.9.1 Security Audit Considerations</h4>
 <h5>
 <a id="user-content-372911-resource-server-specific-security-considerations" class="anchor" href="#372911-resource-server-specific-security-considerations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.9.1.1 Resource Server Specific Security Considerations</h5>
+<p>TBD:</p>
+<ul>
+<li>aud parameter ?</li>
+</ul>
 <p>When an ATNA Audit message needs to be generated by the Resource Server and the user is authenticated by way of a JWT Token, the ATNA Audit message <strong>UserName</strong> element shall record the JWT Token information using the following encoding:</p>
 <p><strong>alias"&lt;"user"@"issuer"&gt;"</strong></p>
 <p>where:</p>

@@ -368,7 +368,7 @@ Notes:
 
 TBD: refactor whole section
 
-The **SAML Token Option** enables integration of environments that use both SAML identity federation and OAuth authorization infrastructure. This enables the end user to control authorization of applications through OAuth when the user identity authentication is already provided through SAML identity federation.
+The **SAML Token Option** enables integration of environments that use both, SAML access token and the OAuth authorization infrastructure.
 
 All actors are required to support at least the JSON Web Token format (JWT). They may support the SAML Token option.
 
@@ -377,24 +377,20 @@ The JWT Token type and the SAML Token type enable the Resource Server to make ad
 
 Table 34.2-1: IUA - Actors and Options
 
-| IUA Actor            | Option Name        | Reference
-|----------------------|--------------------|-----------
-| Authorization Server | JWT Token         	| TBD
-|                      | 					|
-| Resource Server      | JWT Token 			| 
-|                      | SAML Token         | 
-|    				   |                    |
-| Authorization Client | JWT Token          | TBD
-|                      | SAML Token         | TBD
+| IUA Actor            | Option             |Optionality| Reference
+|----------------------|--------------------|----------	|-----------
+| Authorization Client | JWT Token          |R    		| TBD
+|                      | SAML Token         |O    		| TBD
+| Authorization Server | JWT Token         	|R    		| TBD
+|                      | SAML Token			|O          | TBD
+| Resource Server      | JWT Token 			|R    		| TBD 
+|                      | SAML Token         |O    		| TBD         
+
 
 
 ### 34.2.1 SAML Token Option
 
 An Authorization Client or Resource Server that claims the SAML Token Option shall be able to use or generate the SAML tokens defined in the SAML Token Option. See ITI TF-2c:3.71.4.1.2.2 and 3.72.4.1.2.1.
-
-TBD: 
-- the SAML token option requires the Authorization Client to implement the Get X-User Assertion transaction of the XUA Profile. 
-- Since XUA uses ATNA Node Authentication for client authentication, the Authorization Client must use ATNA Node Authentication in the SAML Token Option. 
 
 ## 34.3 IUA Required Actor Groupings
 
@@ -488,9 +484,9 @@ The XUA profile provides equivalent functionality for SOAP based transactions. B
 
 - While the XUA profile relies on ATNA Node Authentication to authenticate the client (or client network node), IUA uses the mechanism defined in the OAuth 2.1 Authorization Framework to authenticiate client applications.
 
-- While XUA supports SAML 2 Assertions only, the IUA profile supports the use of JWT and SAML 2.0 Assertions.  
+- While XUA supports SAML 2 Assertions only, the IUA profile supports access token in JWT and SAML 2.0 Assertion format.  
 
-The SAML token option in IUA enables an Authorization Client actor to retrieve the access token from a XUA compliant X-Assertion Provider and use it in the Incorporate Authorization Token [ITI-72] when accessing protected data from a Resource Server via RESTful transactions.   
+The SAML token option in IUA enables an Authorization Client actor to incorporate access token originally retrieved and issued from a XUA X-Assertion Provider and use it in the Incorporate Authorization Token [ITI-72] transaction, when accessing protected data from a Resource Server via RESTful transactions.   
 
 # Volume 2 -- Transactions
 
@@ -537,6 +533,8 @@ This profile references the following publications and references therein:
 - *OAuth 2.1*: The OAuth 2.1 Authorization Framework, published as draft-ietf-oauth-v2-1-00 (July 30, 2020).
 
 - *JWT Access Token*: JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens, published as draft-ietf-oauth-access-token-jwt-07 (April 27, 2020).
+
+- *RFC 7522*: SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants [RFC 7522]. 
 
 
 ### 3.71.4 Interaction Diagram
@@ -592,7 +590,6 @@ The Authorization Client actor makes a HTTP(s) POST request to the token endpoin
 - *scope* (OPTIONAL): The scope of the access request.
 
 The request SHALL use the *application/x-www-form-urlencoded* format with a character encoding of UTF-8 [OAuth 2.1, Section 4.4.2].
-
 
 A non-normative example of the access token request with client authentication using the *client_id* and *client_secret* in the HTTP Authorization header, MAY be as follows: 
 
@@ -840,7 +837,6 @@ Table 3.71.4.1.2.1-3: JWT Claims and corresponding XUA Assertion attributes
 |acp                            |acp                         |
 |purpose\_of\_use               |PurposeOfUse                |
 |patient\_id                    |Resource-ID                 |
-|person\_id                     |                            |
 
 
 The following is a non-normative example of JWT:
@@ -897,8 +893,6 @@ This option enables integration of environments that use both SAML identity fede
 Authorized Client and Authorization Server Actors claiming conformance with the SAML Token Option shall comply with the SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants [RFC 7522] rules for issuing and using SAML assertions and tokens. All of the SAML attributes in Table 3.71.4.1.2.1-1 shall be supported. The SAML assertion contents shall comply with XUA SAML assertion rules (see ITI TF-2b:3.40).
 
 ### 3.71.7 Expected Actions
-
-The response token shall be in the requested format. All actors are required to support at least the JSON Web Token format (JWT). They may support the XUA SAML token format.
 
 The specific HTTP transactions are defined in the OAuth standards in Section X.X.X Referenced Standards. This transaction does not modify them other than through the definition of additional token attribute rules and auditing requirements. The end result will be either an error response, as defined in the RFCs, or an access token that can be used in the Incorporate Authorization Token [ITI-72] transaction.
 
@@ -989,6 +983,9 @@ This profile references the following documents and references therein:
 
 - *JWT Access Token*: JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens, published as draft-ietf-oauth-access-token-jwt-07 (April 27, 2020).
 
+- *RFC 7522*: SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants [RFC 7522]. 
+
+
 #### 3.72.3.1 Related IHE Profiles
 
 XUA Cross-Enterprise User Assertion -- Attribute Extension
@@ -1015,15 +1012,15 @@ end
 
 Main Flow:
 
-1.  The device sends a resource request to the resource server, together with the access token. The access token may be a JWT token or a XUA SAML token.
+1.  The Authorization Client actor sends a resource request to a Resource Server, together with the access token. The access token may be a JWT token or a XUA compliant SAML 2.0 Assertion.
 
-2.  The resource service provider makes an access control decision based upon the user identity, access token, and resource requested. It may provide the resource, a subset of the resource, or reject the request.
+2.  The Resource Server makes an access control decision based upon the user identity, access token, and resource requested. It may provide the resource, a subset of the resource, or reject the request.
 
-This transaction works in conjunction with some other HTTP RESTful transaction. It extends the other transaction by adding information to the HTTP request for that other HTTP RESTful transaction.
+TBD: This transaction works in conjunction with other HTTP RESTful transaction. It extends the transaction by adding information to the HTTP request for that HTTP RESTful transaction.
 
 ### 3.72.5 Trigger Events
 
-The client system needs to make an HTTP RESTful transaction to a Resource Server that performs access authorization. The Authorization Client has already obtained the necessary access token, either by means of another IHE transaction or by some other means.
+TBD: A client needs to make an HTTP RESTful transaction to a Resource Server that performs access authorization. The Authorization Client has already obtained the necessary access token, either by means of another IHE transaction or by some other means.
 
 ### 3.72.6 Message Semantics
 
@@ -1045,9 +1042,9 @@ The remainder of the transaction requirements are established by the HTTP RESTfu
 
 #### 3.72.6.1 SAML Token Option
 
-An Authorization Client that supports the SAML Token Option SHALL be able to incorporate a XUA compliant SAML assertion (see ITI TF-2b: 3.40.4.1.2 Message Semantics) as access token. A Resource Server that supports the SAML Token Option SHALL be able to accept and use a SAML assertion that complies with the XUA specification as the access token for requests.
+An Authorization Client that supports the SAML Token Option SHALL be able to incorporate a XUA compliant SAML 2.0 Assertion (see ITI TF-2b: 3.40.4.1.2 Message Semantics) as access token. A Resource Server that supports the SAML Token Option SHALL be able to accept and use a SAML assertion that complies with the XUA specification as the access token for requests.
 
-The SAML assertion shall be encoded as specified by SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants [RFC 7522] rules for issuing and using SAML. This shall be included in the HTTP headers as an Authorization of type IHE-SAML.
+The SAML assertion shall be encoded as specified by SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants [RFC 7522] rules for issuing and using SAML 2.0 Assertions. This shall be included in the HTTP headers as an Authorization of type IHE-SAML.
 
 > GET /example/url/to/resource/location HTTP/1.1
 > Authorization: IHE-SAML fFBGRNJru1FQd\[...omitted for brevity...\]44AzqT3Zg
@@ -1072,6 +1069,9 @@ The Authorization Client and client software may be grouped with an ATNA Secure 
 #### 3.72.9.1 Security Audit Considerations
 
 ##### 3.72.9.1.1 Resource Server Specific Security Considerations
+
+TBD: 
+- aud parameter ?
 
 When an ATNA Audit message needs to be generated by the Resource Server and the user is authenticated by way of a JWT Token, the ATNA Audit message **UserName** element shall record the JWT Token information using the following encoding:
 
