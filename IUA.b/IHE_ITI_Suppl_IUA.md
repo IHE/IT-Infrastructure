@@ -76,8 +76,6 @@ The current version of the IHE Technical Framework can be found at: [http://www.
 
 [34.2 IUA Actor Options](#iua-actor-options)
 
-[34.2.1 SAML Token Option](#saml-token-option)
-
 [34.3 IUA Required Actor Groupings](#iua-required-actor-groupings)
 
 [34.4 IUA Overview](#iua-overview)
@@ -188,8 +186,6 @@ The HTTP RESTful transport is being used by many healthcare applications and sma
 
 -   An application will need to retrieve and update health related data that is stored on a resource server. It uses HTTP RESTful transactions for both retrieve and update because HTTP support is integrated into the platform services.
 
--   The patient already has an established relationship with an authorization service, e.g., Google, Facebook, or banking service.
-
 -   The patient wants to configure the application to have access to their data without needing the IT staff at the application vendor and resource vendor to set things up.
 
 The HTTP RESTful services may include user driven browser activity, downloaded applications, and automatic devices. The existing IHE ITI XUA Profile fills these needs for the SOAP transport based transactions. The existing IHE ITI EUA Profile fills these needs for various different transports within a single enterprise environment, including HTTP RESTful transports. The Basic Patient Privacy Consent (BPPC) Profile is associated with this profile and these other existing profile. BPPC covers the legal and administrative needs for consent documentation and associating the patient consent with policy documentation. This profile includes the ability to associate the electronic authorizations with the patient agreements and organizational policies.
@@ -218,23 +214,17 @@ The key issues here are:
 
 Similar issues arise with:
 
--   In house application distribution that needs to authorization for devices used within the facility.
+-   In house application distribution that needs authorization for devices used within the facility.
 
 -   The in house IT staff wants a common method to authorize use of in house web applications and access to in house resources.
 
 -   IT staff are more willing to run their own internal authentication and authorization servers, but want to use off the shelf software and want the option to outsource these services. They are more likely to separate authentication from authorization than end user systems. Authentication issues are closely related to HR activities like hiring and firing. Authorization issues are related to patient and work assignments. These are controlled by different parts of the organization and have different process dependencies.
 
--   Efficient user workflow requires minimizing the number of times a person is challenged for authentication by interactive applications.
+-   Providers and Specialists have authorization needs for dealing with other organizations, need to deal with hundreds of resource services an may struggle to maintain hundreds of different authentication and authorization relationships.
 
--   Providers and Specialists have authorization needs for dealing with other organizations.
+-   Granting subset access to specialized provider. E.g., read access to cardiac info to physical therapy organization, forbidding access to other health data.
 
--   Providers and specialists need to deal with hundreds of resource services. A provider panel of 10,000 patients will need hundreds of relationships with different specialists, labs, priors, and other providers.
-
--   The providers and specialists struggle to maintain hundreds of different authentication and authorization relationships today. Their IT staff struggle to support at all these different relationships. Neither wants delays or problems that will impact patient care.
-
--   Efficient user workflow requires minimizing the number of times a person is challenged for credentials for interactive applications.
-
--   Granting subset access to specialized provider. E.g., read access to cardiac info to physical therapy organization, forbidding access to other data like reproductive health and addiction data.
+TBD: 
 
 There are also environmental assumptions made by this profile.
 
@@ -245,27 +235,23 @@ Second, this profile is operating in an environment where access consents are ma
 
 # Open Issues and Question
 
-| Issue                             | Description                       |
-|-----------------------------------|-----------------------------------|
-| 1                                 | This profile does not specify the internal structure of "client\_id". This is a major concern for operations and security management. But, OAuth does not provide a full specification for client\_id. It just specifies its purpose.       |
-|                                   | DICOM's equivalent information attributes are: Manufacturer, Model, Software Versions, and  Serial Number. |
-|                                   | The OAuth client ID must identify the device, the application (including any necessary version  information), the particular instance, and any other  information needed to identify the client application uniquely.  |
-|                                   | Registration of clients is a significant operational and security problem that is being postponed until there is more experience with problems in the field and reasonable solutions. There is known danger from spoofing of client\_id. |
-|                                   | At this time, the method for  assignment of client\_id is not included in the profile. In the field there are a variety of methods being tried. Many depend upon physical distribution  methods or out of band communications to manage the authentication problems.          |
-| 2                                 | This profile mandates support for JWT token format. It has an XUA SAML Option defined by IHE for ease of integration with the IHE WS-Security environment. You may also use other token formats as part of a deployment.             |
-| 3                                 | Audit messages are only defined for clients that are also Secure Applications. There is no defined auditing for other clients.       |
-| 4                                 | This profile does not require client grouping with Secure Node or Secure Application because it is using the OAuth issuance rules for client\_id, see the security consideration section. It assumes that the client\_id management will deal with these security considerations in a manner similar to the certificate management assumptions made for TLS and other certificate users.  |
+- **Issue 1**: This profile does not specify the internal structure of "client_id". This is a major concern for operations and security management. But, OAuth does not provide a full specification for client_id. It just specifies its purpose.
+DICOM's equivalent information attributes are: Manufacturer, Model, Software Versions, and Serial Number.
+The OAuth client ID must identify the device, the application (including any necessary version information), the particular instance, and any other information needed to identify the client application uniquely. Registration of clients is a significant operational and security problem that is being postponed until there is more experience with problems in the field and reasonable solutions. There is known danger from spoofing of client_id. At this time, the method for assignment of client_id is not included in the profile. In the field there are a variety of methods being tried. Many depend upon physical distribution methods or out of band communications to manage the authentication problems.
+
+- **Issue 2**: This profile mandates support for JWT token format. It has an XUA SAML Option defined by IHE for ease of integration with the IHE WS-Security environment. You may also use other token formats as part of a deployment.
+
+- **Issue 3**: Audit messages are only defined for clients that are also Secure Applications. There is no defined auditing for other clients.
+
+- **Issue 4**: This profile does not require client grouping with Secure Node or Secure Application because it is using the OAuth issuance rules for client_id, see the security consideration section. It assumes that the client_id management will deal with these security considerations in a manner similar to the certificate management assumptions made for TLS and other certificate users.
 
 # Closed Issues
 
+- **Issue 8**: This profile uses the Authorization header only for conveying the authorization information. The parameter form is not prohibited but is not compliant with the profile.
 
-| Issue                             | Description                      
-|-----                              |-----
-| 8                                 | This profile uses the Authorization header only for conveying the authorization information. The parameter form is not prohibited but is not compliant with the profile.       |
-| 9                                 | This profile does not explain the ways that some Resource Servers utilize HTTP redirects to automate some kinds of  authorization activities. The actual HTTP transactions used for Obtain Authorization Token and Authorized RESTful Transaction are as defined within this profile. The other transactions  are under the control of the Resource Server and its design.   |
-|                                   |                                   |
-|                                   | Is an IHE explanation of how this works needed, or is the extensive industry documentation and tutorials used in other fields sufficient? No.        |
-| 10                                | The selected standards are: <br/> - The OAuth 2.0 Framework, <br/> - JWT Token, with defined extensions,<br/> - SAML Token, using the XUA extensions                    |
+- **Issue 9**: This profile does not explain the ways that some Resource Servers utilize HTTP redirects to automate some kinds of authorization activities. The actual HTTP transactions used for Obtain Authorization Token and Authorized RESTful Transaction are as defined within this profile. The other transactions are under the control of the Resource Server and its design.
+
+- **Issue 10**: The selected standards are: The OAuth 2.0 Framework, JWT Token, with defined extensions, SAML Token, using the XUA extensions.                 |
 
 
 # General Introduction
@@ -366,35 +352,25 @@ Notes:
 
 ## 34.2 IUA Actor Options
 
-TBD: refactor whole section
-
-The **SAML Token Option** enables integration of environments that use both, SAML access token and the OAuth authorization infrastructure.
-
-All actors are required to support at least the JSON Web Token format (JWT). They may support the SAML Token option.
-
-The JWT Token type and the SAML Token type enable the Resource Server to make additional Access Control Decisions.
+The **SAML Token Option** enables integration of environments that use both, SAML access token and the OAuth authorization infrastructure. All actors SHALL support the JSON Web Token option and may support the SAML Token option.
 
 
 Table 34.2-1: IUA - Actors and Options
 
-| IUA Actor            | Option             |Optionality| Reference
-|----------------------|--------------------|----------	|-----------
-| Authorization Client | JWT Token          |R    		| TBD
-|                      | SAML Token         |O    		| TBD
-| Authorization Server | JWT Token         	|R    		| TBD
-|                      | SAML Token			|O          | TBD
-| Resource Server      | JWT Token 			|R    		| TBD 
-|                      | SAML Token         |O    		| TBD         
+| IUA Actor            | Option             |Optionality
+|----------------------|--------------------|----------	
+| Authorization Client | JWT Token          |R    		
+|                      | SAML Token         |O    		
+| Authorization Server | JWT Token         	|R    		
+|                      | SAML Token			|O          
+| Resource Server      | JWT Token 			|R    		
+|                      | SAML Token         |O    		        
 
-
-
-### 34.2.1 SAML Token Option
-
-An Authorization Client or Resource Server that claims the SAML Token Option shall be able to use or generate the SAML tokens defined in the SAML Token Option. See ITI TF-2c:3.71.4.1.2.2 and 3.72.4.1.2.1.
 
 ## 34.3 IUA Required Actor Groupings
 
-An actor from this profile (Column 1) shall implement all of the required transactions and/or content modules in this profile ***in addition to*** all of the transactions required for the grouped actor (Column 2).
+An actor from this profile shall implement the required transactions and/or content modules in this profile ***in addition to*** all of the transactions required for the grouped actor (Column 2).
+
 
   |IUA Actor            |Actor to be grouped with   |Reference                    |Content Bindings Reference
   |----                 |-----                      |-----                        |-----                      
@@ -439,6 +415,8 @@ Note:
 ### 34.4.2 Use Cases
 
 #### 34.4.2.1 Authorization
+
+This profile applies to use cases where a resource owner or user authorizes an client application to access health data behalf of the user using OAuth. Beyond other, relevant use cases are:   
 
 A healthcare professional uses a server hosted web application to access a patients electronic health record (EHR) using RESTful transactions. The web application has been registered beforehand at the Authorization Server with client ID and client authentication method (e.g. client secret) by a system administrator. When accessing a view on the EHR, the browser is redirected to the EHR Authorization Server. The Authorization Server authenticates the healthcare professional either by presenting the views to enter the authentication factors (e.g. username, password and 2nd factor) or by redirecting to an Identity Provider (IdP). This step may be omitted, if the browser already has an authenticated session (e.g. session cookie). After user authentication, the Authorization Server performs the necessary steps to authorize the web application access to the EHR data, either by contract or by explicit consent given by the healthcare professional. When authorized, the web application retrieves an access token which authorizes it to request and retrieve the EHR data from the Resource Server(s) on behalf of the healthcare professional.
 
@@ -530,11 +508,17 @@ This profile relies on the OAuth 2.1 Authorization Framework. Since the original
 
 This profile references the following publications and references therein:
 
-- *OAuth 2.1*: The OAuth 2.1 Authorization Framework, published as draft-ietf-oauth-v2-1-00 (July 30, 2020).
+- *OAuth 2.1*: The OAuth 2.1 Authorization Framework, published as draft-ietf-oauth-v2-1-00, July 30, 2020.
 
-- *JWT Access Token*: JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens, published as draft-ietf-oauth-access-token-jwt-07 (April 27, 2020).
+- *JWT Access Token*: JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens, published as draft-ietf-oauth-access-token-jwt-07, April 27, 2020.
 
-- *RFC 7522*: SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants [RFC 7522]. 
+- *RFC 7519*: JSON Web Token (JWT), May 2015.  
+
+- *RFC 7522*: Security Assertion Markup Language (SAML) 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants, May 2015. 
+
+- *RFC 7515*: JSON Web Signature (JWS) (May 2015). 
+
+- *RFC 7518*: JSON Web Algorithms (JWA) (May 2015). 
 
 
 ### 3.71.4 Interaction Diagram
@@ -581,13 +565,15 @@ The sequence of HTTP(S) requests to perform an Get Authorization Token transacti
 Figure 3.71.4.1.1-1: Sequence of HTTP(S) requests in the client credential grant type.
 
 
-The Authorization Client actor requests an access token using its client credentials (or other supported means of authentication). This grant type SHALL be used by confidential clients only [OAuth 2.1, Section 4.2].
+The Authorization Client actor requests an access token using client credentials (or other supported means of authentication). This grant type SHALL be used by confidential clients only [OAuth 2.1, Section 4.2].
 
 The Authorization Client actor makes a HTTP(s) POST request to the token endpoint with the following parameters in the HTTP request entity-body [OAuth 2.1, Section 4.2.2]:
 
 - *grant_type* (REQUIRED): The value of the parameter SHALL be *client_credentials*.
 
 - *scope* (OPTIONAL): The scope of the access request.
+
+- *resource* (REQUIRED): Single valued identifier of the Resource Server api endpoint to be accessed [JWT Access Token, Section 3].
 
 The request SHALL use the *application/x-www-form-urlencoded* format with a character encoding of UTF-8 [OAuth 2.1, Section 4.4.2].
 
@@ -600,7 +586,8 @@ Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
 Content-Type: application/x-www-form-urlencoded
 
 grant_type=client_credentials
-scope=scope_1 scope_2 ... scope_N
+&scope=scope_1 scope_2 ... scope_N
+&resource=https://rs.example.com/
 ```
 
 
@@ -637,7 +624,6 @@ Pragma: no-cache
 The Authorization Server SHALL respond an error response as defined in the OAuth 2.0 Authorization Franework [OAuth 2.1, Section 5.2] if the request does not match the requirements or is not understood.  
 
 
-
 ##### 3.71.4.1.2 Authorization Code grant type
 
 ![ITI-71 Authorization Code](media/authorization-code-grant.png)
@@ -661,9 +647,9 @@ The Authorization Client actor directs the user-agent to make a HTTP GET request
 - *code_challenge_method* (OPTIONAL): TBD
 
 - *redirect_uri* (OPTIONAL): The absolute URI of the Authorization Client callback endpoint to which the authorization server will send the user agent back once access is granted (or denied). This parameter is required if the Authorization Client is registered at the Authorization Server with multiple redirect URI, optional otherwise [OAuth 2.1, Section 3.1.2.3].    
-
 - *scope* (OPTIONAL): TBD The scope of the access request.
 
+- *resource* (REQUIRED): Single valued identifier of the Resource Server api endpoint to be accessed [JWT Access Token, Section 3].
 
 A non-normative example of the authorization request is as follows:
 
@@ -671,11 +657,10 @@ TBD: add scope
 
 ```
 GET /authorize?response_type=code&client_id=s6BhdRkqt3&state=xyz&redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb
-&code_challenge=6fdkQaPm51l13DSukcAH3Mdx7_ntecHYd1vi3n0hMZY&code_challenge_method=S256 
+&code_challenge=6fdkQaPm51l13DSukcAH3Mdx7_ntecHYd1vi3n0hMZY&code_challenge_method=S256&resource=https%3A%2F%2Frs.example.com%2F 
 HTTP/1.1
 Host: server.example.com
 ```
-
 
 If the user grants the access request, the Authorization Server directs the user agent to the Authorization Clients redirect URI with the authorization response parameter in the *application/x-www-form-urlencoded* format. The response parameter SHALL be as follows:
 
@@ -725,7 +710,7 @@ If the access token request is valid and authorized, the Authorization Server re
 
 - *expires_in* (OPTIONAL): This parameter MAY be used to inform the Authorization Client on the access token lifetime.
 
-- *refresh_token* (OPTIONAL):  TBD A token provided by the Authorization Server which can be used by the Authorization Client to obtain new access tokens using the same authorization grant.   
+- *refresh_token* (OPTIONAL): A token provided by the Authorization Server which can be used by the Authorization Client to obtain new access tokens using the same authorization grant.  
 
 
 The access token response MAY contain other parameter or extensions depending on the implementation details of the Authorization Server actor[OAuth 2.1, Section 4.2.3].
@@ -750,7 +735,8 @@ Pragma: no-cache
 }
 ```
 
-The Authorization Server SHALL respond an error response as defined in the OAuth 2.0 Authorization Franework [OAuth 2.1, Section 5.2 and 4.1.2.1] if a request does not match the requirements or is not understood.   
+The Authorization Server SHALL respond an error response as defined in the OAuth 2.0 Authorization Franework [OAuth 2.1, Section 5.2 and 4.1.2.1] if a request does not match the requirements or is not understood. 
+
 
 ### 3.71.5 Trigger Events
 
@@ -761,35 +747,26 @@ This transaction takes place whenever an Authorization Client needs an access to
 
 #### 3.71.6.3 JSON Web Token (JWT)
 
-TBD
+In the JSON Web Token option the access token is defined as JSON object with the follwing attributes: 
 
-The Authorization Client and Authorization Server actors shall support the JWS (signed) alternative of the JWT token as specified in *JSON Web Token (JWT) Profile for OAuth 2.0 Client Authentication and Authorization Grants* [RFC 7523]. Any actor that supports this transaction MAY support the JWE (unsigned but encrypted) alternative of the JWT token.
+- *iss* (REQUIRED): A single valued string identifying the instance which issued the access token (e.g.,the Authorization Server) [JWT Access Token, Section 2.2]. 
 
-Of the signature of JWT algorithms specified in the [JWA], the following algorithm MUST be supported:
-* RSA using SHA-256 hash algorithm ("RS256")
+- *sub* (REQUIRED): If known, unique identifier of the user; the *client_id* otherwise [JWT Access Token, Section 2.2].  
 
-Other algorithms such as:
-* HMAC using SHA-256 hash algorithm ("HS256")
-* ECDSA using P-256 curve and the SHA-256 hash algorithm ("ES256")
+- *aud* (REQUIRED): Single valued identifier of the Resource Server api endpoint to be accessed [JWT Access Token, Section 2.2]. This parameter SHALL match the *resource* parameter claimed by the Authorization Client. 
 
-are RECOMMENDED. Other algorithms MAY be used except the "NONE" that MUST NOT be supported.
+- *jti* (REQUIRED): A unique identifier for the JWT access token [JWT Access Token, Section 2.2]. 
 
-The JWT token attribute requirements are shown in Table-3.71.4.1.2.1. The required attributes are indicated by "R". Optional attributes are indicated by "O". If present, the optional attributes shall be used in accordance with OAuth and JWT specifications.
+- *exp* (REQUIRED): Expiration time of the token in Numeric Date format [JWT, Section 4.1.4]. 
 
-Table 3.71.4.1.2.1-1: JWT Token requirements
+- *nbf* (OPTIONAL): The earliest time in Numeric Date format the token SHALL be accepted [JWT, Section 4.1.5].  
 
-  |Parameter   |Req   |Definition                      |RFC Reference
-  |----------- |----- |------------------------------- |---------------------------------
-  |iss         |R     |Issuer of token                 |RFC 7519, Section 4.1.1
-  |sub         |R     |Subject of token (e.g., user)   |RFC 7519, Section 4.1.2
-  |aud         |R     |Audience of token               |RFC 7519, Section 4.1.3
-  |exp         |R     |Expiration time                 |RFC 7519, Section 4.1.4
-  |nbf         |O     |Not before time                 |RFC 7519, Section 4.1.5
-  |iat         |O     |Issued at time                  |RFC 7519, Section 4.1.6
-  |jti         |R     |JWT ID                          |RFC 7519, Section 4.1.7
+- *iat* (OPTIONAL): The issuing date in Numeric Date format [JWT, Section 4.1.6]. 
 
 
-The Authorization Client, Authorization Server, and Resource Server SHALL support the optional extensions defined in table 3.71.4.1.2.1-1. However, if present, the claims shall be wrapped in an "extensions" claim object that consists of the key 'ihe\_iua' and a value of a JSON object containing the claims, as such
+The JWT access token MAY contain other parameter or extensions depending on the implementation details.
+
+The Authorization Client, Authorization Server, and Resource Server SHALL support the optional extensions defined in table 3.71.4.1.2.1-. However, if present, the claims shall be wrapped in an "extensions" claim object that consists of the key 'ihe\_iua' and a value of a JSON object containing the claims, as such
 
 ```
 "extensions" : {  
@@ -800,46 +777,73 @@ The Authorization Client, Authorization Server, and Resource Server SHALL suppor
 }
 ```
 
-The claim content shall be the same as the content defined in the XUA specification (see ITI TF-2b: 3.40.4.1.2 Message Semantics). The encoding of the Subject Role and Purpose of Use MUST be as JSON arrays.
+The claim content shall correspond to the content defined in the XUA specification (see ITI TF-2b: 3.40.4.1.2 Message Semantics). The encoding of the Subject Role and Purpose of Use MUST be as JSON arrays.
 
 Table 3.71.4.1.2.1-2: JWT Claims of the IUA extension
 
 
-|JWT Claim                      |Opt.|Definition                                                                          	
-|-------------------------------|----|----------------------------------------------------------------------------------------
-|subject\_id                    |	 |Plain text user's name                                                                  	
-|subject\_organization          |    |Plain text description of the Organization                                              	
-|subject\_organization\_id      |    |                                                                                        	
-|subject\_role                  |	 |    
-|purpose\_of\_use               |	 |Purpose of Use for the request   
-|home\_community\_id            |	 |Home Community ID where request originated                                              	
-|national\_provider\_identifier |    |                                                                                                                                          
-|doc\_id                        |	 |Patient Privacy Policy Acknowledgement Document ID                                        
-|acp                            |	 |Patient Privacy Policy Identifier                                                         
-|patient\_id                    |	 |Patient ID related to the Patient Privacy Policy Identifier                               
-|person\_id                     |	 |Patient ID, Citizen ID, or other similar public ID used for health identification purposes
+|JWT Claim                      |Optionality|Definition                                       	
+|-------------------------------|---------	|----------------
+|subject\_name                  |O	 		|Plain text user's name
+|subject\_organization          |O    		|Plain text description of the Organization
+|subject\_organization\_id      |O   		|
+|subject\_role                  |O	 		|
+|purpose\_of\_use               |O	 		|Purpose of Use for the request   
+|home\_community\_id            |O	 		|Home Community ID where request originated                                              	
+|national\_provider\_identifier |O    		|
+|								|			|
+|patient\_id                    |O	 		|Patient ID related to the Patient Privacy Policy Identifier
+|doc\_id                        |O	 		|Patient Privacy Policy Acknowledgement Document ID
+|acp                            |O	 		|Patient Privacy Policy Identifier
+|person\_id                     |O	 		|Patient ID, Citizen ID, or other similar public ID used for health identification purposes
 
 
-TBD: short text for following table
 
+The mapping of parameter of the JWT access token to a XUA compliant SAML 2.0 Assertion is shown in table Table 3.71.4.1.2.1-3 below.  
 
 Table 3.71.4.1.2.1-3: JWT Claims and corresponding XUA Assertion attributes
 
-|JWT Claim                      |XUA Attribute               |
-|-------------------------------|--------------------------- |
-|subject\_id                    |SubjectID                   |
-|subject\_organization          |SubjectOrganization         |
-|subject\_organization\_id      |SubjectOrganizationID       |
-|home\_community\_id            |HomeCommunityID             |
-|national\_provider\_identifier |NationalProviderIdentifier  |
-|subject\_role                  |Subject:Role                |
-|doc\_id                        |docid                       |
-|acp                            |acp                         |
-|purpose\_of\_use               |PurposeOfUse                |
-|patient\_id                    |Resource-ID                 |
+|JWT Claim                      |XUA Attribute              
+|-------------------------------|---------------------------
+|subject\_name                  |SubjectID
+|subject\_organization          |SubjectOrganization
+|subject\_organization\_id      |SubjectOrganizationID
+|home\_community\_id            |HomeCommunityID 
+|national\_provider\_identifier |NationalProviderIdentifier
+|subject\_role                  |Subject:Role 
+|doc\_id                        |docid
+|acp                            |acp
+|purpose\_of\_use               |PurposeOfUse
+|patient\_id                    |Resource-ID
 
 
-The following is a non-normative example of JWT:
+The Authorization Client and Authorization Server actors SHALL support signed JWT token as specified in JSON Web Signature [RFC 7515]. Any actor that supports this transaction MAY support the JWE (unsigned but encrypted) alternative of the JWT token.
+
+Of the signature of JWT algorithms specified in the JSON Web Algorithms [RFC 7518], the following algorithm SHALL be supported:
+- HMAC using SHA-256 hash algorithm ("HS256").
+- RSA using SHA-256 hash algorithm ("RS256").
+
+Other algorithms such as:
+- ECDSA using P-256 curve and the SHA-256 hash algorithm ("ES256")
+
+are RECOMMENDED. Other algorithms MAY be used except the "NONE" that MUST NOT be supported.
+
+
+#### 3.71.6.4 SAML Token Option
+
+TBD: clarify, no identify federation
+
+This option enables integration of environments that use both SAML identity federation and OAuth authorization infrastructure.
+
+Authorized Client and Authorization Server Actors claiming conformance with the SAML Token Option shall comply with the SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants [RFC 7522] rules for issuing and using SAML assertions and tokens. All of the SAML attributes in Table 3.71.4.1.2.1-1 shall be supported. The SAML assertion contents shall comply with XUA SAML assertion rules (see ITI TF-2b:3.40).
+
+### 3.71.7 Expected Actions
+
+The specific HTTP transactions are defined in the OAuth standards in Section X.X.X Referenced Standards. This transaction does not modify them other than through the definition of additional token attribute rules and auditing requirements. The end result will be either an error response, as defined in the RFCs, or an access token that can be used in the Incorporate Authorization Token [ITI-72] transaction.
+
+### 3.71.8 Message Examples
+
+The following is a non-normative example of JWT access token:
 
 JOSE Header:
 ```
@@ -853,14 +857,14 @@ JWS Payload:
 ```
 {
     "iss": "urn:tiani-spirit:sts",
-    "sub": "max",
+    "sub": "b3ca1045-aa8b-42f9-9fd9-e0cbf5cb90a7",
     "aud": "http://ihe.connectathon.IUA/ResourceProvider-IHE-Connectathon",
     "exp": 1438251487,
     "nbf": 1438251187,
     "iat": 1438251187,
     "extensions" : {  
       "ihe_iua" : {  
-        "subject_id": "Dr. John Smith",
+        "subject_name": "Dr. John Smith",
         "subject_organization": "Central Hospital",
         "subject_organization_id": "urn:oid:1.2.3.4",
         "home_community_id": "urn:oid:1.2.3.4.5.6.7.8",
@@ -883,22 +887,6 @@ JWS Payload:
     }
 }
 ```
-
-#### 3.71.6.4 SAML Token Option
-
-TBD: clarify, no identify federation
-
-This option enables integration of environments that use both SAML identity federation and OAuth authorization infrastructure.
-
-Authorized Client and Authorization Server Actors claiming conformance with the SAML Token Option shall comply with the SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants [RFC 7522] rules for issuing and using SAML assertions and tokens. All of the SAML attributes in Table 3.71.4.1.2.1-1 shall be supported. The SAML assertion contents shall comply with XUA SAML assertion rules (see ITI TF-2b:3.40).
-
-### 3.71.7 Expected Actions
-
-The specific HTTP transactions are defined in the OAuth standards in Section X.X.X Referenced Standards. This transaction does not modify them other than through the definition of additional token attribute rules and auditing requirements. The end result will be either an error response, as defined in the RFCs, or an access token that can be used in the Incorporate Authorization Token [ITI-72] transaction.
-
-### 3.71.8 Message Examples
-
-Intentionally left blanc.
 
 ### 3.71.9 Security Considerations
 
@@ -1014,47 +1002,53 @@ Main Flow:
 
 1.  The Authorization Client actor sends a resource request to a Resource Server, together with the access token. The access token may be a JWT token or a XUA compliant SAML 2.0 Assertion.
 
-2.  The Resource Server makes an access control decision based upon the user identity, access token, and resource requested. It may provide the resource, a subset of the resource, or reject the request.
+2.  The Resource Server makes an access control decision based upon the information from the access token and the transaction details. It may provide access to the resource, a subset of the resource, or reject the request in total.
 
-TBD: This transaction works in conjunction with other HTTP RESTful transaction. It extends the transaction by adding information to the HTTP request for that HTTP RESTful transaction.
+This transaction works in conjunction with other HTTP RESTful transaction. It extends the transaction by adding information to the HTTP request for that HTTP RESTful transaction.
 
 ### 3.72.5 Trigger Events
 
-TBD: A client needs to make an HTTP RESTful transaction to a Resource Server that performs access authorization. The Authorization Client has already obtained the necessary access token, either by means of another IHE transaction or by some other means.
+A client needs to make an HTTP RESTful transaction to a Resource Server that performs access authorization. The Authorization Client has already obtained the necessary access token.
 
 ### 3.72.6 Message Semantics
 
 The Authorization Client SHALL incorporate the access token in the authorization header of the HTTP request.
 
-The access token may be:
+#### 3.72.6.1 JSON Web Token Option
+
+TBD: The access token may be:
 
 -   A JWT token, encoded as defined in *RFC 7519*, *RFC 7523,* and ITI TF-2b: 3.71.4.1.2.1 JSON Web Token.
 
 -   A SAML token encoded defined in *RFC 7522* and ITI TF-2b: 3.40.4.1.2 Message Semantics.
 
--   A token of another type.
+A non normative example is as follows: 
 
-> GET /example/url/to/resource/location HTTP/1.1
-> Authorization: Bearer fFBGasru1FQd\[...omitted for brevity...\]44sdfAfgTa3Zg
-> Host: examplehost.com
-
-The remainder of the transaction requirements are established by the HTTP RESTful transaction being protected.
+```
+GET /example/url/to/resource/location 
+HTTP/1.1
+Authorization: Bearer fFBGasru1FQd\[...omitted for brevity...\]44sdfAfgTa3Zg
+Host: examplehost.com
+```
 
 #### 3.72.6.1 SAML Token Option
 
 An Authorization Client that supports the SAML Token Option SHALL be able to incorporate a XUA compliant SAML 2.0 Assertion (see ITI TF-2b: 3.40.4.1.2 Message Semantics) as access token. A Resource Server that supports the SAML Token Option SHALL be able to accept and use a SAML assertion that complies with the XUA specification as the access token for requests.
 
-The SAML assertion shall be encoded as specified by SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants [RFC 7522] rules for issuing and using SAML 2.0 Assertions. This shall be included in the HTTP headers as an Authorization of type IHE-SAML.
+The SAML assertion shall be encoded as specified by SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants [RFC 7522] rules for issuing and using SAML 2.0 Assertions. The assertion shall be included in the HTTP Basic Authorization header with type *IHE-SAML*.
 
-> GET /example/url/to/resource/location HTTP/1.1
-> Authorization: IHE-SAML fFBGRNJru1FQd\[...omitted for brevity...\]44AzqT3Zg
-> Host: examplehost.com
+A non normative example is as follows: 
+
+```
+GET /example/url/to/resource/location 
+HTTP/1.1
+Authorization: IHE-SAML fFBGRNJru1FQd\[...omitted for brevity...\]44AzqT3Zg
+Host: examplehost.com
+```
 
 ### 3.72.7 Expected Actions
 
 TBD
-
-The Resource Server shall determine the content of the token by inspection and validate the signature of the token afterwards.
 
 The Resource Server shall enforce the authorization and may further restrict access based on Access Control decisions. The actor that is combined with the Resource Server will determine the responses and expected actions. The Resource Server should return an HTTP 401 (Unauthorized) error if the token is not accepted and the combined actor does not have a specified method for responses when access is denied.
 
@@ -1070,23 +1064,20 @@ The Authorization Client and client software may be grouped with an ATNA Secure 
 
 ##### 3.72.9.1.1 Resource Server Specific Security Considerations
 
-TBD: 
-- aud parameter ?
-
 When an ATNA Audit message needs to be generated by the Resource Server and the user is authenticated by way of a JWT Token, the ATNA Audit message **UserName** element shall record the JWT Token information using the following encoding:
 
 **alias\"\<\"user\"@\"issuer\"\>\"**
 
 where:
--   **alias** is the JWT token's "aud" parameter
--   **user** is the required content of the JWT token's "sub" parameter
--   **issuer** is the JWT token's "iss" parameter
+-   **alias** SHALL match the JWT token's "aud" parameter
+-   **user** SHALL match the JWT token's "sub" parameter
+-   **issuer** SHALL match the JWT token's "iss" parameter
 
 When an ATNA Audit message needs to be generated by the Resource Server and the user is authenticated by way of a SAML Token, the ATNA Audit message **UserName** element shall record the SAML token information using the following encoding:
 
 **alias\"\<\"user\"@\"issuer\"\>\"**
 
 where:
--   **alias** is the optional string within the SAML Assertion\'s Subject element SPProvidedID attribute
--   **user** is the required content of the SAML Assertion\'s Subject element
--   **issuer** is the X-Assertion Provider entity ID contained with the content of SAML Assertion\'s Issuer element
+-   **alias** SHALL match the optional string within the SAML Assertion\'s Subject element SPProvidedID attribute
+-   **user** SHALL macth the required content of the SAML Assertion\'s Subject element
+-   **issuer** SHALL match the X-Assertion Provider entity ID contained with the content of SAML Assertion\'s Issuer element
