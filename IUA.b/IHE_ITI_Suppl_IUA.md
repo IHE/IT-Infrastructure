@@ -651,8 +651,14 @@ The Authorization Client actor directs the user-agent to make a HTTP GET request
 A non-normative example of the authorization request is as follows:
 
 ```
-GET /authorize?response_type=code&client_id=s6BhdRkqt3&state=xyz&redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb
-&code_challenge=6fdkQaPm51l13DSukcAH3Mdx7_ntecHYd1vi3n0hMZY&code_challenge_method=S256&resource=https%3A%2F%2Frs.example.com%2F&scope=scope_1%20scope_2%20scope_N 
+GET /authorize?response_type=code&
+client_id=s6BhdRkqt3&
+state=xyz&
+redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb&
+code_challenge=6fdkQaPm51l13DSukcAH3Mdx7_ntecHYd1vi3n0hMZY&
+code_challenge_method=S256&
+resource=https%3A%2F%2Frs.example.com%2F
+&scope=scope_1%20scope_2%20scope_N 
 HTTP/1.1
 Host: server.example.com
 ```
@@ -828,12 +834,9 @@ Note:
 
 #### 3.71.6.4 SAML Token Option
 
-TBD: 
-Authorization Clients and Authorization Server claiming conformance with the SAML Token Option shall comply with the SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants [RFC 7522] rules for issuing and using SAML assertions and tokens. All of the SAML attributes in Table X.X.X shall be supported. The SAML assertion contents shall comply with XUA SAML assertion rules (see ITI TF-2b:3.40).
+To use a SAML Bearer Assertion as an authorization grant, the Authorization Client SHALL perform the access token request with the value of the "grant_type" parameter set to "urn:ietf:params:oauth:grant-type:saml2-bearer" [RFC 7522, Section 2.1].
 
-TBD from [RFC 7522, Section 2.1]:
-To use a SAML Bearer Assertion as an authorization grant, the client uses an access token request as defined in Section 4 of the OAuth Assertion Framework [RFC7521] with the following specific parameter values and encodings.
-The value of the "grant_type" parameter is "urn:ietf:params:oauth:grant-type:saml2-bearer".
+Authorization and Resource Server actors claiming conformance with the SAML Token Option shall comply with the *SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants* [RFC 7522] rules for issuing and using SAML 2.0 assertions as access token. The SAML 2.0 assertion content shall comply with XUA SAML assertion rules (see ITI TF-2b:3.40).
 
 #### 3.71.6.5 Scope
 
