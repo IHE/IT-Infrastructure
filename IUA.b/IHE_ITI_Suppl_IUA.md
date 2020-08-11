@@ -293,14 +293,13 @@ The OAuth 2.1 Authorization Framework requires client identification, which may 
 The OAuth 2.1 Authorization Framework also requires client authentication for confidential and credential clients [OAuth 2.1, Section 2.3]. It recommends the use of to use asymmetric (public-key based) methods for client authentication [OAuth 2.1, Section 9.1], but allows other suitable HTTP based authentication schemes matching the security policy of the Authorization Server [OAuth 2.1, Section 2.3.2].
 
 This profile requires the use of a *client_id* for client identification and a *client_secret* used with the HTTP Basic Authentocation scheme for client authentication of confidential and credential clients, if no other methods for identification and authentication are used.  
-
 Depending on the grant type, the OAuth 2.1 Framework also requires user authentication. For example, the *Authorization Code* grant type covered by this profile requires user authentication [OAuth 2.1, Section 4.1], while the *Client Credential* grant type does not [OAuth 2.1, Section 4.2]. The methods used by the authorization server to authenticate the user (e.g., username and password login, session cookies, delegation to Authentication Server) is not scoped in the OAuth 2.1 Authorization Framework [OAuth 2.1, Section 3.1].
 
 Since user authentication methods chosen depend on the projects or national security policy, they are not scoped in this profile and SHALL be defined in the specific implementation projects or national extensions of this profile. If the user authentication is not implemented in the Authorization Server, the use of OpenID Connect with the Authorization Grant or Hybrid flow is recommended.
 
-It is the responsibility of the Resource Server to enforce the authorization policies based on the transaction performed and the information provided in the access token. Therefore the Resource Server must be able to rely upon the decisions made by the Authorization Server (e.g., client identification, user authentication), which requires that a trust relation between the Resource Server and the Authorization Server was established beforehand.  
+It is the responsibility of the Resource Server to enforce the access policies based on the transaction performed and the information provided in the access token. Therefore the Resource Server must be able to rely upon the decisions made by the Authorization Server (e.g., client identification, user authentication), which requires that a trust relation between the Resource Server and the Authorization Server was established beforehand.  
 
-The Ressource Server may provide the information from the access token and transaction data to other actors it is grouped with, or by delegating the access decisions to other actors (e.g., by implementing the Authorization Decisons Verifier actor of the Secure Retrieve (SeR) supplement).
+The Ressource Server may delegate the access policy enforcement to actors it is grouped with by providing the information from the access token and transaction data, or to other actors (e.g., by implementing the Authorization Decisons Verifier actor of the Secure Retrieve (SeR) supplement).
 
 Note: An analogy of the segregation of duties for access control between the Authorization Server and the Resource Server is given in a  textbook (*Solving Identity Management in Modern Applications*, *APress 2019* by Yvonne Wilson and Abhishek Hingnikar) comparing the authorization and policy enforcement with a ticketing and entrance control to events (e.g, opera, cinema). In this analogy the Authorization Server provides the ticket which authorizes participation, while additional checks are performed to finally particpate to the event.  
 
@@ -399,17 +398,18 @@ The term "authorization" and "access control" are used colloquially for a variet
 
 This profile uses the terms "access token", "refresh token", "authorization server", "resource server", "authorization endpoint", "authorization request", "authorization response", "token endpoint", "grant type", "access token request", and "access token response" as defined by The OAuth 2.1 Authorization Framework [OAuth 2.1].
 
-Following the OAuth 2.1 Authorization Framework [OAuth 2.1] this profile distinguishes confidential clients and public clients as follows:
+Following the definitions in the OAuth 2.1 Authorization Framework [OAuth 2.1] this profile distinguishes confidential clients and public clients as follows:
 
--  *confidential client* - a client which stores the client authentication data (e.g., client\_id and client\_secret) in a way, that the user has no access to it (e.g., a server hosted web application).
+- *confidential client* - a client which stores the client authentication data (e.g., client\_id and client\_secret) in a way, that the user has no access to it (e.g., a server hosted web application).
 
 - *credentialed client* - a clients which has credentials, but their identity has been not been confirmed by the Authorization Server.
 
--  *public client* - a client where the user (in principle) has access to the client code and client data in principle. Public clients cannot store client authentication data in a confidential way (e.g., single page web applications, native mobile apps on a device, if no additional features are implemented to make the client authentication data unavailable for the user).
+- *public client* - a client where the user (in principle) has access to the client code and client data in principle. Public clients cannot store client authentication data in a confidential way (e.g., single page web applications, native mobile apps on a device, if no additional features are implemented to make the client authentication data unavailable for the user).
+
 
 Note:
 
-- The public client classification does not automatically mean the client is unsecure. Public clients typically are under the full control of the user (e.g., a native app on the users device) and secured againts malicious attacks. Public clients just cannot hide authentication data from the user rendering client authentication useless.   
+- A public client classification does not automatically mean the client is unsecure. Public clients typically are under the full control of the user (e.g., a native app on the users device) and secured againts malicious attacks. Public clients just cannot hide authentication data from the user rendering client authentication useless.   
 
 
 ### 34.4.2 Use Cases
@@ -451,8 +451,6 @@ IUA does not address issues around issuing and revoking client\_ids. OAuth 2.1 r
 Usually Authorization Server publish web forms where system administrators and users can apply for a client_ID. OAuth 2.1 defines a mechanism for dynamically registering clients with authorization servers, by defining a set of desired client metadata values to be made available to the authorization servers [OAuth 2.1, Section 2].  
 
 The Authorization Server will have an administratively managed list of approved client\_ids for accepted clients. This list will be updated as new clients are approved or existing clients are removed. An access token will not be issued for unapproved clients. This assumes that the client\_id management will deal with these security considerations in a manner similar to the certificate management assumptions made for secure communication transactions.
-
-The Resource Server MAY also have a list of managed client\_ids, to deal with resources that have specific client requirements than the general access authorization requirements.
 
 # 34.6 IUA Cross Profile Considerations
 
@@ -829,8 +827,7 @@ Other algorithms such as:
 are RECOMMENDED. Other algorithms MAY be supported except the "NONE" that MUST NOT be used.
 
 Note: 
-- It is RECOMMENDED to use asymmetric (public-key based) methods for client authentication such as RS256. When asymmetric methods are used, Resource Server do not need to store sensitive symmetric keys, making these methods more robust against malicious attacks.
-
+- It is RECOMMENDED to use asymmetric (public-key based, e.g., RS256) methods for signing access token. When asymmetric methods are used, Resource Server do not need to store sensitive symmetric keys, making these methods more robust against malicious attacks.
 
 #### 3.71.6.4 SAML Token Option
 
@@ -840,12 +837,23 @@ Authorization and Resource Server actors claiming conformance with the SAML Toke
 
 #### 3.71.6.5 Scope
 
-TBD describe the semantics of scopes used in this profiles, if any. 
-
+TBD describe the semantics of scopes used in this profile.
 
 ### 3.71.7 Expected Actions
 
-TBD
+### 3.71.7.2 Client Credential grant type
+
+The Authorization Server SHALL authenticate the Authorization Client using it's client credential and respond with the access token as defined in Section 3.71.4 and 3.71.6 above. 
+
+### 3.71.7.2 Authorization Code grant type
+
+The Authorization Server SHALL authenticate confidential and credential clients using the *client\_id* and *client\_secret*, or by other reliable client authentication method. In the latter case, the Authorization Server SHALL resolve the client authentication to a *client\_id* which was registered beforehand.     
+
+The Authorization Server SHALL verify that all required parameters of the authorization request are present and valid. If valid, the Authorization Server SHALL authenticate the user and obtain the user consent (by presenting the user a form to authorize specific scopes or by establishing approval via other means). When the user consent is established, the Authorization Server SHALL issues an authorization code, access token and optional refresh token and direct the user-agent (e.g., browser) to the client redirect URI conveying the authorization code and client state value.
+
+If the authorization request is invalid, the Authorization Server SHALL react as defined in [OAuth 2.1, Section 4.1.2.1]. 
+
+The Authorization Client SHALL use the authorization code to request the access token from the Authorization Server. The Authorization Server SHALL verfiy the access token request as described in [OAuth 2.1, Section 4.1.3]. If the request is valid, the Authorization Server SHALL respond with the access token response conveying the access token in JWT or SAML 2.0 format as specified in Section 3.71.4 and 3.71.6 above. If invalid, the Authorization Server SHALL respond with an error as defined in [OAuth 2.1, Section 5.2].
 
 ### 3.71.8 Message Examples
 
@@ -952,7 +960,6 @@ Where:
 
 
 
-
 **Add Section 3.72**
 
 ## 3.72 Incorporate Authorization Token
@@ -1016,7 +1023,7 @@ This transaction works in conjunction with other HTTP RESTful transaction. It ex
 
 ### 3.72.5 Trigger Events
 
-A client needs to make an HTTP RESTful transaction to a Resource Server that performs access authorization. The Authorization Client has already obtained the necessary access token.
+A client needs to make an HTTP RESTful transaction to a Resource Server that enforces access authorization.
 
 ### 3.72.6 Message Semantics
 
@@ -1034,9 +1041,15 @@ A Resource Server that supports the SAML Token Option SHALL be able to accept an
 
 ### 3.72.7 Expected Actions
 
-TBD
+The Authorization Client SHALL incorporate the access token to Resource Server requests in the HTTP Basic Authorization header. 
 
-The Resource Server shall enforce the authorization and may further restrict access based on Access Control decisions. The actor that is combined with the Resource Server will determine the responses and expected actions. The Resource Server should return an HTTP 401 (Unauthorized) error if the token is not accepted and the combined actor does not have a specified method for responses when access is denied.
+The Resource Server SHALL validate the access token and ensure that it has not expired. The Resource Server SHALL verify, that the claims conveyed in the access token match the transaction type and data (E.g., verify that the patient_id attribute of the access token corresponds to the patient_id of the resource request). 
+
+If the authorization grant scope is restricted, the Resource Server SHALL verify, that the scope covers the transaction to the requested resource [OAuth 2.1, Section 7]. 
+
+In addition, the Resource Server SHALL enforce the access policies set in the specific environment by matching the information from the access token and the transaction data to the access policies.
+ 
+If the token verification, scope matching or the access policy enforcement fails, the Resource Server SHALL respond a HTTP 401 (Unauthorized) error.
 
 ### 3.72.8 Message examples
 

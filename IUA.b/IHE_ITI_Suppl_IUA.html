@@ -966,11 +966,11 @@ The OAuth client ID must identify the device, the application (including any nec
 <p>The actors in the IUA Profile manage the tokens used for authorization of access to HTTP RESTful services. The Authorization Client provides the access token that is incorporated into HTTP RESTful transactions to indicate that this transaction is authorized. The Authorization Client can also manage the interactions with an Authorization Server to obtain the access token.</p>
 <p>The OAuth 2.1 Authorization Framework requires client identification, which may be based on a <em>client_id</em> parameter [OAuth 2.1, Section 2.2]. Depending on the grant type, the use of the <em>client_id</em> MAY be required. For example the <em>Authorization Code</em> grant type requires the use of the <em>client_id</em> for client identification [OAuth 2.1, Section 4.1], while the <em>Client Credential</em> grant type does not [OAuth 2.1, Section 4.2].</p>
 <p>The OAuth 2.1 Authorization Framework also requires client authentication for confidential and credential clients [OAuth 2.1, Section 2.3]. It recommends the use of to use asymmetric (public-key based) methods for client authentication [OAuth 2.1, Section 9.1], but allows other suitable HTTP based authentication schemes matching the security policy of the Authorization Server [OAuth 2.1, Section 2.3.2].</p>
-<p>This profile requires the use of a <em>client_id</em> for client identification and a <em>client_secret</em> used with the HTTP Basic Authentocation scheme for client authentication of confidential and credential clients, if no other methods for identification and authentication are used.</p>
-<p>Depending on the grant type, the OAuth 2.1 Framework also requires user authentication. For example, the <em>Authorization Code</em> grant type covered by this profile requires user authentication [OAuth 2.1, Section 4.1], while the <em>Client Credential</em> grant type does not [OAuth 2.1, Section 4.2]. The methods used by the authorization server to authenticate the user (e.g., username and password login, session cookies, delegation to Authentication Server) is not scoped in the OAuth 2.1 Authorization Framework [OAuth 2.1, Section 3.1].</p>
+<p>This profile requires the use of a <em>client_id</em> for client identification and a <em>client_secret</em> used with the HTTP Basic Authentocation scheme for client authentication of confidential and credential clients, if no other methods for identification and authentication are used.<br>
+Depending on the grant type, the OAuth 2.1 Framework also requires user authentication. For example, the <em>Authorization Code</em> grant type covered by this profile requires user authentication [OAuth 2.1, Section 4.1], while the <em>Client Credential</em> grant type does not [OAuth 2.1, Section 4.2]. The methods used by the authorization server to authenticate the user (e.g., username and password login, session cookies, delegation to Authentication Server) is not scoped in the OAuth 2.1 Authorization Framework [OAuth 2.1, Section 3.1].</p>
 <p>Since user authentication methods chosen depend on the projects or national security policy, they are not scoped in this profile and SHALL be defined in the specific implementation projects or national extensions of this profile. If the user authentication is not implemented in the Authorization Server, the use of OpenID Connect with the Authorization Grant or Hybrid flow is recommended.</p>
-<p>It is the responsibility of the Resource Server to enforce the authorization policies based on the transaction performed and the information provided in the access token. Therefore the Resource Server must be able to rely upon the decisions made by the Authorization Server (e.g., client identification, user authentication), which requires that a trust relation between the Resource Server and the Authorization Server was established beforehand.</p>
-<p>The Ressource Server may provide the information from the access token and transaction data to other actors it is grouped with, or by delegating the access decisions to other actors (e.g., by implementing the Authorization Decisons Verifier actor of the Secure Retrieve (SeR) supplement).</p>
+<p>It is the responsibility of the Resource Server to enforce the access policies based on the transaction performed and the information provided in the access token. Therefore the Resource Server must be able to rely upon the decisions made by the Authorization Server (e.g., client identification, user authentication), which requires that a trust relation between the Resource Server and the Authorization Server was established beforehand.</p>
+<p>The Ressource Server may delegate the access policy enforcement to actors it is grouped with by providing the information from the access token and transaction data, or to other actors (e.g., by implementing the Authorization Decisons Verifier actor of the Secure Retrieve (SeR) supplement).</p>
 <p>Note: An analogy of the segregation of duties for access control between the Authorization Server and the Resource Server is given in a  textbook (<em>Solving Identity Management in Modern Applications</em>, <em>APress 2019</em> by Yvonne Wilson and Abhishek Hingnikar) comparing the authorization and policy enforcement with a ticketing and entrance control to events (e.g, opera, cinema). In this analogy the Authorization Server provides the ticket which authorizes participation, while additional checks are performed to finally particpate to the event.</p>
 <p>This profile relies on the OAuth 2.1 Authorization Framework. Since the original publication of OAuth 2.0 in 2012, several new RFCs have been published that add or remove functionality from the core specification. Version 2.1 of the OAuth Authorization Framework consolidates and simplifies the most commonly used features and best practices of OAuth 2.0.</p>
 <p><a href="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/1.1_IUA-actor-diagram.png" target="_blank" rel="noopener noreferrer"><img src="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/1.1_IUA-actor-diagram.png" alt="IUA Actor Diagram" style="max-width:100%;"></a></p>
@@ -1148,7 +1148,7 @@ The OAuth client ID must identify the device, the application (including any nec
 <h3>
 <a id="user-content-34412-terminology" class="anchor" href="#34412-terminology" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.4.1.2 Terminology</h3>
 <p>This profile uses the terms "access token", "refresh token", "authorization server", "resource server", "authorization endpoint", "authorization request", "authorization response", "token endpoint", "grant type", "access token request", and "access token response" as defined by The OAuth 2.1 Authorization Framework [OAuth 2.1].</p>
-<p>Following the OAuth 2.1 Authorization Framework [OAuth 2.1] this profile distinguishes confidential clients and public clients as follows:</p>
+<p>Following the definitions of the OAuth 2.1 Authorization Framework [OAuth 2.1] this profile distinguishes confidential clients and public clients as follows:</p>
 <ul>
 <li>
 <p><em>confidential client</em> - a client which stores the client authentication data (e.g., client_id and client_secret) in a way, that the user has no access to it (e.g., a server hosted web application).</p>
@@ -1196,7 +1196,6 @@ The OAuth client ID must identify the device, the application (including any nec
 <p>IUA does not address issues around issuing and revoking client_ids. OAuth 2.1 relies upon the client_id for client identification and authorization. OAuth 2.1 does not further define how client_ids are managed.</p>
 <p>Usually Authorization Server publish web forms where system administrators and users can apply for a client_ID. OAuth 2.1 defines a mechanism for dynamically registering clients with authorization servers, by defining a set of desired client metadata values to be made available to the authorization servers [OAuth 2.1, Section 2].</p>
 <p>The Authorization Server will have an administratively managed list of approved client_ids for accepted clients. This list will be updated as new clients are approved or existing clients are removed. An access token will not be issued for unapproved clients. This assumes that the client_id management will deal with these security considerations in a manner similar to the certificate management assumptions made for secure communication transactions.</p>
-<p>The Resource Server MAY also have a list of managed client_ids, to deal with resources that have specific client requirements than the general access authorization requirements.</p>
 <h1>
 <a id="user-content-346-iua-cross-profile-considerations" class="anchor" href="#346-iua-cross-profile-considerations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.6 IUA Cross Profile Considerations</h1>
 <p>The XUA profile provides equivalent functionality for SOAP based transactions. Both profiles, XUA and IUA define a transaction to incorporate a token to transactions accessing protected data. Both profiles have much in common, but also some remarkable differences:</p>
@@ -1676,7 +1675,7 @@ Pragma: no-cache
 <p>are RECOMMENDED. Other algorithms MAY be supported except the "NONE" that MUST NOT be used.</p>
 <p>Note:</p>
 <ul>
-<li>It is RECOMMENDED to use asymmetric (public-key based) methods for client authentication such as RS256. When asymmetric methods are used, Resource Server do not need to store sensitive symmetric keys, making these methods more robust against malicious attacks.</li>
+<li>It is RECOMMENDED to use asymmetric (public-key based, e.g., RS256) methods for signing access token. When asymmetric methods are used, Resource Server do not need to store sensitive symmetric keys, making these methods more robust against malicious attacks.</li>
 </ul>
 <h4>
 <a id="user-content-37164-saml-token-option" class="anchor" href="#37164-saml-token-option" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.6.4 SAML Token Option</h4>
@@ -1684,10 +1683,18 @@ Pragma: no-cache
 <p>Authorization and Resource Server actors claiming conformance with the SAML Token Option shall comply with the <em>SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants</em> [RFC 7522] rules for issuing and using SAML 2.0 assertions as access token. The SAML 2.0 assertion content shall comply with XUA SAML assertion rules (see ITI TF-2b:3.40).</p>
 <h4>
 <a id="user-content-37165-scope" class="anchor" href="#37165-scope" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.6.5 Scope</h4>
-<p>TBD describe the semantics of scopes used in this profiles, if any.</p>
+<p>TBD describe the semantics of scopes used in this profile.</p>
 <h3>
 <a id="user-content-3717-expected-actions" class="anchor" href="#3717-expected-actions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.7 Expected Actions</h3>
-<p>TBD</p>
+<h3>
+<a id="user-content-37172-client-credential-grant-type" class="anchor" href="#37172-client-credential-grant-type" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.7.2 Client Credential grant type</h3>
+<p>The Authorization Server SHALL authenticate the Authorization Client using it's client credential and respond with the access token as defined in Section 3.71.4 and 3.71.6 above.</p>
+<h3>
+<a id="user-content-37172-authorization-code-grant-type" class="anchor" href="#37172-authorization-code-grant-type" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.7.2 Authorization Code grant type</h3>
+<p>The Authorization Server SHALL authenticate confidential and credential clients using the <em>client_id</em> and <em>client_secret</em>, or by other reliable client authentication method. In the latter case, the Authorization Server SHALL resolve the client authentication to a <em>client_id</em> which was registered beforehand.</p>
+<p>The Authorization Server SHALL verify that all required parameters of the authorization request are present and valid. If valid, the Authorization Server SHALL authenticate the user and obtain the user consent (by presenting the user a form to authorize specific scopes or by establishing approval via other means). When the user consent is established, the Authorization Server SHALL issues an authorization code, access token and optional refresh token and direct the user-agent (e.g., browser) to the client redirect URI conveying the authorization code and client state value.</p>
+<p>If the authorization request is invalid, the Authorization Server SHALL react as defined in [OAuth 2.1, Section 4.1.2.1].</p>
+<p>The Authorization Client SHALL use the authorization code to request the access token from the Authorization Server. The Authorization Server SHALL verfiy the access token request as described in [OAuth 2.1, Section 4.1.3]. If the request is valid, the Authorization Server SHALL respond with the access token response conveying the access token in JWT or SAML 2.0 format as specified in Section 3.71.4 and 3.71.6 above. If invalid, the Authorization Server SHALL respond with an error as defined in [OAuth 2.1, Section 5.2].</p>
 <h3>
 <a id="user-content-3718-message-examples" class="anchor" href="#3718-message-examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.8 Message Examples</h3>
 <p>The following is a non-normative example of JWT access token:</p>
@@ -2024,7 +2031,7 @@ end
 <p>This transaction works in conjunction with other HTTP RESTful transaction. It extends the transaction by adding information to the HTTP request for that HTTP RESTful transaction.</p>
 <h3>
 <a id="user-content-3725-trigger-events" class="anchor" href="#3725-trigger-events" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.5 Trigger Events</h3>
-<p>A client needs to make an HTTP RESTful transaction to a Resource Server that performs access authorization. The Authorization Client has already obtained the necessary access token.</p>
+<p>A client needs to make an HTTP RESTful transaction to a Resource Server that enforces access authorization.</p>
 <h3>
 <a id="user-content-3726-message-semantics" class="anchor" href="#3726-message-semantics" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.6 Message Semantics</h3>
 <p>The Authorization Client SHALL incorporate the access token in the authorization header of the HTTP request.</p>
@@ -2037,8 +2044,11 @@ end
 <p>A Resource Server that supports the SAML Token Option SHALL be able to accept and understand a SAML assertion that complies with the XUA specification as the access token for requests.</p>
 <h3>
 <a id="user-content-3727-expected-actions" class="anchor" href="#3727-expected-actions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.7 Expected Actions</h3>
-<p>TBD</p>
-<p>The Resource Server shall enforce the authorization and may further restrict access based on Access Control decisions. The actor that is combined with the Resource Server will determine the responses and expected actions. The Resource Server should return an HTTP 401 (Unauthorized) error if the token is not accepted and the combined actor does not have a specified method for responses when access is denied.</p>
+<p>The Authorization Client SHALL incorporate the access token to Resource Server requests in the HTTP Basic Authorization header.</p>
+<p>The Resource Server SHALL validate the access token and ensure that it has not expired. The Resource Server SHALL verify, that the claims conveyed in the access token match the transaction type and data (E.g., verify that the patient_id attribute of the access token corresponds to the patient_id of the resource request).</p>
+<p>If the authorization grant scope is restricted, the Resource Server SHALL verify, that the scope covers the transaction to the requested resource [OAuth 2.1, Section 7].</p>
+<p>In addition, the Resource Server SHALL enforce the access policies set in the specific environment by matching the information from the access token and the transaction data to the access policies.</p>
+<p>If the token verification, scope matching or the access policy enforcement fails, the Resource Server SHALL respond a HTTP 401 (Unauthorized) error.</p>
 <h3>
 <a id="user-content-3728-message-examples" class="anchor" href="#3728-message-examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.8 Message examples</h3>
 <h4>
