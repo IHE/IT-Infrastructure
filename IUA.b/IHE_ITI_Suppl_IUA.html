@@ -746,7 +746,7 @@ pre {
 <p>This supplement is published on August 31, 2015 for trial implementation and may be available for testing at subsequent IHE Connectathons. The supplement may be amended based on the results of testing. Following successful testing it will be incorporated into the IT Infrastructure Technical Framework. Comments are invited and may be submitted at <a href="http://www.ihe.net/ITI_Public_Comments/" rel="nofollow">http://www.ihe.net/ITI_Public_Comments</a>.</p>
 <p>This supplement describes changes to the existing technical framework documents.</p>
 <p>"Boxed" instructions like the sample below indicate to the Volume Editor how to integrate the relevant section(s) into the relevant Technical Framework volume.</p>
-<p>Amend Section X.X by the following:</p>
+<p><strong>Amend Section X.X by the following:</strong></p>
 <p>Where the amendment adds text, make the added text <strong>[bold underline]{.underline}</strong>. Where the amendment removes text, make the removed text <strong><del>bold strikethrough</del></strong>. When entire new sections are added, introduce with editor's instructions to "add new text" or similar, which for readability are not bolded or underlined.</p>
 <p>General information about IHE can be found at: <a href="http://www.ihe.net/" rel="nofollow">http://www.ihe.net</a>.</p>
 <p>Information about the IHE IT Infrastructure domain can be found at: <a href="http://www.ihe.net/IHE_Domains/" rel="nofollow">http://www.ihe.net/IHE_Domains</a>.</p>
@@ -793,15 +793,13 @@ pre {
 <p><a href="#authorization-code-grant-type">3.71.6.2 Authorization Code grant type</a></p>
 <p><a href="#json-web-token">3.71.6.3 JSON Web Token</a></p>
 <p><a href="#saml-token-option">3.71.6.4 SAML Token Option</a></p>
-<p><a href="#scope">3.71.6.4 Scope</a></p>
+<p><a href="#authorization-grant-scope">3.71.6.4 Authorization Grant Scope</a></p>
 <p><a href="#expected-actions">3.71.7 Expected Actions</a></p>
 <p><a href="#message-examples">3.71.8 Message Examples</a></p>
 <p><a href="#client-credential-grant-type">3.71.8.1 Client Credential grant type</a></p>
 <p><a href="#authorization-code-grant-type">3.71.8.2 Authorization Code grant type</a></p>
 <p><a href="#security-considerations">3.71.9 Security Considerations</a></p>
 <p><a href="#security-audit-considerations">3.71.9.1 Security Audit Considerations</a></p>
-<p><a href="#authorization-server-specific-security-considerations">3.71.9.1.1 Authorization Server Specific Security Considerations</a></p>
-<p><a href="#authorization-client-specific-security-considerations">3.71.9.1.2 Authorization Client Specific Security Considerations</a></p>
 <p><a href="#incorporate-authorization-token">3.72 Incorporate Authorization Token</a></p>
 <p><a href="#scope-1">3.72.1 Scope</a></p>
 <p><a href="#use-case-roles-1">3.72.2 Use Case Roles</a></p>
@@ -1147,8 +1145,9 @@ Depending on the grant type, the OAuth 2.1 Framework also requires user authenti
 </ul>
 <h3>
 <a id="user-content-34412-terminology" class="anchor" href="#34412-terminology" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.4.1.2 Terminology</h3>
+<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in "Key words for use in RFCs to Indicate Requirement Levels" [RFC 2119]. The interpretation should only be applied when the terms appear in all capital letters.</p>
 <p>This profile uses the terms "access token", "refresh token", "authorization server", "resource server", "authorization endpoint", "authorization request", "authorization response", "token endpoint", "grant type", "access token request", and "access token response" as defined by The OAuth 2.1 Authorization Framework [OAuth 2.1].</p>
-<p>Following the definitions of the OAuth 2.1 Authorization Framework [OAuth 2.1] this profile distinguishes confidential clients and public clients as follows:</p>
+<p>In accordance with the definitions in the OAuth 2.1 Authorization Framework [OAuth 2.1] this profile distinguishes confidential clients and public clients as follows:</p>
 <ul>
 <li>
 <p><em>confidential client</em> - a client which stores the client authentication data (e.g., client_id and client_secret) in a way, that the user has no access to it (e.g., a server hosted web application).</p>
@@ -1162,8 +1161,9 @@ Depending on the grant type, the OAuth 2.1 Framework also requires user authenti
 </ul>
 <p>Note:</p>
 <ul>
-<li>The public client classification does not automatically mean the client is unsecure. Public clients typically are under the full control of the user (e.g., a native app on the users device) and secured againts malicious attacks. Public clients just cannot hide authentication data from the user rendering client authentication useless.</li>
+<li>A public client classification does not automatically mean the client is unsecure. Public clients typically are under the full control of the user (e.g., a native app on the users device) and secured againts malicious attacks. Public clients just cannot hide authentication data from the user rendering client authentication useless.</li>
 </ul>
+<p>The OAuth 2.1 Authorization Framework uses the term "resource owner" for the user an authorized client may access data on behalf of. Typically in health related environments a healthcare professional access patients or organization related data (resoures) for which the healthcare professional is not the "legal owner" but may access according to the access policies of the environment. To avoid any misunderstandings related to the OAuth term "resource owner" a the "legal owner", this profile uses the term "user" instead.</p>
 <h3>
 <a id="user-content-3442-use-cases" class="anchor" href="#3442-use-cases" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.4.2 Use Cases</h3>
 <h4>
@@ -1234,7 +1234,7 @@ Depending on the grant type, the OAuth 2.1 Framework also requires user authenti
 <p>This profile is scoped to the <em>Authorization Code</em> and <em>Client Credential</em> grant types. To claim compliance with this profile, the Authorization Server actor SHALL support the <em>Authorization Code</em> and <em>Client Credential</em> grant type and MAY support the <em>Device Authorization</em> or other OAuth 2.1 extension grant types.</p>
 <h3>
 <a id="user-content-3711-scope" class="anchor" href="#3711-scope" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.1 Scope</h3>
-<p>This transaction SHALL be used by Authorization Client actors to retrieve an OAuth 2.1 compliant access token defined in Section X.X.X Message Semantics of this profile.</p>
+<p>This transaction SHALL be used by Authorization Client actors to retrieve an OAuth 2.1 compliant access token defined in Section 3.71.6 Message Semantics of this profile.</p>
 <h3>
 <a id="user-content-3712-use-case-roles" class="anchor" href="#3712-use-case-roles" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.2 Use Case Roles</h3>
 <p>This profile defines the following actors and roles:</p>
@@ -1682,13 +1682,13 @@ Pragma: no-cache
 <p>To use a SAML Bearer Assertion as an authorization grant, the Authorization Client SHALL perform the access token request with the value of the "grant_type" parameter set to "urn:ietf:params:oauth:grant-type:saml2-bearer" [RFC 7522, Section 2.1].</p>
 <p>Authorization and Resource Server actors claiming conformance with the SAML Token Option shall comply with the <em>SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants</em> [RFC 7522] rules for issuing and using SAML 2.0 assertions as access token. The SAML 2.0 assertion content shall comply with XUA SAML assertion rules (see ITI TF-2b:3.40).</p>
 <h4>
-<a id="user-content-37165-scope" class="anchor" href="#37165-scope" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.6.5 Scope</h4>
+<a id="user-content-37165-authorization-grant-scope" class="anchor" href="#37165-authorization-grant-scope" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.6.5 Authorization Grant Scope</h4>
 <p>TBD describe the semantics of scopes used in this profile.</p>
 <h3>
 <a id="user-content-3717-expected-actions" class="anchor" href="#3717-expected-actions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.7 Expected Actions</h3>
 <h3>
 <a id="user-content-37172-client-credential-grant-type" class="anchor" href="#37172-client-credential-grant-type" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.7.2 Client Credential grant type</h3>
-<p>The Authorization Server SHALL authenticate the Authorization Client using it's client credential and respond with the access token as defined in Section 3.71.4 and 3.71.6 above.</p>
+<p>The Authorization Server SHALL authenticate the Authorization Client using it's client credential and respond with the access token as defined in Section 3.71.4 and 3.71.6 above. The Authorization Server SHALL verify the request. If the request is valid, the Authorization Server SHALL respond with the access token response conveying the access token in JWT or SAML 2.0 format as specified in Section 3.71.4 and 3.71.6 above.</p>
 <h3>
 <a id="user-content-37172-authorization-code-grant-type" class="anchor" href="#37172-authorization-code-grant-type" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.7.2 Authorization Code grant type</h3>
 <p>The Authorization Server SHALL authenticate confidential and credential clients using the <em>client_id</em> and <em>client_secret</em>, or by other reliable client authentication method. In the latter case, the Authorization Server SHALL resolve the client authentication to a <em>client_id</em> which was registered beforehand.</p>
@@ -1739,23 +1739,31 @@ Pragma: no-cache
 </code></pre>
 <h3>
 <a id="user-content-3719-security-considerations" class="anchor" href="#3719-security-considerations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.9 Security Considerations</h3>
-<p>TBD:</p>
+<p>Authorization Client and Authorization Server claiming compliance with this profile SHALL fufill the security requirements defined in the OAuth Authorization Framework [OAuth 2.1], especially:</p>
 <ul>
 <li>
 <p>All HTTP transaction must be secured by using TLS or equivalent transport security.</p>
 </li>
 <li>
-<p>The Authorization Client may be grouped with a ATNA Secure Node or Secure Application if a higher level of security is appropriate.</p>
+<p>Authorization Clients SHALL verify the identity of the Authorization Server, either by validating the TLS certificate chain or by other reliable methods.</p>
+</li>
+<li>
+<p>Authorization codes SHALL be for single use and short-lived with a lifetime less or equal to 5 minutes.</p>
+</li>
+<li>
+<p>Access token SHALL be short-lived with a lifetime of 1 hour or less. A lifetime less or equal to 5 minutes is RECOMMENDED.</p>
+</li>
+<li>
+<p>Refresh token MAY be long lived.</p>
+</li>
+<li>
+<p>To reduce the attack surface, client claims and authorization grants SHALL be the minimal. I.e., the authorizatiom grant scope requested by the Authorization Client shall be the minimal required scope for the resource request to be used for.</p>
 </li>
 </ul>
 <h4>
 <a id="user-content-37191-security-audit-considerations" class="anchor" href="#37191-security-audit-considerations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.9.1 Security Audit Considerations</h4>
-<h5>
-<a id="user-content-371911-authorization-server-specific-security-considerations" class="anchor" href="#371911-authorization-server-specific-security-considerations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.9.1.1 Authorization Server Specific Security Considerations</h5>
-<p>The Authorization Servers typically produce an audit record for any failed attempt to obtain authorization. IHE does not specify the format of audit records for authorization servers. IHE does not specify the means of obtaining audit records.</p>
-<h5>
-<a id="user-content-371912-authorization-client-specific-security-considerations" class="anchor" href="#371912-authorization-client-specific-security-considerations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.9.1.2 Authorization Client Specific Security Considerations</h5>
-<p>The Authorization Client may generate an audit message when an authorized transaction is performed or attempted. The Authorization Client is sometimes a device that lacks audit access or has very limited audit capabilities, so this audit capability is not mandated.</p>
+<p>Authorization Servers SHOULD produce an audit record for any failed attempt to obtain authorization. IHE does not specify the format of audit records for authorization servers.</p>
+<p>Authorization Clients MAY generate an audit message when an authorized transaction is performed or attempted.</p>
 <table>
 <thead>
 <tr>
@@ -1964,7 +1972,7 @@ Pragma: no-cache
 <a id="user-content-372-incorporate-authorization-token" class="anchor" href="#372-incorporate-authorization-token" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72 Incorporate Authorization Token</h2>
 <h3>
 <a id="user-content-3721-scope" class="anchor" href="#3721-scope" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.1 Scope</h3>
-<p>This transaction is used to provide authorization information as part of a HTTP RESTful transaction. This transaction specified some headers and behavior that must be part of a HTTP RESTful transaction. The rest of HTTP RESTful transaction specification for the URL, parameters, other headers, and other transaction contents is in another profile or specification.</p>
+<p>This transaction is used to incorporate authorization information to HTTP RESTful transactions.</p>
 <h3>
 <a id="user-content-3722-use-case-roles" class="anchor" href="#3722-use-case-roles" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.2 Use Case Roles</h3>
 <p>Table 3.72.2-1: Actor Roles</p>
@@ -2069,8 +2077,15 @@ Host: examplehost.com
 </code></pre>
 <h3>
 <a id="user-content-3729-security-considerations" class="anchor" href="#3729-security-considerations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.9 Security Considerations</h3>
-<p>TBD</p>
-<p>The Authorization Client MAY be grouped with an ATNA Secure Node or Secure Application if a higher level of security is appropriate. Resource Server and Authorization Server should provide equivalent protection.</p>
+<p>Authorization Client and Resource Server claiming compliance with this profile SHALL fufill the security requirements defined in the OAuth Authorization Framework [OAuth 2.1], especially:</p>
+<ul>
+<li>
+<p>All HTTP transaction must be secured by using TLS or equivalent transport security.</p>
+</li>
+<li>
+<p>Authorization Clients SHALL verify the identity of the Resource Server when making requests to protected resources, either by validating the TLS certificate chain [OAuth 2.1, Section 7.4.2] or by other reliable methods.</p>
+</li>
+</ul>
 <h4>
 <a id="user-content-37291-security-audit-considerations" class="anchor" href="#37291-security-audit-considerations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.9.1 Security Audit Considerations</h4>
 <h5>

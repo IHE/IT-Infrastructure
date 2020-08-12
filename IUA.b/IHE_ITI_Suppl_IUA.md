@@ -29,7 +29,7 @@ This supplement describes changes to the existing technical framework documents.
 
 "Boxed" instructions like the sample below indicate to the Volume Editor how to integrate the relevant section(s) into the relevant Technical Framework volume.
 
-Amend Section X.X by the following:
+**Amend Section X.X by the following:**
 
 Where the amendment adds text, make the added text **[bold underline]{.underline}**. Where the amendment removes text, make the removed text **~~bold strikethrough~~**. When entire new sections are added, introduce with editor's instructions to "add new text" or similar, which for readability are not bolded or underlined.
 
@@ -125,7 +125,7 @@ The current version of the IHE Technical Framework can be found at: [http://www.
 
 [3.71.6.4 SAML Token Option](#saml-token-option)
 
-[3.71.6.4 Scope](#scope)
+[3.71.6.4 Authorization Grant Scope](#authorization-grant-scope)
 
 [3.71.7 Expected Actions](#expected-actions)
 
@@ -138,10 +138,6 @@ The current version of the IHE Technical Framework can be found at: [http://www.
 [3.71.9 Security Considerations](#security-considerations)
 
 [3.71.9.1 Security Audit Considerations](#security-audit-considerations)
-
-[3.71.9.1.1 Authorization Server Specific Security Considerations](#authorization-server-specific-security-considerations)
-
-[3.71.9.1.2 Authorization Client Specific Security Considerations](#authorization-client-specific-security-considerations)
 
 
 [3.72 Incorporate Authorization Token](#incorporate-authorization-token)
@@ -396,9 +392,11 @@ The term "authorization" and "access control" are used colloquially for a variet
 
 ### 34.4.1.2 Terminology
 
-This profile uses the terms "access token", "refresh token", "authorization server", "resource server", "authorization endpoint", "authorization request", "authorization response", "token endpoint", "grant type", "access token request", and "access token response" as defined by The OAuth 2.1 Authorization Framework [OAuth 2.1].
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in "Key words for use in RFCs to Indicate Requirement Levels" [RFC 2119]. The interpretation should only be applied when the terms appear in all capital letters.
 
-Following the definitions in the OAuth 2.1 Authorization Framework [OAuth 2.1] this profile distinguishes confidential clients and public clients as follows:
+This profile uses the terms "access token", "refresh token", "authorization server", "resource server", "authorization endpoint", "authorization request", "authorization response", "token endpoint", "grant type", "access token request", and "access token response" as defined by The OAuth 2.1 Authorization Framework [OAuth 2.1]. 
+
+In accordance with the definitions in the OAuth 2.1 Authorization Framework [OAuth 2.1] this profile distinguishes confidential clients and public clients as follows:
 
 - *confidential client* - a client which stores the client authentication data (e.g., client\_id and client\_secret) in a way, that the user has no access to it (e.g., a server hosted web application).
 
@@ -406,10 +404,11 @@ Following the definitions in the OAuth 2.1 Authorization Framework [OAuth 2.1] t
 
 - *public client* - a client where the user (in principle) has access to the client code and client data in principle. Public clients cannot store client authentication data in a confidential way (e.g., single page web applications, native mobile apps on a device, if no additional features are implemented to make the client authentication data unavailable for the user).
 
-
 Note:
 
 - A public client classification does not automatically mean the client is unsecure. Public clients typically are under the full control of the user (e.g., a native app on the users device) and secured againts malicious attacks. Public clients just cannot hide authentication data from the user rendering client authentication useless.   
+
+The OAuth 2.1 Authorization Framework uses the term "resource owner" for the user an authorized client may access data on behalf of. Typically in health related environments a healthcare professional access patients or organization related data (resoures) for which the healthcare professional is not the "legal owner" but may access according to the access policies of the environment. To avoid any misunderstandings related to the OAuth term "resource owner" a the "legal owner", this profile uses the term "user" instead.
 
 
 ### 34.4.2 Use Cases
@@ -486,7 +485,7 @@ This profile is scoped to the *Authorization Code* and *Client Credential* grant
 
 ### 3.71.1 Scope
 
-This transaction SHALL be used by Authorization Client actors to retrieve an OAuth 2.1 compliant access token defined in Section X.X.X Message Semantics of this profile.
+This transaction SHALL be used by Authorization Client actors to retrieve an OAuth 2.1 compliant access token defined in Section 3.71.6 Message Semantics of this profile.
 
 ### 3.71.2 Use Case Roles
 
@@ -585,7 +584,6 @@ grant_type=client_credentials
 &scope=scope_1 scope_2 ... scope_N
 &resource=https://rs.example.com/
 ```
-
 
 If the access token request is valid and authorized, the Authorization Server responds the access token response message in JSON format with the following attributes [OAuth 2.1, Section 4.2.3]:
 
@@ -781,7 +779,6 @@ The claim content shall correspond to the content defined in the XUA specificati
 
 Table 3.71.6.3-1: JWT Claims of the IUA extension
 
-
 |JWT Claim                      |Optionality|Definition                                       	
 |-------------------------------|---------	|----------------
 |subject\_name                  |O	 		|Plain text user's name
@@ -835,7 +832,7 @@ To use a SAML Bearer Assertion as an authorization grant, the Authorization Clie
 
 Authorization and Resource Server actors claiming conformance with the SAML Token Option shall comply with the *SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants* [RFC 7522] rules for issuing and using SAML 2.0 assertions as access token. The SAML 2.0 assertion content shall comply with XUA SAML assertion rules (see ITI TF-2b:3.40).
 
-#### 3.71.6.5 Scope
+#### 3.71.6.5 Authorization Grant Scope
 
 TBD describe the semantics of scopes used in this profile.
 
@@ -843,7 +840,7 @@ TBD describe the semantics of scopes used in this profile.
 
 ### 3.71.7.2 Client Credential grant type
 
-The Authorization Server SHALL authenticate the Authorization Client using it's client credential and respond with the access token as defined in Section 3.71.4 and 3.71.6 above. 
+The Authorization Server SHALL authenticate the Authorization Client using it's client credential and respond with the access token as defined in Section 3.71.4 and 3.71.6 above. The Authorization Server SHALL verify the request. If the request is valid, the Authorization Server SHALL respond with the access token response conveying the access token in JWT or SAML 2.0 format as specified in Section 3.71.4 and 3.71.6 above.
 
 ### 3.71.7.2 Authorization Code grant type
 
@@ -904,20 +901,27 @@ JWS Payload:
 
 ### 3.71.9 Security Considerations
 
-TBD: 
-- All HTTP transaction must be secured by using TLS or equivalent transport security. 
+Authorization Client and Authorization Server claiming compliance with this profile SHALL fufill the security requirements defined in the OAuth Authorization Framework [OAuth 2.1], especially: 
 
-- The Authorization Client may be grouped with a ATNA Secure Node or Secure Application if a higher level of security is appropriate.
+- All HTTP transaction must be secured by using TLS or equivalent transport security.
+
+- Authorization Clients SHALL verify the identity of the Authorization Server, either by validating the TLS certificate chain or by other reliable methods. 
+
+- Authorization codes SHALL be for single use and short-lived with a lifetime less or equal to 5 minutes. 
+
+- Access token SHALL be short-lived with a lifetime of 1 hour or less. A lifetime less or equal to 5 minutes is RECOMMENDED. 
+
+- Refresh token MAY be long lived. 
+
+- To reduce the attack surface, client claims and authorization grants SHALL be the minimal. I.e., the authorizatiom grant scope requested by the Authorization Client shall be the minimal required scope for the resource request to be used for.          
+
 
 #### 3.71.9.1 Security Audit Considerations
 
-##### 3.71.9.1.1 Authorization Server Specific Security Considerations
+Authorization Servers SHOULD produce an audit record for any failed attempt to obtain authorization. IHE does not specify the format of audit records for authorization servers.
 
-The Authorization Servers typically produce an audit record for any failed attempt to obtain authorization. IHE does not specify the format of audit records for authorization servers. IHE does not specify the means of obtaining audit records.
+Authorization Clients MAY generate an audit message when an authorized transaction is performed or attempted.
 
-##### 3.71.9.1.2 Authorization Client Specific Security Considerations
-
-The Authorization Client may generate an audit message when an authorized transaction is performed or attempted. The Authorization Client is sometimes a device that lacks audit access or has very limited audit capabilities, so this audit capability is not mandated.
 
 
 |                                   | Field Name              | Opt             | Value Constraints|
@@ -966,7 +970,8 @@ Where:
 
 ### 3.72.1 Scope
 
-This transaction is used to provide authorization information as part of a HTTP RESTful transaction. This transaction specified some headers and behavior that must be part of a HTTP RESTful transaction. The rest of HTTP RESTful transaction specification for the URL, parameters, other headers, and other transaction contents is in another profile or specification.
+This transaction is used to incorporate authorization information to HTTP RESTful transactions. 
+
 
 ### 3.72.2 Use Case Roles
 
@@ -1077,9 +1082,11 @@ Host: examplehost.com
 
 ### 3.72.9 Security Considerations
 
-TBD
+Authorization Client and Resource Server claiming compliance with this profile SHALL fufill the security requirements defined in the OAuth Authorization Framework [OAuth 2.1], especially: 
 
-The Authorization Client MAY be grouped with an ATNA Secure Node or Secure Application if a higher level of security is appropriate. Resource Server and Authorization Server should provide equivalent protection.
+- All HTTP transaction must be secured by using TLS or equivalent transport security.
+
+- Authorization Clients SHALL verify the identity of the Resource Server when making requests to protected resources, either by validating the TLS certificate chain [OAuth 2.1, Section 7.4.2] or by other reliable methods. 
 
 #### 3.72.9.1 Security Audit Considerations
 
