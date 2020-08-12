@@ -62,112 +62,111 @@ The current version of the IHE Technical Framework can be found at: [http://www.
 
 [Volume 1 -- Profiles](#_Toc428776517)
 
-[34 IUA Profile](#_Toc428776518)
+[34 IUA Profile](#user-content-34-iua-profile)
 
-[34.1 IUA Actors, Transactions, and Content Modules](#iua-actors-transactions-and-content-modules)
+[34.1 IUA Actors, Transactions, and Content Modules](#user-content-341-iua-actors-transactions-and-content-modules)
 
-[34.1.1 Actor Descriptions and Actor Profile Requirements](#actor-descriptions-and-actor-profile-requirements)
+[34.1.1 Actor Descriptions and Actor Profile Requirements](#user-content-3411-actor-descriptions-and-actor-profile-requirements)
 
-[34.1.1.1 Authorization Client](#authorization-client)
+[34.1.1.1 Authorization Client](#user-content-34111-authorization-client)
 
-[34.1.1.2 Authorization Server](#authorization-server)
+[34.1.1.2 Authorization Server](#user-content-34112-authorization-server)
 
-[34.1.1.3 Resource Server](#resource-server)
+[34.1.1.3 Resource Server](#user-content-34113-resource-server)
 
-[34.2 IUA Actor Options](#iua-actor-options)
+[34.2 IUA Actor Options](#user-content-342-iua-actor-options)
 
-[34.3 IUA Required Actor Groupings](#iua-required-actor-groupings)
+[34.3 IUA Required Actor Groupings](#user-content-343-iua-required-actor-groupings)
 
-[34.4 IUA Overview](#iua-overview)
+[34.4 IUA Overview](#user-content-344-iua-overview)
 
-[34.4.1 Concepts](#concepts)
+[34.4.1 Concepts](#user-content-3441-concepts)
 
-[34.4.1.2 Terminology](#terminology)
+[34.4.1.2 Terminology](#user-content-3412-terminology)
 
-[34.4.2 Use Cases](#use-cases)
+[34.4.2 Use Cases](#user-content-3442-use-cases)
 
-[34.4.2.1 Authorization](#authorization)
+[34.4.2.1 Authorization](#user-content-34421-authorization)
 
-[34.4.2.2 Delegation](#delegation)
+[34.4.2.2 Delegation](#user-content-34422-delegation)
 
-[34.5 IUA Security Considerations](#iua-security-considerations)
+[34.5 IUA Security Considerations](#user-content-345-iua-security-considerations)
 
-[34.6 IUA Cross Profile Considerations](#iua-cross-profile-considerations)
-
-
-[Volume 2 -- Transactions 18](#_Toc336000611)
-
-[3.71 Get Authorization Token](#get-authorization-token)
-
-[3.71.1 Scope](#scope)
-
-[3.71.2 Use Case Roles](#use-case-roles)
-
-[3.71.3 Referenced Standards](#referenced-standards)
-
-[3.71.4 Interaction Diagram](#interaction-diagram)
-
-[3.71.4.1 Get Authorization Token Request](#authorization-request)
-
-[3.71.4.1.1 Client Credential grant type](#client-credential-grant-type)
-
-[3.71.4.1.2 Authorization Code grant type](#authorization-code-grant-type)
-
-[3.71.5 Trigger Events](#trigger-events)
-
-[3.71.6 Message Semantics](#message-semantics)
-
-[3.71.6.1 Client Credential grant type](#client-credential-grant-type)
-
-[3.71.6.2 Authorization Code grant type](#authorization-code-grant-type)
-
-[3.71.6.3 JSON Web Token](#json-web-token)
-
-[3.71.6.4 SAML Token Option](#saml-token-option)
-
-[3.71.6.4 Authorization Grant Scope](#authorization-grant-scope)
-
-[3.71.7 Expected Actions](#expected-actions)
-
-[3.71.8 Message Examples](#message-examples)
-
-[3.71.8.1 Client Credential grant type](#client-credential-grant-type)
-
-[3.71.8.2 Authorization Code grant type](#authorization-code-grant-type)
-
-[3.71.9 Security Considerations](#security-considerations)
-
-[3.71.9.1 Security Audit Considerations](#security-audit-considerations)
+[34.6 IUA Cross Profile Considerations](#user-content-346-iua-cross-profile-considerations)
 
 
-[3.72 Incorporate Authorization Token](#incorporate-authorization-token)
+[Volume 2 -- Transactions 18](#user-content-volume-2----transactions)
 
-[3.72.1 Scope](#scope-1)
+[3.71 Get Authorization Token](#user-content-371-get-authorization-token)
 
-[3.72.2 Use Case Roles](#use-case-roles-1)
+[3.71.1 Scope](#user-content-3711-scope)
 
-[3.72.3 Referenced Standards](\l)
+[3.71.2 Use Case Roles](#user-content-3712-use-case-roles)
 
-[3.72.3.1 Related IHE Profiles](#related-ihe-profiles)
+[3.71.3 Referenced Standards](#user-content-3713-referenced-standards)
 
-[3.72.4 Interaction Diagram](#interaction-diagram-1)
+[3.71.4 Interaction Diagram](#user-content-3714-interaction-diagram)
 
-[3.72.5 Trigger Events](#trigger-events-1)
+[3.71.4.1 Get Authorization Token Request](#user-content-37141-get-authorization-token-request)
 
-[3.72.6 Message Semantics](#message-semantics-1)
+[3.71.4.1.1 Client Credential grant type](#user-content-371411-client-credential-grant-type)
 
-[3.72.6.1 SAML Token Option](\l)
+[3.71.4.1.2 Authorization Code grant type](#user-content-371412-authorization-code-grant-type)
 
-[3.72.7 Expected Actions](#expected-actions-1)
+[3.71.5 Trigger Events](#user-content-3715-trigger-events)
 
-[3.72.8 Message Examples](#message-examples-1)
+[3.71.6 Message Semantics](#user-content-3716-message-semantics)
 
-[3.72.9 Security Considerations](\l)
+[3.71.6.1 JSON Web Token](#user-content-37161-json-web-token)
 
-[3.72.9.1 Security Audit Considerations](\l)
+[3.71.6.2 SAML Token](#user-content-37162-saml-token)
 
-[3.72.9.2.1 Resource Server Specific Security Considerations](\l)
+[3.71.6.3 Authorization Grant Scope](#user-content-37163-authorization-grant-scope)
 
+[3.71.7 Expected Actions](#user-content-3717-expected-actions)
+
+[3.71.7.1 Client Credential grant type](#user-content-37171-client-credential-grant-type)
+
+[3.71.7.2 Authorization Code grant type](#user-content-37172-authorization-code-grant-type)
+
+[3.71.8 Message Examples](#user-content-3718-message-examples)
+
+[3.71.9 Security Considerations](#user-content-3719-security-considerations)
+
+[3.71.9.1 Security Audit Considerations](#user-content-37191-security-audit-considerations)
+
+
+[3.72 Incorporate Authorization Token](#user-content-372-incorporate-authorization-token)
+
+[3.72.1 Scope](#user-content-3721-scope)
+
+[3.72.2 Use Case Roles](#user-content-3722-use-case-roles)
+
+[3.72.3 Referenced Standards](#user-content-3723-referenced-standards)
+
+[3.72.3.1 Related IHE Profiles](#user-content-37231-related-ihe-profiles)
+
+[3.72.4 Interaction Diagram](#user-content-3724-interaction-diagram)
+
+[3.72.5 Trigger Events](#user-content-3725-trigger-events)
+
+[3.72.6 Message Semantics](#user-content-3726-message-semantics)
+
+[3.72.6.1 JSON Web Token Option](#user-content-37261-json-web-token-option)
+
+[3.72.6.2 SAML Token Option](#user-content-37262-saml-token-option)
+
+[3.72.7 Expected Actions](#user-content-3727-expected-actions)
+
+[3.72.8 Message Examples](#user-content-3728-message-examples)
+
+[3.72.8.1 JSON Web Token Option](#user-content-37281-json-web-token-option)
+
+[3.72.8.2 SAML Token Option](#user-content-37282-saml-token-option)
+
+[3.72.9 Security Considerations](#user-content-3729-security-considerations)
+
+[3.72.9.1 Security Audit Considerations](#user-content-37291-security-audit-considerations)
 
 
 # Introduction to this Supplement
@@ -741,7 +740,7 @@ This transaction takes place whenever an Authorization Client needs an access to
 
 ### 3.71.6 Message Semantics
 
-#### 3.71.6.3 JSON Web Token (JWT)
+#### 3.71.6.1 JSON Web Token
 
 In the JSON Web Token option the access token is defined as JSON object with the follwing attributes: 
 
@@ -764,7 +763,7 @@ In the JSON Web Token option the access token is defined as JSON object with the
 
 The JWT access token MAY contain other parameter or extensions depending on the implementation details.
 
-The Authorization Client, Authorization Server, and Resource Server SHALL support the optional extensions defined in table 3.71.6.3-1. If present, the claims shall be wrapped in an "extensions" claim object that consists of the key 'ihe\_iua' and a value of a JSON object containing the claims, as such
+The Authorization Client, Authorization Server, and Resource Server SHALL support the optional extensions defined in table 3.71.6.1-1. If present, the claims shall be wrapped in an "extensions" claim object that consists of the key 'ihe\_iua' and a value of a JSON object containing the claims, as such
 
 ```
 "extensions" : {  
@@ -777,7 +776,7 @@ The Authorization Client, Authorization Server, and Resource Server SHALL suppor
 
 The claim content shall correspond to the content defined in the XUA specification (see ITI TF-2b: 3.40.4.1.2 Message Semantics). The encoding of the Subject Role and Purpose of Use MUST be as JSON arrays.
 
-Table 3.71.6.3-1: JWT Claims of the IUA extension
+Table 3.71.6.1-1: JWT Claims of the IUA extension
 
 |JWT Claim                      |Optionality|Definition                                       	
 |-------------------------------|---------	|----------------
@@ -794,9 +793,9 @@ Table 3.71.6.3-1: JWT Claims of the IUA extension
 |person\_id                     |O	 		|Patient ID, Citizen ID, or other similar public ID used for health identification purposes
 
 
-The mapping of parameter of the JWT access token to a XUA compliant SAML 2.0 Assertion is shown in table Table 3.71.6.3-2 below.  
+The mapping of parameter of the JWT access token to a XUA compliant SAML 2.0 Assertion is shown in table Table 3.71.6.1-2 below.  
 
-Table 3.71.6.3-2: JWT Claims and corresponding XUA Assertion attributes
+Table 3.71.6.1-2: JWT Claims and corresponding XUA Assertion attributes
 
 |JWT Claim                      |XUA Attribute              
 |-------------------------------|---------------------------
@@ -826,19 +825,19 @@ are RECOMMENDED. Other algorithms MAY be supported except the "NONE" that MUST N
 Note: 
 - It is RECOMMENDED to use asymmetric (public-key based, e.g., RS256) methods for signing access token. When asymmetric methods are used, Resource Server do not need to store sensitive symmetric keys, making these methods more robust against malicious attacks.
 
-#### 3.71.6.4 SAML Token Option
+#### 3.71.6.2 SAML Token
 
 To use a SAML Bearer Assertion as an authorization grant, the Authorization Client SHALL perform the access token request with the value of the "grant_type" parameter set to "urn:ietf:params:oauth:grant-type:saml2-bearer" [RFC 7522, Section 2.1].
 
 Authorization and Resource Server actors claiming conformance with the SAML Token Option shall comply with the *SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants* [RFC 7522] rules for issuing and using SAML 2.0 assertions as access token. The SAML 2.0 assertion content shall comply with XUA SAML assertion rules (see ITI TF-2b:3.40).
 
-#### 3.71.6.5 Authorization Grant Scope
+#### 3.71.6.3 Authorization Grant Scope
 
 TBD describe the semantics of scopes used in this profile.
 
 ### 3.71.7 Expected Actions
 
-### 3.71.7.2 Client Credential grant type
+### 3.71.7.1 Client Credential grant type
 
 The Authorization Server SHALL authenticate the Authorization Client using it's client credential and respond with the access token as defined in Section 3.71.4 and 3.71.6 above. The Authorization Server SHALL verify the request. If the request is valid, the Authorization Server SHALL respond with the access token response conveying the access token in JWT or SAML 2.0 format as specified in Section 3.71.4 and 3.71.6 above.
 
@@ -1038,7 +1037,7 @@ The Authorization Client SHALL incorporate the access token in the authorization
 
 An Authorization Client that claims the JSON Web Token Option SHALL be able to incorporate a JWT as access token defined in Section 3.71.6.3 in the HTTP Basic Authorization header. A Resource Server that supports the JSON Web Token Option SHALL be able to accept and understand a JWT token as defined in Section 3.71.6.3.
 
-#### 3.72.6.1 SAML Token Option
+#### 3.72.6.2 SAML Token Option
 
 An Authorization Client that supports the SAML Token Option SHALL be able to incorporate a XUA compliant SAML 2.0 Assertion (see ITI TF-2b: 3.40.4.1.2 Message Semantics) as access token. The SAML assertion shall be encoded as specified in Security Assertion Markup Language (SAML) 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants [RFC 7522, Section 2.1] rules and included in the HTTP Basic Authorization header with type *IHE-SAML*.
 
@@ -1089,8 +1088,6 @@ Authorization Client and Resource Server claiming compliance with this profile S
 - Authorization Clients SHALL verify the identity of the Resource Server when making requests to protected resources, either by validating the TLS certificate chain [OAuth 2.1, Section 7.4.2] or by other reliable methods. 
 
 #### 3.72.9.1 Security Audit Considerations
-
-##### 3.72.9.1.1 Resource Server Specific Security Considerations
 
 When an ATNA Audit message needs to be generated by the Resource Server and the user is authenticated by way of a JWT Token, the ATNA Audit message **UserName** element shall record the JWT Token information using the following encoding:
 
