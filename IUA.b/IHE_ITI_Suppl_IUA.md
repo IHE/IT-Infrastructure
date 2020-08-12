@@ -43,22 +43,17 @@ The current version of the IHE Technical Framework can be found at: [http://www.
 
 **CONTENTS**
 
-[Introduction to this Supplement](#introduction-to-this-supplement)
+[Introduction to this Supplement](#user-content-introduction-to-this-supplement)
 
-[Problem Statement](#problem-statement)
+[Problem Statement](#user-content-problem-statement)
 
-[Background on the problem environment](#background-on-the-problem-environment)
+[Background on the problem environment](#user-content-background-on-the-problem-environment)
 
-[Open Issues and Question](#open-issues-and-question)
+[Open Issues and Question](#user-content-open-issues-and-question)
 
-[Closed Issues](#closed-issues)
+[Closed Issues](#user-content-closed-issues)
 
-[General Introduction](#general-introduction)
-
-[Appendix A - Actor Summary Definitions](#_Toc428776515)
-
-[Appendix B - Transaction Summary Definitions](#_Toc428776516)
-
+[General Introduction](#user-content-general-introduction)
 
 [Volume 1 -- Profiles](#_Toc428776517)
 
