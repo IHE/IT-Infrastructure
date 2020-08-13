@@ -509,6 +509,8 @@ This transaction relies on standards defined in the following documents and the 
 
 - *RFC 7518*: JSON Web Algorithms (JWA), May 2015. 
 
+- *HEART scopes*: Health Relationship Trust Profile for Fast Healthcare Interoperability Resources (FHIR) OAuth 2.0 Scopes, July 2018. 
+
 
 ### 3.71.4 Interaction Diagram
 
@@ -776,21 +778,30 @@ Table 3.71.6.1-1: JWT Claims of the IUA extension
 |JWT Claim                      |Optionality|Definition                                       	
 |-------------------------------|---------	|----------------
 |subject\_name                  |O	 		|Plain text user's name
-|subject\_organization          |O    		|Plain text description of the Organization
-|subject\_organization\_id      |O   		|
-|subject\_role                  |O	 		|
-|purpose\_of\_use               |O	 		|Purpose of Use for the request   
-|home\_community\_id            |O	 		|Home Community ID where the request originated
+|subject\_organization          |O    		|Plain text description of the organization
+|subject\_organization\_id      |O   		|Unique identifier of the organization 
+|subject\_role                  |O	 		|Coded value indicating the user's role 
+|purpose\_of\_use               |O	 		|Purpose of use for the request   
+|home\_community\_id            |O	 		|Home community ID where the request originated
 |national\_provider\_identifier |O    		|
-|patient\_id                    |O	 		|Patient ID related to the Patient Privacy Policy Identifier
-|doc\_id                        |O	 		|Patient Privacy Policy Acknowledgement Document ID
-|acp                            |O	 		|Patient Privacy Policy Identifier
 |person\_id                     |O	 		|Patient ID, Citizen ID, or other similar public ID used for health identification purposes
 
 
-The mapping of parameter of the JWT access token to a XUA compliant SAML 2.0 Assertion is shown in table Table 3.71.6.1-2 below.  
+TBD: put all BPPC related attributes in a BPPC extension. 
 
-Table 3.71.6.1-2: JWT Claims and corresponding XUA Assertion attributes
+
+Table 3.71.6.1-2: JWT Claims of the BPPC extension
+
+|JWT Claim                      |Optionality|Definition                                       	
+|-------------------------------|---------	|----------------
+|patient\_id                    |O	 		|Patient ID related to the Patient Privacy Policy Identifier
+|doc\_id                        |O	 		|Patient Privacy Policy Acknowledgement Document ID
+|acp                            |O	 		|Patient Privacy Policy Identifier
+
+
+The mapping of parameter of the JWT access token to a XUA compliant SAML 2.0 Assertion is shown in table Table 3.71.6.1-3 below.  
+
+Table 3.71.6.1-3: JWT Claims and corresponding XUA Assertion attributes
 
 |JWT Claim                      |XUA Attribute              
 |-------------------------------|---------------------------
@@ -828,7 +839,24 @@ Authorization and Resource Server actors claiming conformance with the SAML Toke
 
 #### 3.71.6.3 Authorization Grant Scope
 
-TBD describe the semantics of scopes used in this profile.
+The scope parameter SHALL be used to restricting authorization grants to specific actions (e.g., restrict authorization to specific resources to read-only) and to convey claims, which are known to the Authorization Client only (e.g., if the user claims a breaking-the-glass access in a emergency situation). 
+
+The value of the scope parameter SHALL be a collection of space-delimited, case-sensitive strings, whose values SHALL be defined by the Authorization Server [OAuth 2.1, Section 3.3].
+
+User related scopes are RECOMMENDED to follow the syntax defined in *Health Relationship Trust Profile for Fast Healthcare Interoperability Resources (FHIR) OAuth 2.0 Scopes* [HEART scopes], i.e., it SHOULD be written as *user/resourceType.(read|write|\*)*, where 
+
+- the *user* value SHOULD be *patient* if the current user is a patient, or *user* for healthcare professionals.
+
+- the *resourceType* value SHOULD be the FHIR resource name (e.g., Patient, Observation, Appointment, a.s.o.).  
+
+For example: 
+- if a patient authorizes her device to read the Appointment resources to display them on her device, the scope granted SHOULD be *patient/Apointment.read*. 
+
+- if a healthcare professional authorizes her web application or device to read and write Patient resources to be able to search, view and manage the patient data, the scope granted by the Authorization Server SHOULD be *user/Patient.\**.
+
+- if a healthcare professional authorizes her web application or device to read all Patient data (incl. documents), the scope granted by the Authorization Server SHOULD to *user/\*.read*.
+
+Note: The Authorization Server MAY ignore the scope requested by the Authorization Client or restrict it, based on the Authorization Server policy or the user's authorization grant. 
 
 ### 3.71.7 Expected Actions
 

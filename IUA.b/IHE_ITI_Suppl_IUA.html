@@ -1277,6 +1277,9 @@ Depending on the grant type, the OAuth 2.1 Framework also requires user authenti
 <li>
 <p><em>RFC 7518</em>: JSON Web Algorithms (JWA), May 2015.</p>
 </li>
+<li>
+<p><em>HEART scopes</em>: Health Relationship Trust Profile for Fast Healthcare Interoperability Resources (FHIR) OAuth 2.0 Scopes, July 2018.</p>
+</li>
 </ul>
 <h3>
 <a id="user-content-3714-interaction-diagram" class="anchor" href="#3714-interaction-diagram" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.4 Interaction Diagram</h3>
@@ -1556,33 +1559,51 @@ Pragma: no-cache
 <tr>
 <td>subject_organization</td>
 <td>O</td>
-<td>Plain text description of the Organization</td>
+<td>Plain text description of the organization</td>
 </tr>
 <tr>
 <td>subject_organization_id</td>
 <td>O</td>
-<td></td>
+<td>Unique identifier of the organization</td>
 </tr>
 <tr>
 <td>subject_role</td>
 <td>O</td>
-<td></td>
+<td>Coded value indicating the user's role</td>
 </tr>
 <tr>
 <td>purpose_of_use</td>
 <td>O</td>
-<td>Purpose of Use for the request</td>
+<td>Purpose of use for the request</td>
 </tr>
 <tr>
 <td>home_community_id</td>
 <td>O</td>
-<td>Home Community ID where the request originated</td>
+<td>Home community ID where the request originated</td>
 </tr>
 <tr>
 <td>national_provider_identifier</td>
 <td>O</td>
 <td></td>
 </tr>
+<tr>
+<td>person_id</td>
+<td>O</td>
+<td>Patient ID, Citizen ID, or other similar public ID used for health identification purposes</td>
+</tr>
+</tbody>
+</table>
+<p>TBD: put all BPPC related attributes in a BPPC extension.</p>
+<p>Table 3.71.6.1-2: JWT Claims of the BPPC extension</p>
+<table>
+<thead>
+<tr>
+<th>JWT Claim</th>
+<th>Optionality</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
 <tr>
 <td>patient_id</td>
 <td>O</td>
@@ -1598,15 +1619,10 @@ Pragma: no-cache
 <td>O</td>
 <td>Patient Privacy Policy Identifier</td>
 </tr>
-<tr>
-<td>person_id</td>
-<td>O</td>
-<td>Patient ID, Citizen ID, or other similar public ID used for health identification purposes</td>
-</tr>
 </tbody>
 </table>
-<p>The mapping of parameter of the JWT access token to a XUA compliant SAML 2.0 Assertion is shown in table Table 3.71.6.1-2 below.</p>
-<p>Table 3.71.6.1-2: JWT Claims and corresponding XUA Assertion attributes</p>
+<p>The mapping of parameter of the JWT access token to a XUA compliant SAML 2.0 Assertion is shown in table Table 3.71.6.1-3 below.</p>
+<p>Table 3.71.6.1-3: JWT Claims and corresponding XUA Assertion attributes</p>
 <table>
 <thead>
 <tr>
@@ -1681,7 +1697,30 @@ Pragma: no-cache
 <p>Authorization and Resource Server actors claiming conformance with the SAML Token Option shall comply with the <em>SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants</em> [RFC 7522] rules for issuing and using SAML 2.0 assertions as access token. The SAML 2.0 assertion content shall comply with XUA SAML assertion rules (see ITI TF-2b:3.40).</p>
 <h4>
 <a id="user-content-37163-authorization-grant-scope" class="anchor" href="#37163-authorization-grant-scope" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.6.3 Authorization Grant Scope</h4>
-<p>TBD describe the semantics of scopes used in this profile.</p>
+<p>The scope parameter SHALL be used to restricting authorization grants to specific actions (e.g., restrict authorization to specific resources to read-only) and to convey claims, which are known to the Authorization Client only (e.g., if the user claims a breaking-the-glass access in a emergency situation).</p>
+<p>The value of the scope parameter SHALL be a collection of space-delimited, case-sensitive strings, whose values SHALL be defined by the Authorization Server [OAuth 2.1, Section 3.3].</p>
+<p>User related scopes are RECOMMENDED to follow the syntax defined in <em>Health Relationship Trust Profile for Fast Healthcare Interoperability Resources (FHIR) OAuth 2.0 Scopes</em> [HEART scopes], i.e., it SHOULD be written as <em>user/resourceType.(read|write|*)</em>, where</p>
+<ul>
+<li>
+<p>the <em>user</em> value SHOULD be <em>patient</em> if the current user is a patient, or <em>user</em> for healthcare professionals.</p>
+</li>
+<li>
+<p>the <em>resourceType</em> value SHOULD be the FHIR resource name (e.g., Patient, Observation, Appointment, a.s.o.).</p>
+</li>
+</ul>
+<p>For example:</p>
+<ul>
+<li>
+<p>if a patient authorizes her device to read the Appointment resources to display them on her device, the scope granted SHOULD be <em>patient/Apointment.read</em>.</p>
+</li>
+<li>
+<p>if a healthcare professional authorizes her web application or device to read and write Patient resources to be able to search, view and manage the patient data, the scope granted by the Authorization Server SHOULD be <em>user/Patient.*</em>.</p>
+</li>
+<li>
+<p>if a healthcare professional authorizes her web application or device to read all Patient data (incl. documents), the scope granted by the Authorization Server SHOULD to <em>user/*.read</em>.</p>
+</li>
+</ul>
+<p>Note: The Authorization Server MAY ignore the scope requested by the Authorization Client or restrict it, based on the Authorization Server policy or the user's authorization grant.</p>
 <h3>
 <a id="user-content-3717-expected-actions" class="anchor" href="#3717-expected-actions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.7 Expected Actions</h3>
 <h3>
