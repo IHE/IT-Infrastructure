@@ -114,6 +114,10 @@ The current version of the IHE Technical Framework can be found at: [http://www.
 
 [3.71.6.1 JSON Web Token](#user-content-37161-json-web-token)
 
+[3.71.6.1.1 JWT IUA extension](#user-content-371611-jwt-iua-extension)
+
+[3.71.6.1.2 JWT BPPC extension](#user-content-371612-jwt-bppc-extension)
+
 [3.71.6.2 SAML Token](#user-content-37162-saml-token)
 
 [3.71.6.3 Authorization Grant Scope](#user-content-37163-authorization-grant-scope)
@@ -390,6 +394,8 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 This profile uses the terms "access token", "refresh token", "authorization server", "resource server", "authorization endpoint", "authorization request", "authorization response", "token endpoint", "grant type", "access token request", and "access token response" as defined by The OAuth 2.1 Authorization Framework [OAuth 2.1]. 
 
+The OAuth 2.1 Authorization Framework uses the term "resource owner" for the user an authorized client may access data on behalf of. Typically in health related environments a healthcare professional access patients or organization related data (resoures) for which the healthcare professional is not the "legal owner" but may access according to the access policies of the environment. To avoid any misunderstandings related to the OAuth term "resource owner" a the "legal owner", this profile uses the term "user" instead.
+
 In accordance with the definitions in the OAuth 2.1 Authorization Framework [OAuth 2.1] this profile distinguishes confidential clients and public clients as follows:
 
 - *confidential client* - a client which stores the client authentication data (e.g., client\_id and client\_secret) in a way, that the user has no access to it (e.g., a server hosted web application).
@@ -402,7 +408,7 @@ Note:
 
 - A public client classification does not automatically mean the client is unsecure. Public clients typically are under the full control of the user (e.g., a native app on the users device) and secured againts malicious attacks. Public clients just cannot hide authentication data from the user rendering client authentication useless.   
 
-The OAuth 2.1 Authorization Framework uses the term "resource owner" for the user an authorized client may access data on behalf of. Typically in health related environments a healthcare professional access patients or organization related data (resoures) for which the healthcare professional is not the "legal owner" but may access according to the access policies of the environment. To avoid any misunderstandings related to the OAuth term "resource owner" a the "legal owner", this profile uses the term "user" instead.
+All uses of JSON Web Signature [RFC 7515] data structures in this document utilize the JWS Compact Serialization. The JWS JSON Serialization SHALL not be used.
 
 
 ### 34.4.2 Use Cases
@@ -739,7 +745,22 @@ This transaction takes place whenever an Authorization Client needs an access to
 
 #### 3.71.6.1 JSON Web Token
 
-In the JSON Web Token option the access token is defined as JSON object with the follwing attributes: 
+The Authorization Client and Authorization Server actors SHALL support signed JWT token as specified in JSON Web Signature [RFC 7515]. Any actor that supports this transaction MAY support the JWE (unsigned but encrypted) alternative of the JWT token.
+
+Of the signature of JWT algorithms specified in the JSON Web Algorithms [RFC 7518], the following algorithm SHALL be supported:
+- *HS256*: HMAC using SHA-256 hash algorithm.
+- *RS256*: RSA using SHA-256 hash algorithm.
+
+Other algorithms such as:
+- *ES256*: ECDSA using P-256 curve and the SHA-256 hash algorithm ("ES256")
+
+are RECOMMENDED. Other algorithms MAY be supported except the "NONE" that MUST NOT be used.
+
+Note: 
+- It is RECOMMENDED to use asymmetric (public-key based, e.g., RS256) methods for signing access token. When asymmetric methods are used, Resource Server do not need to store sensitive symmetric keys, making these methods more robust against malicious attacks.
+
+
+In the JSON Web Token option the access token is defined as JSON object with the following attributes: 
 
 - *iss* (REQUIRED): A single valued string identifying the instance which issued the access token (e.g.,the Authorization Server) [JWT Access Token, Section 2.2]. 
 
@@ -760,12 +781,17 @@ In the JSON Web Token option the access token is defined as JSON object with the
 
 The JWT access token MAY contain other parameter or extensions depending on the implementation details.
 
-The Authorization Client, Authorization Server, and Resource Server SHALL support the optional extensions defined in table 3.71.6.1-1. If present, the claims shall be wrapped in an "extensions" claim object that consists of the key 'ihe\_iua' and a value of a JSON object containing the claims, as such
+
+##### 3.71.6.1.1 JWT IUA extension
+
+The Authorization Client, Authorization Server, and Resource Server SHALL support the extensions defined in table 3.71.6.1.1-1. The claims SHALL be wrapped in an "extensions" object with key 'ihe\_iua' and a JSON value object containing the claims, as such
 
 ```
 "extensions" : {  
   "ihe_iua" : {  
-    "subject_id":"John Iyouay",  
+    "subject_name": "Dr. John Smith",
+    "subject_organization": "Central Hospital",
+    "subject_organization_id": "urn:oid:1.2.3.4",
     ...  
   }  
 }
@@ -773,7 +799,7 @@ The Authorization Client, Authorization Server, and Resource Server SHALL suppor
 
 The claim content shall correspond to the content defined in the XUA specification (see ITI TF-2b: 3.40.4.1.2 Message Semantics). The encoding of the Subject Role and Purpose of Use MUST be as JSON arrays.
 
-Table 3.71.6.1-1: JWT Claims of the IUA extension
+Table 3.71.6.1.1-1: JWT Claims of the IUA extension
 
 |JWT Claim                      |Optionality|Definition                                       	
 |-------------------------------|---------	|----------------
@@ -787,10 +813,38 @@ Table 3.71.6.1-1: JWT Claims of the IUA extension
 |person\_id                     |O	 		|Patient ID, Citizen ID, or other similar public ID used for health identification purposes
 
 
-TBD: put all BPPC related attributes in a BPPC extension. 
+The mapping of IUA extension claims to XUA compliant SAML 2.0 Assertion attributes is shown in table Table 3.71.6.1.2-2 below. 
+
+Table 3.71.6.1.1-2: JWT claims of the IUA extension and corresponding XUA Assertion attributes
+
+|JWT Claim                      |XUA Attribute              
+|-------------------------------|---------------------------
+|subject\_name                  |urn:oasis:names:tc:xspa:1.0:subject:subject-id
+|subject\_organization          |urn:oasis:names:tc:xspa:1.0:subject:organization
+|subject\_organization\_id      |urn:oasis:names:tc:xspa:1.0:subject:organization-id
+|subject\_role                  |urn:oasis:names:tc:xacml:2.0:subject:role
+|purpose\_of\_use               |urn:oasis:names:tc:xspa:1.0:subject:purposeofuse
+|home\_community\_id            |urn:ihe:iti:xca:2010:homeCommunityId 
+|national\_provider\_identifier |urn:oasis:names:tc:xspa:1.0:subject:npi
+|person\_id 					|*not defined*
 
 
-Table 3.71.6.1-2: JWT Claims of the BPPC extension
+##### 3.71.6.1.2 JWT BPPC extension
+
+In a environment which uses the IHE BPPC profile for documenting the consent, the Authorization Client, Authorization Server, and Resource Server SHALL support the extensions defined in table 3.71.6.1.2-1. If present, the claims SHALL be wrapped in an "extensions" claim object with key 'ihe\_bppc' and a JSON value object containing the claims, as such
+
+```
+"extensions" : {  
+  "ihe_bppc" : {  
+    "patient_id": "543797436^^^&amp;1.2.840.113619.6.197&amp;ISO",
+    "doc_id": "urn:oid:1.2.3.xxx",
+    "acp": "urn:oid:1.2.3.yyyy",
+    ...  
+  }  
+}
+```
+
+Table 3.71.6.1.2-1: JWT Claims of the BPPC extension
 
 |JWT Claim                      |Optionality|Definition                                       	
 |-------------------------------|---------	|----------------
@@ -799,37 +853,16 @@ Table 3.71.6.1-2: JWT Claims of the BPPC extension
 |acp                            |O	 		|Patient Privacy Policy Identifier
 
 
-The mapping of parameter of the JWT access token to a XUA compliant SAML 2.0 Assertion is shown in table Table 3.71.6.1-3 below.  
+The mapping of IUA extension claims to XUA compliant SAML 2.0 Assertion attributes is shown in table Table 3.71.6.1.2-2 below.  
 
-Table 3.71.6.1-3: JWT Claims and corresponding XUA Assertion attributes
+Table 3.71.6.1.2-2: JWT claims of the BPPC extension and corresponding XUA Assertion attributes
 
 |JWT Claim                      |XUA Attribute              
 |-------------------------------|---------------------------
-|subject\_name                  |SubjectID
-|subject\_organization          |SubjectOrganization
-|subject\_organization\_id      |SubjectOrganizationID
-|home\_community\_id            |HomeCommunityID 
-|national\_provider\_identifier |NationalProviderIdentifier
-|subject\_role                  |Subject:Role 
-|doc\_id                        |docid
-|acp                            |acp
-|purpose\_of\_use               |PurposeOfUse
-|patient\_id                    |Resource-ID
+|patient\_id                    |urn:oasis:names:tc:xacml:2.0:resource:resource-id
+|doc\_id                        |urn:ihe:iti:bppc:2007:docid
+|acp                            |urn:ihe:iti:xua:2012:acp
 
-
-The Authorization Client and Authorization Server actors SHALL support signed JWT token as specified in JSON Web Signature [RFC 7515]. Any actor that supports this transaction MAY support the JWE (unsigned but encrypted) alternative of the JWT token.
-
-Of the signature of JWT algorithms specified in the JSON Web Algorithms [RFC 7518], the following algorithm SHALL be supported:
-- *HS256*: HMAC using SHA-256 hash algorithm.
-- *RS256*: RSA using SHA-256 hash algorithm.
-
-Other algorithms such as:
-- *ES256*: ECDSA using P-256 curve and the SHA-256 hash algorithm ("ES256")
-
-are RECOMMENDED. Other algorithms MAY be supported except the "NONE" that MUST NOT be used.
-
-Note: 
-- It is RECOMMENDED to use asymmetric (public-key based, e.g., RS256) methods for signing access token. When asymmetric methods are used, Resource Server do not need to store sensitive symmetric keys, making these methods more robust against malicious attacks.
 
 #### 3.71.6.2 SAML Token
 
@@ -843,9 +876,9 @@ The scope parameter SHALL be used to restricting authorization grants to specifi
 
 The value of the scope parameter SHALL be a collection of space-delimited, case-sensitive strings, whose values SHALL be defined by the Authorization Server [OAuth 2.1, Section 3.3].
 
-User related scopes are RECOMMENDED to follow the syntax defined in *Health Relationship Trust Profile for Fast Healthcare Interoperability Resources (FHIR) OAuth 2.0 Scopes* [HEART scopes], i.e., it SHOULD be written as *user/resourceType.(read|write|\*)*, where 
+User related scopes are RECOMMENDED to follow the syntax defined in *Health Relationship Trust Profile for Fast Healthcare Interoperability Resources (FHIR) OAuth 2.0 Scopes* [HEART scopes], i.e., it SHOULD be written as *role/resourceType.(read|write|\*)*, where 
 
-- the *user* value SHOULD be *patient* if the current user is a patient, or *user* for healthcare professionals.
+- the *role* value SHOULD be *patient* if the current user is a patient, or *user* for healthcare professionals.
 
 - the *resourceType* value SHOULD be the FHIR resource name (e.g., Patient, Observation, Appointment, a.s.o.).  
 
