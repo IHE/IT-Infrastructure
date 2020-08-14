@@ -1,0 +1,31 @@
+{
+    "iss": "urn:tiani-spirit:sts",
+    "sub": "b3ca1045-aa8b-42f9-9fd9-e0cbf5cb90a7",
+    "aud": "http://ihe.connectathon.IUA/ResourceProvider-IHE-Connectathon",
+    "exp": 1438251487,
+    "nbf": 1438251187,
+    "iat": 1438251187,
+    "extensions" : {  
+      "ihe_iua" : {  
+        "subject_name": "Dr. John Smith",
+        "subject_organization": "Central Hospital",
+        "subject_organization_id": "urn:oid:1.2.3.4",
+        "home_community_id": "urn:oid:1.2.3.4.5.6.7.8",
+        "resource_id": "urn:uuid:1.2.3.4",
+        "subject_role": [
+          {
+            "system": "2.16.840.1.113883.6.1",
+            "code": "28570-0",
+            "display": "ProcedureNote"
+          }
+        ],
+        "purpose_of_use": [
+          {
+            "system": "2.16.840.1.113883.6.2",
+            "code": "99-0",
+            "display": "Social Worker"
+          }
+        ]
+      }
+    }
+}
