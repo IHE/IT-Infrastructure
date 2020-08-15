@@ -759,7 +759,6 @@ are RECOMMENDED. Other algorithms MAY be supported except the "NONE" that MUST N
 Note: 
 - It is RECOMMENDED to use asymmetric (public-key based, e.g., RS256) methods for signing access token. When asymmetric methods are used, Resource Server do not need to store sensitive symmetric keys, making these methods more robust against malicious attacks.
 
-
 In the JSON Web Token option the access token is defined as JSON object with the following attributes: 
 
 - *iss* (REQUIRED): A single valued string identifying the instance which issued the access token (e.g.,the Authorization Server) [JWT Access Token, Section 2.2]. 
@@ -778,6 +777,8 @@ In the JSON Web Token option the access token is defined as JSON object with the
 
 - *iat* (OPTIONAL): The issuing date in Numeric Date format [JWT, Section 4.1.6]. 
 
+
+When communicating the JSON Web Token, the JWS Compact Serialization SHALL be used as described in [RFC 7515, Section 7.1].  
 
 The JWT access token MAY contain other parameter or extensions depending on the implementation details.
 
@@ -1091,7 +1092,7 @@ The Authorization Client SHALL incorporate the access token in the authorization
 
 #### 3.72.6.1 JSON Web Token Option
 
-An Authorization Client that claims the JSON Web Token Option SHALL be able to incorporate a JWT as access token defined in Section 3.71.6.3 in the HTTP Basic Authorization header. A Resource Server that supports the JSON Web Token Option SHALL be able to accept and understand a JWT token as defined in Section 3.71.6.3.
+An Authorization Client that claims the JSON Web Token Option SHALL be able to incorporate a JWT as access token defined in Section 3.71.6.3 in the HTTP Basic Authorization header as String using JWS Compact Serialization [RFC 7515, Section 7.1]. A Resource Server that supports the JSON Web Token Option SHALL be able to accept and understand a JWT token as defined in Section 3.71.6.3.
 
 #### 3.72.6.2 SAML Token Option
 
