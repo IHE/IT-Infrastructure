@@ -406,9 +406,7 @@ In accordance with the definitions in the OAuth 2.1 Authorization Framework [OAu
 
 Note:
 
-- A public client classification does not automatically mean the client is unsecure. Public clients typically are under the full control of the user (e.g., a native app on the users device) and secured againts malicious attacks. Public clients just cannot hide authentication data from the user rendering client authentication useless.   
-
-All uses of JSON Web Signature [RFC 7515] data structures in this document utilize the JWS Compact Serialization. The JWS JSON Serialization SHALL not be used.
+- A public client classification does not automatically mean the client is unsecure. Public clients typically are under the full control of the user (e.g., a native app on the users device) and secured againts malicious attacks. Public clients just cannot hide authentication data from the user rendering client authentication useless.
 
 
 ### 34.4.2 Use Cases
@@ -745,7 +743,9 @@ This transaction takes place whenever an Authorization Client needs an access to
 
 #### 3.71.6.1 JSON Web Token
 
-The Authorization Client and Authorization Server actors SHALL support signed JWT token as specified in JSON Web Signature [RFC 7515]. Any actor that supports this transaction MAY support the JWE (unsigned but encrypted) alternative of the JWT token.
+The Authorization Client and Authorization Server actors SHALL support signed JWT token as specified in JSON Web Signature [RFC 7515]. If signed, the JWS Compact Serialization (base64 encoded, with single signature or MACed) SHALL be used as described in [RFC 7515, Section 7.1].
+
+Any actor that supports this transaction MAY support the JWE (unsigned but encrypted) alternative of the JWT token.
 
 Of the signature of JWT algorithms specified in the JSON Web Algorithms [RFC 7518], the following algorithm SHALL be supported:
 - *HS256*: HMAC using SHA-256 hash algorithm.
@@ -775,10 +775,7 @@ In the JSON Web Token option the access token is defined as JSON object with the
 
 - *nbf* (OPTIONAL): The earliest time in Numeric Date format the token SHALL be accepted [JWT, Section 4.1.5].  
 
-- *iat* (OPTIONAL): The issuing date in Numeric Date format [JWT, Section 4.1.6]. 
-
-
-When communicating the JSON Web Token, the JWS Compact Serialization SHALL be used as described in [RFC 7515, Section 7.1].  
+- *iat* (OPTIONAL): The issuing date in Numeric Date format [JWT, Section 4.1.6].  
 
 The JWT access token MAY contain other parameter or extensions depending on the implementation details.
 
@@ -869,7 +866,9 @@ Table 3.71.6.1.2-2: JWT claims of the BPPC extension and corresponding XUA Asser
 
 To use a SAML Bearer Assertion as an authorization grant, the Authorization Client SHALL perform the access token request with the value of the "grant_type" parameter set to "urn:ietf:params:oauth:grant-type:saml2-bearer" [RFC 7522, Section 2.1].
 
-Authorization and Resource Server actors claiming conformance with the SAML Token Option shall comply with the *SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants* [RFC 7522] rules for issuing and using SAML 2.0 assertions as access token. The SAML 2.0 assertion content shall comply with XUA SAML assertion rules (see ITI TF-2b:3.40).
+Authorization and Resource Server claiming conformance with the SAML Token Option shall comply with the *SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants* [RFC 7522] rules for issuing and using SAML 2.0 assertions as access token. 
+
+The SAML 2.0 assertion content shall comply with XUA SAML assertion rules (see ITI TF-2b:3.40).
 
 #### 3.71.6.3 Authorization Grant Scope
 
@@ -1092,7 +1091,9 @@ The Authorization Client SHALL incorporate the access token in the authorization
 
 #### 3.72.6.1 JSON Web Token Option
 
-An Authorization Client that claims the JSON Web Token Option SHALL be able to incorporate a JWT as access token defined in Section 3.71.6.3 in the HTTP Basic Authorization header as String using JWS Compact Serialization [RFC 7515, Section 7.1]. A Resource Server that supports the JSON Web Token Option SHALL be able to accept and understand a JWT token as defined in Section 3.71.6.3.
+An Authorization Client that claims the JSON Web Token Option SHALL be able to incorporate a JWT as access token defined in Section 3.71.6.3 in the HTTP Basic Authorization header using. If JWS signature is used, the JWS Compact Serialization (base64 encoded, single signature or MACed) SHALL be used as described in [RFC 7515, Section 7.1]. 
+
+A Resource Server that supports the JSON Web Token Option SHALL be able to accept and understand a JWT token as defined in Section 3.71.6.3.
 
 #### 3.72.6.2 SAML Token Option
 
