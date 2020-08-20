@@ -286,16 +286,16 @@ The OAuth 2.1 Authorization Framework requires client identification, which may 
 
 The OAuth 2.1 Authorization Framework also requires client authentication for confidential and credential clients [OAuth 2.1, Section 2.3]. It recommends the use of to use asymmetric (public-key based) methods for client authentication [OAuth 2.1, Section 9.1], but allows other suitable HTTP based authentication schemes matching the security policy of the Authorization Server [OAuth 2.1, Section 2.3.2].
 
-This profile requires the use of a *client_id* for client identification and a *client_secret* used with the HTTP Basic Authentocation scheme for client authentication of confidential and credential clients, if no other methods for identification and authentication are used.  
+This profile requires the use of a *client_id* for client identification and a *client_secret* used with the HTTP Basic Authentication scheme for client authentication of confidential and credential clients, if no other methods for identification and authentication are used.  
 Depending on the grant type, the OAuth 2.1 Framework also requires user authentication. For example, the *Authorization Code* grant type covered by this profile requires user authentication [OAuth 2.1, Section 4.1], while the *Client Credential* grant type does not [OAuth 2.1, Section 4.2]. The methods used by the authorization server to authenticate the user (e.g., username and password login, session cookies, delegation to Authentication Server) is not scoped in the OAuth 2.1 Authorization Framework [OAuth 2.1, Section 3.1].
 
 Since user authentication methods chosen depend on the projects or national security policy, they are not scoped in this profile and SHALL be defined in the specific implementation projects or national extensions of this profile. If the user authentication is not implemented in the Authorization Server, the use of OpenID Connect with the Authorization Grant or Hybrid flow is recommended.
 
 It is the responsibility of the Resource Server to enforce the access policies based on the transaction performed and the information provided in the access token. Therefore the Resource Server must be able to rely upon the decisions made by the Authorization Server (e.g., client identification, user authentication), which requires that a trust relation between the Resource Server and the Authorization Server was established beforehand.  
 
-The Ressource Server may delegate the access policy enforcement to actors it is grouped with by providing the information from the access token and transaction data, or to other actors (e.g., by implementing the Authorization Decisons Verifier actor of the Secure Retrieve (SeR) supplement).
+The Resource Server may delegate the access policy enforcement to actors it is grouped with by providing the information from the access token and transaction data, or to other actors (e.g., by implementing the Authorization Decisions Verifier actor of the Secure Retrieve (SeR) supplement).
 
-Note: An analogy of the segregation of duties for access control between the Authorization Server and the Resource Server is given in a  textbook (*Solving Identity Management in Modern Applications*, *APress 2019* by Yvonne Wilson and Abhishek Hingnikar) comparing the authorization and policy enforcement with a ticketing and entrance control to events (e.g, opera, cinema). In this analogy the Authorization Server provides the ticket which authorizes participation, while additional checks are performed to finally particpate to the event.  
+Note: An analogy of the segregation of duties for access control between the Authorization Server and the Resource Server is given in a  textbook (*Solving Identity Management in Modern Applications*, *APress 2019* by Yvonne Wilson and Abhishek Hingnikar) comparing the authorization and policy enforcement with a ticketing and entrance control to events (e.g, opera, cinema). In this analogy the Authorization Server provides the ticket which authorizes participation, while additional checks are performed to finally participate to the event.  
 
 This profile relies on the OAuth 2.1 Authorization Framework. Since the original publication of OAuth 2.0 in 2012, several new RFCs have been published that add or remove functionality from the core specification. Version 2.1 of the OAuth Authorization Framework consolidates and simplifies the most commonly used features and best practices of OAuth 2.0.
 
@@ -326,6 +326,8 @@ The Authorization Client performs the network transactions and user interactions
 
 -   Get Authorization Token: In this use, the Authorization Client actor interacts with an Authorization Server to obtain a token that indicates HTTP RESTful transactions for a particular kind of service and device are authorized by the user. This may include interactions with the user for authentication purposes.
 
+-   An Authorization Client SHOULD query the [capabilities](http://hl7.org/fhir/R4/http.html#capabilities) endpoint on the Resource Server to determine if the Resource Server supports IUA. The element [**CapabilityStatement.rest.security.**](http://hl7.org/fhir/R4/capabilitystatement.html) will be populated with the code "IUA" at system canonical URL "http://profiles.ihe.net/fhir/ihe.securityTypes/CodeSystem/securityTypes". 
+
 #### 34.1.1.2 Authorization Server
 
 The Authorization Server provides access tokens to requesting clients. In IUA, the Authorization Server uses an authenticated user identity, the requested HTTP RESTful service URL, and other information to determine whether HTTP RESTful transactions are authorized. If authorized, the Authorization Server provides a token indicating that HTTP RESTful service access is authorized.
@@ -340,7 +342,9 @@ Notes:
 
 2. Many Resource Servers will perform additional access control decisions and may restrict responses even for authorized transactions.
 
-3. Resource Server MAY declare support for IUA in their CapabilityStatement using the element **CapabilityStatement.rest.security.**
+3. Resource Server SHALL declare support for IUA in the [capabilities](http://hl7.org/fhir/R4/http.html#capabilities) endpoint using the element [**CapabilityStatement.rest.security.**](http://hl7.org/fhir/R4/capabilitystatement.html) and the code "IUA" at system canonical URL "http://profiles.ihe.net/fhir/ihe.securityTypes/CodeSystem/securityTypes".
+
+TODO: do we need a different code for SAML token vs JWT token?
 
 
 ## 34.2 IUA Actor Options
@@ -376,7 +380,7 @@ An actor from this profile shall implement the required transactions and/or cont
 
 ### 34.4.1 Concepts
 
-The term "authorization" and "access control" are used colloquially for a variety of related activities. All of the concepts listed below are sometimes called "authorization" or "access control". See the IHE ITI Access Control whitepaper for a detailed discussion of Access Control concepts. This profile will use more specific terms for each of these activities. These are:
+The term "authorization" and "access control" are used colloquially for a variety of related activities. All of the concepts listed below are sometimes called "authorization" or "access control". See the IHE ITI Access Control white paper for a detailed discussion of Access Control concepts. This profile will use more specific terms for each of these activities. These are:
 
 -   Provisioning -- Setting up the initial rules and updating them when the situation changes. The administrator may say "Authorize Dr. X to have access". The steps taken to make this happen are called provisioning.
 
@@ -390,11 +394,9 @@ The term "authorization" and "access control" are used colloquially for a variet
 
 ### 34.4.1.2 Terminology
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in "Key words for use in RFCs to Indicate Requirement Levels" [RFC 2119]. The interpretation should only be applied when the terms appear in all capital letters.
-
 This profile uses the terms "access token", "refresh token", "authorization server", "resource server", "authorization endpoint", "authorization request", "authorization response", "token endpoint", "grant type", "access token request", and "access token response" as defined by The OAuth 2.1 Authorization Framework [OAuth 2.1]. 
 
-The OAuth 2.1 Authorization Framework uses the term "resource owner" for the user an authorized client may access data on behalf of. Typically in health related environments a healthcare professional access patients or organization related data (resoures) for which the healthcare professional is not the "legal owner" but may access according to the access policies of the environment. To avoid any misunderstandings related to the OAuth term "resource owner" a the "legal owner", this profile uses the term "user" instead.
+The OAuth 2.1 Authorization Framework uses the term "resource owner" for the user an authorized client may access data on behalf of. Typically in health related environments a healthcare professional access patients or organization related data (resources) for which the healthcare professional is not the "legal owner" but may access according to the access policies of the environment. To avoid any misunderstandings related to the OAuth term "resource owner" a the "legal owner", this profile uses the term "user" instead.
 
 In accordance with the definitions in the OAuth 2.1 Authorization Framework [OAuth 2.1] this profile distinguishes confidential clients and public clients as follows:
 
@@ -406,7 +408,7 @@ In accordance with the definitions in the OAuth 2.1 Authorization Framework [OAu
 
 Note:
 
-- A public client classification does not automatically mean the client is unsecure. Public clients typically are under the full control of the user (e.g., a native app on the users device) and secured againts malicious attacks. Public clients just cannot hide authentication data from the user rendering client authentication useless.
+- A public client classification does not automatically mean the client is insecure. Public clients typically are under the full control of the user (e.g., a native app on the users device) and secured against malicious attacks. Public clients just cannot hide authentication data from the user rendering client authentication useless.
 
 
 ### 34.4.2 Use Cases
@@ -419,9 +421,9 @@ A healthcare professional uses a server hosted web application to access a patie
 
 A healthcare professional uses a single page web application to access a patients electronic health record (EHR) using RESTful transactions. At initial startup the app registers with the Authorization Server using a dynamic client registration protocol. When accessing a view on the EHR, the steps follow the same steps as in the web application use case above.   
 
-A clinical monitor managed by the hospital system administrators access a patients EHR using RESTful transactions in the hospital LAN. At installation time, clinical monitor has been registered at the Authorization Server with client ID and client authentication method (e.g. client secret) by the system administrator and a contracts (policies) have been deposited at the Authorization Server and Resource Server(s) authoriziing access to the EHR. Before accessing patient EHR data, the clinical monitor requests an access token freom the Authorization Server using the client credential grant type. The clinical monitor incorperates the access token to the RESTful transactions to access EHR data and documents stored in the EHR Resource Server(s).         
+A clinical monitor managed by the hospital system administrators access a patients EHR using RESTful transactions in the hospital LAN. At installation time, clinical monitor has been registered at the Authorization Server with client ID and client authentication method (e.g. client secret) by the system administrator and a contracts (policies) have been deposited at the Authorization Server and Resource Server(s) authorizing access to the EHR. Before accessing patient EHR data, the clinical monitor requests an access token from the Authorization Server using the client credential grant type. The clinical monitor incorporates the access token to the RESTful transactions to access EHR data and documents stored in the EHR Resource Server(s).         
 
-A patient uses a native app on her mobile device to access data from her electronic health record (EHR) using RESTful transactions via the internet. At first startup the app registers with the Authorization Server using a dynamic client registration protocol. When accessing a view on the EHR, the native app is redirected to the EHR Authorization Server, which authenticates the patient either by presenting the views to enter the authentication factors (e.g. username, password and 2nd factor) or by delegating to an Identity Provider (IdP). After user authentication, the Authorization Server performs the necessary steps to authorize the native app to access to the EHR data by explicit user consent. When authorized, the native app retrieves an access token which authorizes the app to request and retrieve the EHR data from the Resource Server(s) on behalf of the patient.
+A patient uses a native app on her mobile device to access data from her electronic health record (EHR) using RESTful transactions via the Internet. At first startup the app registers with the Authorization Server using a dynamic client registration protocol. When accessing a view on the EHR, the native app is redirected to the EHR Authorization Server, which authenticates the patient either by presenting the views to enter the authentication factors (e.g. username, password and 2nd factor) or by delegating to an Identity Provider (IdP). After user authentication, the Authorization Server performs the necessary steps to authorize the native app to access to the EHR data by explicit user consent. When authorized, the native app retrieves an access token which authorizes the app to request and retrieve the EHR data from the Resource Server(s) on behalf of the patient.
 
 #### 34.4.2.2 Delegation
 
@@ -455,7 +457,7 @@ The XUA profile provides equivalent functionality for SOAP based transactions. B
 
 - The XUA profile defines a transactions to retrieve an SAML 2 assertion for authorization (Get X-User Assertion), but does not specify it in detail, leaving the details to national extensions and project specific implementations. In contrast the IUA profiles specifies the analog Get Authorization Token [ITI-71] for OAuth 2.1 compliant access token.
 
-- While the XUA profile relies on ATNA Node Authentication to authenticate the client (or client network node), IUA uses the mechanism defined in the OAuth 2.1 Authorization Framework to authenticiate client applications.
+- While the XUA profile relies on ATNA Node Authentication to authenticate the client (or client network node), IUA uses the mechanism defined in the OAuth 2.1 Authorization Framework to authenticate client applications.
 
 - While XUA supports SAML 2 Assertions only, the IUA profile supports access token in JWT and SAML 2.0 Assertion format.  
 
@@ -615,7 +617,7 @@ Pragma: no-cache
 }
 ```
 
-The Authorization Server SHALL respond an error response as defined in the OAuth 2.1 Authorization Franework [OAuth 2.1, Section 5.2] if the request does not match the requirements or is not understood.  
+The Authorization Server SHALL respond an error response as defined in the OAuth 2.1 Authorization Framework [OAuth 2.1, Section 5.2] if the request does not match the requirements or is not understood.  
 
 
 ##### 3.71.4.1.2 Authorization Code grant type
@@ -731,7 +733,7 @@ Pragma: no-cache
 }
 ```
 
-The Authorization Server SHALL respond an error response as defined in the OAuth 2.1 Authorization Franework [OAuth 2.1, Section 5.2 and 4.1.2.1] if a request does not match the requirements or is not understood. 
+The Authorization Server SHALL respond an error response as defined in the OAuth 2.1 Authorization Framework [OAuth 2.1, Section 5.2 and 4.1.2.1] if a request does not match the requirements or is not understood. 
 
 
 ### 3.71.5 Trigger Events
@@ -847,7 +849,7 @@ Table 3.71.6.1.2-1: JWT Claims of the BPPC extension
 |JWT Claim                      |Optionality|Definition                                       	
 |-------------------------------|---------	|----------------
 |patient\_id                    |O	 		|Patient ID related to the Patient Privacy Policy Identifier
-|doc\_id                        |O	 		|Patient Privacy Policy Acknowledgement Document ID
+|doc\_id                        |O	 		|Patient Privacy Policy Acknowledgment Document ID
 |acp                            |O	 		|Patient Privacy Policy Identifier
 
 
@@ -883,7 +885,7 @@ User related scopes are RECOMMENDED to follow the syntax defined in *Health Rela
 - the *resourceType* value SHOULD be the FHIR resource name (e.g., Patient, Observation, Appointment, a.s.o.).  
 
 For example: 
-- if a patient authorizes her device to read the Appointment resources to display them on her device, the scope granted SHOULD be *patient/Apointment.read*. 
+- if a patient authorizes her device to read the Appointment resources to display them on her device, the scope granted SHOULD be *patient/Appointment.read*. 
 
 - if a healthcare professional authorizes her web application or device to read and write Patient resources to be able to search, view and manage the patient data, the scope granted by the Authorization Server SHOULD be *user/Patient.\**.
 
@@ -905,7 +907,7 @@ The Authorization Server SHALL verify that all required parameters of the author
 
 If the authorization request is invalid, the Authorization Server SHALL react as defined in [OAuth 2.1, Section 4.1.2.1]. 
 
-The Authorization Client SHALL use the authorization code to request the access token from the Authorization Server. The Authorization Server SHALL verfiy the access token request as described in [OAuth 2.1, Section 4.1.3]. If the request is valid, the Authorization Server SHALL respond with the access token response conveying the access token in JWT or SAML 2.0 format as specified in Section 3.71.4 and 3.71.6 above. If invalid, the Authorization Server SHALL respond with an error as defined in [OAuth 2.1, Section 5.2].
+The Authorization Client SHALL use the authorization code to request the access token from the Authorization Server. The Authorization Server SHALL verify the access token request as described in [OAuth 2.1, Section 4.1.3]. If the request is valid, the Authorization Server SHALL respond with the access token response conveying the access token in JWT or SAML 2.0 format as specified in Section 3.71.4 and 3.71.6 above. If invalid, the Authorization Server SHALL respond with an error as defined in [OAuth 2.1, Section 5.2].
 
 ### 3.71.8 Message Examples
 
@@ -956,7 +958,7 @@ JWS Payload:
 
 ### 3.71.9 Security Considerations
 
-Authorization Client and Authorization Server claiming compliance with this profile SHALL fufill the security requirements defined in the OAuth Authorization Framework [OAuth 2.1], especially: 
+Authorization Client and Authorization Server claiming compliance with this profile SHALL fulfill the security requirements defined in the OAuth Authorization Framework [OAuth 2.1], especially: 
 
 - All HTTP transaction must be secured by using TLS or equivalent transport security.
 
@@ -968,7 +970,7 @@ Authorization Client and Authorization Server claiming compliance with this prof
 
 - Refresh token MAY be long lived. 
 
-- To reduce the attack surface, client claims and authorization grants SHALL be the minimal. I.e., the authorizatiom grant scope requested by the Authorization Client shall be the minimal required scope for the resource request to be used for.          
+- To reduce the attack surface, client claims and authorization grants SHALL be the minimal. I.e., the authorization grant scope requested by the Authorization Client shall be the minimal required scope for the resource request to be used for.          
 
 
 #### 3.71.9.1 Security Audit Considerations

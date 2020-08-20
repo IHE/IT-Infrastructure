@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeSystem xmlns="http://hl7.org/fhir">
+	<id value="IHE_security_types" />
+	<url value="http://profiles.ihe.net/fhir/ihe.securityTypes/CodeSystem/securityTypes"/>
+	<name value="IHE_SecurityTypes_codesystem"/>
+	<title value="IHE Security Types Code set for use with CapabilityStatement"/>
+	<status value="active"/>
+	<experimental value="false"/>
+	<date value="2020-08-20" />
+	<publisher value="IHE"/>
+	<contact> 
+		<name value="IHE"/> 
+		<telecom> 
+			<system value="url"/> 
+			<value value="http://ihe.net"/> 
+		</telecom> 
+	</contact> 
+	<contact>
+		<name value="IHE Secretary" />
+		<telecom>
+			<system value="email" />
+			<value value="secretary@ihe.net" />
+		</telecom>
+	</contact>
+
+	<description value="The [IHE](http://www.ihe.net) SecurityTypes code system with canonical URI of http://profiles.ihe.net/fhir/ihe.securityTypes.fhir/CodeSystem/securityTypes is defined to be the set of well-defined security types for RESTful or other endpoint, for use with FHIR CapabilityStatement. The set of codes is intended to be extensible."/>
+	<copyright value="Some content from IHE® Copyright © 2020 [IHE International, Inc](http://www.ihe.net/Governance/#Intellectual_Property)."/>
+	<caseSensitive value="true"/> 
+	<content value="complete"/> 
+	<concept>
+		<code value="ATNA" />
+		<display value="ATNA" />
+		<definition value="Use of ATNA mutual-authenticated-TLS" />
+	</concept>
+	<concept>
+		<code value="XUA" />
+		<display value="XUA" />
+		<definition value="Use of ATNA server-authenticated-TLS, and XUA profiled SAML for client/user authentication." />
+	</concept>
+	<concept>
+		<code value="IUA" />
+		<display value="IUA" />
+		<definition value="Use of ATNA server-authenticated-TLS, and IUA profiled OAuth for client/user authentication." />
+	</concept>
+</CodeSystem>
