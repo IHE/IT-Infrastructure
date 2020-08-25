@@ -1164,7 +1164,6 @@ Depending on the grant type, the OAuth 2.1 Framework also requires user authenti
 <ul>
 <li>A public client classification does not automatically mean the client is unsecure. Public clients typically are under the full control of the user (e.g., a native app on the users device) and secured againts malicious attacks. Public clients just cannot hide authentication data from the user rendering client authentication useless.</li>
 </ul>
-<p>All uses of JSON Web Signature [RFC 7515] data structures in this document utilize the JWS Compact Serialization. The JWS JSON Serialization SHALL not be used.</p>
 <h3>
 <a id="user-content-3442-use-cases" class="anchor" href="#3442-use-cases" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.4.2 Use Cases</h3>
 <h4>
@@ -1324,6 +1323,28 @@ end
 <a id="user-content-371411-client-credential-grant-type" class="anchor" href="#371411-client-credential-grant-type" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.4.1.1 Client Credential grant type</h5>
 <p><a href="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/client-credential-grant.png" target="_blank" rel="noopener noreferrer"><img src="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/client-credential-grant.png" alt="ITI-71 Client Credential" style="max-width:100%;"></a></p>
 <p>Figure 3.71.4.1.1-1: Sequence of HTTP requests in the client credential grant type.</p>
+<pre><code>@startuml
+
+participant "Authorization Client" as Client
+participant "Authorization Server" as AuthzServer
+participant "Resource Server" as ResourceServer
+
+autonumber 0 1 "&lt;b&gt;[00]"
+
+group Get Authorization Token [ITI-71]
+Client -&gt; AuthzServer: Access Token Request
+AuthzServer -&gt; Client: Access Token Response
+end
+
+group Incorporate Authorization Token [ITI-72]
+Client -&gt; ResourceServer: Access protected resource
+ResourceServer -&gt; Client: Return result
+end
+
+autonumber stop
+
+@enduml
+</code></pre>
 <p>The Authorization Client actor requests an access token using client credentials (or other supported means of authentication). This grant type SHALL be used by confidential clients only [OAuth 2.1, Section 4.2].</p>
 <p>The Authorization Client actor makes a HTTP(s) POST request to the token endpoint with the following parameters in the HTTP request entity-body [OAuth 2.1, Section 4.2.2]:</p>
 <ul>
@@ -1382,7 +1403,49 @@ Pragma: no-cache
 <h5>
 <a id="user-content-371412-authorization-code-grant-type" class="anchor" href="#371412-authorization-code-grant-type" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.4.1.2 Authorization Code grant type</h5>
 <p><a href="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/authorization-code-grant.png" target="_blank" rel="noopener noreferrer"><img src="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/authorization-code-grant.png" alt="ITI-71 Authorization Code" style="max-width:100%;"></a></p>
-<p>Figure 3.71.4.1.1-1: Sequence of HTTP requests in the client authorization code and PCKE grant type.</p>
+<p>Figure 3.71.4.1.1-1: Sequence of HTTP requests in the client authorization code grant type.</p>
+<pre><code>@startuml
+
+actor User
+
+participant "User Agent" as UserAgent
+participant "Authorization Client" as Client
+participant "Authorization Server" as AuthzServer
+participant "Resource Server" as ResourceServer
+
+autonumber 0 1 "&lt;b&gt;[00]"
+
+User -&gt; UserAgent: Access resource
+UserAgent -&gt; Client: Access resource
+
+group Get Authorization Token [ITI-71]
+Client -&gt; UserAgent: Redirect (authorization request)
+
+UserAgent -&gt; AuthzServer: Authorization Request
+
+group User Authentication
+AuthzServer -&gt; AuthzServer: Authenticate User
+AuthzServer -&gt; AuthzServer: User consent
+end
+
+AuthzServer -&gt; UserAgent: Redirect (authorization response)
+UserAgent -&gt; Client: Callback (authorization response)
+Client -&gt; AuthzServer: Access Token Request
+AuthzServer -&gt; Client: Access Token Response
+end
+
+group Incorporate Authorization Token [ITI-72]
+Client -&gt; ResourceServer: Access protected resource
+ResourceServer -&gt; Client: Return result
+end
+
+Client -&gt; UserAgent: Display result
+UserAgent -&gt; User : Show result
+
+autonumber stop
+
+@enduml
+</code></pre>
 <p>This grant type SHALL be used by confidential, credential and public clients, if the explicit consent of the user is required to authorize the Authorization Client to access data on behalf of the user.</p>
 <p>The Authorization Client actor directs the user-agent to make a HTTP GET request to the authorization endpoint with the following parameters using the "application/x-www-form-urlencoded" format [OAuth 2.1, Section 4.1.1.3]:</p>
 <ul>
@@ -1507,7 +1570,8 @@ Pragma: no-cache
 <a id="user-content-3716-message-semantics" class="anchor" href="#3716-message-semantics" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.6 Message Semantics</h3>
 <h4>
 <a id="user-content-37161-json-web-token" class="anchor" href="#37161-json-web-token" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.6.1 JSON Web Token</h4>
-<p>The Authorization Client and Authorization Server actors SHALL support signed JWT token as specified in JSON Web Signature [RFC 7515]. Any actor that supports this transaction MAY support the JWE (unsigned but encrypted) alternative of the JWT token.</p>
+<p>The Authorization Client and Authorization Server actors SHALL support signed JWT token as specified in JSON Web Signature [RFC 7515]. If signed, the JWS Compact Serialization (base64 encoded, with single signature or MACed) SHALL be used as described in [RFC 7515, Section 7.1].</p>
+<p>Any actor that supports this transaction MAY support the JWE (unsigned but encrypted) alternative of the JWT token.</p>
 <p>Of the signature of JWT algorithms specified in the JSON Web Algorithms [RFC 7518], the following algorithm SHALL be supported:</p>
 <ul>
 <li>
@@ -1728,7 +1792,8 @@ Pragma: no-cache
 <h4>
 <a id="user-content-37162-saml-token" class="anchor" href="#37162-saml-token" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.6.2 SAML Token</h4>
 <p>To use a SAML Bearer Assertion as an authorization grant, the Authorization Client SHALL perform the access token request with the value of the "grant_type" parameter set to "urn:ietf:params:oauth:grant-type:saml2-bearer" [RFC 7522, Section 2.1].</p>
-<p>Authorization and Resource Server actors claiming conformance with the SAML Token Option shall comply with the <em>SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants</em> [RFC 7522] rules for issuing and using SAML 2.0 assertions as access token. The SAML 2.0 assertion content shall comply with XUA SAML assertion rules (see ITI TF-2b:3.40).</p>
+<p>Authorization and Resource Server claiming conformance with the SAML Token Option shall comply with the <em>SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants</em> [RFC 7522] rules for issuing and using SAML 2.0 assertions as access token.</p>
+<p>The SAML 2.0 assertion content shall comply with XUA SAML assertion rules (see ITI TF-2b:3.40).</p>
 <h4>
 <a id="user-content-37163-authorization-grant-scope" class="anchor" href="#37163-authorization-grant-scope" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.6.3 Authorization Grant Scope</h4>
 <p>The scope parameter SHALL be used to restricting authorization grants to specific actions (e.g., restrict authorization to specific resources to read-only) and to convey claims, which are known to the Authorization Client only (e.g., if the user claims a breaking-the-glass access in a emergency situation).</p>
@@ -2116,7 +2181,8 @@ end
 <p>The Authorization Client SHALL incorporate the access token in the authorization header of the HTTP request.</p>
 <h4>
 <a id="user-content-37261-json-web-token-option" class="anchor" href="#37261-json-web-token-option" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.6.1 JSON Web Token Option</h4>
-<p>An Authorization Client that claims the JSON Web Token Option SHALL be able to incorporate a JWT as access token defined in Section 3.71.6.3 in the HTTP Basic Authorization header. A Resource Server that supports the JSON Web Token Option SHALL be able to accept and understand a JWT token as defined in Section 3.71.6.3.</p>
+<p>An Authorization Client that claims the JSON Web Token Option SHALL be able to incorporate a JWT as access token defined in Section 3.71.6.3 in the HTTP Basic Authorization header using. If JWS signature is used, the JWS Compact Serialization (base64 encoded, single signature or MACed) SHALL be used as described in [RFC 7515, Section 7.1].</p>
+<p>A Resource Server that supports the JSON Web Token Option SHALL be able to accept and understand a JWT token as defined in Section 3.71.6.3.</p>
 <h4>
 <a id="user-content-37262-saml-token-option" class="anchor" href="#37262-saml-token-option" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.6.2 SAML Token Option</h4>
 <p>An Authorization Client that supports the SAML Token Option SHALL be able to incorporate a XUA compliant SAML 2.0 Assertion (see ITI TF-2b: 3.40.4.1.2 Message Semantics) as access token. The SAML assertion shall be encoded as specified in Security Assertion Markup Language (SAML) 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants [RFC 7522, Section 2.1] rules and included in the HTTP Basic Authorization header with type <em>IHE-SAML</em>.</p>

@@ -559,6 +559,29 @@ The sequence of HTTP(S) requests to perform an Get Authorization Token transacti
 
 Figure 3.71.4.1.1-1: Sequence of HTTP requests in the client credential grant type.
 
+```
+@startuml
+
+participant "Authorization Client" as Client
+participant "Authorization Server" as AuthzServer
+participant "Resource Server" as ResourceServer
+
+autonumber 0 1 "<b>[00]"
+
+group Get Authorization Token [ITI-71]
+Client -> AuthzServer: Access Token Request
+AuthzServer -> Client: Access Token Response
+end
+
+group Incorporate Authorization Token [ITI-72]
+Client -> ResourceServer: Access protected resource
+ResourceServer -> Client: Return result
+end
+
+autonumber stop
+
+@enduml
+```
 
 The Authorization Client actor requests an access token using client credentials (or other supported means of authentication). This grant type SHALL be used by confidential clients only [OAuth 2.1, Section 4.2].
 
@@ -622,7 +645,51 @@ The Authorization Server SHALL respond an error response as defined in the OAuth
 
 ![ITI-71 Authorization Code](media/authorization-code-grant.png)
 
-Figure 3.71.4.1.1-1: Sequence of HTTP requests in the client authorization code and PCKE grant type.
+Figure 3.71.4.1.1-1: Sequence of HTTP requests in the client authorization code grant type.
+
+```
+@startuml
+
+actor User
+
+participant "User Agent" as UserAgent
+participant "Authorization Client" as Client
+participant "Authorization Server" as AuthzServer
+participant "Resource Server" as ResourceServer
+
+autonumber 0 1 "<b>[00]"
+
+User -> UserAgent: Access resource
+UserAgent -> Client: Access resource
+
+group Get Authorization Token [ITI-71]
+Client -> UserAgent: Redirect (authorization request)
+
+UserAgent -> AuthzServer: Authorization Request
+
+group User Authentication
+AuthzServer -> AuthzServer: Authenticate User
+AuthzServer -> AuthzServer: User consent
+end
+
+AuthzServer -> UserAgent: Redirect (authorization response)
+UserAgent -> Client: Callback (authorization response)
+Client -> AuthzServer: Access Token Request
+AuthzServer -> Client: Access Token Response
+end
+
+group Incorporate Authorization Token [ITI-72]
+Client -> ResourceServer: Access protected resource
+ResourceServer -> Client: Return result
+end
+
+Client -> UserAgent: Display result
+UserAgent -> User : Show result
+
+autonumber stop
+
+@enduml
+```
 
 This grant type SHALL be used by confidential, credential and public clients, if the explicit consent of the user is required to authorize the Authorization Client to access data on behalf of the user.
 
