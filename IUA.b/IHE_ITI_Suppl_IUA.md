@@ -120,7 +120,7 @@ The current version of the IHE Technical Framework can be found at: [http://www.
 
 [3.71.6.2 SAML Token](#user-content-37162-saml-token)
 
-[3.71.6.3 Authorization Grant Scope](#user-content-37163-authorization-grant-scope)
+[3.71.6.3 Scope Parameter](#user-content-37163-scope-parameter)
 
 [3.71.7 Expected Actions](#user-content-3717-expected-actions)
 
@@ -172,9 +172,9 @@ The current version of the IHE Technical Framework can be found at: [http://www.
 
 ### Problem Statement
 
-This profile is motivated by customer requirements for authorizing network transactions, when using HTTP RESTful transports. IHE has authorization profiles for the Web Services and SOAP based transactions. This profile provides an authorization profile for the HTTP RESTful transactions, e.g., browser based.
+This profile is motivated by customer requirements for authorizing network transactions, when using HTTP RESTful transports. IHE has authorization profiles for the Web Services and SOAP based transactions. This profile provides an authorization profile for the HTTP RESTful transactions.
 
-Being authorized means that the user, patient or provider, has legitimate access to this HTTP RESTful service. The authorization includes identifying the user, device, and or application that is making the request to the HTTP RESTful server, so that server can make further access control decisions.
+Being authorized means that the user, patient or provider, has legitimate access to this HTTP RESTful service. The authorization includes identifying the user and the application that is making the request to the HTTP RESTful server, so that server can make further access control decisions.
 
 The HTTP RESTful transport is being used by many healthcare applications and smart devices. These share a common set of issues. A typical use case example is:
 
@@ -182,41 +182,39 @@ The HTTP RESTful transport is being used by many healthcare applications and sma
 
 -   An application will need to retrieve and update health related data that is stored on a resource server. It uses HTTP RESTful transactions for both retrieve and update because HTTP support is integrated into the platform services.
 
--   The patient wants to configure the application to have access to their data without needing the IT staff at the application vendor and resource vendor to set things up.
+-   Patients want to configure the application to have access to their data without needing the IT staff at the application vendor and resource vendor to set things up.
 
-The HTTP RESTful services may include user driven browser activity, downloaded applications, and automatic devices. The existing IHE ITI XUA Profile fills these needs for the SOAP transport based transactions. The existing IHE ITI EUA Profile fills these needs for various different transports within a single enterprise environment, including HTTP RESTful transports. The Basic Patient Privacy Consent (BPPC) Profile is associated with this profile and these other existing profile. BPPC covers the legal and administrative needs for consent documentation and associating the patient consent with policy documentation. This profile includes the ability to associate the electronic authorizations with the patient agreements and organizational policies.
+The HTTP RESTful services may include user driven browser activity, downloaded applications, and automatic devices. The existing IHE ITI XUA Profile fills these needs for the SOAP transport based transactions. The existing IHE ITI EUA Profile fills these needs for various different transports within a single enterprise environment, including HTTP RESTful transports. 
 
-Greater integration of this authorization with third party authorization and consent documentation profiles, such as those found in the IHE BPPC Profile, are a future effort. This profile starts with just the basic authorization activities.
+The Basic Patient Privacy Consent (BPPC) Profile is associated with this profile and these other existing profile. BPPC covers the legal and administrative needs for consent documentation and associating the patient consent with policy documentation. This profile includes the ability to associate the electronic authorizations with the patient agreements and organizational policies.
 
-It is important to understand that IUA is not a substitute for the administrative activities (such as withdrawing consent), policy setting, and other activities that BPPC documents.
+It is important to understand that IUA is not a substitute for the administrative activities (such as withdrawing consent), policy setting, and other activities that BPPC documents. Greater integration of this authorization with third party authorization and consent documentation profiles, such as those found in the IHE BPPC Profile, are a future effort. This profile starts with just the basic authorization activities.
 
-The administrative actions needed to establish a third party as an authorization server for IUA is not covered by these actors or transactions. These activities are very much dependent upon the operational needs and privacy policies that apply to a particular deployment.
-
-The IUA Profile does convey the identifiers and signatures needed to establish traceability between the Authorized HTTP RESTful transaction and the policies and consents behind that authorization.
+The administrative actions needed to establish an authorization server for IUA is not covered by these profile. These activities are very much dependent upon the operational needs and privacy policies that apply to a particular deployment.
 
 ### Background on the problem environment
 
-One common pattern is to interact directly with the application to communicate with the authorization service. The application interacts with both patient and authorization service to support the granting of an access token. The application then saves the access token, and uses it to retrieve and update the health related data. Another common pattern is for the user to interact independently with the authorization service and obtain a token. This token is saved on the device for later use.
+One common pattern is to interact directly with the application to communicate with the authorization server. The application interacts with both patient and authorization server to support the granting of an access token. The application then saves the access token, and uses it to retrieve and update the health related data.
 
 The key issues here are:
 
 -   Reliable and accurate authorization decisions, as part of an overall privacy protecting and security environment.
 
--   Application developers want one common method for obtaining and using these tokens, not thousands. They want a method that is built into the common platforms, not one that must be added later, because it is difficult for end user oriented applications to modify the platforms.
+-   Application developers expect one common method for obtaining and using access tokens.
 
--   Resource servers want one common method for receiving these tokens as part of HTTP RESTful transactions, and one common method for processing these tokens. (They will settle for a small number of methods if they must.)
+-   Resource servers expect one common method for receiving access tokens as part of HTTP RESTful transactions, and one common method for processing these tokens.
 
--   Users, patients and providers, want to be in control, do not want to depend on support staff to set up their devices and applications, and want to minimize the interference from authorization requirements.
+-   Users, patients and providers, expect to be in control, do not want to depend on support staff to set up their applications, and want to minimize the interference from authorization requirements.
 
 Similar issues arise with:
 
--   In house application distribution that needs authorization for devices used within the facility.
+-   In house application distribution that needs authorization for applications used within the facility.
 
 -   The in house IT staff wants a common method to authorize use of in house web applications and access to in house resources.
 
 -   IT staff are more willing to run their own internal authentication and authorization servers, but want to use off the shelf software and want the option to outsource these services. They are more likely to separate authentication from authorization than end user systems. Authentication issues are closely related to HR activities like hiring and firing. Authorization issues are related to patient and work assignments. These are controlled by different parts of the organization and have different process dependencies.
 
--   Providers and Specialists have authorization needs for dealing with other organizations, need to deal with many resource services an may struggle to maintain the amount of different authentication and authorization relationships.
+-   Providers and Specialists have authorization needs for dealing with other organizations and need to deal with many resource services.
 
 -   Granting subset access to specialized provider. E.g., read access to cardiac info to physical therapy organization, forbidding access to other sensitive health data.
 
@@ -228,23 +226,23 @@ Second, this profile is operating in an environment where access consents are ma
 
 # Open Issues and Question
 
-- **Issue 1**: This profile does not specify the internal structure of "client_id". This is a major concern for operations and security management. But, OAuth does not provide a full specification for client_id. It just specifies its purpose.
-DICOM's equivalent information attributes are: Manufacturer, Model, Software Versions, and Serial Number.
-The OAuth client ID must identify the device, the application (including any necessary version information), the particular instance, and any other information needed to identify the client application uniquely. Registration of clients is a significant operational and security problem that is being postponed until there is more experience with problems in the field and reasonable solutions. There is known danger from spoofing of client_id. At this time, the method for assignment of client_id is not included in the profile. In the field there are a variety of methods being tried. Many depend upon physical distribution methods or out of band communications to manage the authentication problems.
-
-- **Issue 2**: This profile mandates support for JWT token format. It has an XUA SAML Option defined by IHE for ease of integration with the IHE WS-Security environment. You may also use other token formats as part of a deployment.
-
-- **Issue 3**: Audit messages are only defined for clients that are also Secure Applications. There is no defined auditing for other clients.
+None
 
 # Closed Issues
 
-- **Issue 4**: This profile does not require client grouping with Secure Node or Secure Application because it is using the OAuth issuance rules for client_id. It assumes that the client_id management will deal with these security considerations in a manner similar to the certificate management assumptions made for TLS and other certificate users.
+- **Issue 1**: At this time, the method for assignment of client_id is not included in the profile. Registration of clients is a significant operational and security problem that is being postponed until there is more experience with problems in the field and reasonable solutions. In the field there are a variety of methods being tried. Many depend upon physical distribution methods or out of band communications to manage the authentication problems.
+
+- **Issue 2**: This profile does support access token in JWT format and SAML 2.0 Assertions compliant with the XUA profile requirements. An operational environment must ensure, that access tokens are understood by the authorization and resource servers. The Bearer Token option of earlier versions of the profile has been removed, since it does not specify the access token format and attributes used and was thus not interoperable by design.  
+
+- **Issue 3**: Audit messages are only defined for clients that are also Secure Applications. There is no defined auditing for other clients.
+
+- **Issue 4**: This profile does not require client grouping with Secure Node or Secure Application because it is using the OAuth client authentication methods. It assumes that the client authentication method will deal with security considerations in a manner similar to the certificate management assumptions made for TLS and other certificate users.
 
 - **Issue 8**: This profile uses the Authorization header only for conveying the authorization information. The parameter form is not prohibited but is not compliant with the profile.
 
 - **Issue 9**: This profile does not explain the ways that some Resource Servers utilize HTTP redirects to automate some kinds of authorization activities. The actual HTTP transactions used for Obtain Authorization Token and Authorized RESTful Transaction are as defined within this profile. The other transactions are under the control of the Resource Server and its design.
 
-- **Issue 10**: The selected standards are: The OAuth 2.0 Framework, JWT Token, with defined extensions, SAML Token, using the XUA extensions.                 |
+- **Issue 10**: The selected standards are: The OAuth 2.1 Framework, JWT Token, with defined extensions, SAML Token, using the XUA extensions.                 |
 
 
 # General Introduction
@@ -280,13 +278,14 @@ The IUA Profile adds authorization information to HTTP RESTful transactions. The
 
 ## 34.1 IUA Actors, Transactions, and Content Modules
 
-The actors in the IUA Profile manage the tokens used for authorization of access to HTTP RESTful services. The Authorization Client provides the access token that is incorporated into HTTP RESTful transactions to indicate that this transaction is authorized. The Authorization Client can also manage the interactions with an Authorization Server to obtain the access token.
+The actors in the IUA Profile manage the tokens used for authorization of access to HTTP RESTful services based on the flows and transactions defined in the OAuth 2.1 Authorization Framework [OAuth 2.1]. Authorization Clients interact with the Authorization Server to retrieve access token and incorporate them into HTTP RESTful transactions to authorize access to resources on the Resource Servers. 
 
 The OAuth 2.1 Authorization Framework requires client identification, which may be based on a *client_id* parameter [OAuth 2.1, Section 2.2]. Depending on the grant type, the use of the *client_id* MAY be required. For example the *Authorization Code* grant type requires the use of the *client_id* for client identification [OAuth 2.1, Section 4.1], while the *Client Credential* grant type does not [OAuth 2.1, Section 4.2].
 
 The OAuth 2.1 Authorization Framework also requires client authentication for confidential and credential clients [OAuth 2.1, Section 2.3]. It recommends the use of to use asymmetric (public-key based) methods for client authentication [OAuth 2.1, Section 9.1], but allows other suitable HTTP based authentication schemes matching the security policy of the Authorization Server [OAuth 2.1, Section 2.3.2].
 
 This profile requires the use of a *client_id* for client identification and a *client_secret* used with the HTTP Basic Authentication scheme for client authentication of confidential and credential clients, if no other methods for identification and authentication are used.  
+
 Depending on the grant type, the OAuth 2.1 Framework also requires user authentication. For example, the *Authorization Code* grant type covered by this profile requires user authentication [OAuth 2.1, Section 4.1], while the *Client Credential* grant type does not [OAuth 2.1, Section 4.2]. The methods used by the authorization server to authenticate the user (e.g., username and password login, session cookies, delegation to Authentication Server) is not scoped in the OAuth 2.1 Authorization Framework [OAuth 2.1, Section 3.1].
 
 Since user authentication methods chosen depend on the projects or national security policy, they are not scoped in this profile and SHALL be defined in the specific implementation projects or national extensions of this profile. If the user authentication is not implemented in the Authorization Server, the use of OpenID Connect with the Authorization Grant or Hybrid flow is recommended.
@@ -316,19 +315,21 @@ Table 34.1-1: IUA Profile - Actors and Transactions
 
 ### 34.1.1 Actor Descriptions and Actor Profile Requirements
 
-The IUA actors are expected to be combined with other actors that perform HTTP RESTful transactions. Combining an Authorization Client with another actor means that this other actor will provide an access token as part of the HTTP transaction to a HTTP RESTful server. It may perform the Get Authorization [ITI-71] transaction to obtain the access token. The corresponding HTTP RESTful server should be combined with the Resource Service to indicate that the server can perform access control.
+The IUA actors are expected to be grouped with other actors that perform HTTP RESTful transactions. Grouping an Authorization Client with another actor means that this other actor will provide an access token as part of the HTTP transaction to a HTTP RESTful server. It may perform the Get Authorization [ITI-71] transaction to obtain the access token. The corresponding HTTP RESTful server should be grouped with the Resource Server actor to indicate that the server can perform access control.
 
 #### 34.1.1.1 Authorization Client
 
-The Authorization Client performs the network transactions and user interactions needed to obtain an access token and to attach that token to transactions to indicate that those transactions are authorized. An Authorization Client in IUA supports the following associated transactions:
+The Authorization Client performs the network transactions and user interactions needed to obtain an access token and to attach that token to transactions to indicate that the transactions are authorized. An Authorization Client in IUA supports the following associated transactions:
 
--   Incorporate Authorization Token: In this case the access token has already been obtained and is communicated as part of the HTTP RESTful transaction for some other profile or service. This token indicates that the HTTP RESTful transaction has been authorized by the Authorization Server by an authenticated person.
+-   Incorporate Authorization Token: In this case the access token has already been obtained and is communicated as part of the HTTP RESTful transaction for some other profile or service. This token indicates that the HTTP RESTful transaction has been authorized by the Authorization Server according to the user's consent.
 
--   Get Authorization Token: In this use, the Authorization Client actor interacts with an Authorization Server to obtain a token that indicates HTTP RESTful transactions for a particular kind of service and device are authorized by the user. This may include interactions with the user for authentication purposes.
+-   Get Authorization Token: In this case, the Authorization Client actor interacts with an Authorization Server to obtain a token that indicates HTTP RESTful transactions for a particular kind of service and device are authorized by the user. This may include interactions with the user for authentication purposes.
 
 -   An Authorization Client SHOULD query the [capabilities](http://hl7.org/fhir/R4/http.html#capabilities) endpoint on the Resource Server to determine if the Resource Server supports IUA. The element [**CapabilityStatement.rest.security.**](http://hl7.org/fhir/R4/capabilitystatement.html) will be populated with the code "IUA" at system canonical URL "http://profiles.ihe.net/fhir/ihe.securityTypes/CodeSystem/securityTypes". 
 
 #### 34.1.1.2 Authorization Server
+
+TBD:
 
 The Authorization Server provides access tokens to requesting clients. In IUA, the Authorization Server uses an authenticated user identity, the requested HTTP RESTful service URL, and other information to determine whether HTTP RESTful transactions are authorized. If authorized, the Authorization Server provides a token indicating that HTTP RESTful service access is authorized.
 
@@ -340,7 +341,7 @@ Notes:
 
 1. The Resource Server and Authorization Server actors MAY be grouped into an integrated product together with user authentication, access control, and other services.
 
-2. Many Resource Servers will perform additional access control decisions and may restrict responses even for authorized transactions.
+2. In general, Resource Servers perform additional access control decisions and may restrict responses even for transactions authorized by the Authorization Server.
 
 3. Resource Server SHALL declare support for IUA in the [capabilities](http://hl7.org/fhir/R4/http.html#capabilities) endpoint using the element [**CapabilityStatement.rest.security.**](http://hl7.org/fhir/R4/capabilitystatement.html) and the code "IUA" at system canonical URL "http://profiles.ihe.net/fhir/ihe.securityTypes/CodeSystem/securityTypes".
 
@@ -349,7 +350,7 @@ TODO: do we need a different code for SAML token vs JWT token?
 
 ## 34.2 IUA Actor Options
 
-The **SAML Token Option** enables integration of environments that use both, SAML access token and the OAuth authorization infrastructure. All actors SHALL support the JSON Web Token option and may support the SAML Token option.
+The **SAML Token Option** enables integration of environments that use both, SAML access token and the OAuth authorization infrastructure. All actors SHALL support the JSON Web Token option and MAY support the SAML Token option.
 
 
 Table 34.2-1: IUA - Actors and Options
@@ -366,7 +367,7 @@ Table 34.2-1: IUA - Actors and Options
 
 ## 34.3 IUA Required Actor Groupings
 
-An actor from this profile shall implement the required transactions and/or content modules in this profile ***in addition to*** all of the transactions required for the grouped actor (Column 2).
+An actor from this profile SHALL implement the required transactions and/or content modules in this profile ***in addition to*** all of the transactions required for the grouped actor (Column 2).
 
 
   |IUA Actor            |Actor to be grouped with   |Reference                    |Content Bindings Reference
@@ -388,7 +389,7 @@ The term "authorization" and "access control" are used colloquially for a variet
 
 -   Authentication -- Determining that the actual user (at the moment of authentication) is the claimed identity.
 
--   Authorization -- Determining that the authenticated user is authorized to have access to a resource (at the moment of authorization). The profile describes how to convey an access authorization decision. It is not defining how the decision is made.
+-   Authorization -- Determining that the authenticated user is authorized to have access to a resource (at the moment of authorization). The profile describes how to convey authorization decisions. It is not defining how the decision is made.
 
 -   Access Control -- A system of provisioning, delegation, authentication, and authorization. It is normal to have multiple nested levels of access control. This profile is concerned with whether access is allowed to make the HTTP transaction requests to the specified resources. There are likely also building access controls, resource server access controls, and other access controls involved.
 
@@ -402,7 +403,7 @@ In accordance with the definitions in the OAuth 2.1 Authorization Framework [OAu
 
 - *confidential client* - a client which stores the client authentication data (e.g., client\_id and client\_secret) in a way, that the user has no access to it (e.g., a server hosted web application).
 
-- *credentialed client* - a clients which has credentials, but their identity has been not been confirmed by the Authorization Server.
+- *credentialed client* - a client which has credentials, but their identity has been not been confirmed by the Authorization Server.
 
 - *public client* - a client where the user (in principle) has access to the client code and client data in principle. Public clients cannot store client authentication data in a confidential way (e.g., single page web applications, native mobile apps on a device, if no additional features are implemented to make the client authentication data unavailable for the user).
 
@@ -475,11 +476,11 @@ The OAuth 2.1 Authorization Framework [OAuth 2.1, Section 4] defines the followi
 
 -   *Authorization Code Grant* [OAuth 2.1, Section 4.1]. This grant type is optimized for confidential clients who make use of User Agents (e.g., web browsers).
 
--   *Client Credentials Grant* [OAuth 2.1, Section 4.2]. This grant type is optimized for clients requesting access tokens using only its client credentials and is restricted to confidential clients (e.g., medical devices, backend applications).
+-   *Client Credentials Grant* [OAuth 2.1, Section 4.2]. This grant type is optimized for clients requesting access tokens using only its client credentials and is restricted to confidential clients (e.g., medical devices, back end applications).
 
 The OAuth 2.1 Authorization Framework further defines extension points to implement extension grant types [OAuth 2.1, Section 4.3], e.g.:
 
-- *Device Authorization* \[RFC 8628]. This grant type is optimized for devices that cannot use a browser to perform a user-agent- based authorization or don’t provide interfaces for the user to input text required for authorization and authentication (e.g., medical devices, mobile health sensors).
+- *Device Authorization* [RFC 8628]. This grant type is optimized for devices that cannot use a browser to perform a user-agent- based authorization or don’t provide interfaces for the user to input text required for authorization and authentication (e.g., medical devices, mobile health sensors).
 
 This profile is scoped to the *Authorization Code* and *Client Credential* grant types. To claim compliance with this profile, the Authorization Server actor SHALL support the *Authorization Code* and *Client Credential* grant type and MAY support the *Device Authorization* or other OAuth 2.1 extension grant types.   
 
@@ -542,7 +543,7 @@ end
 
 Main Flow:
 
-1.  The Authorization Client authenticates to the Authorization Sever and provides claims related to the intended request to acces protected resources of the Resource Server.
+1.  The Authorization Client authenticates to the Authorization Sever and provides claims related to the intended request to access protected resources of the Resource Server.
 
 2.  The Authorization Server authenticates the client, validates the claims against the user consent and generates an access token that authorizes the Authorization Client actor to request the protected resources from the Resource Server.
 
@@ -939,7 +940,7 @@ Authorization and Resource Server claiming conformance with the SAML Token Optio
 
 The SAML 2.0 assertion content shall comply with XUA SAML assertion rules (see ITI TF-2b:3.40).
 
-#### 3.71.6.3 Authorization Grant Scope
+#### 3.71.6.3 Scope Parameter
 
 The scope parameter SHALL be used to restricting authorization grants to specific actions (e.g., restrict authorization to specific resources to read-only) and to convey claims, which are known to the Authorization Client only (e.g., if the user claims a breaking-the-glass access in a emergency situation). 
 
@@ -1208,7 +1209,7 @@ Host: examplehost.com
 
 ### 3.72.9 Security Considerations
 
-Authorization Client and Resource Server claiming compliance with this profile SHALL fufill the security requirements defined in the OAuth Authorization Framework [OAuth 2.1], especially: 
+Authorization Client and Resource Server claiming compliance with this profile SHALL fulfill the security requirements defined in the OAuth Authorization Framework [OAuth 2.1], especially: 
 
 - All HTTP transaction must be secured by using TLS or equivalent transport security.
 
@@ -1231,5 +1232,5 @@ When an ATNA Audit message needs to be generated by the Resource Server and the 
 
 where:
 -   **alias** SHALL match the optional string within the SAML Assertion\'s Subject element SPProvidedID attribute
--   **user** SHALL macth the required content of the SAML Assertion\'s Subject element
+-   **user** SHALL match the required content of the SAML Assertion\'s Subject element
 -   **issuer** SHALL match the X-Assertion Provider entity ID contained with the content of SAML Assertion\'s Issuer element
