@@ -21,9 +21,9 @@ Email: iti@ihe.net
 
 **Foreword**
 
-This is a supplement to the IHE IT Infrastructure Technical Framework V11.0. Each supplement undergoes a process of public comment and trial implementation before being incorporated into the volumes of the Technical Frameworks.
+This is a supplement to the IHE IT Infrastructure Technical Framework V17.0. Each supplement undergoes a process of public comment and trial implementation before being incorporated into the volumes of the Technical Frameworks.
 
-This supplement is published on August 31, 2015 for trial implementation and may be available for testing at subsequent IHE Connectathons. The supplement may be amended based on the results of testing. Following successful testing it will be incorporated into the IT Infrastructure Technical Framework. Comments are invited and may be submitted at [http://www.ihe.net/ITI\_Public\_Comments](http://www.ihe.net/ITI_Public_Comments/).
+This supplement is published on Oktober 30, 2020 for trial implementation and may be available for testing at subsequent IHE Connectathons. The supplement may be amended based on the results of testing. Following successful testing it will be incorporated into the IT Infrastructure Technical Framework. Comments are invited and may be submitted at [http://www.ihe.net/ITI\_Public\_Comments](http://www.ihe.net/ITI_Public_Comments/).
 
 This supplement describes changes to the existing technical framework documents.
 
@@ -308,10 +308,10 @@ Table 34.1-1: IUA Profile - Actors and Transactions
 
 |Actors               |Transactions                     |Optionality	|Reference      
 |----                 |----                             |---        	|-----          
-|Authorization Client |Incorporate Authorization Token  |R          	|ITI TF-2c: 3.72
-|                     |Get Authorization Token          |O          	|ITI TF-2c: 3.71
-|Authorization Server |Get Authorization Token          |R          	|ITI TF-2c: 3.71
-|Resource Server      |Incorporate Authorization Token  |R          	|ITI TF-2c: 3.72
+|Authorization Client |Incorporate Authorization Token  |R          	|Section 3.72
+|                     |Get Authorization Token          |O          	|Section 3.71
+|Authorization Server |Get Authorization Token          |R          	|Section 3.71
+|Resource Server      |Incorporate Authorization Token  |R          	|Section 3.72
 
 ### 34.1.1 Actor Descriptions and Actor Profile Requirements
 
@@ -431,8 +431,6 @@ A patient uses a native app on her mobile device to access data from her electro
 There are multiple reasons to perform delegations. These cases primarily involve patient delegation choices. Providers rarely have the authority to delegate. IT staff may use delegation as part of the support for autonomous devices.
 
 Users may delegate authority to:
-
--   Device or applications that are performing a service for the patient, for example automatic glucose monitors that can provide monitoring records and receive control information from a healthcare provider service that is providing diabetic care.
 
 -   Advocates and proxies who are authorized by the patient to make decisions for the patient.
 
