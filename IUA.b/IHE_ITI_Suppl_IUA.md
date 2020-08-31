@@ -774,6 +774,7 @@ If the access token request is valid and authorized, the Authorization Server re
 
 - *refresh_token* (OPTIONAL): A token provided by the Authorization Server which can be used by the Authorization Client to obtain new access tokens using the same authorization grant.  
 
+
 The access token response MAY contain other parameter or extensions depending on the implementation details of the Authorization Server actor[OAuth 2.1, Section 4.2.3].
 
 The Authorization Server SHALL include the HTTP *Cache-Control* response header field with value *no-store* and the *Pragma* response header field value *no-cache* to the access token response.
@@ -842,12 +843,32 @@ In the JSON Web Token option the access token is defined as JSON object with the
 
 - *iat* (OPTIONAL): The issuing date in Numeric Date format [JWT, Section 4.1.6].  
 
+
 The JWT access token MAY contain other parameter or extensions depending on the implementation details.
 
 
 ##### 3.71.6.1.1 JWT IUA extension
 
-The Authorization Client, Authorization Server, and Resource Server SHALL support the extensions defined in table 3.71.6.1.1-1. The claims SHALL be wrapped in an "extensions" object with key 'ihe\_iua' and a JSON value object containing the claims, as such
+The Authorization Client, Authorization Server, and Resource Server SHALL support the following extensions to the JWT access token: 
+
+- *subject\_name* (OPTIONAL): The user's name as String.
+
+- *subject\_organization\_id* (OPTIONAL): Unique identifier of the user's organization as String. 
+
+- *subject\_organization* (OPTIONAL): Name or description of the user's organization as String. 
+
+- *subject\_role* (OPTIONAL): Coded value indicating the user's role. If present, the value SHALL be formatted as FHIR Coding data type.   
+
+- *purpose\_of\_use* (OPTIONAL): Purpose of use for the request. If a coded value is used, the value SHALL be formatted as FHIR Coding data type, otherwise as String.   
+
+- *home\_community\_id* (OPTIONAL): Home community ID where the request originated as String. 
+
+- *national\_provider\_identifier* (OPTIONAL): A unique identifier issued to health care providers by their national authority as String. 
+
+- *person\_id* (OPTIONAL): Patient ID, Citizen ID, or other similar public identifier as String.
+
+
+The above claims SHALL be wrapped in an "extensions" object with key 'ihe\_iua' and a JSON value object containing the claims, as such
 
 ```
 "extensions" : {  
@@ -860,25 +881,11 @@ The Authorization Client, Authorization Server, and Resource Server SHALL suppor
 }
 ```
 
-The claim content shall correspond to the content defined in the XUA specification (see ITI TF-2b: 3.40.4.1.2 Message Semantics). The encoding of the Subject Role and Purpose of Use MUST be as JSON arrays.
+The claim content shall correspond to the content defined in the XUA specification (see ITI TF-2b: 3.40.4.1.2 Message Semantics).
 
-Table 3.71.6.1.1-1: JWT Claims of the IUA extension
+The mapping of IUA extension claims to XUA compliant SAML 2.0 Assertion attributes is shown in Table 3.71.6.1.2-1 below. 
 
-|JWT Claim                      |Optionality|Definition                                       	
-|-------------------------------|---------	|----------------
-|subject\_name                  |O	 		|Plain text user's name
-|subject\_organization          |O    		|Plain text description of the organization
-|subject\_organization\_id      |O   		|Unique identifier of the organization 
-|subject\_role                  |O	 		|Coded value indicating the user's role 
-|purpose\_of\_use               |O	 		|Purpose of use for the request   
-|home\_community\_id            |O	 		|Home community ID where the request originated
-|national\_provider\_identifier |O    		|
-|person\_id                     |O	 		|Patient ID, Citizen ID, or other similar public ID used for health identification purposes
-
-
-The mapping of IUA extension claims to XUA compliant SAML 2.0 Assertion attributes is shown in table Table 3.71.6.1.2-2 below. 
-
-Table 3.71.6.1.1-2: JWT claims of the IUA extension and corresponding XUA Assertion attributes
+Table 3.71.6.1.1-1: JWT claims of the IUA extension and corresponding XUA Assertion attributes
 
 |JWT Claim                      |XUA Attribute              
 |-------------------------------|---------------------------
@@ -894,7 +901,15 @@ Table 3.71.6.1.1-2: JWT claims of the IUA extension and corresponding XUA Assert
 
 ##### 3.71.6.1.2 JWT BPPC extension
 
-In a environment which uses the IHE BPPC profile for documenting the consent, the Authorization Client, Authorization Server, and Resource Server SHALL support the extensions defined in table 3.71.6.1.2-1. If present, the claims SHALL be wrapped in an "extensions" claim object with key 'ihe\_bppc' and a JSON value object containing the claims, as such
+In a environment which uses the IHE BPPC profile for documenting the consent, the Authorization Client, Authorization Server, and Resource Server SHALL support the following extension parameter: 
+
+- *patient\_id*: Patient ID related to the Patient Privacy Policy Identifier as String or URL.
+
+- *doc\_id*: Patient Privacy Policy Acknowledgment Document as String or URL. 
+
+- *acp*: Patient Privacy Policy Identifier as String or URL.
+
+If present, the claims SHALL be wrapped in an "extensions" object with key 'ihe\_bppc' and a JSON value object containing the claims, as such
 
 ```
 "extensions" : {  
@@ -907,18 +922,9 @@ In a environment which uses the IHE BPPC profile for documenting the consent, th
 }
 ```
 
-Table 3.71.6.1.2-1: JWT Claims of the BPPC extension
+The mapping of IUA extension claims to XUA compliant SAML 2.0 Assertion attributes is shown in table Table 3.71.6.1.2-1 below.  
 
-|JWT Claim                      |Optionality|Definition                                       	
-|-------------------------------|---------	|----------------
-|patient\_id                    |O	 		|Patient ID related to the Patient Privacy Policy Identifier
-|doc\_id                        |O	 		|Patient Privacy Policy Acknowledgment Document ID
-|acp                            |O	 		|Patient Privacy Policy Identifier
-
-
-The mapping of IUA extension claims to XUA compliant SAML 2.0 Assertion attributes is shown in table Table 3.71.6.1.2-2 below.  
-
-Table 3.71.6.1.2-2: JWT claims of the BPPC extension and corresponding XUA Assertion attributes
+Table 3.71.6.1.2-1: JWT claims of the BPPC extension and corresponding XUA Assertion attributes
 
 |JWT Claim                      |XUA Attribute              
 |-------------------------------|---------------------------
@@ -937,7 +943,7 @@ The SAML 2.0 assertion content shall comply with XUA SAML assertion rules (see I
 
 #### 3.71.6.3 Scope Parameter
 
-The scope parameter SHALL be used to restricting authorization grants to specific actions (e.g., restrict authorization to specific resources to read-only) and to convey claims, which are known to the Authorization Client only (e.g., if the user claims a breaking-the-glass access in a emergency situation). 
+The scope parameter SHALL be used to restrict authorization grants to specific actions (e.g., restrict authorization to specific resources to read-only) and to convey claims, which at runtime are known to the Authorization Client only (e.g., if the user claims a breaking-the-glass access in a emergency situation). 
 
 The value of the scope parameter SHALL be a collection of space-delimited, case-sensitive strings, whose values SHALL be defined by the Authorization Server [OAuth 2.1, Section 3.3].
 
@@ -952,9 +958,16 @@ For example:
 
 - if a healthcare professional authorizes her web application or device to read and write Patient resources to be able to search, view and manage the patient data, the scope granted by the Authorization Server SHOULD be *user/Patient.\**.
 
-- if a healthcare professional authorizes her web application or device to read all Patient data (incl. documents), the scope granted by the Authorization Server SHOULD to *user/\*.read*.
+- if a healthcare professional authorizes her web application or device to read all Patient data (incl. documents), the scope granted by the Authorization Server SHOULD be *user/\*.read*.
+
+If coded values are used as scope parameter (e.g., purpose of use), it's values SHALL be formatted as FHIR Coding data type, e.g., as 
+
+```
+purpose_of_use:[{"system":"2.16.840.1.113883.6.2","code":"99-0","display":"Social Worker"}]
+```  
 
 Note: The Authorization Server MAY ignore the scope requested by the Authorization Client or restrict it, based on the Authorization Server policy or the user's authorization grant. 
+
 
 ### 3.71.7 Expected Actions
 
@@ -993,6 +1006,7 @@ JWS Payload:
     "exp": 1438251487,
     "nbf": 1438251187,
     "iat": 1438251187,
+    "scope": user/*.read user/*.write,    
     "extensions" : {  
       "ihe_iua" : {  
         "subject_name": "Dr. John Smith",
@@ -1033,7 +1047,7 @@ Authorization Client and Authorization Server claiming compliance with this prof
 
 - Refresh token MAY be long lived. 
 
-- To reduce the attack surface, client claims and authorization grants SHALL be the minimal. I.e., the authorization grant scope requested by the Authorization Client shall be the minimal required scope for the resource request to be used for.          
+- To reduce the attack surface, client claims and authorization grants SHALL be the minimal. I.e., the authorization grant scope requested by the Authorization Client shall be the minimal required scope for the resource request to be used for.
 
 
 #### 3.71.9.1 Security Audit Considerations
@@ -1041,7 +1055,6 @@ Authorization Client and Authorization Server claiming compliance with this prof
 Authorization Servers SHOULD produce an audit record for any failed attempt to obtain authorization. IHE does not specify the format of audit records for authorization servers.
 
 Authorization Clients MAY generate an audit message when an authorized transaction is performed or attempted.
-
 
 
 |                                   | Field Name              | Opt             | Value Constraints|

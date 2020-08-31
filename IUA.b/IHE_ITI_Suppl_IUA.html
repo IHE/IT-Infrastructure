@@ -1158,9 +1158,9 @@ body .markdown-body
 <p>The HTTP RESTful services may include user driven browser activity, downloaded applications, and automatic devices. The existing IHE ITI XUA Profile fills these needs for the SOAP transport based transactions. The existing IHE ITI EUA Profile fills these needs for various different transports within a single enterprise environment, including HTTP RESTful transports. </p>
 <p>The Basic Patient Privacy Consent (BPPC) Profile is associated with this profile and these other existing profile. BPPC covers the legal and administrative needs for consent documentation and associating the patient consent with policy documentation. This profile includes the ability to associate the electronic authorizations with the patient agreements and organizational policies.</p>
 <p>It is important to understand that IUA is not a substitute for the administrative activities (such as withdrawing consent), policy setting, and other activities that BPPC documents. Greater integration of this authorization with third party authorization and consent documentation profiles, such as those found in the IHE BPPC Profile, are a future effort. This profile starts with just the basic authorization activities.</p>
-<p>The administrative actions needed to establish an authorization server for IUA is not covered by these profile. These activities are very much dependent upon the operational needs and privacy policies that apply to a particular deployment.</p>
+<p>The administrative actions needed to establish an authorization server for IUA is not covered by these profile. These activities depend upon the operational needs, organizational and privacy policies that apply to a particular deployment.</p>
 <h3 id="background-on-the-problem-environment">Background on the problem environment<a class="headerlink" href="#background-on-the-problem-environment" title="Permanent link"></a></h3>
-<p>One common pattern is to interact directly with the application to communicate with the authorization server. The application interacts with both patient and authorization server to support the granting of an access token. The application then saves the access token, and uses it to retrieve and update the health related data.</p>
+<p>The application interacts with both patient and authorization server to support the granting of an access token. The application then uses the access token to retrieve and update health related data.</p>
 <p>The key issues here are:</p>
 <ul>
 <li>
@@ -1182,10 +1182,10 @@ body .markdown-body
 <p>In house application distribution that needs authorization for applications used within the facility.</p>
 </li>
 <li>
-<p>The in house IT staff wants a common method to authorize use of in house web applications and access to in house resources.</p>
+<p>IT administrators prefer a common method to authorize use of in house web applications and access to in house resources.</p>
 </li>
 <li>
-<p>IT staff are more willing to run their own internal authentication and authorization servers, but want to use off the shelf software and want the option to outsource these services. They are more likely to separate authentication from authorization than end user systems. Authentication issues are closely related to HR activities like hiring and firing. Authorization issues are related to patient and work assignments. These are controlled by different parts of the organization and have different process dependencies.</p>
+<p>IT administrators are more willing to run their own internal authentication and authorization servers, but want to use off the shelf software and want the option to outsource these services. They are more likely to separate authentication from authorization than end user systems. Authentication issues are closely related to HR activities like hiring and firing. Authorization issues are related to patient and work assignments. These are controlled by different parts of the organization and have different process dependencies.</p>
 </li>
 <li>
 <p>Providers and Specialists have authorization needs for dealing with other organizations and need to deal with many resource services.</p>
@@ -1339,8 +1339,7 @@ body .markdown-body
 </li>
 </ul>
 <h4 id="34112-authorization-server">34.1.1.2 Authorization Server<a class="headerlink" href="#34112-authorization-server" title="Permanent link"></a></h4>
-<p>TBD:</p>
-<p>The Authorization Server provides access tokens to requesting clients. In IUA, the Authorization Server uses an authenticated user identity, the requested HTTP RESTful service URL, and other information to determine whether HTTP RESTful transactions are authorized. If authorized, the Authorization Server provides a token indicating that HTTP RESTful service access is authorized.</p>
+<p>The Authorization Server provides access tokens to requesting clients. In IUA, the Authorization Server uses an authenticated user identity, the requested HTTP RESTful service URL, and other information to determine whether HTTP RESTful transactions are authorized. If authorized, the Authorization Server provides a access token which authorizes the client to retrieve data and documents from the Resource Server.  </p>
 <h4 id="34113-resource-server">34.1.1.3 Resource Server<a class="headerlink" href="#34113-resource-server" title="Permanent link"></a></h4>
 <p>The Resource Server provides services to access protected resources that need authorization. In IUA the Resource Server accepts a HTTP RESTful transaction request with an incorporated access token. It evaluates the access token to verify that the Authorization Server has authorized the transaction. The Resource Server must enforce this authorization and may perform additional authorization decisions that are specific to the requested service. The Resource Server may then allow the transaction to proceed, subject to access control constraints that may also be in place.</p>
 <p>Notes:</p>
@@ -1476,8 +1475,8 @@ body .markdown-body
 <p>This profile applies to use cases where a user authorizes an client application to access health data behalf of the user using OAuth. Beyond other, relevant use cases are:   </p>
 <p>A healthcare professional uses a server hosted web application to access a patients electronic health record (EHR) using RESTful transactions. The web application has been registered beforehand at the Authorization Server with client ID and client authentication method (e.g. client secret) by a system administrator. When accessing a view on the EHR, the browser is redirected to the EHR Authorization Server. The Authorization Server authenticates the healthcare professional either by presenting the views to enter the authentication factors (e.g. username, password and 2nd factor) or by redirecting to an Identity Provider (IdP). This step may be omitted, if the browser already has an authenticated session (e.g. session cookie). After user authentication, the Authorization Server performs the necessary steps to authorize the web application access to the EHR data, either by contract or by explicit consent given by the healthcare professional. When authorized, the web application retrieves an access token which authorizes it to request and retrieve the EHR data from the Resource Server(s) on behalf of the healthcare professional.</p>
 <p>A healthcare professional uses a single page web application to access a patients electronic health record (EHR) using RESTful transactions. At initial startup the app registers with the Authorization Server using a dynamic client registration protocol. When accessing a view on the EHR, the steps follow the same steps as in the web application use case above.   </p>
-<p>A clinical monitor managed by the hospital system administrators access a patients EHR using RESTful transactions in the hospital LAN. At installation time, clinical monitor has been registered at the Authorization Server with client ID and client authentication method (e.g. client secret) by the system administrator and a contracts (policies) have been deposited at the Authorization Server and Resource Server(s) authorizing access to the EHR. Before accessing patient EHR data, the clinical monitor requests an access token from the Authorization Server using the client credential grant type. The clinical monitor incorporates the access token to the RESTful transactions to access EHR data and documents stored in the EHR Resource Server(s).         </p>
-<p>A patient uses a native app on her mobile device to access data from her electronic health record (EHR) using RESTful transactions via the Internet. At first startup the app registers with the Authorization Server using a dynamic client registration protocol. When accessing a view on the EHR, the native app is redirected to the EHR Authorization Server, which authenticates the patient either by presenting the views to enter the authentication factors (e.g. username, password and 2nd factor) or by delegating to an Identity Provider (IdP). After user authentication, the Authorization Server performs the necessary steps to authorize the native app to access to the EHR data by explicit user consent. When authorized, the native app retrieves an access token which authorizes the app to request and retrieve the EHR data from the Resource Server(s) on behalf of the patient.</p>
+<p>A clinical monitor managed by the hospital system administrators access a patients EHR using RESTful transactions in the hospital LAN. At installation time, clinical monitor has been registered at the Authorization Server with client ID and client authentication method (e.g. client secret) by the system administrator and a contracts (policies) have been deposited at the Authorization Server and Resource Server(s) authorizing access to the EHR. Before accessing patient EHR data, the clinical monitor requests an access token from the Authorization Server using the client credential grant type. The clinical monitor incorporates the access token to the RESTful transactions to access EHR data and documents stored in the EHR Resource Server(s).       <br />
+A patient uses a native app on her mobile device to access data from her electronic health record (EHR) using RESTful transactions via the Internet. At first startup the app registers with the Authorization Server using a dynamic client registration protocol. When accessing a view on the EHR, the native app is redirected to the EHR Authorization Server, which authenticates the patient either by presenting the views to enter the authentication factors (e.g. username, password and 2nd factor) or by delegating to an Identity Provider (IdP). After user authentication, the Authorization Server performs the necessary steps to authorize the native app to access to the EHR data by explicit user consent. When authorized, the native app retrieves an access token which authorizes the app to request and retrieve the EHR data from the Resource Server(s) on behalf of the patient.</p>
 <h4 id="34422-delegation">34.4.2.2 Delegation<a class="headerlink" href="#34422-delegation" title="Permanent link"></a></h4>
 <p>There are multiple reasons to perform delegations. These cases primarily involve patient delegation choices. Providers rarely have the authority to delegate. IT staff may use delegation as part of the support for autonomous devices.</p>
 <p>Users may delegate authority to:</p>
@@ -1904,7 +1903,34 @@ Pragma: no-cache
 </ul>
 <p>The JWT access token MAY contain other parameter or extensions depending on the implementation details.</p>
 <h5 id="371611-jwt-iua-extension">3.71.6.1.1 JWT IUA extension<a class="headerlink" href="#371611-jwt-iua-extension" title="Permanent link"></a></h5>
-<p>The Authorization Client, Authorization Server, and Resource Server SHALL support the extensions defined in table 3.71.6.1.1-1. The claims SHALL be wrapped in an &ldquo;extensions&rdquo; object with key &lsquo;ihe_iua&rsquo; and a JSON value object containing the claims, as such</p>
+<p>The Authorization Client, Authorization Server, and Resource Server SHALL support the following extensions to the JWT access token: </p>
+<ul>
+<li>
+<p><em>subject_name</em> (OPTIONAL): The user&rsquo;s name as String.</p>
+</li>
+<li>
+<p><em>subject_organization_id</em> (OPTIONAL): Unique identifier of the user&rsquo;s organization as String. </p>
+</li>
+<li>
+<p><em>subject_organization</em> (OPTIONAL): Name or description of the user&rsquo;s organization as String. </p>
+</li>
+<li>
+<p><em>subject_role</em> (OPTIONAL): Coded value indicating the user&rsquo;s role. If present, the value SHALL be formatted as FHIR Coding data type.   </p>
+</li>
+<li>
+<p><em>purpose_of_use</em> (OPTIONAL): Purpose of use for the request. If a coded value is used, the value SHALL be formatted as FHIR Coding data type, otherwise as String.   </p>
+</li>
+<li>
+<p><em>home_community_id</em> (OPTIONAL): Home community ID where the request originated as String. </p>
+</li>
+<li>
+<p><em>national_provider_identifier</em> (OPTIONAL): A unique identifier issued to health care providers by their national authority as String. </p>
+</li>
+<li>
+<p><em>person_id</em> (OPTIONAL): Patient ID, Citizen ID, or other similar public identifier as String.</p>
+</li>
+</ul>
+<p>The above claims SHALL be wrapped in an &ldquo;extensions&rdquo; object with key &lsquo;ihe_iua&rsquo; and a JSON value object containing the claims, as such</p>
 <div class="codehilite"><pre>&quot;extensions&quot; : {  
   &quot;ihe_iua&quot; : {  
     &quot;subject_name&quot;: &quot;Dr. John Smith&quot;,
@@ -1915,61 +1941,9 @@ Pragma: no-cache
 }
 </pre></div>
 
-<p>The claim content shall correspond to the content defined in the XUA specification (see ITI TF-2b: 3.40.4.1.2 Message Semantics). The encoding of the Subject Role and Purpose of Use MUST be as JSON arrays.</p>
-<p>Table 3.71.6.1.1-1: JWT Claims of the IUA extension</p>
-<table>
-<thead>
-<tr>
-<th>JWT Claim</th>
-<th>Optionality</th>
-<th>Definition</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>subject_name</td>
-<td>O</td>
-<td>Plain text user&rsquo;s name</td>
-</tr>
-<tr>
-<td>subject_organization</td>
-<td>O</td>
-<td>Plain text description of the organization</td>
-</tr>
-<tr>
-<td>subject_organization_id</td>
-<td>O</td>
-<td>Unique identifier of the organization</td>
-</tr>
-<tr>
-<td>subject_role</td>
-<td>O</td>
-<td>Coded value indicating the user&rsquo;s role</td>
-</tr>
-<tr>
-<td>purpose_of_use</td>
-<td>O</td>
-<td>Purpose of use for the request</td>
-</tr>
-<tr>
-<td>home_community_id</td>
-<td>O</td>
-<td>Home community ID where the request originated</td>
-</tr>
-<tr>
-<td>national_provider_identifier</td>
-<td>O</td>
-<td></td>
-</tr>
-<tr>
-<td>person_id</td>
-<td>O</td>
-<td>Patient ID, Citizen ID, or other similar public ID used for health identification purposes</td>
-</tr>
-</tbody>
-</table>
-<p>The mapping of IUA extension claims to XUA compliant SAML 2.0 Assertion attributes is shown in table Table 3.71.6.1.2-2 below. </p>
-<p>Table 3.71.6.1.1-2: JWT claims of the IUA extension and corresponding XUA Assertion attributes</p>
+<p>The claim content shall correspond to the content defined in the XUA specification (see ITI TF-2b: 3.40.4.1.2 Message Semantics).</p>
+<p>The mapping of IUA extension claims to XUA compliant SAML 2.0 Assertion attributes is shown in Table 3.71.6.1.2-1 below. </p>
+<p>Table 3.71.6.1.1-1: JWT claims of the IUA extension and corresponding XUA Assertion attributes</p>
 <table>
 <thead>
 <tr>
@@ -2013,7 +1987,19 @@ Pragma: no-cache
 </tbody>
 </table>
 <h5 id="371612-jwt-bppc-extension">3.71.6.1.2 JWT BPPC extension<a class="headerlink" href="#371612-jwt-bppc-extension" title="Permanent link"></a></h5>
-<p>In a environment which uses the IHE BPPC profile for documenting the consent, the Authorization Client, Authorization Server, and Resource Server SHALL support the extensions defined in table 3.71.6.1.2-1. If present, the claims SHALL be wrapped in an &ldquo;extensions&rdquo; claim object with key &lsquo;ihe_bppc&rsquo; and a JSON value object containing the claims, as such</p>
+<p>In a environment which uses the IHE BPPC profile for documenting the consent, the Authorization Client, Authorization Server, and Resource Server SHALL support the following extension parameter: </p>
+<ul>
+<li>
+<p><em>patient_id</em>: Patient ID related to the Patient Privacy Policy Identifier as String or URL.</p>
+</li>
+<li>
+<p><em>doc_id</em>: Patient Privacy Policy Acknowledgment Document as String or URL. </p>
+</li>
+<li>
+<p><em>acp</em>: Patient Privacy Policy Identifier as String or URL.</p>
+</li>
+</ul>
+<p>If present, the claims SHALL be wrapped in an &ldquo;extensions&rdquo; object with key &lsquo;ihe_bppc&rsquo; and a JSON value object containing the claims, as such</p>
 <div class="codehilite"><pre>&quot;extensions&quot; : {  
   &quot;ihe_bppc&quot; : {  
     &quot;patient_id&quot;: &quot;543797436^^^&amp;amp;1.2.840.113619.6.197&amp;amp;ISO&quot;,
@@ -2024,35 +2010,8 @@ Pragma: no-cache
 }
 </pre></div>
 
-<p>Table 3.71.6.1.2-1: JWT Claims of the BPPC extension</p>
-<table>
-<thead>
-<tr>
-<th>JWT Claim</th>
-<th>Optionality</th>
-<th>Definition</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>patient_id</td>
-<td>O</td>
-<td>Patient ID related to the Patient Privacy Policy Identifier</td>
-</tr>
-<tr>
-<td>doc_id</td>
-<td>O</td>
-<td>Patient Privacy Policy Acknowledgment Document ID</td>
-</tr>
-<tr>
-<td>acp</td>
-<td>O</td>
-<td>Patient Privacy Policy Identifier</td>
-</tr>
-</tbody>
-</table>
-<p>The mapping of IUA extension claims to XUA compliant SAML 2.0 Assertion attributes is shown in table Table 3.71.6.1.2-2 below.  </p>
-<p>Table 3.71.6.1.2-2: JWT claims of the BPPC extension and corresponding XUA Assertion attributes</p>
+<p>The mapping of IUA extension claims to XUA compliant SAML 2.0 Assertion attributes is shown in table Table 3.71.6.1.2-1 below.  </p>
+<p>Table 3.71.6.1.2-1: JWT claims of the BPPC extension and corresponding XUA Assertion attributes</p>
 <table>
 <thead>
 <tr>
@@ -2098,9 +2057,13 @@ Pragma: no-cache
 <p>if a healthcare professional authorizes her web application or device to read and write Patient resources to be able to search, view and manage the patient data, the scope granted by the Authorization Server SHOULD be <em>user/Patient.*</em>.</p>
 </li>
 <li>
-<p>if a healthcare professional authorizes her web application or device to read all Patient data (incl. documents), the scope granted by the Authorization Server SHOULD to <em>user/*.read</em>.</p>
+<p>if a healthcare professional authorizes her web application or device to read all Patient data (incl. documents), the scope granted by the Authorization Server SHOULD be <em>user/*.read</em>.</p>
 </li>
 </ul>
+<p>If coded values are used as scope parameter (e.g., purpose of use), it&rsquo;s values SHALL be formatted as FHIR Coding data type, e.g., as </p>
+<div class="codehilite"><pre>purpose_of_use:[{&quot;system&quot;:&quot;2.16.840.1.113883.6.2&quot;,&quot;code&quot;:&quot;99-0&quot;,&quot;display&quot;:&quot;Social Worker&quot;}]
+</pre></div>
+
 <p>Note: The Authorization Server MAY ignore the scope requested by the Authorization Client or restrict it, based on the Authorization Server policy or the user&rsquo;s authorization grant. </p>
 <h3 id="3717-expected-actions">3.71.7 Expected Actions<a class="headerlink" href="#3717-expected-actions" title="Permanent link"></a></h3>
 <h3 id="37171-client-credential-grant-type">3.71.7.1 Client Credential grant type<a class="headerlink" href="#37171-client-credential-grant-type" title="Permanent link"></a></h3>
@@ -2126,6 +2089,7 @@ Pragma: no-cache
     &quot;exp&quot;: 1438251487,
     &quot;nbf&quot;: 1438251187,
     &quot;iat&quot;: 1438251187,
+    &quot;scope&quot;: user/*.read user/*.write,    
     &quot;extensions&quot; : {  
       &quot;ihe_iua&quot; : {  
         &quot;subject_name&quot;: &quot;Dr. John Smith&quot;,
@@ -2170,7 +2134,7 @@ Pragma: no-cache
 <p>Refresh token MAY be long lived. </p>
 </li>
 <li>
-<p>To reduce the attack surface, client claims and authorization grants SHALL be the minimal. I.e., the authorization grant scope requested by the Authorization Client shall be the minimal required scope for the resource request to be used for.          </p>
+<p>To reduce the attack surface, client claims and authorization grants SHALL be the minimal. I.e., the authorization grant scope requested by the Authorization Client shall be the minimal required scope for the resource request to be used for.</p>
 </li>
 </ul>
 <h4 id="37191-security-audit-considerations">3.71.9.1 Security Audit Considerations<a class="headerlink" href="#37191-security-audit-considerations" title="Permanent link"></a></h4>
