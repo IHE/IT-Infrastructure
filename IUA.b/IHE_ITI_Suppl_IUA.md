@@ -190,11 +190,11 @@ The Basic Patient Privacy Consent (BPPC) Profile is associated with this profile
 
 It is important to understand that IUA is not a substitute for the administrative activities (such as withdrawing consent), policy setting, and other activities that BPPC documents. Greater integration of this authorization with third party authorization and consent documentation profiles, such as those found in the IHE BPPC Profile, are a future effort. This profile starts with just the basic authorization activities.
 
-The administrative actions needed to establish an authorization server for IUA is not covered by these profile. These activities are very much dependent upon the operational needs and privacy policies that apply to a particular deployment.
+The administrative actions needed to establish an authorization server for IUA is not covered by these profile. These activities depend upon the operational needs, organizational and privacy policies that apply to a particular deployment.
 
 ### Background on the problem environment
 
-One common pattern is to interact directly with the application to communicate with the authorization server. The application interacts with both patient and authorization server to support the granting of an access token. The application then saves the access token, and uses it to retrieve and update the health related data.
+The application interacts with both patient and authorization server to support the granting of an access token. The application then uses the access token to retrieve and update health related data.
 
 The key issues here are:
 
@@ -210,9 +210,9 @@ Similar issues arise with:
 
 -   In house application distribution that needs authorization for applications used within the facility.
 
--   The in house IT staff wants a common method to authorize use of in house web applications and access to in house resources.
+-   IT administrators prefer a common method to authorize use of in house web applications and access to in house resources.
 
--   IT staff are more willing to run their own internal authentication and authorization servers, but want to use off the shelf software and want the option to outsource these services. They are more likely to separate authentication from authorization than end user systems. Authentication issues are closely related to HR activities like hiring and firing. Authorization issues are related to patient and work assignments. These are controlled by different parts of the organization and have different process dependencies.
+-   IT administrators are more willing to run their own internal authentication and authorization servers, but want to use off the shelf software and want the option to outsource these services. They are more likely to separate authentication from authorization than end user systems. Authentication issues are closely related to HR activities like hiring and firing. Authorization issues are related to patient and work assignments. These are controlled by different parts of the organization and have different process dependencies.
 
 -   Providers and Specialists have authorization needs for dealing with other organizations and need to deal with many resource services.
 
@@ -329,9 +329,7 @@ The Authorization Client performs the network transactions and user interactions
 
 #### 34.1.1.2 Authorization Server
 
-TBD:
-
-The Authorization Server provides access tokens to requesting clients. In IUA, the Authorization Server uses an authenticated user identity, the requested HTTP RESTful service URL, and other information to determine whether HTTP RESTful transactions are authorized. If authorized, the Authorization Server provides a token indicating that HTTP RESTful service access is authorized.
+The Authorization Server provides access tokens to requesting clients. In IUA, the Authorization Server uses an authenticated user identity, the requested HTTP RESTful service URL, and other information to determine whether HTTP RESTful transactions are authorized. If authorized, the Authorization Server provides a access token which authorizes the client to retrieve data and documents from the Resource Server.  
 
 #### 34.1.1.3 Resource Server
 
@@ -423,7 +421,6 @@ A healthcare professional uses a server hosted web application to access a patie
 A healthcare professional uses a single page web application to access a patients electronic health record (EHR) using RESTful transactions. At initial startup the app registers with the Authorization Server using a dynamic client registration protocol. When accessing a view on the EHR, the steps follow the same steps as in the web application use case above.   
 
 A clinical monitor managed by the hospital system administrators access a patients EHR using RESTful transactions in the hospital LAN. At installation time, clinical monitor has been registered at the Authorization Server with client ID and client authentication method (e.g. client secret) by the system administrator and a contracts (policies) have been deposited at the Authorization Server and Resource Server(s) authorizing access to the EHR. Before accessing patient EHR data, the clinical monitor requests an access token from the Authorization Server using the client credential grant type. The clinical monitor incorporates the access token to the RESTful transactions to access EHR data and documents stored in the EHR Resource Server(s).         
-
 A patient uses a native app on her mobile device to access data from her electronic health record (EHR) using RESTful transactions via the Internet. At first startup the app registers with the Authorization Server using a dynamic client registration protocol. When accessing a view on the EHR, the native app is redirected to the EHR Authorization Server, which authenticates the patient either by presenting the views to enter the authentication factors (e.g. username, password and 2nd factor) or by delegating to an Identity Provider (IdP). After user authentication, the Authorization Server performs the necessary steps to authorize the native app to access to the EHR data by explicit user consent. When authorized, the native app retrieves an access token which authorizes the app to request and retrieve the EHR data from the Resource Server(s) on behalf of the patient.
 
 #### 34.4.2.2 Delegation
