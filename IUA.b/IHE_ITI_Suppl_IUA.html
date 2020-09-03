@@ -731,7 +731,7 @@ pre {
   }
 }
 </style><title>IHE_ITI_Suppl_IUA</title></head><body><article class="markdown-body"><p><strong>Integrating the Healthcare Enterprise</strong></p>
-<p><a href="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/IHE-logo.jpeg" target="_blank" rel="noopener noreferrer"><img src="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/IHE-logo.jpeg" alt="IHE_LOGO_for_tf-docs" style="max-width:100%;"></a></p>
+<p><a href="./media/IHE-logo.jpeg" target="_blank" rel="noopener noreferrer"><img src="./media/IHE-logo.jpeg" alt="IHE_LOGO_for_tf-docs" style="max-width:100%;"></a></p>
 <p><strong>IHE ITI</strong></p>
 <p><strong>Technical Framework Supplement</strong></p>
 <p><strong>Internet User Authorization<br>
@@ -971,7 +971,7 @@ Depending on the grant type, the OAuth 2.1 Framework also requires user authenti
 <p>The Ressource Server may delegate the access policy enforcement to actors it is grouped with by providing the information from the access token and transaction data, or to other actors (e.g., by implementing the Authorization Decisons Verifier actor of the Secure Retrieve (SeR) supplement).</p>
 <p>Note: An analogy of the segregation of duties for access control between the Authorization Server and the Resource Server is given in a  textbook (<em>Solving Identity Management in Modern Applications</em>, <em>APress 2019</em> by Yvonne Wilson and Abhishek Hingnikar) comparing the authorization and policy enforcement with a ticketing and entrance control to events (e.g, opera, cinema). In this analogy the Authorization Server provides the ticket which authorizes participation, while additional checks are performed to finally particpate to the event.</p>
 <p>This profile relies on the OAuth 2.1 Authorization Framework. Since the original publication of OAuth 2.0 in 2012, several new RFCs have been published that add or remove functionality from the core specification. Version 2.1 of the OAuth Authorization Framework consolidates and simplifies the most commonly used features and best practices of OAuth 2.0.</p>
-<p><a href="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/1.1_IUA-actor-diagram.png" target="_blank" rel="noopener noreferrer"><img src="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/1.1_IUA-actor-diagram.png" alt="IUA Actor Diagram" style="max-width:100%;"></a></p>
+<p><a href="./media/1.1_IUA-actor-diagram.png" target="_blank" rel="noopener noreferrer"><img src="./media/1.1_IUA-actor-diagram.png" alt="IUA Actor Diagram" style="max-width:100%;"></a></p>
 <p>Figure 34.1-1: IUA Actor Diagram</p>
 <p>Table 34.1-1 lists the transactions for each actor directly involved in the IUA Profile. To claim compliance with this profile, an actor shall support all required transactions (labeled "R") and may support the optional transactions (labeled "O").</p>
 <p>Table 34.1-1: IUA Profile - Actors and Transactions</p>
@@ -1286,7 +1286,7 @@ Depending on the grant type, the OAuth 2.1 Framework also requires user authenti
 </ul>
 <h3>
 <a id="user-content-3714-interaction-diagram" class="anchor" href="#3714-interaction-diagram" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.4 Interaction Diagram</h3>
-<p><a href="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/basic-flow.png" target="_blank" rel="noopener noreferrer"><img src="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/basic-flow.png" alt="ITI-71 Flow Diagram" style="max-width:100%;"></a></p>
+<p><a href="./media/basic-flow.png" target="_blank" rel="noopener noreferrer"><img src="./media/basic-flow.png" alt="ITI-71 Flow Diagram" style="max-width:100%;"></a></p>
 <p>Figure 3.71.4-1: Basic Process of the Authorization Token Request and Incorporate Authorization Token transaction</p>
 <pre><code>\@startuml
 
@@ -1322,7 +1322,7 @@ end
 <p>The sequence of HTTP(S) requests to perform an Get Authorization Token transaction depends on the grant type chosen.</p>
 <h5>
 <a id="user-content-371411-client-credential-grant-type" class="anchor" href="#371411-client-credential-grant-type" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.4.1.1 Client Credential grant type</h5>
-<p><a href="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/client-credential-grant.png" target="_blank" rel="noopener noreferrer"><img src="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/client-credential-grant.png" alt="ITI-71 Client Credential" style="max-width:100%;"></a></p>
+<p><a href="./media/client-credential-grant.png" target="_blank" rel="noopener noreferrer"><img src="./media/client-credential-grant.png" alt="ITI-71 Client Credential" style="max-width:100%;"></a></p>
 <p>Figure 3.71.4.1.1-1: Sequence of HTTP requests in the client credential grant type.</p>
 <p>The Authorization Client actor requests an access token using client credentials (or other supported means of authentication). This grant type SHALL be used by confidential clients only [OAuth 2.1, Section 4.2].</p>
 <p>The Authorization Client actor makes a HTTP(s) POST request to the token endpoint with the following parameters in the HTTP request entity-body [OAuth 2.1, Section 4.2.2]:</p>
@@ -1381,7 +1381,7 @@ Pragma: no-cache
 <p>The Authorization Server SHALL respond an error response as defined in the OAuth 2.1 Authorization Franework [OAuth 2.1, Section 5.2] if the request does not match the requirements or is not understood.</p>
 <h5>
 <a id="user-content-371412-authorization-code-grant-type" class="anchor" href="#371412-authorization-code-grant-type" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.4.1.2 Authorization Code grant type</h5>
-<p><a href="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/authorization-code-grant.png" target="_blank" rel="noopener noreferrer"><img src="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/authorization-code-grant.png" alt="ITI-71 Authorization Code" style="max-width:100%;"></a></p>
+<p><a href="./media/authorization-code-grant.png" target="_blank" rel="noopener noreferrer"><img src="./media/authorization-code-grant.png" alt="ITI-71 Authorization Code" style="max-width:100%;"></a></p>
 <p>Figure 3.71.4.1.1-1: Sequence of HTTP requests in the client authorization code and PCKE grant type.</p>
 <p>This grant type SHALL be used by confidential, credential and public clients, if the explicit consent of the user is required to authorize the Authorization Client to access data on behalf of the user.</p>
 <p>The Authorization Client actor directs the user-agent to make a HTTP GET request to the authorization endpoint with the following parameters using the "application/x-www-form-urlencoded" format [OAuth 2.1, Section 4.1.1.3]:</p>
@@ -2084,7 +2084,7 @@ Pragma: no-cache
 <p>XUA Cross-Enterprise User Assertion -- Attribute Extension</p>
 <h3>
 <a id="user-content-3724-interaction-diagram" class="anchor" href="#3724-interaction-diagram" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.4 Interaction Diagram</h3>
-<p><a href="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/basic-flow.png" target="_blank" rel="noopener noreferrer"><img src="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/basic-flow.png" alt="simple-iauth" style="max-width:100%;"></a></p>
+<p><a href="./media/basic-flow.png" target="_blank" rel="noopener noreferrer"><img src="./media/basic-flow.png" alt="simple-iauth" style="max-width:100%;"></a></p>
 <p>Figure 3.72.4-1: Process flow for Incorporate Authorization Token
 Transaction</p>
 <pre><code>\@startuml  
