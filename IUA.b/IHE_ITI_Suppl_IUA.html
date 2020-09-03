@@ -1,34 +1,43 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><style>body {
-  max-width: 980px;
-  border: 1px solid #ddd;
-  outline: 1300px solid #fff;
-  margin: 16px auto;
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><style>@font-face {
+  font-family: octicons-anchor;
+  src: url(https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/font/octicons.woff) format('woff');
 }
 
-body .markdown-body
-{
-  padding: 45px;
+* {
+    box-sizing: border-box;
 }
 
-@font-face {
-  font-family: fontawesome-mini;
-  src: url(data:font/woff;charset=utf-8;base64,d09GRgABAAAAABE0AA8AAAAAHWwAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABWAAAADsAAABUIIslek9TLzIAAAGUAAAAQwAAAFY3d1HZY21hcAAAAdgAAACqAAACOvWLi0FjdnQgAAAChAAAABMAAAAgBtX/BGZwZ20AAAKYAAAFkAAAC3CKkZBZZ2FzcAAACCgAAAAIAAAACAAAABBnbHlmAAAIMAAABdQAAAjkYT9TNWhlYWQAAA4EAAAAMwAAADYQ6WvNaGhlYQAADjgAAAAfAAAAJAc6A1pobXR4AAAOWAAAACAAAAA0Kmz/7mxvY2EAAA54AAAAHAAAABwQPBJubWF4cAAADpQAAAAgAAAAIAEHC/NuYW1lAAAOtAAAAYQAAALxhQT4h3Bvc3QAABA4AAAAfgAAAMS3SYh9cHJlcAAAELgAAAB6AAAAhuVBK7x4nGNgZGBg4GIwYLBjYHJx8wlh4MtJLMljkGJgYYAAkDwymzEnMz2RgQPGA8qxgGkOIGaDiAIAJjsFSAB4nGNgZHZmnMDAysDAVMW0h4GBoQdCMz5gMGRkAooysDIzYAUBaa4pDA4Pwz+yMwf9z2KIYg5imAYUZgTJAQDcoQvQAHic7ZHNDYJAFIRnBXf94cDRIiyCKkCpwFCPJ092RcKNDoYKcN4+EmMPvpdvk539zQyAPYBCXEUJhBcCrJ5SQ9YLnLJe4qF5rdb+uWPDngNHTkta101pNyWa8lMhn6xx2dqUnW4q9YOIhAOOeueMSgsR/6ry+P7O5s6xVNg4chBsHUuFnWNJ8uZYwrw7chrsHXkODo7cB0dHOYCTY8kv0VE2WJKD6gOlWjsxAAB4nGNgQAMSEMgc9D8LhAESbAPdAHicrVZpd9NGFB15SZyELCULLWphxMRpsEYmbMGACUGyYyBdnK2VoIsUO+m+8Ynf4F/zZNpz6Dd+Wu8bLySQtOdwmpOjd+fN1czbZRJaktgL65GUmy/F1NYmjew8CemGTctRfCg7eyFlisnfBVEQrZbatx2HREQiULWusEQQ+x5ZmmR86FFGy7akV03KLT3pLlvjQb1V334aOsqxO6GkZjN0aD2yJVUYVaJIpj1S0qZlqPorSSu8v8LMV81QwohOImm8GcbQSN4bZ7TKaDW24yiKbLLcKFIkmuFBFHmU1RLn5IoJDMoHzZDyyqcR5cP8iKzYo5xWsEu20/y+L3mndzk/sV9vUbbkQB/Ijuzg7HQlX4RbW2HctJPtKFQRdtd3QmzZ7FT/Zo/ymkYDtysyvdCMYKl8hRArP6HM/iFZLZxP+ZJHo1qykRNB62VO7Es+gdbjiClxzRhZ0N3RCRHU/ZIzDPaYPh788d4plgsTAngcy3pHJZwIEylhczRJ2jByYCVliyqp9a6YOOV1WsRbwn7t2tGXzmjjUHdiPFsPHVs5UcnxaFKnmUyd2knNoykNopR0JnjMrwMoP6JJXm1jNYmVR9M4ZsaERCICLdxLU0EsO7GkKQTNoxm9uRumuXYtWqTJA/Xco/f05la4udNT2g70s0Z/VqdiOtgL0+lp5C/xadrlIkXp+ukZfkziQdYCMpEtNsOUgwdv/Q7Sy9eWHIXXBtju7fMrqH3WRPCkAfsb0B5P1SkJTIWYVYhWQGKta1mWydWsFqnI1HdDmla+rNMEinIcF8e+jHH9XzMzlpgSvt+J07MjLj1z7UsI0xx8m3U9mtepxXIBcWZ5TqdZlu/rNMfyA53mWZ7X6QhLW6ejLD/UaYHlRzodY3lBC5p038GQizDkAg6QMISlA0NYXoIhLBUMYbkIQ1gWYQjLJRjC8mMYwnIZhrC8rGXV1FNJ49qZWAZsQmBijh65zEXlaiq5VEK7aFRqQ54SbpVUFM+qf2WgXjzyhjmwFkiXyJpfMc6Vj0bl+NYVLW8aO1fAsepvH472OfFS1ouFPwX/1dZUJb1izcOTq/Abhp5sJ6o2qXh0TZfPVT26/l9UVFgL9BtIhVgoyrJscGcihI86nYZqoJVDzGzMPLTrdcuan8P9NzFCFlD9+DcUGgvcg05ZSVnt4KzV19uy3DuDcjgTLEkxN/P6VvgiI7PSfpFZyp6PfB5wBYxKZdhqA60VvNknMQ+Z3iTPBHFbUTZI2tjOBIkNHPOAefOdBCZh6qoN5E7hhg34BWFuwXknXKJ6oyyH7kXs8yik/Fun4kT2qGiMwLPZG2Gv70LKb3EMJDT5pX4MVBWhqRg1FdA0Um6oBl/G2bptQsYO9CMqdsOyrOLDxxb3lZJtGYR8pIjVo6Of1l6iTqrcfmYUl++dvgXBIDUxf3vfdHGQyrtayTJHbQNTtxqVU9eaQ+NVh+rmUfW94+wTOWuabronHnpf06rbwcVcLLD2bQ7SUiYX1PVhhQ2iy8WlUOplNEnvuAcYFhjQ71CKjf+r+th8nitVhdFxJN9O1LfR52AM/A/Yf0f1A9D3Y+hyDS7P95oTn2704WyZrqIX66foNzBrrblZugbc0HQD4iFHrY64yg18pwZxeqS5HOkh4GPdFeIBwCaAxeAT3bWM5lMAo/mMOT7A58xh0GQOgy3mMNhmzhrADnMY7DKHwR5zGHzBnHWAL5nDIGQOg4g5DJ4wJwB4yhwGXzGHwdfMYfANc+4DfMscBjFzGCTMYbCv6dYwzC1e0F2gtkFVoANTT1jcw+JQU2XI/o4Xhv29Qcz+wSCm/qjp9pD6Ey8M9WeDmPqLQUz9VdOdIfU3Xhjq7wYx9Q+DmPpMvxjLZQa/jHyXCgeUXWw+5++J9w/bxUC5AAEAAf//AA94nIVVX2hbZRQ/5/t7893s5ja9f7ouzdZ0TTqz3bRJmogbWya6bG6Cq0VbSV2ddIJjFtfIQHEig80Hda8yUN/0YQz8AyriiyD+xQd92R4HCnaCb3samnpumrpsCsLlfPf7zvedc37nL3CAtc/5W/wQZGA3tOBSY/g+TMjHmwzEoM1Q8+ZjRZY4oJhmBw5/YB6Za0yC5AkhlwA1A1yCBIBOwCII0Cj0U8BAMdUCzq05sKwkP7SlUY6fcJk4Fb/RyE79/6P5hjM/F4aZiXBoeMgzcqQ4Xi1hPqfDLG5FT+lchCVU3lYMyvuwhl1mqndQL0RsuloLywHtthLXI06OblTrhfWVnpSJ5+mwu/JdbtuN3IAnkW0LLMcRwaC7ktrlzridM6kVdyf9uO1UNBByI7JhwtG2sEwab07ORBeilWhqavJCqV0qzZTOl/7ZXQ5TbTcdcFelyGhhRDAQpdqp1FEX3w3cFTc1k9pJQkmm4ySCbSikxRP2QOfN+0tHS5MrpQuTU1Mk5nw0E5Xa0WvrOwDyGax9yB9ma6DAg82wHc43SAGTI4GjBWebOePAERFE8/AHaQpZASSTy8A4WwZiLQMQ82mFKATO0ILicRAoDm9p5P99E5b/fXG+kQYY3TYUuqmERWYoT0u/GNYL2q/4WB3LaVS+VynXsVYIcWw6DkCh3nX1D+VzlYN4LClF5yexSQos8exqZ3KVP+wtrC54u4Nznq6cq+xpMpUUnZ8FUYzE86ud0g28NOIv3Gj5/rmA3ABs7S/ywzFuQ4qyd6QxfNtiQIaEgp3w/entQg4Vcbqa16M5FfpeUB8t1+qeg7mI7cUyOe79wOk86gSxkVec4KPTX69++5x68Yubn5/F+w52z7u08sJX7fZXv8ekT/d2mILJxq6sn+SC6qEJknzLJCxyZEKwWVqYmAPBxBE/9DLeZiWHu7lcr/VytrCRuHojncNuTt9h46tmacmYisnSamdN2bZptcsmSysdVsy1PrOvOzF3xN64Rb937t/og9KHxYdcjIUqFAmIAHGHNzlns+RTPgeUYAQm9DwpNxfxbhhBHPaw3/gfTcXO2L+eJVIx5nsyGkvm9X4/f+bGkH45G0PaSjcMXTjcZyTvi3UdHoCDjQd3IDUVsgwYmUoJK/gp4JJxeRI0MKHZIkgynyIBqBTOUs6rOVCojvjZ4mCQz49ZMlMcp8QoYk6NoBfsxnJtsBohpa8iGJS+ZH7gU7NxME6cmF+t7cO9vB8d3jTWSct0ycW9ranXmolNDwmVkNnxe+8JtoztwS5rKJ0xWS95tQ/1zMYzg69MzUZnNtl1ofNbsml/OJm6f9wjRjpnu2o4MzHzn77IQkRd+1DjwMQ2pqSjGMMhyjrgTbBAKksuUm0iU7hI0aN2wOKOq7WYBSH0HGihj/jkiPxAfmwsEbfYrjMG+j3ij932Db/LV7I/xruNrhnroxjR9HRMb2nTvO0ZXOoHPk8H2ZhDPx93qcE/53sH5np/dkIP7zzhTVKdR/BAY/9ElkkR+A6lJGsqpJ4oQcTxpvBT3Kn58VkaJjgHyPEIws57xkaHh9KuVpDEpJZeMbZ5w/zBHi5NMQ4r5VphsFqID7TyB9eR4pX216c3AHxpdAwoqU9qg0ZJ6yVLKmMSz1iG2z27ifx18NkY0LPx1W/wCc2l5LrznrIsiKsqbmB78A9wIGx4tI8rjihVHJyY9pgMirenVq0yWg7Iw7eogG7ZgYM3qR9959A/fZkg6MnD/exlkmc+jWV4SB15XUR+eqC6l6ZmgPtN9z5JMfik05OV8ljylunJ4J+wA/FUaQSSKotsYsCWqaPBidBLcxkWx7XKFRIb45TGaEhjlF9uUVPqXOtcIwsXbBvfoZXIyRYFdkfnqjExH98xpnPczqzjX/uNdO1Y17Wpi5+6Ts8BXtjVFasp9KZ1mOiNbH65c5w6HgmyF2jFCZywM8mWjRc7T5Pmt0lRy7Y71+jYbpGyvwG4sH0XeJxjYGRgYADiwBB/53h+m68M3MwvgCIM1z5N/g6j///9v5H5BbMnkMvBwAQSBQCIcA9gAHicY2BkYGAO+p8FJF/8//v/F/MLBqAICuAFALYQB5kAeJxjfsHAwLwAiCNB+P9fbJjJmoGBMRUo/wKCAfO2EnQAAAAAANoBXgGcAgICVALaA1IDvAPkBAYEPARyAAEAAAANAF0ABAAAAAAAAgAUACQAcwAAAG4LcAAAAAB4nHWRzWrCQBSFT+pPqUIXLXTTzayKUohGKIibCoLuhbrrYtTRxCYZmYyKyz5Fd32HvlDfoO/QkziIFJtw9bvnnpl7ZwLgBt/wcHieGAf2UGd24Atcou+4RH3kuEweO66QXx1XyaHjGh6ROa7jFp/cwStfMVvhy7GHO+/e8QWuvcBxifqz4zL5xXGF/Oa4Sn53XMPE+3Bcx4P3M9DrvYmWoRWNQVN02kFXTPdCU4pSGQu5saE2meiLhU6timPtz3SSs9ypTCdqrJabWJoT5QQnymSRTkXgt0/UkUqVkVbN807ZdtmxdiEWRidi6HqItdErNbN+aO2612qd9sYAGmvsYRBhyUu0EGhQbfK/gzYCdElTOgSdB1eEFBIxFYkNV4RFJWPeZyyYpVQVHTHZx4y/yVGX2LGWFZri51TccUOn5B7nPefVCSPvGhVVwUl9znveO2KkhV8Wk82PZ8qwZf8OVcu1+fSmWCMw/HMOwXvKaysqM+p+cVuWag8tvv+c+xdd+4+teJxtjUEOwiAURJla24KliQfhUA2g/Sl+CKXx+loNrpzVezOLEY34Ron/0WhwQoszOvQYIKFwwQiNSbSBeO2SZ0tBP4j3zVjKNng32ZmtD1VVXCuOiw/pJ8S3WOU6l+K5UOTaDC4+2TjKMtN9KQf1ezLx/Sg/00FCvABHhjDjAAB4nGPw3sFwIihiIyNjX+QGxp0cDBwMyQUbGVidNjEwMmiBGJu5mBg5ICw+BjCLzWkX0wGgNCeQze60i8EBwmZmcNmowtgRGLHBoSNiI3OKy0Y1EG8XRwMDI4tDR3JIBEhJJBBs5mFi5NHawfi/dQNL70YmBhcADHYj9AAA) format('woff');
+body {
+    width: 980px;
+    margin-right: auto;
+    margin-left: auto;
+    color:#333;
+    background:#fff;
+}
+
+body .markdown-body {
+    padding: 45px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    word-wrap: break-word;
+}
+
+pre {
+    font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
 }
 
 .markdown-body {
-  font-family: sans-serif;
-  -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
-  color: #333333;
-  overflow: hidden;
-  font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
+  text-size-adjust: 100%;
+  color: #333;
+  font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 16px;
   line-height: 1.6;
   word-wrap: break-word;
 }
 
 .markdown-body a {
-  background: transparent;
+  background-color: transparent;
 }
 
 .markdown-body a:active,
@@ -36,30 +45,8 @@ body .markdown-body
   outline: 0;
 }
 
-.markdown-body b,
 .markdown-body strong {
   font-weight: bold;
-}
-
-.markdown-body mark {
-  background: #ff0;
-  color: #000;
-  font-style: italic;
-  font-weight: bold;
-}
-
-.markdown-body sub,
-.markdown-body sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-.markdown-body sup {
-  top: -0.5em;
-}
-.markdown-body sub {
-  bottom: -0.25em;
 }
 
 .markdown-body h1 {
@@ -72,7 +59,6 @@ body .markdown-body
 }
 
 .markdown-body hr {
-  -moz-box-sizing: content-box;
   box-sizing: content-box;
   height: 0;
 }
@@ -83,8 +69,7 @@ body .markdown-body
 
 .markdown-body code,
 .markdown-body kbd,
-.markdown-body pre,
-.markdown-body samp {
+.markdown-body pre {
   font-family: monospace, monospace;
   font-size: 1em;
 }
@@ -118,81 +103,16 @@ body .markdown-body
   padding: 0;
 }
 
-.markdown-body .codehilitetable {
-  border: 0;
-  border-spacing: 0;
-}
-
-.markdown-body .codehilitetable tr {
-  border: 0;
-}
-
-.markdown-body .codehilitetable pre,
-.markdown-body .codehilitetable div.codehilite {
-  margin: 0;
-}
-
-.markdown-body .linenos,
-.markdown-body .code,
-.markdown-body .codehilitetable td {
-  border: 0;
-  padding: 0;
-}
-
-.markdown-body td:not(.linenos) .linenodiv {
-  padding: 0 !important;
-}
-
-.markdown-body .code {
-  width: 100%;
-}
-
-.markdown-body .linenos div pre,
-.markdown-body .linenodiv pre,
-.markdown-body .linenodiv {
-  border: 0;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
-  -webkit-border-top-left-radius: 3px;
-  -webkit-border-bottom-left-radius: 3px;
-  -moz-border-radius-topleft: 3px;
-  -moz-border-radius-bottomleft: 3px;
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-}
-
-.markdown-body .code div pre,
-.markdown-body .code div {
-  border: 0;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
-  -webkit-border-top-right-radius: 3px;
-  -webkit-border-bottom-right-radius: 3px;
-  -moz-border-radius-topright: 3px;
-  -moz-border-radius-bottomright: 3px;
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
-}
-
-.markdown-body * {
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
 .markdown-body input {
-  font: 13px Helvetica, arial, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
-  line-height: 1.4;
+  font: 13px / 1.4 Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 .markdown-body a {
-  color: #4183c4;
+  color: #4078c0;
   text-decoration: none;
 }
 
 .markdown-body a:hover,
-.markdown-body a:focus,
 .markdown-body a:active {
   text-decoration: underline;
 }
@@ -206,14 +126,15 @@ body .markdown-body
   border-bottom: 1px solid #ddd;
 }
 
-.markdown-body hr:before,
-.markdown-body hr:after {
+.markdown-body hr:before {
   display: table;
-  content: " ";
+  content: "";
 }
 
 .markdown-body hr:after {
+  display: table;
   clear: both;
+  content: "";
 }
 
 .markdown-body h1,
@@ -278,9 +199,7 @@ body .markdown-body
   margin-left: 0;
 }
 
-.markdown-body code,
-.markdown-body pre,
-.markdown-body samp {
+.markdown-body code {
   font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
   font-size: 12px;
 }
@@ -288,21 +207,39 @@ body .markdown-body
 .markdown-body pre {
   margin-top: 0;
   margin-bottom: 0;
+  font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
 }
 
-.markdown-body kbd {
-  background-color: #e7e7e7;
-  background-image: -moz-linear-gradient(#fefefe, #e7e7e7);
-  background-image: -webkit-linear-gradient(#fefefe, #e7e7e7);
-  background-image: linear-gradient(#fefefe, #e7e7e7);
-  background-repeat: repeat-x;
-  border-radius: 2px;
-  border: 1px solid #cfcfcf;
-  color: #000;
-  padding: 3px 5px;
-  line-height: 10px;
-  font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+.markdown-body .select::-ms-expand {
+  opacity: 0;
+}
+
+.markdown-body .octicon {
+  font: normal normal normal 16px/1 octicons-anchor;
   display: inline-block;
+  text-decoration: none;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.markdown-body .octicon-link:before {
+  content: '\f05c';
+}
+
+.markdown-body:before {
+  display: table;
+  content: "";
+}
+
+.markdown-body:after {
+  display: table;
+  clear: both;
+  content: "";
 }
 
 .markdown-body>*:first-child {
@@ -313,48 +250,60 @@ body .markdown-body
   margin-bottom: 0 !important;
 }
 
-.markdown-body .headerlink {
-  font: normal 400 16px fontawesome-mini;
-  vertical-align: middle;
-  margin-left: -16px;
-  float: left;
-  display: inline-block;
+.markdown-body a:not([href]) {
+  color: inherit;
   text-decoration: none;
-  opacity: 0;
-  color: #333;
 }
 
-.markdown-body .headerlink:focus {
+.markdown-body .anchor {
+  display: inline-block;
+  padding-right: 2px;
+  margin-left: -18px;
+}
+
+.markdown-body .anchor:focus {
   outline: none;
 }
 
-.markdown-body h1 .headerlink {
-  margin-top: 0.8rem;
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 1em;
+  margin-bottom: 16px;
+  font-weight: bold;
+  line-height: 1.4;
 }
 
-.markdown-body h2 .headerlink,
-.markdown-body h3 .headerlink {
-  margin-top: 0.6rem;
+.markdown-body h1 .octicon-link,
+.markdown-body h2 .octicon-link,
+.markdown-body h3 .octicon-link,
+.markdown-body h4 .octicon-link,
+.markdown-body h5 .octicon-link,
+.markdown-body h6 .octicon-link {
+  color: #000;
+  vertical-align: middle;
+  visibility: hidden;
 }
 
-.markdown-body h4 .headerlink {
-  margin-top: 0.2rem;
-}
-
-.markdown-body h5 .headerlink,
-.markdown-body h6 .headerlink {
-  margin-top: 0;
-}
-
-.markdown-body .headerlink:hover,
-.markdown-body h1:hover .headerlink,
-.markdown-body h2:hover .headerlink,
-.markdown-body h3:hover .headerlink,
-.markdown-body h4:hover .headerlink,
-.markdown-body h5:hover .headerlink,
-.markdown-body h6:hover .headerlink {
-  opacity: 1;
+.markdown-body h1:hover .anchor,
+.markdown-body h2:hover .anchor,
+.markdown-body h3:hover .anchor,
+.markdown-body h4:hover .anchor,
+.markdown-body h5:hover .anchor,
+.markdown-body h6:hover .anchor {
   text-decoration: none;
+}
+
+.markdown-body h1:hover .anchor .octicon-link,
+.markdown-body h2:hover .anchor .octicon-link,
+.markdown-body h3:hover .anchor .octicon-link,
+.markdown-body h4:hover .anchor .octicon-link,
+.markdown-body h5:hover .anchor .octicon-link,
+.markdown-body h6:hover .anchor .octicon-link {
+  visibility: visible;
 }
 
 .markdown-body h1 {
@@ -364,6 +313,10 @@ body .markdown-body
   border-bottom: 1px solid #eee;
 }
 
+.markdown-body h1 .anchor {
+  line-height: 1;
+}
+
 .markdown-body h2 {
   padding-bottom: 0.3em;
   font-size: 1.75em;
@@ -371,22 +324,42 @@ body .markdown-body
   border-bottom: 1px solid #eee;
 }
 
+.markdown-body h2 .anchor {
+  line-height: 1;
+}
+
 .markdown-body h3 {
   font-size: 1.5em;
   line-height: 1.43;
+}
+
+.markdown-body h3 .anchor {
+  line-height: 1.2;
 }
 
 .markdown-body h4 {
   font-size: 1.25em;
 }
 
+.markdown-body h4 .anchor {
+  line-height: 1.2;
+}
+
 .markdown-body h5 {
   font-size: 1em;
+}
+
+.markdown-body h5 .anchor {
+  line-height: 1.1;
 }
 
 .markdown-body h6 {
   font-size: 1em;
   color: #777;
+}
+
+.markdown-body h6 .anchor {
+  line-height: 1.1;
 }
 
 .markdown-body p,
@@ -395,8 +368,7 @@ body .markdown-body
 .markdown-body ol,
 .markdown-body dl,
 .markdown-body table,
-.markdown-body pre,
-.markdown-body .admonition {
+.markdown-body pre {
   margin-top: 0;
   margin-bottom: 16px;
 }
@@ -486,12 +458,11 @@ body .markdown-body
 
 .markdown-body img {
   max-width: 100%;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+  box-sizing: content-box;
+  background-color: #fff;
 }
 
-.markdown-body code,
-.markdown-body samp {
+.markdown-body code {
   padding: 0;
   padding-top: 0.2em;
   padding-bottom: 0.2em;
@@ -517,11 +488,11 @@ body .markdown-body
   border: 0;
 }
 
-.markdown-body .codehilite {
+.markdown-body .highlight {
   margin-bottom: 16px;
 }
 
-.markdown-body .codehilite pre,
+.markdown-body .highlight pre,
 .markdown-body pre {
   padding: 16px;
   overflow: auto;
@@ -531,7 +502,7 @@ body .markdown-body
   border-radius: 3px;
 }
 
-.markdown-body .codehilite pre {
+.markdown-body .highlight pre {
   margin-bottom: 0;
   word-break: normal;
 }
@@ -557,325 +528,136 @@ body .markdown-body
   content: normal;
 }
 
-/* Admonition */
-.markdown-body .admonition {
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  position: relative;
+.markdown-body kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
   border-radius: 3px;
-  border: 1px solid #e0e0e0;
-  border-left: 6px solid #333;
-  padding: 10px 10px 10px 30px;
+  box-shadow: inset 0 -1px 0 #bbb;
 }
 
-.markdown-body .admonition table {
+.markdown-body .pl-c {
+  color: #969896;
+}
+
+.markdown-body .pl-c1,
+.markdown-body .pl-s .pl-v {
+  color: #0086b3;
+}
+
+.markdown-body .pl-e,
+.markdown-body .pl-en {
+  color: #795da3;
+}
+
+.markdown-body .pl-s .pl-s1,
+.markdown-body .pl-smi {
   color: #333;
 }
 
-.markdown-body .admonition p {
-  padding: 0;
+.markdown-body .pl-ent {
+  color: #63a35c;
 }
 
-.markdown-body .admonition-title {
+.markdown-body .pl-k {
+  color: #a71d5d;
+}
+
+.markdown-body .pl-pds,
+.markdown-body .pl-s,
+.markdown-body .pl-s .pl-pse .pl-s1,
+.markdown-body .pl-sr,
+.markdown-body .pl-sr .pl-cce,
+.markdown-body .pl-sr .pl-sra,
+.markdown-body .pl-sr .pl-sre {
+  color: #183691;
+}
+
+.markdown-body .pl-v {
+  color: #ed6a43;
+}
+
+.markdown-body .pl-id {
+  color: #b52a1d;
+}
+
+.markdown-body .pl-ii {
+  background-color: #b52a1d;
+  color: #f8f8f8;
+}
+
+.markdown-body .pl-sr .pl-cce {
+  color: #63a35c;
   font-weight: bold;
-  margin: 0;
 }
 
-.markdown-body .admonition>.admonition-title {
-  color: #333;
+.markdown-body .pl-ml {
+  color: #693a17;
 }
 
-.markdown-body .attention>.admonition-title {
-  color: #a6d796;
-}
-
-.markdown-body .caution>.admonition-title {
-  color: #d7a796;
-}
-
-.markdown-body .hint>.admonition-title {
-  color: #96c6d7;
-}
-
-.markdown-body .danger>.admonition-title {
-  color: #c25f77;
-}
-
-.markdown-body .question>.admonition-title {
-  color: #96a6d7;
-}
-
-.markdown-body .note>.admonition-title {
-  color: #d7c896;
-}
-
-.markdown-body .admonition:before,
-.markdown-body .attention:before,
-.markdown-body .caution:before,
-.markdown-body .hint:before,
-.markdown-body .danger:before,
-.markdown-body .question:before,
-.markdown-body .note:before {
-  font: normal normal 16px fontawesome-mini;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  line-height: 1.5;
-  color: #333;
-  position: absolute;
-  left: 0;
-  top: 0;
-  padding-top: 10px;
-  padding-left: 10px;
-}
-
-.markdown-body .admonition:before {
-  content: "\f056\00a0";
-  color: 333;
-}
-
-.markdown-body .attention:before {
-  content: "\f058\00a0";
-  color: #a6d796;
-}
-
-.markdown-body .caution:before {
-  content: "\f06a\00a0";
-  color: #d7a796;
-}
-
-.markdown-body .hint:before {
-  content: "\f05a\00a0";
-  color: #96c6d7;
-}
-
-.markdown-body .danger:before {
-  content: "\f057\00a0";
-  color: #c25f77;
-}
-
-.markdown-body .question:before {
-  content: "\f059\00a0";
-  color: #96a6d7;
-}
-
-.markdown-body .note:before {
-  content: "\f040\00a0";
-  color: #d7c896;
-}
-
-.markdown-body .admonition::after {
-  content: normal;
-}
-
-.markdown-body .attention {
-  border-left: 6px solid #a6d796;
-}
-
-.markdown-body .caution {
-  border-left: 6px solid #d7a796;
-}
-
-.markdown-body .hint {
-  border-left: 6px solid #96c6d7;
-}
-
-.markdown-body .danger {
-  border-left: 6px solid #c25f77;
-}
-
-.markdown-body .question {
-  border-left: 6px solid #96a6d7;
-}
-
-.markdown-body .note {
-  border-left: 6px solid #d7c896;
-}
-
-.markdown-body .admonition>*:first-child {
-  margin-top: 0 !important;
-}
-
-.markdown-body .admonition>*:last-child {
-  margin-bottom: 0 !important;
-}
-
-/* progress bar*/
-.markdown-body .progress {
-  display: block;
-  width: 300px;
-  margin: 10px 0;
-  height: 24px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  background-color: #ededed;
-  position: relative;
-  box-shadow: inset -1px 1px 3px rgba(0, 0, 0, .1);
-}
-
-.markdown-body .progress-label {
-  position: absolute;
-  text-align: center;
+.markdown-body .pl-mh,
+.markdown-body .pl-mh .pl-en,
+.markdown-body .pl-ms {
+  color: #1d3e81;
   font-weight: bold;
-  width: 100%; margin: 0;
-  line-height: 24px;
+}
+
+.markdown-body .pl-mq {
+  color: #008080;
+}
+
+.markdown-body .pl-mi {
   color: #333;
-  text-shadow: 1px 1px 0 #fefefe, -1px -1px 0 #fefefe, -1px 1px 0 #fefefe, 1px -1px 0 #fefefe, 0 1px 0 #fefefe, 0 -1px 0 #fefefe, 1px 0 0 #fefefe, -1px 0 0 #fefefe, 1px 1px 2px #000;
-  -webkit-font-smoothing: antialiased !important;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-.markdown-body .progress-bar {
-  height: 24px;
-  float: left;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  background-color: #96c6d7;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), inset 0 -1px 0 rgba(0, 0, 0, .1);
-  background-size: 30px 30px;
-  background-image: -webkit-linear-gradient(
-    135deg, rgba(255, 255, 255, .4) 27%,
-    transparent 27%,
-    transparent 52%, rgba(255, 255, 255, .4) 52%,
-    rgba(255, 255, 255, .4) 77%,
-    transparent 77%, transparent
-  );
-  background-image: -moz-linear-gradient(
-    135deg,
-    rgba(255, 255, 255, .4) 27%, transparent 27%,
-    transparent 52%, rgba(255, 255, 255, .4) 52%,
-    rgba(255, 255, 255, .4) 77%, transparent 77%,
-    transparent
-  );
-  background-image: -ms-linear-gradient(
-    135deg,
-    rgba(255, 255, 255, .4) 27%, transparent 27%,
-    transparent 52%, rgba(255, 255, 255, .4) 52%,
-    rgba(255, 255, 255, .4) 77%, transparent 77%,
-    transparent
-  );
-  background-image: -o-linear-gradient(
-    135deg,
-    rgba(255, 255, 255, .4) 27%, transparent 27%,
-    transparent 52%, rgba(255, 255, 255, .4) 52%,
-    rgba(255, 255, 255, .4) 77%, transparent 77%,
-    transparent
-  );
-  background-image: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, .4) 27%, transparent 27%,
-    transparent 52%, rgba(255, 255, 255, .4) 52%,
-    rgba(255, 255, 255, .4) 77%, transparent 77%,
-    transparent
-  );
-}
-
-.markdown-body .progress-100plus .progress-bar {
-  background-color: #a6d796;
-}
-
-.markdown-body .progress-80plus .progress-bar {
-  background-color: #c6d796;
-}
-
-.markdown-body .progress-60plus .progress-bar {
-  background-color: #d7c896;
-}
-
-.markdown-body .progress-40plus .progress-bar {
-  background-color: #d7a796;
-}
-
-.markdown-body .progress-20plus .progress-bar {
-  background-color: #d796a6;
-}
-
-.markdown-body .progress-0plus .progress-bar {
-  background-color: #c25f77;
-}
-
-.markdown-body .candystripe-animate .progress-bar{
-  -webkit-animation: animate-stripes 3s linear infinite;
-  -moz-animation: animate-stripes 3s linear infinite;
-  animation: animate-stripes 3s linear infinite;
-}
-
-@-webkit-keyframes animate-stripes {
-  0% {
-    background-position: 0 0;
-  }
-
-  100% {
-    background-position: 60px 0;
-  }
-}
-
-@-moz-keyframes animate-stripes {
-  0% {
-    background-position: 0 0;
-  }
-
-  100% {
-    background-position: 60px 0;
-  }
-}
-
-@keyframes animate-stripes {
-  0% {
-    background-position: 0 0;
-  }
-
-  100% {
-    background-position: 60px 0;
-  }
-}
-
-.markdown-body .gloss .progress-bar {
-  box-shadow:
-    inset 0 4px 12px rgba(255, 255, 255, .7),
-    inset 0 -12px 0 rgba(0, 0, 0, .05);
-}
-
-/* MultiMarkdown Critic Blocks */
-.markdown-body .critic_mark {
-  background: #ff0;
-}
-
-.markdown-body .critic_delete {
-  color: #c82829;
-  text-decoration: line-through;
-}
-
-.markdown-body .critic_insert {
-  color: #718c00 ;
-  text-decoration: underline;
-}
-
-.markdown-body .critic_comment {
-  color: #8e908c;
   font-style: italic;
 }
 
-.markdown-body .headeranchor {
-  font: normal normal 16px fontawesome-mini;
-  line-height: 1;
-  display: inline-block;
-  text-decoration: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+.markdown-body .pl-mb {
+  color: #333;
+  font-weight: bold;
 }
 
-.headeranchor:before {
-  content: '\e157';
+.markdown-body .pl-md {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.markdown-body .pl-mi1 {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.markdown-body .pl-mdr {
+  color: #795da3;
+  font-weight: bold;
+}
+
+.markdown-body .pl-mo {
+  color: #1d3e81;
+}
+
+.markdown-body kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb;
+}
+
+.markdown-body .plan-price-unit {
+  color: #767676;
+  font-weight: normal;
 }
 
 .markdown-body .task-list-item {
@@ -887,196 +669,89 @@ body .markdown-body
 }
 
 .markdown-body .task-list-item input {
-  margin: 0 4px 0.25em -20px;
+  margin: 0 0.35em 0.25em -1.6em;
   vertical-align: middle;
 }
 
-/* Media */
-@media only screen and (min-width: 480px) {
-  .markdown-body {
-    font-size:14px;
-  }
+.markdown-body .plan-choice {
+  padding: 15px;
+  padding-left: 40px;
+  display: block;
+  border: 1px solid #e0e0e0;
+  position: relative;
+  font-weight: normal;
+  background-color: #fafafa;
 }
 
-@media only screen and (min-width: 768px) {
-  .markdown-body {
-    font-size:16px;
-  }
+.markdown-body .plan-choice.open {
+  background-color: #fff;
+}
+
+.markdown-body .plan-choice.open .plan-choice-seat-breakdown {
+  display: block;
+}
+
+.markdown-body .plan-choice-free {
+  border-radius: 3px 3px 0 0;
+}
+
+.markdown-body .plan-choice-paid {
+  border-radius: 0 0 3px 3px;
+  border-top: 0;
+  margin-bottom: 20px;
+}
+
+.markdown-body .plan-choice-radio {
+  position: absolute;
+  left: 15px;
+  top: 18px;
+}
+
+.markdown-body .plan-choice-exp {
+  color: #999;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.markdown-body .plan-choice-seat-breakdown {
+  margin-top: 10px;
+  display: none;
+}
+
+.markdown-body :checked+.radio-label {
+  z-index: 1;
+  position: relative;
+  border-color: #4078c0;
 }
 
 @media print {
-  .markdown-body * {
-    background: transparent !important;
-    color: black !important;
-    filter:none !important;
-    -ms-filter: none !important;
-  }
-
-  .markdown-body {
-    font-size:12pt;
-    max-width:100%;
-    outline:none;
-    border: 0;
-  }
-
-  .markdown-body a,
-  .markdown-body a:visited {
-    text-decoration: underline;
-  }
-
-  .markdown-body .headeranchor-link {
-    display: none;
-  }
-
-  .markdown-body a[href]:after {
-    content: " (" attr(href) ")";
-  }
-
-  .markdown-body abbr[title]:after {
-    content: " (" attr(title) ")";
-  }
-
-  .markdown-body .ir a:after,
-  .markdown-body a[href^="javascript:"]:after,
-  .markdown-body a[href^="#"]:after {
-    content: "";
-  }
-
-  .markdown-body pre {
-    white-space: pre;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-  }
-
-  .markdown-body pre,
-  .markdown-body blockquote {
-    border: 1px solid #999;
-    padding-right: 1em;
-    page-break-inside: avoid;
-  }
-
-  .markdown-body .progress,
-  .markdown-body .progress-bar {
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-  }
-
-  .markdown-body .progress {
-    border: 1px solid #ddd;
-  }
-
-  .markdown-body .progress-bar {
-    height: 22px;
-    border-right: 1px solid #ddd;
-  }
-
-  .markdown-body tr,
-  .markdown-body img {
-    page-break-inside: avoid;
-  }
-
-  .markdown-body img {
-    max-width: 100% !important;
-  }
-
-  .markdown-body p,
-  .markdown-body h2,
-  .markdown-body h3 {
-    orphans: 3;
-    widows: 3;
-  }
-
-  .markdown-body h2,
-  .markdown-body h3 {
-    page-break-after: avoid;
+  body .markdown-body {
+    padding: 0;
+    border: none;
   }
 }
-</style><style>/*GitHub*/
-.codehilite {background-color:#fff;color:#333333;}
-.codehilite .hll {background-color:#ffffcc;}
-.codehilite .c{color:#999988;font-style:italic}
-.codehilite .err{color:#a61717;background-color:#e3d2d2}
-.codehilite .k{font-weight:bold}
-.codehilite .o{font-weight:bold}
-.codehilite .cm{color:#999988;font-style:italic}
-.codehilite .cp{color:#999999;font-weight:bold}
-.codehilite .c1{color:#999988;font-style:italic}
-.codehilite .cs{color:#999999;font-weight:bold;font-style:italic}
-.codehilite .gd{color:#000000;background-color:#ffdddd}
-.codehilite .ge{font-style:italic}
-.codehilite .gr{color:#aa0000}
-.codehilite .gh{color:#999999}
-.codehilite .gi{color:#000000;background-color:#ddffdd}
-.codehilite .go{color:#888888}
-.codehilite .gp{color:#555555}
-.codehilite .gs{font-weight:bold}
-.codehilite .gu{color:#800080;font-weight:bold}
-.codehilite .gt{color:#aa0000}
-.codehilite .kc{font-weight:bold}
-.codehilite .kd{font-weight:bold}
-.codehilite .kn{font-weight:bold}
-.codehilite .kp{font-weight:bold}
-.codehilite .kr{font-weight:bold}
-.codehilite .kt{color:#445588;font-weight:bold}
-.codehilite .m{color:#009999}
-.codehilite .s{color:#dd1144}
-.codehilite .n{color:#333333}
-.codehilite .na{color:teal}
-.codehilite .nb{color:#0086b3}
-.codehilite .nc{color:#445588;font-weight:bold}
-.codehilite .no{color:teal}
-.codehilite .ni{color:purple}
-.codehilite .ne{color:#990000;font-weight:bold}
-.codehilite .nf{color:#990000;font-weight:bold}
-.codehilite .nn{color:#555555}
-.codehilite .nt{color:navy}
-.codehilite .nv{color:teal}
-.codehilite .ow{font-weight:bold}
-.codehilite .w{color:#bbbbbb}
-.codehilite .mf{color:#009999}
-.codehilite .mh{color:#009999}
-.codehilite .mi{color:#009999}
-.codehilite .mo{color:#009999}
-.codehilite .sb{color:#dd1144}
-.codehilite .sc{color:#dd1144}
-.codehilite .sd{color:#dd1144}
-.codehilite .s2{color:#dd1144}
-.codehilite .se{color:#dd1144}
-.codehilite .sh{color:#dd1144}
-.codehilite .si{color:#dd1144}
-.codehilite .sx{color:#dd1144}
-.codehilite .sr{color:#009926}
-.codehilite .s1{color:#dd1144}
-.codehilite .ss{color:#990073}
-.codehilite .bp{color:#999999}
-.codehilite .vc{color:teal}
-.codehilite .vg{color:teal}
-.codehilite .vi{color:teal}
-.codehilite .il{color:#009999}
-.codehilite .gc{color:#999;background-color:#EAF2F5}
 </style><title>IHE_ITI_Suppl_IUA</title></head><body><article class="markdown-body"><p><strong>Integrating the Healthcare Enterprise</strong></p>
-<p><img alt="IHE_LOGO_for_tf-docs" src="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/IHE-logo.jpeg" /></p>
+<p><a href="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/IHE-logo.jpeg" target="_blank" rel="noopener noreferrer"><img src="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/IHE-logo.jpeg" alt="IHE_LOGO_for_tf-docs" style="max-width:100%;"></a></p>
 <p><strong>IHE ITI</strong></p>
 <p><strong>Technical Framework Supplement</strong></p>
-<p><strong>Internet User Authorization\
+<p><strong>Internet User Authorization<br>
 (IUA)</strong></p>
 <p><strong>Trial Implementation</strong></p>
 <p>Date: August 17, 2020</p>
 <p>Author: ITI Technical Committee</p>
-<p>Email: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#116;&#105;&#64;&#105;&#104;&#101;&#46;&#110;&#101;&#116;">&#105;&#116;&#105;&#64;&#105;&#104;&#101;&#46;&#110;&#101;&#116;</a></p>
-<p><strong>Please verify you have the most recent version of this document.</strong> See <a href="http://ihe.net/Technical_Frameworks/">here</a> for Trial Implementation and Final Text versions and <a href="http://ihe.net/Public_Comment/">here</a> for Public Comment versions.</p>
+<p>Email: <a href="mailto:iti@ihe.net">iti@ihe.net</a></p>
+<p><strong>Please verify you have the most recent version of this document.</strong> See <a href="http://ihe.net/Technical_Frameworks/" rel="nofollow">here</a> for Trial Implementation and Final Text versions and <a href="http://ihe.net/Public_Comment/" rel="nofollow">here</a> for Public Comment versions.</p>
 <p><strong>Foreword</strong></p>
 <p>This is a supplement to the IHE IT Infrastructure Technical Framework V17.0. Each supplement undergoes a process of public comment and trial implementation before being incorporated into the volumes of the Technical Frameworks.</p>
-<p>This supplement is published on Oktober 30, 2020 for trial implementation and may be available for testing at subsequent IHE Connectathons. The supplement may be amended based on the results of testing. Following successful testing it will be incorporated into the IT Infrastructure Technical Framework. Comments are invited and may be submitted at <a href="http://www.ihe.net/ITI_Public_Comments/">http://www.ihe.net/ITI_Public_Comments</a>.</p>
+<p>This supplement is published on Oktober 30, 2020 for trial implementation and may be available for testing at subsequent IHE Connectathons. The supplement may be amended based on the results of testing. Following successful testing it will be incorporated into the IT Infrastructure Technical Framework. Comments are invited and may be submitted at <a href="http://www.ihe.net/ITI_Public_Comments/" rel="nofollow">http://www.ihe.net/ITI_Public_Comments</a>.</p>
 <p>This supplement describes changes to the existing technical framework documents.</p>
-<p>&ldquo;Boxed&rdquo; instructions like the sample below indicate to the Volume Editor how to integrate the relevant section(s) into the relevant Technical Framework volume.</p>
+<p>"Boxed" instructions like the sample below indicate to the Volume Editor how to integrate the relevant section(s) into the relevant Technical Framework volume.</p>
 <p><strong>Amend Section X.X by the following:</strong></p>
-<p>Where the amendment adds text, make the added text <strong>[bold underline]{.underline}</strong>. Where the amendment removes text, make the removed text <strong><del>bold strikethrough</del></strong>. When entire new sections are added, introduce with editor&rsquo;s instructions to &ldquo;add new text&rdquo; or similar, which for readability are not bolded or underlined.</p>
-<p>General information about IHE can be found at: <a href="http://www.ihe.net/">http://www.ihe.net</a>.</p>
-<p>Information about the IHE IT Infrastructure domain can be found at: <a href="http://www.ihe.net/IHE_Domains/">http://www.ihe.net/IHE_Domains</a>.</p>
-<p>Information about the structure of IHE Technical Frameworks and Supplements can be found at: <a href="http://www.ihe.net/IHE_Process/">http://www.ihe.net/IHE_Process</a> and <a href="http://www.ihe.net/Profiles/">http://www.ihe.net/Profiles</a>.</p>
-<p>The current version of the IHE Technical Framework can be found at: <a href="http://www.ihe.net/Technical_Frameworks/">http://www.ihe.net/Technical_Frameworks</a>.</p>
+<p>Where the amendment adds text, make the added text <strong>[bold underline]{.underline}</strong>. Where the amendment removes text, make the removed text <strong><del>bold strikethrough</del></strong>. When entire new sections are added, introduce with editor's instructions to "add new text" or similar, which for readability are not bolded or underlined.</p>
+<p>General information about IHE can be found at: <a href="http://www.ihe.net/" rel="nofollow">http://www.ihe.net</a>.</p>
+<p>Information about the IHE IT Infrastructure domain can be found at: <a href="http://www.ihe.net/IHE_Domains/" rel="nofollow">http://www.ihe.net/IHE_Domains</a>.</p>
+<p>Information about the structure of IHE Technical Frameworks and Supplements can be found at: <a href="http://www.ihe.net/IHE_Process/" rel="nofollow">http://www.ihe.net/IHE_Process</a> and <a href="http://www.ihe.net/Profiles/" rel="nofollow">http://www.ihe.net/Profiles</a>.</p>
+<p>The current version of the IHE Technical Framework can be found at: <a href="http://www.ihe.net/Technical_Frameworks/" rel="nofollow">http://www.ihe.net/Technical_Frameworks</a>.</p>
 <p><strong>CONTENTS</strong></p>
 <p><a href="#user-content-introduction-to-this-supplement">Introduction to this Supplement</a></p>
 <p><a href="#user-content-problem-statement">Problem Statement</a></p>
@@ -1084,7 +759,7 @@ body .markdown-body
 <p><a href="#user-content-open-issues-and-question">Open Issues and Question</a></p>
 <p><a href="#user-content-closed-issues">Closed Issues</a></p>
 <p><a href="#user-content-general-introduction">General Introduction</a></p>
-<p><a href="#_Toc428776517">Volume 1 &ndash; Profiles</a></p>
+<p><a href="#_Toc428776517">Volume 1 -- Profiles</a></p>
 <p><a href="#user-content-34-iua-profile">34 IUA Profile</a></p>
 <p><a href="#user-content-341-iua-actors-transactions-and-content-modules">34.1 IUA Actors, Transactions, and Content Modules</a></p>
 <p><a href="#user-content-3411-actor-descriptions-and-actor-profile-requirements">34.1.1 Actor Descriptions and Actor Profile Requirements</a></p>
@@ -1101,7 +776,7 @@ body .markdown-body
 <p><a href="#user-content-34422-delegation">34.4.2.2 Delegation</a></p>
 <p><a href="#user-content-345-iua-security-considerations">34.5 IUA Security Considerations</a></p>
 <p><a href="#user-content-346-iua-cross-profile-considerations">34.6 IUA Cross Profile Considerations</a></p>
-<p><a href="#user-content-volume-2----transactions">Volume 2 &ndash; Transactions 18</a></p>
+<p><a href="#user-content-volume-2----transactions">Volume 2 -- Transactions 18</a></p>
 <p><a href="#user-content-371-get-authorization-token">3.71 Get Authorization Token</a></p>
 <p><a href="#user-content-3711-scope">3.71.1 Scope</a></p>
 <p><a href="#user-content-3712-use-case-roles">3.71.2 Use Case Roles</a></p>
@@ -1139,8 +814,10 @@ body .markdown-body
 <p><a href="#user-content-37282-saml-token-option">3.72.8.2 SAML Token Option</a></p>
 <p><a href="#user-content-3729-security-considerations">3.72.9 Security Considerations</a></p>
 <p><a href="#user-content-37291-security-audit-considerations">3.72.9.1 Security Audit Considerations</a></p>
-<h1 id="introduction-to-this-supplement">Introduction to this Supplement<a class="headerlink" href="#introduction-to-this-supplement" title="Permanent link"></a></h1>
-<h3 id="problem-statement">Problem Statement<a class="headerlink" href="#problem-statement" title="Permanent link"></a></h3>
+<h1>
+<a id="user-content-introduction-to-this-supplement" class="anchor" href="#introduction-to-this-supplement" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction to this Supplement</h1>
+<h3>
+<a id="user-content-problem-statement" class="anchor" href="#problem-statement" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Problem Statement</h3>
 <p>This profile is motivated by customer requirements for authorizing network transactions, when using HTTP RESTful transports. IHE has authorization profiles for the Web Services and SOAP based transactions. This profile provides an authorization profile for the HTTP RESTful transactions.</p>
 <p>Being authorized means that the user, patient or provider, has legitimate access to this HTTP RESTful service. The authorization includes identifying the user and the application that is making the request to the HTTP RESTful server, so that server can make further access control decisions.</p>
 <p>The HTTP RESTful transport is being used by many healthcare applications and smart devices. These share a common set of issues. A typical use case example is:</p>
@@ -1155,11 +832,12 @@ body .markdown-body
 <p>Patients want to configure the application to have access to their data without needing the IT staff at the application vendor and resource vendor to set things up.</p>
 </li>
 </ul>
-<p>The HTTP RESTful services may include user driven browser activity, downloaded applications, and automatic devices. The existing IHE ITI XUA Profile fills these needs for the SOAP transport based transactions. The existing IHE ITI EUA Profile fills these needs for various different transports within a single enterprise environment, including HTTP RESTful transports. </p>
+<p>The HTTP RESTful services may include user driven browser activity, downloaded applications, and automatic devices. The existing IHE ITI XUA Profile fills these needs for the SOAP transport based transactions. The existing IHE ITI EUA Profile fills these needs for various different transports within a single enterprise environment, including HTTP RESTful transports.</p>
 <p>The Basic Patient Privacy Consent (BPPC) Profile is associated with this profile and these other existing profile. BPPC covers the legal and administrative needs for consent documentation and associating the patient consent with policy documentation. This profile includes the ability to associate the electronic authorizations with the patient agreements and organizational policies.</p>
 <p>It is important to understand that IUA is not a substitute for the administrative activities (such as withdrawing consent), policy setting, and other activities that BPPC documents. Greater integration of this authorization with third party authorization and consent documentation profiles, such as those found in the IHE BPPC Profile, are a future effort. This profile starts with just the basic authorization activities.</p>
 <p>The administrative actions needed to establish an authorization server for IUA is not covered by these profile. These activities depend upon the operational needs, organizational and privacy policies that apply to a particular deployment.</p>
-<h3 id="background-on-the-problem-environment">Background on the problem environment<a class="headerlink" href="#background-on-the-problem-environment" title="Permanent link"></a></h3>
+<h3>
+<a id="user-content-background-on-the-problem-environment" class="anchor" href="#background-on-the-problem-environment" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Background on the problem environment</h3>
 <p>The application interacts with both patient and authorization server to support the granting of an access token. The application then uses the access token to retrieve and update health related data.</p>
 <p>The key issues here are:</p>
 <ul>
@@ -1195,17 +873,19 @@ body .markdown-body
 </li>
 </ul>
 <p>There are also environmental assumptions made by this profile.</p>
-<p>First, it is assumed that there will many systems working together to build the access control environment, where IUA provides one part only. For example, a glucose monitor may be authorized to have access to a patient&rsquo;s medical record. The expectation is that this will mean access to all of the glucose related information, which will include a variety of measurements and prescriptions. But, it is expected that if the device requests other sensitive health data about it will be rejected.</p>
+<p>First, it is assumed that there will many systems working together to build the access control environment, where IUA provides one part only. For example, a glucose monitor may be authorized to have access to a patient's medical record. The expectation is that this will mean access to all of the glucose related information, which will include a variety of measurements and prescriptions. But, it is expected that if the device requests other sensitive health data about it will be rejected.</p>
 <p>Second, this profile is operating in an environment where access consents are managed by BPPC or other mechanisms. IUA is not a substitute for documenting, establishing, and modifying these legal agreements. For example, there will be a documented consent agreement between a patient and a provider that the provider will provide medical records to a healthcare proxy that is identified and authorized by the patient. BPPC is one way to document that agreement.</p>
-<h1 id="open-issues-and-question">Open Issues and Question<a class="headerlink" href="#open-issues-and-question" title="Permanent link"></a></h1>
+<h1>
+<a id="user-content-open-issues-and-question" class="anchor" href="#open-issues-and-question" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Open Issues and Question</h1>
 <p>None</p>
-<h1 id="closed-issues">Closed Issues<a class="headerlink" href="#closed-issues" title="Permanent link"></a></h1>
+<h1>
+<a id="user-content-closed-issues" class="anchor" href="#closed-issues" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Closed Issues</h1>
 <ul>
 <li>
 <p><strong>Issue 1</strong>: At this time, the method for assignment of client_id is not included in the profile. Registration of clients is a significant operational and security problem that is being postponed until there is more experience with problems in the field and reasonable solutions. In the field there are a variety of methods being tried. Many depend upon physical distribution methods or out of band communications to manage the authentication problems.</p>
 </li>
 <li>
-<p><strong>Issue 2</strong>: This profile does support access token in JWT format and SAML 2.0 Assertions compliant with the XUA profile requirements. An operational environment must ensure, that access tokens are understood by the authorization and resource servers. The Bearer Token option of earlier versions of the profile has been removed, since it does not specify the access token format and attributes used and was thus not interoperable by design.  </p>
+<p><strong>Issue 2</strong>: This profile does support access token in JWT format and SAML 2.0 Assertions compliant with the XUA profile requirements. An operational environment must ensure, that access tokens are understood by the authorization and resource servers. The Bearer Token option of earlier versions of the profile has been removed, since it does not specify the access token format and attributes used and was thus not interoperable by design.</p>
 </li>
 <li>
 <p><strong>Issue 3</strong>: Audit messages are only defined for clients that are also Secure Applications. There is no defined auditing for other clients.</p>
@@ -1223,7 +903,8 @@ body .markdown-body
 <p><strong>Issue 10</strong>: The selected standards are: The OAuth 2.1 Framework, JWT Token, with defined extensions, SAML Token, using the XUA extensions.                 |</p>
 </li>
 </ul>
-<h1 id="general-introduction">General Introduction<a class="headerlink" href="#general-introduction" title="Permanent link"></a></h1>
+<h1>
+<a id="user-content-general-introduction" class="anchor" href="#general-introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>General Introduction</h1>
 <p>Update the following Appendices to the General Introduction as indicated below. Note that these are not appendices to Volume but rather to the General Introduction.</p>
 <p><strong>Appendix A - Actor Summary Definitions</strong></p>
 <p>Add the following actors to the IHE Technical Frameworks General Introduction list of actors:</p>
@@ -1269,23 +950,26 @@ body .markdown-body
 </tr>
 </tbody>
 </table>
-<h1 id="volume-1-profiles">Volume 1 &ndash; Profiles<a class="headerlink" href="#volume-1-profiles" title="Permanent link"></a></h1>
-<h1 id="34-iua-profile">34 IUA Profile<a class="headerlink" href="#34-iua-profile" title="Permanent link"></a></h1>
+<h1>
+<a id="user-content-volume-1----profiles" class="anchor" href="#volume-1----profiles" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Volume 1 -- Profiles</h1>
+<h1>
+<a id="user-content-34-iua-profile" class="anchor" href="#34-iua-profile" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34 IUA Profile</h1>
 <p>The IUA Profile adds authorization information to HTTP RESTful transactions. The IUA actors and behavior will be added to other profiles and transactions that need authorization.</p>
-<h2 id="341-iua-actors-transactions-and-content-modules">34.1 IUA Actors, Transactions, and Content Modules<a class="headerlink" href="#341-iua-actors-transactions-and-content-modules" title="Permanent link"></a></h2>
-<p>The actors in the IUA Profile manage the tokens used for authorization of access to HTTP RESTful services based on the flows and transactions defined in the OAuth 2.1 Authorization Framework [OAuth 2.1]. Authorization Clients interact with the Authorization Server to retrieve access token and incorporate them into HTTP RESTful transactions to authorize access to resources on the Resource Servers. </p>
+<h2>
+<a id="user-content-341-iua-actors-transactions-and-content-modules" class="anchor" href="#341-iua-actors-transactions-and-content-modules" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.1 IUA Actors, Transactions, and Content Modules</h2>
+<p>The actors in the IUA Profile manage the tokens used for authorization of access to HTTP RESTful services based on the flows and transactions defined in the OAuth 2.1 Authorization Framework [OAuth 2.1]. Authorization Clients interact with the Authorization Server to retrieve access token and incorporate them into HTTP RESTful transactions to authorize access to resources on the Resource Servers.</p>
 <p>The OAuth 2.1 Authorization Framework requires client identification, which may be based on a <em>client_id</em> parameter [OAuth 2.1, Section 2.2]. Depending on the grant type, the use of the <em>client_id</em> MAY be required. For example the <em>Authorization Code</em> grant type requires the use of the <em>client_id</em> for client identification [OAuth 2.1, Section 4.1], while the <em>Client Credential</em> grant type does not [OAuth 2.1, Section 4.2].</p>
 <p>The OAuth 2.1 Authorization Framework also requires client authentication for confidential and credential clients [OAuth 2.1, Section 2.3]. It recommends the use of to use asymmetric (public-key based) methods for client authentication [OAuth 2.1, Section 9.1], but allows other suitable HTTP based authentication schemes matching the security policy of the Authorization Server [OAuth 2.1, Section 2.3.2].</p>
-<p>This profile requires the use of a <em>client_id</em> for client identification and a <em>client_secret</em> used with the HTTP Basic Authentication scheme for client authentication of confidential and credential clients, if no other methods for identification and authentication are used.  </p>
+<p>This profile requires the use of a <em>client_id</em> for client identification and a <em>client_secret</em> used with the HTTP Basic Authentication scheme for client authentication of confidential and credential clients, if no other methods for identification and authentication are used.</p>
 <p>Depending on the grant type, the OAuth 2.1 Framework also requires user authentication. For example, the <em>Authorization Code</em> grant type covered by this profile requires user authentication [OAuth 2.1, Section 4.1], while the <em>Client Credential</em> grant type does not [OAuth 2.1, Section 4.2]. The methods used by the authorization server to authenticate the user (e.g., username and password login, session cookies, delegation to Authentication Server) is not scoped in the OAuth 2.1 Authorization Framework [OAuth 2.1, Section 3.1].</p>
 <p>Since user authentication methods chosen depend on the projects or national security policy, they are not scoped in this profile and SHALL be defined in the specific implementation projects or national extensions of this profile. If the user authentication is not implemented in the Authorization Server, the use of OpenID Connect with the Authorization Grant or Hybrid flow is recommended.</p>
-<p>It is the responsibility of the Resource Server to enforce the access policies based on the transaction performed and the information provided in the access token. Therefore the Resource Server must be able to rely upon the decisions made by the Authorization Server (e.g., client identification, user authentication), which requires that a trust relation between the Resource Server and the Authorization Server was established beforehand.  </p>
+<p>It is the responsibility of the Resource Server to enforce the access policies based on the transaction performed and the information provided in the access token. Therefore the Resource Server must be able to rely upon the decisions made by the Authorization Server (e.g., client identification, user authentication), which requires that a trust relation between the Resource Server and the Authorization Server was established beforehand.</p>
 <p>The Resource Server may delegate the access policy enforcement to actors it is grouped with by providing the information from the access token and transaction data, or to other actors (e.g., by implementing the Authorization Decisions Verifier actor of the Secure Retrieve (SeR) supplement).</p>
-<p>Note: An analogy of the segregation of duties for access control between the Authorization Server and the Resource Server is given in a  textbook (<em>Solving Identity Management in Modern Applications</em>, <em>APress 2019</em> by Yvonne Wilson and Abhishek Hingnikar) comparing the authorization and policy enforcement with a ticketing and entrance control to events (e.g, opera, cinema). In this analogy the Authorization Server provides the ticket which authorizes participation, while additional checks are performed to finally participate to the event.  </p>
+<p>Note: An analogy of the segregation of duties for access control between the Authorization Server and the Resource Server is given in a  textbook (<em>Solving Identity Management in Modern Applications</em>, <em>APress 2019</em> by Yvonne Wilson and Abhishek Hingnikar) comparing the authorization and policy enforcement with a ticketing and entrance control to events (e.g, opera, cinema). In this analogy the Authorization Server provides the ticket which authorizes participation, while additional checks are performed to finally participate to the event.</p>
 <p>This profile relies on the OAuth 2.1 Authorization Framework. Since the original publication of OAuth 2.0 in 2012, several new RFCs have been published that add or remove functionality from the core specification. Version 2.1 of the OAuth Authorization Framework consolidates and simplifies the most commonly used features and best practices of OAuth 2.0.</p>
-<p><img alt="IUA Actor Diagram" src="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/1.1_IUA-actor-diagram.png" /></p>
+<p><a href="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/1.1_IUA-actor-diagram.png" target="_blank" rel="noopener noreferrer"><img src="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/1.1_IUA-actor-diagram.png" alt="IUA Actor Diagram" style="max-width:100%;"></a></p>
 <p>Figure 34.1-1: IUA Actor Diagram</p>
-<p>Table 34.1-1 lists the transactions for each actor directly involved in the IUA Profile. To claim compliance with this profile, an actor shall support all required transactions (labeled &ldquo;R&rdquo;) and may support the optional transactions (labeled &ldquo;O&rdquo;).</p>
+<p>Table 34.1-1 lists the transactions for each actor directly involved in the IUA Profile. To claim compliance with this profile, an actor shall support all required transactions (labeled "R") and may support the optional transactions (labeled "O").</p>
 <p>Table 34.1-1: IUA Profile - Actors and Transactions</p>
 <table>
 <thead>
@@ -1323,24 +1007,28 @@ body .markdown-body
 </tr>
 </tbody>
 </table>
-<h3 id="3411-actor-descriptions-and-actor-profile-requirements">34.1.1 Actor Descriptions and Actor Profile Requirements<a class="headerlink" href="#3411-actor-descriptions-and-actor-profile-requirements" title="Permanent link"></a></h3>
+<h3>
+<a id="user-content-3411-actor-descriptions-and-actor-profile-requirements" class="anchor" href="#3411-actor-descriptions-and-actor-profile-requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.1.1 Actor Descriptions and Actor Profile Requirements</h3>
 <p>The IUA actors are expected to be grouped with other actors that perform HTTP RESTful transactions. Grouping an Authorization Client with another actor means that this other actor will provide an access token as part of the HTTP transaction to a HTTP RESTful server. It may perform the Get Authorization [ITI-71] transaction to obtain the access token. The corresponding HTTP RESTful server should be grouped with the Resource Server actor to indicate that the server can perform access control.</p>
-<h4 id="34111-authorization-client">34.1.1.1 Authorization Client<a class="headerlink" href="#34111-authorization-client" title="Permanent link"></a></h4>
+<h4>
+<a id="user-content-34111-authorization-client" class="anchor" href="#34111-authorization-client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.1.1.1 Authorization Client</h4>
 <p>The Authorization Client performs the network transactions and user interactions needed to obtain an access token and to attach that token to transactions to indicate that the transactions are authorized. An Authorization Client in IUA supports the following associated transactions:</p>
 <ul>
 <li>
-<p>Incorporate Authorization Token: In this case the access token has already been obtained and is communicated as part of the HTTP RESTful transaction for some other profile or service. This token indicates that the HTTP RESTful transaction has been authorized by the Authorization Server according to the user&rsquo;s consent.</p>
+<p>Incorporate Authorization Token: In this case the access token has already been obtained and is communicated as part of the HTTP RESTful transaction for some other profile or service. This token indicates that the HTTP RESTful transaction has been authorized by the Authorization Server according to the user's consent.</p>
 </li>
 <li>
 <p>Get Authorization Token: In this case, the Authorization Client actor interacts with an Authorization Server to obtain a token that indicates HTTP RESTful transactions for a particular kind of service and device are authorized by the user. This may include interactions with the user for authentication purposes.</p>
 </li>
 <li>
-<p>An Authorization Client SHOULD query the <a href="http://hl7.org/fhir/R4/http.html#capabilities">capabilities</a> endpoint on the Resource Server to determine if the Resource Server supports IUA. The element <a href="http://hl7.org/fhir/R4/capabilitystatement.html"><strong>CapabilityStatement.rest.security.</strong></a> will be populated with the code &ldquo;IUA&rdquo; at system canonical URL &ldquo;<a href="http://profiles.ihe.net/fhir/ihe.securityTypes/CodeSystem/securityTypes">http://profiles.ihe.net/fhir/ihe.securityTypes/CodeSystem/securityTypes</a>&rdquo;. </p>
+<p>An Authorization Client SHOULD query the <a href="http://hl7.org/fhir/R4/http.html#capabilities" rel="nofollow">capabilities</a> endpoint on the Resource Server to determine if the Resource Server supports IUA. The element <a href="http://hl7.org/fhir/R4/capabilitystatement.html" rel="nofollow"><strong>CapabilityStatement.rest.security.</strong></a> will be populated with the code "IUA" at system canonical URL "<a href="http://profiles.ihe.net/fhir/ihe.securityTypes/CodeSystem/securityTypes" rel="nofollow">http://profiles.ihe.net/fhir/ihe.securityTypes/CodeSystem/securityTypes</a>".</p>
 </li>
 </ul>
-<h4 id="34112-authorization-server">34.1.1.2 Authorization Server<a class="headerlink" href="#34112-authorization-server" title="Permanent link"></a></h4>
-<p>The Authorization Server provides access tokens to requesting clients. In IUA, the Authorization Server uses an authenticated user identity, the requested HTTP RESTful service URL, and other information to determine whether HTTP RESTful transactions are authorized. If authorized, the Authorization Server provides a access token which authorizes the client to retrieve data and documents from the Resource Server.  </p>
-<h4 id="34113-resource-server">34.1.1.3 Resource Server<a class="headerlink" href="#34113-resource-server" title="Permanent link"></a></h4>
+<h4>
+<a id="user-content-34112-authorization-server" class="anchor" href="#34112-authorization-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.1.1.2 Authorization Server</h4>
+<p>The Authorization Server provides access tokens to requesting clients. In IUA, the Authorization Server uses an authenticated user identity, the requested HTTP RESTful service URL, and other information to determine whether HTTP RESTful transactions are authorized. If authorized, the Authorization Server provides a access token which authorizes the client to retrieve data and documents from the Resource Server.</p>
+<h4>
+<a id="user-content-34113-resource-server" class="anchor" href="#34113-resource-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.1.1.3 Resource Server</h4>
 <p>The Resource Server provides services to access protected resources that need authorization. In IUA the Resource Server accepts a HTTP RESTful transaction request with an incorporated access token. It evaluates the access token to verify that the Authorization Server has authorized the transaction. The Resource Server must enforce this authorization and may perform additional authorization decisions that are specific to the requested service. The Resource Server may then allow the transaction to proceed, subject to access control constraints that may also be in place.</p>
 <p>Notes:</p>
 <ol>
@@ -1351,11 +1039,12 @@ body .markdown-body
 <p>In general, Resource Servers perform additional access control decisions and may restrict responses even for transactions authorized by the Authorization Server.</p>
 </li>
 <li>
-<p>Resource Server SHALL declare support for IUA in the <a href="http://hl7.org/fhir/R4/http.html#capabilities">capabilities</a> endpoint using the element <a href="http://hl7.org/fhir/R4/capabilitystatement.html"><strong>CapabilityStatement.rest.security.</strong></a> and the code &ldquo;IUA&rdquo; at system canonical URL &ldquo;<a href="http://profiles.ihe.net/fhir/ihe.securityTypes/CodeSystem/securityTypes">http://profiles.ihe.net/fhir/ihe.securityTypes/CodeSystem/securityTypes</a>&rdquo;.</p>
+<p>Resource Server SHALL declare support for IUA in the <a href="http://hl7.org/fhir/R4/http.html#capabilities" rel="nofollow">capabilities</a> endpoint using the element <a href="http://hl7.org/fhir/R4/capabilitystatement.html" rel="nofollow"><strong>CapabilityStatement.rest.security.</strong></a> and the code "IUA" at system canonical URL "<a href="http://profiles.ihe.net/fhir/ihe.securityTypes/CodeSystem/securityTypes" rel="nofollow">http://profiles.ihe.net/fhir/ihe.securityTypes/CodeSystem/securityTypes</a>".</p>
 </li>
 </ol>
 <p>TODO: do we need a different code for SAML token vs JWT token?</p>
-<h2 id="342-iua-actor-options">34.2 IUA Actor Options<a class="headerlink" href="#342-iua-actor-options" title="Permanent link"></a></h2>
+<h2>
+<a id="user-content-342-iua-actor-options" class="anchor" href="#342-iua-actor-options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.2 IUA Actor Options</h2>
 <p>The <strong>SAML Token Option</strong> enables integration of environments that use both, SAML access token and the OAuth authorization infrastructure. All actors SHALL support the JSON Web Token option and MAY support the SAML Token option.</p>
 <p>Table 34.2-1: IUA - Actors and Options</p>
 <table>
@@ -1399,8 +1088,9 @@ body .markdown-body
 </tr>
 </tbody>
 </table>
-<h2 id="343-iua-required-actor-groupings">34.3 IUA Required Actor Groupings<a class="headerlink" href="#343-iua-required-actor-groupings" title="Permanent link"></a></h2>
-<p>An actor from this profile SHALL implement the required transactions and/or content modules in this profile <strong><em>in addition to</em></strong> all of the transactions required for the grouped actor (Column 2).</p>
+<h2>
+<a id="user-content-343-iua-required-actor-groupings" class="anchor" href="#343-iua-required-actor-groupings" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.3 IUA Required Actor Groupings</h2>
+<p>An actor from this profile SHALL implement the required transactions and/or content modules in this profile <em><strong>in addition to</strong></em> all of the transactions required for the grouped actor (Column 2).</p>
 <table>
 <thead>
 <tr>
@@ -1431,29 +1121,32 @@ body .markdown-body
 </tr>
 </tbody>
 </table>
-<h2 id="344-iua-overview">34.4 IUA Overview<a class="headerlink" href="#344-iua-overview" title="Permanent link"></a></h2>
-<h3 id="3441-concepts">34.4.1 Concepts<a class="headerlink" href="#3441-concepts" title="Permanent link"></a></h3>
-<p>The term &ldquo;authorization&rdquo; and &ldquo;access control&rdquo; are used colloquially for a variety of related activities. All of the concepts listed below are sometimes called &ldquo;authorization&rdquo; or &ldquo;access control&rdquo;. See the IHE ITI Access Control white paper for a detailed discussion of Access Control concepts. This profile will use more specific terms for each of these activities. These are:</p>
+<h2>
+<a id="user-content-344-iua-overview" class="anchor" href="#344-iua-overview" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.4 IUA Overview</h2>
+<h3>
+<a id="user-content-3441-concepts" class="anchor" href="#3441-concepts" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.4.1 Concepts</h3>
+<p>The term "authorization" and "access control" are used colloquially for a variety of related activities. All of the concepts listed below are sometimes called "authorization" or "access control". See the IHE ITI Access Control white paper for a detailed discussion of Access Control concepts. This profile will use more specific terms for each of these activities. These are:</p>
 <ul>
 <li>
-<p>Provisioning &ndash; Setting up the initial rules and updating them when the situation changes. The administrator may say &ldquo;Authorize Dr. X to have access&rdquo;. The steps taken to make this happen are called provisioning.</p>
+<p>Provisioning -- Setting up the initial rules and updating them when the situation changes. The administrator may say "Authorize Dr. X to have access". The steps taken to make this happen are called provisioning.</p>
 </li>
 <li>
-<p>Delegation &ndash; Adding, transferring and revoking authorization from one person to another. This is closely related to provisioning. It differs in that it can only transfer authority that has already been provisioned, and it may track changes to provisioned access for the original person.</p>
+<p>Delegation -- Adding, transferring and revoking authorization from one person to another. This is closely related to provisioning. It differs in that it can only transfer authority that has already been provisioned, and it may track changes to provisioned access for the original person.</p>
 </li>
 <li>
-<p>Authentication &ndash; Determining that the actual user (at the moment of authentication) is the claimed identity.</p>
+<p>Authentication -- Determining that the actual user (at the moment of authentication) is the claimed identity.</p>
 </li>
 <li>
-<p>Authorization &ndash; Determining that the authenticated user is authorized to have access to a resource (at the moment of authorization). The profile describes how to convey authorization decisions. It is not defining how the decision is made.</p>
+<p>Authorization -- Determining that the authenticated user is authorized to have access to a resource (at the moment of authorization). The profile describes how to convey authorization decisions. It is not defining how the decision is made.</p>
 </li>
 <li>
-<p>Access Control &ndash; A system of provisioning, delegation, authentication, and authorization. It is normal to have multiple nested levels of access control. This profile is concerned with whether access is allowed to make the HTTP transaction requests to the specified resources. There are likely also building access controls, resource server access controls, and other access controls involved.</p>
+<p>Access Control -- A system of provisioning, delegation, authentication, and authorization. It is normal to have multiple nested levels of access control. This profile is concerned with whether access is allowed to make the HTTP transaction requests to the specified resources. There are likely also building access controls, resource server access controls, and other access controls involved.</p>
 </li>
 </ul>
-<h3 id="34412-terminology">34.4.1.2 Terminology<a class="headerlink" href="#34412-terminology" title="Permanent link"></a></h3>
-<p>This profile uses the terms &ldquo;access token&rdquo;, &ldquo;refresh token&rdquo;, &ldquo;authorization server&rdquo;, &ldquo;resource server&rdquo;, &ldquo;authorization endpoint&rdquo;, &ldquo;authorization request&rdquo;, &ldquo;authorization response&rdquo;, &ldquo;token endpoint&rdquo;, &ldquo;grant type&rdquo;, &ldquo;access token request&rdquo;, and &ldquo;access token response&rdquo; as defined by The OAuth 2.1 Authorization Framework [OAuth 2.1]. </p>
-<p>The OAuth 2.1 Authorization Framework uses the term &ldquo;resource owner&rdquo; for the user an authorized client may access data on behalf of. Typically in health related environments a healthcare professional access patients or organization related data (resources) for which the healthcare professional is not the &ldquo;legal owner&rdquo; but may access according to the access policies of the environment. To avoid any misunderstandings related to the OAuth term &ldquo;resource owner&rdquo; a the &ldquo;legal owner&rdquo;, this profile uses the term &ldquo;user&rdquo; instead.</p>
+<h3>
+<a id="user-content-34412-terminology" class="anchor" href="#34412-terminology" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.4.1.2 Terminology</h3>
+<p>This profile uses the terms "access token", "refresh token", "authorization server", "resource server", "authorization endpoint", "authorization request", "authorization response", "token endpoint", "grant type", "access token request", and "access token response" as defined by The OAuth 2.1 Authorization Framework [OAuth 2.1].</p>
+<p>The OAuth 2.1 Authorization Framework uses the term "resource owner" for the user an authorized client may access data on behalf of. Typically in health related environments a healthcare professional access patients or organization related data (resources) for which the healthcare professional is not the "legal owner" but may access according to the access policies of the environment. To avoid any misunderstandings related to the OAuth term "resource owner" a the "legal owner", this profile uses the term "user" instead.</p>
 <p>In accordance with the definitions in the OAuth 2.1 Authorization Framework [OAuth 2.1] this profile distinguishes confidential clients and public clients as follows:</p>
 <ul>
 <li>
@@ -1470,14 +1163,17 @@ body .markdown-body
 <ul>
 <li>A public client classification does not automatically mean the client is insecure. Public clients typically are under the full control of the user (e.g., a native app on the users device) and secured against malicious attacks. Public clients just cannot hide authentication data from the user rendering client authentication useless.</li>
 </ul>
-<h3 id="3442-use-cases">34.4.2 Use Cases<a class="headerlink" href="#3442-use-cases" title="Permanent link"></a></h3>
-<h4 id="34421-authorization">34.4.2.1 Authorization<a class="headerlink" href="#34421-authorization" title="Permanent link"></a></h4>
-<p>This profile applies to use cases where a user authorizes an client application to access health data behalf of the user using OAuth. Beyond other, relevant use cases are:   </p>
+<h3>
+<a id="user-content-3442-use-cases" class="anchor" href="#3442-use-cases" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.4.2 Use Cases</h3>
+<h4>
+<a id="user-content-34421-authorization" class="anchor" href="#34421-authorization" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.4.2.1 Authorization</h4>
+<p>This profile applies to use cases where a user authorizes an client application to access health data behalf of the user using OAuth. Beyond other, relevant use cases are:</p>
 <p>A healthcare professional uses a server hosted web application to access a patients electronic health record (EHR) using RESTful transactions. The web application has been registered beforehand at the Authorization Server with client ID and client authentication method (e.g. client secret) by a system administrator. When accessing a view on the EHR, the browser is redirected to the EHR Authorization Server. The Authorization Server authenticates the healthcare professional either by presenting the views to enter the authentication factors (e.g. username, password and 2nd factor) or by redirecting to an Identity Provider (IdP). This step may be omitted, if the browser already has an authenticated session (e.g. session cookie). After user authentication, the Authorization Server performs the necessary steps to authorize the web application access to the EHR data, either by contract or by explicit consent given by the healthcare professional. When authorized, the web application retrieves an access token which authorizes it to request and retrieve the EHR data from the Resource Server(s) on behalf of the healthcare professional.</p>
-<p>A healthcare professional uses a single page web application to access a patients electronic health record (EHR) using RESTful transactions. At initial startup the app registers with the Authorization Server using a dynamic client registration protocol. When accessing a view on the EHR, the steps follow the same steps as in the web application use case above.   </p>
-<p>A clinical monitor managed by the hospital system administrators access a patients EHR using RESTful transactions in the hospital LAN. At installation time, clinical monitor has been registered at the Authorization Server with client ID and client authentication method (e.g. client secret) by the system administrator and a contracts (policies) have been deposited at the Authorization Server and Resource Server(s) authorizing access to the EHR. Before accessing patient EHR data, the clinical monitor requests an access token from the Authorization Server using the client credential grant type. The clinical monitor incorporates the access token to the RESTful transactions to access EHR data and documents stored in the EHR Resource Server(s).       <br />
+<p>A healthcare professional uses a single page web application to access a patients electronic health record (EHR) using RESTful transactions. At initial startup the app registers with the Authorization Server using a dynamic client registration protocol. When accessing a view on the EHR, the steps follow the same steps as in the web application use case above.</p>
+<p>A clinical monitor managed by the hospital system administrators access a patients EHR using RESTful transactions in the hospital LAN. At installation time, clinical monitor has been registered at the Authorization Server with client ID and client authentication method (e.g. client secret) by the system administrator and a contracts (policies) have been deposited at the Authorization Server and Resource Server(s) authorizing access to the EHR. Before accessing patient EHR data, the clinical monitor requests an access token from the Authorization Server using the client credential grant type. The clinical monitor incorporates the access token to the RESTful transactions to access EHR data and documents stored in the EHR Resource Server(s).<br>
 A patient uses a native app on her mobile device to access data from her electronic health record (EHR) using RESTful transactions via the Internet. At first startup the app registers with the Authorization Server using a dynamic client registration protocol. When accessing a view on the EHR, the native app is redirected to the EHR Authorization Server, which authenticates the patient either by presenting the views to enter the authentication factors (e.g. username, password and 2nd factor) or by delegating to an Identity Provider (IdP). After user authentication, the Authorization Server performs the necessary steps to authorize the native app to access to the EHR data by explicit user consent. When authorized, the native app retrieves an access token which authorizes the app to request and retrieve the EHR data from the Resource Server(s) on behalf of the patient.</p>
-<h4 id="34422-delegation">34.4.2.2 Delegation<a class="headerlink" href="#34422-delegation" title="Permanent link"></a></h4>
+<h4>
+<a id="user-content-34422-delegation" class="anchor" href="#34422-delegation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.4.2.2 Delegation</h4>
 <p>There are multiple reasons to perform delegations. These cases primarily involve patient delegation choices. Providers rarely have the authority to delegate. IT staff may use delegation as part of the support for autonomous devices.</p>
 <p>Users may delegate authority to:</p>
 <ul>
@@ -1489,13 +1185,15 @@ A patient uses a native app on her mobile device to access data from her electro
 </li>
 </ul>
 <p>Revocation of delegation needs to be clearly specified by policy. Revocation may be removal of rights because of swapping devices. Expiration, re-authorization, etc. also need to be covered. Revocation is not just a response to breaches and failures. Revocation is a normal response to changes in people, equipment, and relationships.</p>
-<h1 id="345-iua-security-considerations">34.5 IUA Security Considerations<a class="headerlink" href="#345-iua-security-considerations" title="Permanent link"></a></h1>
+<h1>
+<a id="user-content-345-iua-security-considerations" class="anchor" href="#345-iua-security-considerations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.5 IUA Security Considerations</h1>
 <p>IUA uses OAuth 2.1 which contains references to security analyses. There are also a variety of analyses available in the public literature. This profile does not introduce new considerations to those analyses. We have not identified any new healthcare related issues.</p>
 <p>For confidential clients this profiles requires client authentication using client_id and client_secret, if no other reliable client authentication method is used, and the client registration with a fixed redirect_uri.</p>
 <p>IUA does not address issues around issuing and revoking client_ids. OAuth 2.1 relies upon the client_id for client identification and authorization. OAuth 2.1 does not further define how client_ids are managed.</p>
-<p>Usually Authorization Server publish web forms where system administrators and users can apply for a client_ID. OAuth 2.1 defines a mechanism for dynamically registering clients with authorization servers, by defining a set of desired client metadata values to be made available to the authorization servers [OAuth 2.1, Section 2].  </p>
+<p>Usually Authorization Server publish web forms where system administrators and users can apply for a client_ID. OAuth 2.1 defines a mechanism for dynamically registering clients with authorization servers, by defining a set of desired client metadata values to be made available to the authorization servers [OAuth 2.1, Section 2].</p>
 <p>The Authorization Server will have an administratively managed list of approved client_ids for accepted clients. This list will be updated as new clients are approved or existing clients are removed. An access token will not be issued for unapproved clients. This assumes that the client_id management will deal with these security considerations in a manner similar to the certificate management assumptions made for secure communication transactions.</p>
-<h1 id="346-iua-cross-profile-considerations">34.6 IUA Cross Profile Considerations<a class="headerlink" href="#346-iua-cross-profile-considerations" title="Permanent link"></a></h1>
+<h1>
+<a id="user-content-346-iua-cross-profile-considerations" class="anchor" href="#346-iua-cross-profile-considerations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.6 IUA Cross Profile Considerations</h1>
 <p>The XUA profile provides equivalent functionality for SOAP based transactions. Both profiles, XUA and IUA define a transaction to incorporate a token to transactions accessing protected data. Both profiles have much in common, but also some remarkable differences:</p>
 <ul>
 <li>
@@ -1505,13 +1203,15 @@ A patient uses a native app on her mobile device to access data from her electro
 <p>While the XUA profile relies on ATNA Node Authentication to authenticate the client (or client network node), IUA uses the mechanism defined in the OAuth 2.1 Authorization Framework to authenticate client applications.</p>
 </li>
 <li>
-<p>While XUA supports SAML 2 Assertions only, the IUA profile supports access token in JWT and SAML 2.0 Assertion format.  </p>
+<p>While XUA supports SAML 2 Assertions only, the IUA profile supports access token in JWT and SAML 2.0 Assertion format.</p>
 </li>
 </ul>
-<p>The SAML token option in IUA enables an Authorization Client actor to incorporate access token originally retrieved and issued from a XUA X-Assertion Provider and use it in the Incorporate Authorization Token [ITI-72] transaction, when accessing protected data from a Resource Server via RESTful transactions.   </p>
-<h1 id="volume-2-transactions">Volume 2 &ndash; Transactions<a class="headerlink" href="#volume-2-transactions" title="Permanent link"></a></h1>
+<p>The SAML token option in IUA enables an Authorization Client actor to incorporate access token originally retrieved and issued from a XUA X-Assertion Provider and use it in the Incorporate Authorization Token [ITI-72] transaction, when accessing protected data from a Resource Server via RESTful transactions.</p>
+<h1>
+<a id="user-content-volume-2----transactions" class="anchor" href="#volume-2----transactions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Volume 2 -- Transactions</h1>
 <p><strong>Add Section 3.71</strong></p>
-<h1 id="371-get-authorization-token">3.71 Get Authorization Token<a class="headerlink" href="#371-get-authorization-token" title="Permanent link"></a></h1>
+<h1>
+<a id="user-content-371-get-authorization-token" class="anchor" href="#371-get-authorization-token" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71 Get Authorization Token</h1>
 <p>This transaction is used by Authorization Client actors to obtain an OAuth 2.1 compliant access token for use in a RESTful transaction to access data from a Resource Server actor.</p>
 <p>The OAuth 2.1 Authorization Framework [OAuth 2.1, Section 4] defines the following authorization grant types:</p>
 <ul>
@@ -1524,12 +1224,15 @@ A patient uses a native app on her mobile device to access data from her electro
 </ul>
 <p>The OAuth 2.1 Authorization Framework further defines extension points to implement extension grant types [OAuth 2.1, Section 4.3], e.g.:</p>
 <ul>
-<li><em>Device Authorization</em> [RFC 8628]. This grant type is optimized for devices that cannot use a browser to perform a user-agent- based authorization or don’t provide interfaces for the user to input text required for authorization and authentication (e.g., medical devices, mobile health sensors).</li>
+<li>
+<em>Device Authorization</em> [RFC 8628]. This grant type is optimized for devices that cannot use a browser to perform a user-agent- based authorization or don’t provide interfaces for the user to input text required for authorization and authentication (e.g., medical devices, mobile health sensors).</li>
 </ul>
-<p>This profile is scoped to the <em>Authorization Code</em> and <em>Client Credential</em> grant types. To claim compliance with this profile, the Authorization Server actor SHALL support the <em>Authorization Code</em> and <em>Client Credential</em> grant type and MAY support the <em>Device Authorization</em> or other OAuth 2.1 extension grant types.   </p>
-<h3 id="3711-scope">3.71.1 Scope<a class="headerlink" href="#3711-scope" title="Permanent link"></a></h3>
+<p>This profile is scoped to the <em>Authorization Code</em> and <em>Client Credential</em> grant types. To claim compliance with this profile, the Authorization Server actor SHALL support the <em>Authorization Code</em> and <em>Client Credential</em> grant type and MAY support the <em>Device Authorization</em> or other OAuth 2.1 extension grant types.</p>
+<h3>
+<a id="user-content-3711-scope" class="anchor" href="#3711-scope" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.1 Scope</h3>
 <p>This transaction SHALL be used by Authorization Client actors to retrieve an OAuth 2.1 compliant access token defined in Section 3.71.6 Message Semantics of this profile.</p>
-<h3 id="3712-use-case-roles">3.71.2 Use Case Roles<a class="headerlink" href="#3712-use-case-roles" title="Permanent link"></a></h3>
+<h3>
+<a id="user-content-3712-use-case-roles" class="anchor" href="#3712-use-case-roles" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.2 Use Case Roles</h3>
 <p>This profile defines the following actors and roles:</p>
 <p>Table 3.71.2-1: Actor Roles</p>
 <table>
@@ -1550,8 +1253,9 @@ A patient uses a native app on her mobile device to access data from her electro
 </tr>
 </tbody>
 </table>
-<h3 id="3713-referenced-standards">3.71.3 Referenced Standards<a class="headerlink" href="#3713-referenced-standards" title="Permanent link"></a></h3>
-<p>This transaction relies on standards defined in the following documents and the references therein: </p>
+<h3>
+<a id="user-content-3713-referenced-standards" class="anchor" href="#3713-referenced-standards" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.3 Referenced Standards</h3>
+<p>This transaction relies on standards defined in the following documents and the references therein:</p>
 <ul>
 <li>
 <p><em>OAuth 2.1</em>: The OAuth 2.1 Authorization Framework, published as draft-ietf-oauth-v2-1-00, July 30, 2020.</p>
@@ -1560,25 +1264,26 @@ A patient uses a native app on her mobile device to access data from her electro
 <p><em>JWT Access Token</em>: JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens, published as draft-ietf-oauth-access-token-jwt-07, April 2020.</p>
 </li>
 <li>
-<p><em>RFC 7519</em>: JSON Web Token (JWT), May 2015.  </p>
+<p><em>RFC 7519</em>: JSON Web Token (JWT), May 2015.</p>
 </li>
 <li>
-<p><em>RFC 7522</em>: Security Assertion Markup Language (SAML) 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants, May 2015. </p>
+<p><em>RFC 7522</em>: Security Assertion Markup Language (SAML) 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants, May 2015.</p>
 </li>
 <li>
-<p><em>RFC 7515</em>: JSON Web Signature (JWS), May 2015. </p>
+<p><em>RFC 7515</em>: JSON Web Signature (JWS), May 2015.</p>
 </li>
 <li>
-<p><em>RFC 7518</em>: JSON Web Algorithms (JWA), May 2015. </p>
+<p><em>RFC 7518</em>: JSON Web Algorithms (JWA), May 2015.</p>
 </li>
 <li>
-<p><em>HEART scopes</em>: Health Relationship Trust Profile for Fast Healthcare Interoperability Resources (FHIR) OAuth 2.0 Scopes, July 2018. </p>
+<p><em>HEART scopes</em>: Health Relationship Trust Profile for Fast Healthcare Interoperability Resources (FHIR) OAuth 2.0 Scopes, July 2018.</p>
 </li>
 </ul>
-<h3 id="3714-interaction-diagram">3.71.4 Interaction Diagram<a class="headerlink" href="#3714-interaction-diagram" title="Permanent link"></a></h3>
-<p><img alt="ITI-71 Flow Diagram" src="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/basic-flow.png" /></p>
+<h3>
+<a id="user-content-3714-interaction-diagram" class="anchor" href="#3714-interaction-diagram" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.4 Interaction Diagram</h3>
+<p><a href="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/basic-flow.png" target="_blank" rel="noopener noreferrer"><img src="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/basic-flow.png" alt="ITI-71 Flow Diagram" style="max-width:100%;"></a></p>
 <p>Figure 3.71.4-1: Basic Process of the Authorization Token Request and Incorporate Authorization Token transaction</p>
-<div class="codehilite"><pre>\@startuml
+<pre><code>\@startuml
 
 group Get Authorization Token \[ITI-71\]
 AuthorizationClient -&gt; AuthorizationServer : Authorization Request
@@ -1591,8 +1296,7 @@ AuthorizationClient &lt;- ResourceServer : Resource Response
 end
 
 \@enduml
-</pre></div>
-
+</code></pre>
 <p>Main Flow:</p>
 <ol>
 <li>
@@ -1602,24 +1306,26 @@ end
 <p>The Authorization Server authenticates the client, validates the claims against the user consent and generates an access token that authorizes the Authorization Client actor to request the protected resources from the Resource Server.</p>
 </li>
 <li>
-<p>The Authorization Server incorporates the access token to the requests of the protected resources to the Resource Server. </p>
+<p>The Authorization Server incorporates the access token to the requests of the protected resources to the Resource Server.</p>
 </li>
 <li>
-<p>The Resource Server evaluates the access token and the resource request and enforces the access policies. </p>
+<p>The Resource Server evaluates the access token and the resource request and enforces the access policies.</p>
 </li>
 </ol>
-<h4 id="37141-get-authorization-token-request">3.71.4.1 Get Authorization Token Request<a class="headerlink" href="#37141-get-authorization-token-request" title="Permanent link"></a></h4>
+<h4>
+<a id="user-content-37141-get-authorization-token-request" class="anchor" href="#37141-get-authorization-token-request" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.4.1 Get Authorization Token Request</h4>
 <p>The sequence of HTTP(S) requests to perform an Get Authorization Token transaction depends on the grant type chosen.</p>
-<h5 id="371411-client-credential-grant-type">3.71.4.1.1 Client Credential grant type<a class="headerlink" href="#371411-client-credential-grant-type" title="Permanent link"></a></h5>
-<p><img alt="ITI-71 Client Credential" src="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/client-credential-grant.png" /></p>
+<h5>
+<a id="user-content-371411-client-credential-grant-type" class="anchor" href="#371411-client-credential-grant-type" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.4.1.1 Client Credential grant type</h5>
+<p><a href="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/client-credential-grant.png" target="_blank" rel="noopener noreferrer"><img src="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/client-credential-grant.png" alt="ITI-71 Client Credential" style="max-width:100%;"></a></p>
 <p>Figure 3.71.4.1.1-1: Sequence of HTTP requests in the client credential grant type.</p>
-<div class="codehilite"><pre>@startuml
+<pre><code>@startuml
 
-participant &quot;Authorization Client&quot; as Client
-participant &quot;Authorization Server&quot; as AuthzServer
-participant &quot;Resource Server&quot; as ResourceServer
+participant "Authorization Client" as Client
+participant "Authorization Server" as AuthzServer
+participant "Resource Server" as ResourceServer
 
-autonumber 0 1 &quot;&lt;b&gt;[00]&quot;
+autonumber 0 1 "&lt;b&gt;[00]"
 
 group Get Authorization Token [ITI-71]
 Client -&gt; AuthzServer: Access Token Request
@@ -1634,8 +1340,7 @@ end
 autonumber stop
 
 @enduml
-</pre></div>
-
+</code></pre>
 <p>The Authorization Client actor requests an access token using client credentials (or other supported means of authentication). This grant type SHALL be used by confidential clients only [OAuth 2.1, Section 4.2].</p>
 <p>The Authorization Client actor makes a HTTP(s) POST request to the token endpoint with the following parameters in the HTTP request entity-body [OAuth 2.1, Section 4.2.2]:</p>
 <ul>
@@ -1650,8 +1355,8 @@ autonumber stop
 </li>
 </ul>
 <p>The request SHALL use the <em>application/x-www-form-urlencoded</em> format with a character encoding of UTF-8 [OAuth 2.1, Section 4.4.2].</p>
-<p>A non-normative example of the access token request with client authentication using the <em>client_id</em> and <em>client_secret</em> in the HTTP Authorization header, MAY be as follows: </p>
-<div class="codehilite"><pre>POST /token HTTP/1.1
+<p>A non-normative example of the access token request with client authentication using the <em>client_id</em> and <em>client_secret</em> in the HTTP Authorization header, MAY be as follows:</p>
+<pre><code>POST /token HTTP/1.1
 Host: server.example.com
 Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
 Content-Type: application/x-www-form-urlencoded
@@ -1659,8 +1364,7 @@ Content-Type: application/x-www-form-urlencoded
 grant_type=client_credentials
 &amp;scope=scope_1 scope_2 ... scope_N
 &amp;resource=https://rs.example.com/
-</pre></div>
-
+</code></pre>
 <p>If the access token request is valid and authorized, the Authorization Server responds the access token response message in JSON format with the following attributes [OAuth 2.1, Section 4.2.3]:</p>
 <ul>
 <li>
@@ -1673,39 +1377,39 @@ grant_type=client_credentials
 <p><em>scope</em> (REQUIRED): The scope granted by the Authorization Server.</p>
 </li>
 <li>
-<p><em>expires_in</em> (OPTIONAL): This parameter MAY be used to inform the Authorization Client how long the access token is valid.  </p>
+<p><em>expires_in</em> (OPTIONAL): This parameter MAY be used to inform the Authorization Client how long the access token is valid.</p>
 </li>
 </ul>
 <p>The access token response MAY contain other parameter or extensions depending on the implementation details of the Authorization Server actor [OAuth 2.1, Section 4.2.3].</p>
 <p>The Authorization Server SHALL include the HTTP <em>Cache-Control</em> response header field with value <em>no-store</em> and the <em>Pragma</em> response header field value <em>no-cache</em> to the access token response [OAuth 2.1, Section 4.2.3].</p>
 <p>A non-normative example of the access token response is as follows:</p>
-<div class="codehilite"><pre>HTTP/1.1 200 OK
+<pre><code>HTTP/1.1 200 OK
 Content-Type: application/json
 Cache-Control: no-store
 Pragma: no-cache
 {
-  &quot;token_type&quot;: &quot;Bearer&quot;,
-  &quot;access_token&quot;: &quot;2YotnFZFEjr1zCsicMWpAA&quot;,
-  &quot;scope&quot;: scope_1 scope_2 ... scope_M
-  &quot;expires_in&quot;: 3600,
-  &quot;example_parameter&quot;: &quot;example_value&quot;
+  "token_type": "Bearer",
+  "access_token": "2YotnFZFEjr1zCsicMWpAA",
+  "scope": scope_1 scope_2 ... scope_M
+  "expires_in": 3600,
+  "example_parameter": "example_value"
 }
-</pre></div>
-
-<p>The Authorization Server SHALL respond an error response as defined in the OAuth 2.1 Authorization Framework [OAuth 2.1, Section 5.2] if the request does not match the requirements or is not understood.  </p>
-<h5 id="371412-authorization-code-grant-type">3.71.4.1.2 Authorization Code grant type<a class="headerlink" href="#371412-authorization-code-grant-type" title="Permanent link"></a></h5>
-<p><img alt="ITI-71 Authorization Code" src="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/authorization-code-grant.png" /></p>
+</code></pre>
+<p>The Authorization Server SHALL respond an error response as defined in the OAuth 2.1 Authorization Framework [OAuth 2.1, Section 5.2] if the request does not match the requirements or is not understood.</p>
+<h5>
+<a id="user-content-371412-authorization-code-grant-type" class="anchor" href="#371412-authorization-code-grant-type" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.4.1.2 Authorization Code grant type</h5>
+<p><a href="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/authorization-code-grant.png" target="_blank" rel="noopener noreferrer"><img src="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/authorization-code-grant.png" alt="ITI-71 Authorization Code" style="max-width:100%;"></a></p>
 <p>Figure 3.71.4.1.1-1: Sequence of HTTP requests in the client authorization code grant type.</p>
-<div class="codehilite"><pre>@startuml
+<pre><code>@startuml
 
 actor User
 
-participant &quot;User Agent&quot; as UserAgent
-participant &quot;Authorization Client&quot; as Client
-participant &quot;Authorization Server&quot; as AuthzServer
-participant &quot;Resource Server&quot; as ResourceServer
+participant "User Agent" as UserAgent
+participant "Authorization Client" as Client
+participant "Authorization Server" as AuthzServer
+participant "Resource Server" as ResourceServer
 
-autonumber 0 1 &quot;&lt;b&gt;[00]&quot;
+autonumber 0 1 "&lt;b&gt;[00]"
 
 User -&gt; UserAgent: Access resource
 UserAgent -&gt; Client: Access resource
@@ -1737,10 +1441,9 @@ UserAgent -&gt; User : Show result
 autonumber stop
 
 @enduml
-</pre></div>
-
+</code></pre>
 <p>This grant type SHALL be used by confidential, credential and public clients, if the explicit consent of the user is required to authorize the Authorization Client to access data on behalf of the user.</p>
-<p>The Authorization Client actor directs the user-agent to make a HTTP GET request to the authorization endpoint with the following parameters using the &ldquo;application/x-www-form-urlencoded&rdquo; format [OAuth 2.1, Section 4.1.1.3]:</p>
+<p>The Authorization Client actor directs the user-agent to make a HTTP GET request to the authorization endpoint with the following parameters using the "application/x-www-form-urlencoded" format [OAuth 2.1, Section 4.1.1.3]:</p>
 <ul>
 <li>
 <p><em>response_type</em> (REQUIRED): The value must be <em>code</em>.</p>
@@ -1749,26 +1452,26 @@ autonumber stop
 <p><em>client_id</em> (REQUIRED, IF KNOWN): The identifier the Authorization Client is registered at the Authorization Server.</p>
 </li>
 <li>
-<p><em>state</em> (REQUIRED): An unguessable value used by the client to track the state between the authorization request and the callback to the redirect URI. While this parameter is optional in the OAuth 2.1 Authorization Framework [OAuth 2.1, Section 4.1.1.3] it is required in this profile for security reasons. </p>
+<p><em>state</em> (REQUIRED): An unguessable value used by the client to track the state between the authorization request and the callback to the redirect URI. While this parameter is optional in the OAuth 2.1 Authorization Framework [OAuth 2.1, Section 4.1.1.3] it is required in this profile for security reasons.</p>
 </li>
 <li>
 <p><em>resource</em> (REQUIRED): Single valued identifier of the Resource Server api endpoint to be accessed [JWT Access Token, Section 3].</p>
 </li>
 <li>
-<p><em>code_challenge</em> (REQUIRED): A challenge derived from the client generated code verifier used to correlate the authorization request to the token request [OAuth 2.1, Section 4.1.1 and references therein]. </p>
+<p><em>code_challenge</em> (REQUIRED): A challenge derived from the client generated code verifier used to correlate the authorization request to the token request [OAuth 2.1, Section 4.1.1 and references therein].</p>
 </li>
 <li>
-<p><em>code_challenge_method</em> (OPTIONAL): Indicator used for the code challenge transformation method. It&rsquo;s value MAY be <em>plain</em> or <em>S256</em> [OAuth 2.1, Section 9.8].  </p>
+<p><em>code_challenge_method</em> (OPTIONAL): Indicator used for the code challenge transformation method. It's value MAY be <em>plain</em> or <em>S256</em> [OAuth 2.1, Section 9.8].</p>
 </li>
 <li>
-<p><em>redirect_uri</em> (OPTIONAL): The absolute URI of the Authorization Client callback endpoint to which the authorization server will send the user agent back once access is granted (or denied). This parameter is required if the Authorization Client is registered at the Authorization Server with multiple redirect URI, optional otherwise [OAuth 2.1, Section 3.1.2.3].  </p>
+<p><em>redirect_uri</em> (OPTIONAL): The absolute URI of the Authorization Client callback endpoint to which the authorization server will send the user agent back once access is granted (or denied). This parameter is required if the Authorization Client is registered at the Authorization Server with multiple redirect URI, optional otherwise [OAuth 2.1, Section 3.1.2.3].</p>
 </li>
 <li>
 <p><em>scope</em> (OPTIONAL): The scope claimed by the Authorization Client.</p>
 </li>
 </ul>
 <p>A non-normative example of the authorization request is as follows:</p>
-<div class="codehilite"><pre>GET /authorize?response_type=code&amp;
+<pre><code>GET /authorize?response_type=code&amp;
 client_id=s6BhdRkqt3&amp;
 state=xyz&amp;
 redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb&amp;
@@ -1778,41 +1481,39 @@ resource=https%3A%2F%2Frs.example.com%2F
 &amp;scope=scope_1%20scope_2%20scope_N 
 HTTP/1.1
 Host: server.example.com
-</pre></div>
-
+</code></pre>
 <p>If the user grants the access request, the Authorization Server directs the user agent to the Authorization Clients redirect URI with the authorization response parameter in the <em>application/x-www-form-urlencoded</em> format. The response parameter SHALL be as follows:</p>
 <ul>
 <li>
-<p><em>code</em> (REQUIRED): The authorization code generated by the Authorization Server.  </p>
+<p><em>code</em> (REQUIRED): The authorization code generated by the Authorization Server.</p>
 </li>
 <li>
 <p><em>state</em> (REQUIRED): An unguessable value used by the client to track the state between the authorization request and the callback.</p>
 </li>
 </ul>
-<div class="codehilite"><pre>HTTP/1.1 302 Found
+<pre><code>HTTP/1.1 302 Found
 Location: https://client.example.com/cb?code=SplxlOBeZQQYbYS6WxSbIA&amp;state=xyz
-</pre></div>
-
-<p>The Authorization Client SHALL use the <em>authorization code</em> in an access token request to retrieve an access token and token metadata from the Authorization Server. It makes a HTTP POST request to the token endpoint with the following parameters in the HTTP request entity-body [OAuth 2.1, Section 4.1.3]:   </p>
+</code></pre>
+<p>The Authorization Client SHALL use the <em>authorization code</em> in an access token request to retrieve an access token and token metadata from the Authorization Server. It makes a HTTP POST request to the token endpoint with the following parameters in the HTTP request entity-body [OAuth 2.1, Section 4.1.3]:</p>
 <ul>
 <li>
-<p><em>grant_type</em> (REQUIRED): The value SHALL be &ldquo;authorization_code&rdquo;.</p>
+<p><em>grant_type</em> (REQUIRED): The value SHALL be "authorization_code".</p>
 </li>
 <li>
 <p><em>code</em> (REQUIRED): The authorization code received from the Authorization Server in the authorization response.</p>
 </li>
 <li>
-<p><em>redirect_uri</em> (REQUIRED): The redirect URI of the Authorization Client callback. The value SHALL match the redirect URI the Authorization Client is registered at the Authorization Server and the value of the <em>redirect_uri</em>, if presented in the authorization request. </p>
+<p><em>redirect_uri</em> (REQUIRED): The redirect URI of the Authorization Client callback. The value SHALL match the redirect URI the Authorization Client is registered at the Authorization Server and the value of the <em>redirect_uri</em>, if presented in the authorization request.</p>
 </li>
 <li>
 <p><em>client_id</em> (REQUIRED): The client ID the Authorization Client is registered with at the Authorization Server, if no othe authentication scheme is used for client authentication.</p>
 </li>
 <li>
-<p><em>code_verifier</em>: The original code verifier string. REQUIRED, if the &ldquo;code_challenge&rdquo; parameter was used in the authorization request. SHALL NOT be used otherwise. </p>
+<p><em>code_verifier</em>: The original code verifier string. REQUIRED, if the "code_challenge" parameter was used in the authorization request. SHALL NOT be used otherwise.</p>
 </li>
 </ul>
 <p>A non-normative example of the access token request with client authentication using the <em>client_id</em> and <em>client_secret</em> in the HTTP Authorization header, MAY be as follows:</p>
-<div class="codehilite"><pre>POST /token HTTP/1.1
+<pre><code>POST /token HTTP/1.1
 Host: server.example.com
 Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
 Content-Type: application/x-www-form-urlencoded
@@ -1821,8 +1522,7 @@ grant_type=authorization_code
 &amp;code=SplxlOBeZQQYbYS6WxSbIA 
 &amp;redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb
 &amp;code_verifier=3641a2d12d66101249cdf7a79c000c1f8c05d2aafcf14bf146497bed
-</pre></div>
-
+</code></pre>
 <p>If the access token request is valid and authorized, the Authorization Server responds with an access token response message in JSON format with the following attributes [OAuth 2.1, Section 4.1.4]:</p>
 <ul>
 <li>
@@ -1832,117 +1532,128 @@ grant_type=authorization_code
 <p><em>access_token</em> (REQUIRED): The access token as JSON Web Token or SAML 2.0 assertion as described below.</p>
 </li>
 <li>
-<p><em>scope</em> (REQUIRED): Used to inform the client which scopes were granted by the Authorization Server [OAuth 2.1, Section 3.3]. </p>
+<p><em>scope</em> (REQUIRED): Used to inform the client which scopes were granted by the Authorization Server [OAuth 2.1, Section 3.3].</p>
 </li>
 <li>
 <p><em>expires_in</em> (OPTIONAL): This parameter MAY be used to inform the Authorization Client on the access token lifetime.</p>
 </li>
 <li>
-<p><em>refresh_token</em> (OPTIONAL): A token provided by the Authorization Server which can be used by the Authorization Client to obtain new access tokens using the same authorization grant.  </p>
+<p><em>refresh_token</em> (OPTIONAL): A token provided by the Authorization Server which can be used by the Authorization Client to obtain new access tokens using the same authorization grant.</p>
 </li>
 </ul>
 <p>The access token response MAY contain other parameter or extensions depending on the implementation details of the Authorization Server actor[OAuth 2.1, Section 4.2.3].</p>
 <p>The Authorization Server SHALL include the HTTP <em>Cache-Control</em> response header field with value <em>no-store</em> and the <em>Pragma</em> response header field value <em>no-cache</em> to the access token response.</p>
 <p>A non-normative example of the access token response is as follows:</p>
-<div class="codehilite"><pre>HTTP/1.1 200 OK
+<pre><code>HTTP/1.1 200 OK
 Content-Type: application/json
 Cache-Control: no-store
 Pragma: no-cache
 
 {
-&quot;token_type&quot;: &quot;Bearer&quot;,
-&quot;access_token&quot;: &quot;2YotnFZFEjr1zCsicMWpAA&quot;,
-&quot;scope&quot;: scope_1 scope_2 ... scope_M
-&quot;expires_in&quot;: 3600,
-&quot;refresh_token&quot;: &quot;tGzv3JOkF0XG5Qx2TlKWIA&quot;,
-&quot;example_parameter&quot;: &quot;example_value&quot;
+"token_type": "Bearer",
+"access_token": "2YotnFZFEjr1zCsicMWpAA",
+"scope": scope_1 scope_2 ... scope_M
+"expires_in": 3600,
+"refresh_token": "tGzv3JOkF0XG5Qx2TlKWIA",
+"example_parameter": "example_value"
 }
-</pre></div>
-
-<p>The Authorization Server SHALL respond an error response as defined in the OAuth 2.1 Authorization Framework [OAuth 2.1, Section 5.2 and 4.1.2.1] if a request does not match the requirements or is not understood. </p>
-<h3 id="3715-trigger-events">3.71.5 Trigger Events<a class="headerlink" href="#3715-trigger-events" title="Permanent link"></a></h3>
+</code></pre>
+<p>The Authorization Server SHALL respond an error response as defined in the OAuth 2.1 Authorization Framework [OAuth 2.1, Section 5.2 and 4.1.2.1] if a request does not match the requirements or is not understood.</p>
+<h3>
+<a id="user-content-3715-trigger-events" class="anchor" href="#3715-trigger-events" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.5 Trigger Events</h3>
 <p>This transaction takes place whenever an Authorization Client needs an access token authorizing a HTTP RESTful transaction. This may be due to expiration of an existing token, a resource request has indicated that a new token is required, configuration or installation of a device, or as a routine request for new transactions.</p>
-<h3 id="3716-message-semantics">3.71.6 Message Semantics<a class="headerlink" href="#3716-message-semantics" title="Permanent link"></a></h3>
-<h4 id="37161-json-web-token">3.71.6.1 JSON Web Token<a class="headerlink" href="#37161-json-web-token" title="Permanent link"></a></h4>
+<h3>
+<a id="user-content-3716-message-semantics" class="anchor" href="#3716-message-semantics" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.6 Message Semantics</h3>
+<h4>
+<a id="user-content-37161-json-web-token" class="anchor" href="#37161-json-web-token" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.6.1 JSON Web Token</h4>
 <p>The Authorization Client and Authorization Server actors SHALL support signed JWT token as specified in JSON Web Signature [RFC 7515]. If signed, the JWS Compact Serialization (base64 encoded, with single signature or MACed) SHALL be used as described in [RFC 7515, Section 7.1].</p>
 <p>Any actor that supports this transaction MAY support the JWE (unsigned but encrypted) alternative of the JWT token.</p>
-<p>Of the signature of JWT algorithms specified in the JSON Web Algorithms [RFC 7518], the following algorithm SHALL be supported:
-- <em>HS256</em>: HMAC using SHA-256 hash algorithm.
-- <em>RS256</em>: RSA using SHA-256 hash algorithm.</p>
-<p>Other algorithms such as:
-- <em>ES256</em>: ECDSA using P-256 curve and the SHA-256 hash algorithm (&ldquo;ES256&rdquo;)</p>
-<p>are RECOMMENDED. Other algorithms MAY be supported except the &ldquo;NONE&rdquo; that MUST NOT be used.</p>
-<p>Note: 
-- It is RECOMMENDED to use asymmetric (public-key based, e.g., RS256) methods for signing access token. When asymmetric methods are used, Resource Server do not need to store sensitive symmetric keys, making these methods more robust against malicious attacks.</p>
-<p>In the JSON Web Token option the access token is defined as JSON object with the following attributes: </p>
+<p>Of the signature of JWT algorithms specified in the JSON Web Algorithms [RFC 7518], the following algorithm SHALL be supported:</p>
 <ul>
 <li>
-<p><em>iss</em> (REQUIRED): A single valued string identifying the instance which issued the access token (e.g.,the Authorization Server) [JWT Access Token, Section 2.2]. </p>
+<em>HS256</em>: HMAC using SHA-256 hash algorithm.</li>
+<li>
+<em>RS256</em>: RSA using SHA-256 hash algorithm.</li>
+</ul>
+<p>Other algorithms such as:</p>
+<ul>
+<li>
+<em>ES256</em>: ECDSA using P-256 curve and the SHA-256 hash algorithm ("ES256")</li>
+</ul>
+<p>are RECOMMENDED. Other algorithms MAY be supported except the "NONE" that MUST NOT be used.</p>
+<p>Note:</p>
+<ul>
+<li>It is RECOMMENDED to use asymmetric (public-key based, e.g., RS256) methods for signing access token. When asymmetric methods are used, Resource Server do not need to store sensitive symmetric keys, making these methods more robust against malicious attacks.</li>
+</ul>
+<p>In the JSON Web Token option the access token is defined as JSON object with the following attributes:</p>
+<ul>
+<li>
+<p><em>iss</em> (REQUIRED): A single valued string identifying the instance which issued the access token (e.g.,the Authorization Server) [JWT Access Token, Section 2.2].</p>
 </li>
 <li>
-<p><em>sub</em> (REQUIRED): If known, unique identifier of the user; the <em>client_id</em> otherwise [JWT Access Token, Section 2.2].  </p>
+<p><em>sub</em> (REQUIRED): If known, unique identifier of the user; the <em>client_id</em> otherwise [JWT Access Token, Section 2.2].</p>
 </li>
 <li>
-<p><em>aud</em> (REQUIRED): Single valued identifier of the Resource Server api endpoint to be accessed [JWT Access Token, Section 2.2]. This parameter SHALL match the <em>resource</em> parameter claimed by the Authorization Client. </p>
+<p><em>aud</em> (REQUIRED): Single valued identifier of the Resource Server api endpoint to be accessed [JWT Access Token, Section 2.2]. This parameter SHALL match the <em>resource</em> parameter claimed by the Authorization Client.</p>
 </li>
 <li>
-<p><em>jti</em> (REQUIRED): A unique identifier for the JWT access token [JWT Access Token, Section 2.2]. </p>
+<p><em>jti</em> (REQUIRED): A unique identifier for the JWT access token [JWT Access Token, Section 2.2].</p>
 </li>
 <li>
-<p><em>exp</em> (REQUIRED): Expiration time of the token in Numeric Date format [JWT, Section 4.1.4]. </p>
+<p><em>exp</em> (REQUIRED): Expiration time of the token in Numeric Date format [JWT, Section 4.1.4].</p>
 </li>
 <li>
-<p><em>scope</em> (REQUIRED): The scope granted by the Authorization Server [JWT Access Token, Section 2.2.3].   </p>
+<p><em>scope</em> (REQUIRED): The scope granted by the Authorization Server [JWT Access Token, Section 2.2.3].</p>
 </li>
 <li>
-<p><em>nbf</em> (OPTIONAL): The earliest time in Numeric Date format the token SHALL be accepted [JWT, Section 4.1.5].  </p>
+<p><em>nbf</em> (OPTIONAL): The earliest time in Numeric Date format the token SHALL be accepted [JWT, Section 4.1.5].</p>
 </li>
 <li>
-<p><em>iat</em> (OPTIONAL): The issuing date in Numeric Date format [JWT, Section 4.1.6].  </p>
+<p><em>iat</em> (OPTIONAL): The issuing date in Numeric Date format [JWT, Section 4.1.6].</p>
 </li>
 </ul>
 <p>The JWT access token MAY contain other parameter or extensions depending on the implementation details.</p>
-<h5 id="371611-jwt-iua-extension">3.71.6.1.1 JWT IUA extension<a class="headerlink" href="#371611-jwt-iua-extension" title="Permanent link"></a></h5>
-<p>The Authorization Client, Authorization Server, and Resource Server SHALL support the following extensions to the JWT access token: </p>
+<h5>
+<a id="user-content-371611-jwt-iua-extension" class="anchor" href="#371611-jwt-iua-extension" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.6.1.1 JWT IUA extension</h5>
+<p>The Authorization Client, Authorization Server, and Resource Server SHALL support the following extensions to the JWT access token:</p>
 <ul>
 <li>
-<p><em>subject_name</em> (OPTIONAL): The user&rsquo;s name as String.</p>
+<p><em>subject_name</em> (OPTIONAL): The user's name as String.</p>
 </li>
 <li>
-<p><em>subject_organization_id</em> (OPTIONAL): Unique identifier of the user&rsquo;s organization as String. </p>
+<p><em>subject_organization_id</em> (OPTIONAL): Unique identifier of the user's organization. It's value SHOULD be an URI, i.e., an URL or an OID in URN notation.</p>
 </li>
 <li>
-<p><em>subject_organization</em> (OPTIONAL): Name or description of the user&rsquo;s organization as String. </p>
+<p><em>subject_organization</em> (OPTIONAL): Name or description of the user's organization.</p>
 </li>
 <li>
-<p><em>subject_role</em> (OPTIONAL): Coded value indicating the user&rsquo;s role. If present, the value SHALL be formatted as FHIR Coding data type.   </p>
+<p><em>subject_role</em> (OPTIONAL): Coded value indicating the user's role. If present, the value SHALL be formatted as FHIR Coding data type.</p>
 </li>
 <li>
-<p><em>purpose_of_use</em> (OPTIONAL): Purpose of use for the request. If a coded value is used, the value SHALL be formatted as FHIR Coding data type, otherwise as String.   </p>
+<p><em>purpose_of_use</em> (OPTIONAL): Purpose of use for the request. If a coded value is used, the value SHALL be formatted as FHIR Coding data type.</p>
 </li>
 <li>
-<p><em>home_community_id</em> (OPTIONAL): Home community ID where the request originated as String. </p>
+<p><em>home_community_id</em> (OPTIONAL): Home community ID where the request originated. It's value SHOULD be an OID in URN notation.</p>
 </li>
 <li>
-<p><em>national_provider_identifier</em> (OPTIONAL): A unique identifier issued to health care providers by their national authority as String. </p>
+<p><em>national_provider_identifier</em> (OPTIONAL): A unique identifier issued to health care providers by their national authority.</p>
 </li>
 <li>
-<p><em>person_id</em> (OPTIONAL): Patient ID, Citizen ID, or other similar public identifier as String.</p>
+<p><em>person_id</em> (OPTIONAL): Patient ID, Citizen ID, or other similar public identifier.</p>
 </li>
 </ul>
-<p>The above claims SHALL be wrapped in an &ldquo;extensions&rdquo; object with key &lsquo;ihe_iua&rsquo; and a JSON value object containing the claims, as such</p>
-<div class="codehilite"><pre>&quot;extensions&quot; : {  
-  &quot;ihe_iua&quot; : {  
-    &quot;subject_name&quot;: &quot;Dr. John Smith&quot;,
-    &quot;subject_organization&quot;: &quot;Central Hospital&quot;,
-    &quot;subject_organization_id&quot;: &quot;urn:oid:1.2.3.4&quot;,
+<p>The above claims SHALL be wrapped in an "extensions" object with key 'ihe_iua' and a JSON value object containing the claims, as such</p>
+<pre><code>"extensions" : {  
+  "ihe_iua" : {  
+    "subject_name": "Dr. John Smith",
+    "subject_organization": "Central Hospital",
+    "subject_organization_id": "urn:oid:1.2.3.4",
     ...  
   }  
 }
-</pre></div>
-
+</code></pre>
 <p>The claim content shall correspond to the content defined in the XUA specification (see ITI TF-2b: 3.40.4.1.2 Message Semantics).</p>
-<p>The mapping of IUA extension claims to XUA compliant SAML 2.0 Assertion attributes is shown in Table 3.71.6.1.2-1 below. </p>
+<p>The mapping of IUA extension claims to XUA compliant SAML 2.0 Assertion attributes is shown in Table 3.71.6.1.2-1 below.</p>
 <p>Table 3.71.6.1.1-1: JWT claims of the IUA extension and corresponding XUA Assertion attributes</p>
 <table>
 <thead>
@@ -1986,31 +1697,31 @@ Pragma: no-cache
 </tr>
 </tbody>
 </table>
-<h5 id="371612-jwt-bppc-extension">3.71.6.1.2 JWT BPPC extension<a class="headerlink" href="#371612-jwt-bppc-extension" title="Permanent link"></a></h5>
-<p>In a environment which uses the IHE BPPC profile for documenting the consent, the Authorization Client, Authorization Server, and Resource Server SHALL support the following extension parameter: </p>
+<h5>
+<a id="user-content-371612-jwt-bppc-extension" class="anchor" href="#371612-jwt-bppc-extension" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.6.1.2 JWT BPPC extension</h5>
+<p>In a environment which uses the IHE BPPC profile for documenting the consent, the Authorization Client, Authorization Server, and Resource Server SHALL support the following extension parameter:</p>
 <ul>
 <li>
-<p><em>patient_id</em>: Patient ID related to the Patient Privacy Policy Identifier as String or URL.</p>
+<p><em>patient_id</em>: Patient ID related to the Patient Privacy Policy Identifier. It's value SHOULD be the patient identifier in CX syntax or as URL.</p>
 </li>
 <li>
-<p><em>doc_id</em>: Patient Privacy Policy Acknowledgment Document as String or URL. </p>
+<p><em>doc_id</em>: Patient Privacy Policy Acknowledgment Document. It's value SHOULD be an URN or URL.</p>
 </li>
 <li>
-<p><em>acp</em>: Patient Privacy Policy Identifier as String or URL.</p>
+<p><em>acp</em>: Patient Privacy Policy Identifier.</p>
 </li>
 </ul>
-<p>If present, the claims SHALL be wrapped in an &ldquo;extensions&rdquo; object with key &lsquo;ihe_bppc&rsquo; and a JSON value object containing the claims, as such</p>
-<div class="codehilite"><pre>&quot;extensions&quot; : {  
-  &quot;ihe_bppc&quot; : {  
-    &quot;patient_id&quot;: &quot;543797436^^^&amp;amp;1.2.840.113619.6.197&amp;amp;ISO&quot;,
-    &quot;doc_id&quot;: &quot;urn:oid:1.2.3.xxx&quot;,
-    &quot;acp&quot;: &quot;urn:oid:1.2.3.yyyy&quot;,
+<p>If present, the claims SHALL be wrapped in an "extensions" object with key 'ihe_bppc' and a JSON value object containing the claims, as such</p>
+<pre><code>"extensions" : {  
+  "ihe_bppc" : {  
+    "patient_id": "543797436^^^&amp;amp;1.2.840.113619.6.197&amp;amp;ISO",
+    "doc_id": "urn:oid:1.2.3.xxx",
+    "acp": "urn:oid:1.2.3.yyyy",
     ...  
   }  
 }
-</pre></div>
-
-<p>The mapping of IUA extension claims to XUA compliant SAML 2.0 Assertion attributes is shown in table Table 3.71.6.1.2-1 below.  </p>
+</code></pre>
+<p>The mapping of IUA extension claims to XUA compliant SAML 2.0 Assertion attributes is shown in table Table 3.71.6.1.2-1 below.</p>
 <p>Table 3.71.6.1.2-1: JWT claims of the BPPC extension and corresponding XUA Assertion attributes</p>
 <table>
 <thead>
@@ -2034,25 +1745,29 @@ Pragma: no-cache
 </tr>
 </tbody>
 </table>
-<h4 id="37162-saml-token">3.71.6.2 SAML Token<a class="headerlink" href="#37162-saml-token" title="Permanent link"></a></h4>
-<p>To use a SAML Bearer Assertion as an authorization grant, the Authorization Client SHALL perform the access token request with the value of the &ldquo;grant_type&rdquo; parameter set to &ldquo;urn:ietf:params:oauth:grant-type:saml2-bearer&rdquo; [RFC 7522, Section 2.1].</p>
-<p>Authorization and Resource Server claiming conformance with the SAML Token Option shall comply with the <em>SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants</em> [RFC 7522] rules for issuing and using SAML 2.0 assertions as access token. </p>
+<h4>
+<a id="user-content-37162-saml-token" class="anchor" href="#37162-saml-token" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.6.2 SAML Token</h4>
+<p>To use a SAML Bearer Assertion as an authorization grant, the Authorization Client SHALL perform the access token request with the value of the "grant_type" parameter set to "urn:ietf:params:oauth:grant-type:saml2-bearer" [RFC 7522, Section 2.1].</p>
+<p>Authorization and Resource Server claiming conformance with the SAML Token Option shall comply with the <em>SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants</em> [RFC 7522] rules for issuing and using SAML 2.0 assertions as access token.</p>
 <p>The SAML 2.0 assertion content shall comply with XUA SAML assertion rules (see ITI TF-2b:3.40).</p>
-<h4 id="37163-scope-parameter">3.71.6.3 Scope Parameter<a class="headerlink" href="#37163-scope-parameter" title="Permanent link"></a></h4>
-<p>The scope parameter SHALL be used to restricting authorization grants to specific actions (e.g., restrict authorization to specific resources to read-only) and to convey claims, which are known to the Authorization Client only (e.g., if the user claims a breaking-the-glass access in a emergency situation). </p>
+<h4>
+<a id="user-content-37163-scope-parameter" class="anchor" href="#37163-scope-parameter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.6.3 Scope Parameter</h4>
+<p>The scope parameter SHALL be used to restrict authorization grants to specific actions (e.g., restrict authorization to specific resources to read-only) and to convey claims, which at runtime are known to the Authorization Client only (e.g., if the user claims a breaking-the-glass access in a emergency situation).</p>
 <p>The value of the scope parameter SHALL be a collection of space-delimited, case-sensitive strings, whose values SHALL be defined by the Authorization Server [OAuth 2.1, Section 3.3].</p>
-<p>User related scopes are RECOMMENDED to follow the syntax defined in <em>Health Relationship Trust Profile for Fast Healthcare Interoperability Resources (FHIR) OAuth 2.0 Scopes</em> [HEART scopes], i.e., it SHOULD be written as <em>role/resourceType.(read|write|*)</em>, where </p>
+<p>User related scopes are RECOMMENDED to follow the syntax defined in <em>Health Relationship Trust Profile for Fast Healthcare Interoperability Resources (FHIR) OAuth 2.0 Scopes</em> [HEART scopes], i.e., it SHOULD be written as <em>role/resourceType.(read|write|*)</em>, where</p>
 <ul>
 <li>
 <p>the <em>role</em> value SHOULD be <em>patient</em> if the current user is a patient, or <em>user</em> for healthcare professionals.</p>
 </li>
 <li>
-<p>the <em>resourceType</em> value SHOULD be the FHIR resource name (e.g., Patient, Observation, Appointment, a.s.o.).  </p>
+<p>the <em>resourceType</em> value SHOULD be the FHIR resource name (e.g., Patient, Observation, Appointment, a.s.o.).</p>
 </li>
 </ul>
-<p>For example: 
-- if a patient authorizes her device to read the Appointment resources to display them on her device, the scope granted SHOULD be <em>patient/Appointment.read</em>. </p>
+<p>For example:</p>
 <ul>
+<li>
+<p>if a patient authorizes her device to read the Appointment resources to display them on her device, the scope granted SHOULD be <em>patient/Appointment.read</em>.</p>
+</li>
 <li>
 <p>if a healthcare professional authorizes her web application or device to read and write Patient resources to be able to search, view and manage the patient data, the scope granted by the Authorization Server SHOULD be <em>user/Patient.*</em>.</p>
 </li>
@@ -2060,84 +1775,89 @@ Pragma: no-cache
 <p>if a healthcare professional authorizes her web application or device to read all Patient data (incl. documents), the scope granted by the Authorization Server SHOULD be <em>user/*.read</em>.</p>
 </li>
 </ul>
-<p>If coded values are used as scope parameter (e.g., purpose of use), it&rsquo;s values SHALL be formatted as FHIR Coding data type, e.g., as </p>
-<div class="codehilite"><pre>purpose_of_use:[{&quot;system&quot;:&quot;2.16.840.1.113883.6.2&quot;,&quot;code&quot;:&quot;99-0&quot;,&quot;display&quot;:&quot;Social Worker&quot;}]
-</pre></div>
-
-<p>Note: The Authorization Server MAY ignore the scope requested by the Authorization Client or restrict it, based on the Authorization Server policy or the user&rsquo;s authorization grant. </p>
-<h3 id="3717-expected-actions">3.71.7 Expected Actions<a class="headerlink" href="#3717-expected-actions" title="Permanent link"></a></h3>
-<h3 id="37171-client-credential-grant-type">3.71.7.1 Client Credential grant type<a class="headerlink" href="#37171-client-credential-grant-type" title="Permanent link"></a></h3>
-<p>The Authorization Server SHALL authenticate the Authorization Client using it&rsquo;s client credential and respond with the access token as defined in Section 3.71.4 and 3.71.6 above. The Authorization Server SHALL verify the request. If the request is valid, the Authorization Server SHALL respond with the access token response conveying the access token in JWT or SAML 2.0 format as specified in Section 3.71.4 and 3.71.6 above.</p>
-<h3 id="37172-authorization-code-grant-type">3.71.7.2 Authorization Code grant type<a class="headerlink" href="#37172-authorization-code-grant-type" title="Permanent link"></a></h3>
-<p>The Authorization Server SHALL authenticate confidential and credential clients using the <em>client_id</em> and <em>client_secret</em>, or by other reliable client authentication method. In the latter case, the Authorization Server SHALL resolve the client authentication to a <em>client_id</em> which was registered beforehand.     </p>
+<p>If coded values are used as scope parameter (e.g., purpose of use), it's values SHALL be formatted as FHIR Coding data type, e.g., as</p>
+<pre><code>purpose_of_use:[{"system":"2.16.840.1.113883.6.2","code":"99-0","display":"Social Worker"}]
+</code></pre>
+<p>Note: The Authorization Server MAY ignore the scope requested by the Authorization Client or restrict it, based on the Authorization Server policy or the user's authorization grant.</p>
+<h3>
+<a id="user-content-3717-expected-actions" class="anchor" href="#3717-expected-actions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.7 Expected Actions</h3>
+<h3>
+<a id="user-content-37171-client-credential-grant-type" class="anchor" href="#37171-client-credential-grant-type" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.7.1 Client Credential grant type</h3>
+<p>The Authorization Server SHALL authenticate the Authorization Client using it's client credential and respond with the access token as defined in Section 3.71.4 and 3.71.6 above. The Authorization Server SHALL verify the request. If the request is valid, the Authorization Server SHALL respond with the access token response conveying the access token in JWT or SAML 2.0 format as specified in Section 3.71.4 and 3.71.6 above.</p>
+<h3>
+<a id="user-content-37172-authorization-code-grant-type" class="anchor" href="#37172-authorization-code-grant-type" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.7.2 Authorization Code grant type</h3>
+<p>The Authorization Server SHALL authenticate confidential and credential clients using the <em>client_id</em> and <em>client_secret</em>, or by other reliable client authentication method. In the latter case, the Authorization Server SHALL resolve the client authentication to a <em>client_id</em> which was registered beforehand.</p>
 <p>The Authorization Server SHALL verify that all required parameters of the authorization request are present and valid. If valid, the Authorization Server SHALL authenticate the user and obtain the user consent (by presenting the user a form to authorize specific scopes or by establishing approval via other means). When the user consent is established, the Authorization Server SHALL issues an authorization code, access token and optional refresh token and direct the user-agent (e.g., browser) to the client redirect URI conveying the authorization code and client state value.</p>
-<p>If the authorization request is invalid, the Authorization Server SHALL react as defined in [OAuth 2.1, Section 4.1.2.1]. </p>
+<p>If the authorization request is invalid, the Authorization Server SHALL react as defined in [OAuth 2.1, Section 4.1.2.1].</p>
 <p>The Authorization Client SHALL use the authorization code to request the access token from the Authorization Server. The Authorization Server SHALL verify the access token request as described in [OAuth 2.1, Section 4.1.3]. If the request is valid, the Authorization Server SHALL respond with the access token response conveying the access token in JWT or SAML 2.0 format as specified in Section 3.71.4 and 3.71.6 above. If invalid, the Authorization Server SHALL respond with an error as defined in [OAuth 2.1, Section 5.2].</p>
-<h3 id="3718-message-examples">3.71.8 Message Examples<a class="headerlink" href="#3718-message-examples" title="Permanent link"></a></h3>
+<h3>
+<a id="user-content-3718-message-examples" class="anchor" href="#3718-message-examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.8 Message Examples</h3>
 <p>The following is a non-normative example of JWT access token:</p>
-<p>JOSE Header:
-<div class="codehilite"><pre>{
-&quot;typ&quot;: &quot;IUA-JWT&quot;,
-&quot;alg&quot;: &quot;HS256&quot;
+<p>JOSE Header:</p>
+<pre><code>{
+"typ": "IUA-JWT",
+"alg": "HS256"
 }
-</pre></div></p>
-<p>JWS Payload:
-<div class="codehilite"><pre>{
-    &quot;iss&quot;: &quot;urn:tiani-spirit:sts&quot;,
-    &quot;sub&quot;: &quot;b3ca1045-aa8b-42f9-9fd9-e0cbf5cb90a7&quot;,
-    &quot;aud&quot;: &quot;http://ihe.connectathon.IUA/ResourceProvider-IHE-Connectathon&quot;,
-    &quot;exp&quot;: 1438251487,
-    &quot;nbf&quot;: 1438251187,
-    &quot;iat&quot;: 1438251187,
-    &quot;scope&quot;: user/*.read user/*.write,    
-    &quot;extensions&quot; : {  
-      &quot;ihe_iua&quot; : {  
-        &quot;subject_name&quot;: &quot;Dr. John Smith&quot;,
-        &quot;subject_organization&quot;: &quot;Central Hospital&quot;,
-        &quot;subject_organization_id&quot;: &quot;urn:oid:1.2.3.4&quot;,
-        &quot;home_community_id&quot;: &quot;urn:oid:1.2.3.4.5.6.7.8&quot;,
-        &quot;resource_id&quot;: &quot;urn:uuid:1.2.3.4&quot;,
-        &quot;subject_role&quot;: [
+</code></pre>
+<p>JWS Payload:</p>
+<pre><code>{
+    "iss": "urn:tiani-spirit:sts",
+    "sub": "b3ca1045-aa8b-42f9-9fd9-e0cbf5cb90a7",
+    "aud": "http://ihe.connectathon.IUA/ResourceProvider-IHE-Connectathon",
+    "exp": 1438251487,
+    "nbf": 1438251187,
+    "iat": 1438251187,
+    "scope": user/*.read user/*.write,    
+    "extensions" : {  
+      "ihe_iua" : {  
+        "subject_name": "Dr. John Smith",
+        "subject_organization": "Central Hospital",
+        "subject_organization_id": "urn:oid:1.2.3.4",
+        "home_community_id": "urn:oid:1.2.3.4.5.6.7.8",
+        "resource_id": "urn:uuid:1.2.3.4",
+        "subject_role": [
           {
-            &quot;system&quot;: &quot;2.16.840.1.113883.6.1&quot;,
-            &quot;code&quot;: &quot;28570-0&quot;,
-            &quot;display&quot;: &quot;ProcedureNote&quot;
+            "system": "2.16.840.1.113883.6.1",
+            "code": "28570-0",
+            "display": "ProcedureNote"
           }
         ],
-        &quot;purpose_of_use&quot;: [
+        "purpose_of_use": [
           {
-            &quot;system&quot;: &quot;2.16.840.1.113883.6.2&quot;,
-            &quot;code&quot;: &quot;99-0&quot;,
-            &quot;display&quot;: &quot;Social Worker&quot;
+            "system": "2.16.840.1.113883.6.2",
+            "code": "99-0",
+            "display": "Social Worker"
           }
         ]
       }
     }
 }
-</pre></div></p>
-<h3 id="3719-security-considerations">3.71.9 Security Considerations<a class="headerlink" href="#3719-security-considerations" title="Permanent link"></a></h3>
-<p>Authorization Client and Authorization Server claiming compliance with this profile SHALL fulfill the security requirements defined in the OAuth Authorization Framework [OAuth 2.1], especially: </p>
+</code></pre>
+<h3>
+<a id="user-content-3719-security-considerations" class="anchor" href="#3719-security-considerations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.9 Security Considerations</h3>
+<p>Authorization Client and Authorization Server claiming compliance with this profile SHALL fulfill the security requirements defined in the OAuth Authorization Framework [OAuth 2.1], especially:</p>
 <ul>
 <li>
 <p>All HTTP transaction must be secured by using TLS or equivalent transport security.</p>
 </li>
 <li>
-<p>Authorization Clients SHALL verify the identity of the Authorization Server, either by validating the TLS certificate chain or by other reliable methods. </p>
+<p>Authorization Clients SHALL verify the identity of the Authorization Server, either by validating the TLS certificate chain or by other reliable methods.</p>
 </li>
 <li>
-<p>Authorization codes SHALL be for single use and short-lived with a lifetime less or equal to 5 minutes. </p>
+<p>Authorization codes SHALL be for single use and short-lived with a lifetime less or equal to 5 minutes.</p>
 </li>
 <li>
-<p>Access token SHALL be short-lived with a lifetime of 1 hour or less. A lifetime less or equal to 5 minutes is RECOMMENDED. </p>
+<p>Access token SHALL be short-lived with a lifetime of 1 hour or less. A lifetime less or equal to 5 minutes is RECOMMENDED.</p>
 </li>
 <li>
-<p>Refresh token MAY be long lived. </p>
+<p>Refresh token MAY be long lived.</p>
 </li>
 <li>
 <p>To reduce the attack surface, client claims and authorization grants SHALL be the minimal. I.e., the authorization grant scope requested by the Authorization Client shall be the minimal required scope for the resource request to be used for.</p>
 </li>
 </ul>
-<h4 id="37191-security-audit-considerations">3.71.9.1 Security Audit Considerations<a class="headerlink" href="#37191-security-audit-considerations" title="Permanent link"></a></h4>
+<h4>
+<a id="user-content-37191-security-audit-considerations" class="anchor" href="#37191-security-audit-considerations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.9.1 Security Audit Considerations</h4>
 <p>Authorization Servers SHOULD produce an audit record for any failed attempt to obtain authorization. IHE does not specify the format of audit records for authorization servers.</p>
 <p>Authorization Clients MAY generate an audit message when an authorized transaction is performed or attempted.</p>
 <table>
@@ -2151,16 +1871,17 @@ Pragma: no-cache
 </thead>
 <tbody>
 <tr>
-<td><strong>Event</strong><br/>(AuditMessage/EventIdentification)</td>
+<td>
+<strong>Event</strong><br>(AuditMessage/EventIdentification)</td>
 <td>EventID</td>
 <td>M</td>
-<td>EV(110114, DCM, &ldquo;User Authentication&rdquo;)</td>
+<td>EV(110114, DCM, "User Authentication")</td>
 </tr>
 <tr>
 <td></td>
 <td>EventActionCode</td>
 <td>M</td>
-<td>&ldquo;E&rdquo; (Execute)</td>
+<td>"E" (Execute)</td>
 </tr>
 <tr>
 <td></td>
@@ -2178,7 +1899,7 @@ Pragma: no-cache
 <td></td>
 <td>EventTypeCode</td>
 <td>M</td>
-<td>EV(&ldquo;ITI-71&rdquo;, IHE, &ldquo;User Authorization&rdquo;)</td>
+<td>EV("ITI-71", IHE, "User Authorization")</td>
 </tr>
 <tr>
 <td><strong>Source (1)</strong></td>
@@ -2224,7 +1945,8 @@ Pragma: no-cache
 </thead>
 <tbody>
 <tr>
-<td><strong>Source</strong> <br/>(AuditMessage/ActiveParticipant)</td>
+<td>
+<strong>Source</strong> <br>(AuditMessage/ActiveParticipant)</td>
 <td>UserID</td>
 <td>M</td>
 <td>The process ID as used within the local operating system in the local system logs.</td>
@@ -2251,13 +1973,13 @@ Pragma: no-cache
 <td></td>
 <td>RoleIDCode</td>
 <td>M</td>
-<td>EV(110150, DCM, &ldquo;Application&rdquo;)</td>
+<td>EV(110150, DCM, "Application")</td>
 </tr>
 <tr>
 <td></td>
 <td>NetworkAccessPointTypeCode</td>
 <td>M</td>
-<td>&ldquo;1&rdquo; for machine (DNS) name, &ldquo;2&rdquo; for IP address</td>
+<td>"1" for machine (DNS) name, "2" for IP address</td>
 </tr>
 <tr>
 <td></td>
@@ -2266,7 +1988,8 @@ Pragma: no-cache
 <td>The machine name or IP address</td>
 </tr>
 <tr>
-<td><strong>Audit Source</strong><br/> AuditMessage/ AuditSourceIdentification</td>
+<td>
+<strong>Audit Source</strong><br> AuditMessage/ AuditSourceIdentification</td>
 <td><em>AuditSourceID</em></td>
 <td><em>U</em></td>
 <td><em>not specialized</em></td>
@@ -2284,16 +2007,17 @@ Pragma: no-cache
 <td><em>not specialized</em></td>
 </tr>
 <tr>
-<td><strong>Token</strong> <br/>(AuditMessage/ ParticipantObjectIdentification)</td>
+<td>
+<strong>Token</strong> <br>(AuditMessage/ ParticipantObjectIdentification)</td>
 <td>ParticipantObjectTypeCode</td>
 <td>M</td>
-<td>&ldquo;2&rdquo; (System)</td>
+<td>"2" (System)</td>
 </tr>
 <tr>
 <td></td>
 <td>ParticipantObjectTypeCodeRole</td>
 <td>M</td>
-<td>&ldquo;13&rdquo; (Security Resource)</td>
+<td>"13" (Security Resource)</td>
 </tr>
 <tr>
 <td></td>
@@ -2340,10 +2064,13 @@ Pragma: no-cache
 </tbody>
 </table>
 <p><strong>Add Section 3.72</strong></p>
-<h2 id="372-incorporate-authorization-token">3.72 Incorporate Authorization Token<a class="headerlink" href="#372-incorporate-authorization-token" title="Permanent link"></a></h2>
-<h3 id="3721-scope">3.72.1 Scope<a class="headerlink" href="#3721-scope" title="Permanent link"></a></h3>
-<p>This transaction is used to incorporate authorization information to HTTP RESTful transactions. </p>
-<h3 id="3722-use-case-roles">3.72.2 Use Case Roles<a class="headerlink" href="#3722-use-case-roles" title="Permanent link"></a></h3>
+<h2>
+<a id="user-content-372-incorporate-authorization-token" class="anchor" href="#372-incorporate-authorization-token" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72 Incorporate Authorization Token</h2>
+<h3>
+<a id="user-content-3721-scope" class="anchor" href="#3721-scope" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.1 Scope</h3>
+<p>This transaction is used to incorporate authorization information to HTTP RESTful transactions.</p>
+<h3>
+<a id="user-content-3722-use-case-roles" class="anchor" href="#3722-use-case-roles" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.2 Use Case Roles</h3>
 <p>Table 3.72.2-1: Actor Roles</p>
 <table>
 <thead>
@@ -2363,8 +2090,9 @@ Pragma: no-cache
 </tr>
 </tbody>
 </table>
-<h3 id="3723-referenced-standards">3.72.3 Referenced Standards<a class="headerlink" href="#3723-referenced-standards" title="Permanent link"></a></h3>
-<p>This transaction relies on standards defined in the following documents and the references therein: </p>
+<h3>
+<a id="user-content-3723-referenced-standards" class="anchor" href="#3723-referenced-standards" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.3 Referenced Standards</h3>
+<p>This transaction relies on standards defined in the following documents and the references therein:</p>
 <ul>
 <li>
 <p><em>OAuth 2.1</em>: The OAuth 2.1 Authorization Framework, published as draft-ietf-oauth-v2-1-00. July 2020.</p>
@@ -2373,16 +2101,18 @@ Pragma: no-cache
 <p><em>JWT Access Token</em>: JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens, published as draft-ietf-oauth-access-token-jwt-07, April 2020.</p>
 </li>
 <li>
-<p><em>RFC 7522</em>: SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants, May 2015. </p>
+<p><em>RFC 7522</em>: SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants, May 2015.</p>
 </li>
 </ul>
-<h4 id="37231-related-ihe-profiles">3.72.3.1 Related IHE Profiles<a class="headerlink" href="#37231-related-ihe-profiles" title="Permanent link"></a></h4>
-<p>XUA Cross-Enterprise User Assertion &ndash; Attribute Extension</p>
-<h3 id="3724-interaction-diagram">3.72.4 Interaction Diagram<a class="headerlink" href="#3724-interaction-diagram" title="Permanent link"></a></h3>
-<p><img alt="simple-iauth" src="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/basic-flow.png" /></p>
+<h4>
+<a id="user-content-37231-related-ihe-profiles" class="anchor" href="#37231-related-ihe-profiles" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.3.1 Related IHE Profiles</h4>
+<p>XUA Cross-Enterprise User Assertion -- Attribute Extension</p>
+<h3>
+<a id="user-content-3724-interaction-diagram" class="anchor" href="#3724-interaction-diagram" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.4 Interaction Diagram</h3>
+<p><a href="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/basic-flow.png" target="_blank" rel="noopener noreferrer"><img src="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/basic-flow.png" alt="simple-iauth" style="max-width:100%;"></a></p>
 <p>Figure 3.72.4-1: Process flow for Incorporate Authorization Token
 Transaction</p>
-<div class="codehilite"><pre>\@startuml  
+<pre><code>\@startuml  
 group Get Authorization Token \[ITI-71\]   
 AuthorizationClient -\&gt; AuthorizationServer : Authorization Request  
 AuthorizationClient \&lt;- AuthorizationServer : Authorization Response \+ Authorization Token  
@@ -2392,8 +2122,7 @@ AuthorizationClient -\&gt; ResourceServer : Resource Request + Authorization Tok
 AuthorizationClient \&lt;- ResourceServer : Resource Response  
 end  
 \@enduml
-</pre></div>
-
+</code></pre>
 <p>Main Flow:</p>
 <ol>
 <li>
@@ -2404,59 +2133,78 @@ end
 </li>
 </ol>
 <p>This transaction works in conjunction with other HTTP RESTful transaction. It extends the transaction by adding information to the HTTP request for that HTTP RESTful transaction.</p>
-<h3 id="3725-trigger-events">3.72.5 Trigger Events<a class="headerlink" href="#3725-trigger-events" title="Permanent link"></a></h3>
+<h3>
+<a id="user-content-3725-trigger-events" class="anchor" href="#3725-trigger-events" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.5 Trigger Events</h3>
 <p>A client needs to make an HTTP RESTful transaction to a Resource Server that enforces access authorization.</p>
-<h3 id="3726-message-semantics">3.72.6 Message Semantics<a class="headerlink" href="#3726-message-semantics" title="Permanent link"></a></h3>
+<h3>
+<a id="user-content-3726-message-semantics" class="anchor" href="#3726-message-semantics" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.6 Message Semantics</h3>
 <p>The Authorization Client SHALL incorporate the access token in the authorization header of the HTTP request.</p>
-<h4 id="37261-json-web-token-option">3.72.6.1 JSON Web Token Option<a class="headerlink" href="#37261-json-web-token-option" title="Permanent link"></a></h4>
-<p>An Authorization Client that claims the JSON Web Token Option SHALL be able to incorporate a JWT as access token defined in Section 3.71.6.3 in the HTTP Basic Authorization header using. If JWS signature is used, the JWS Compact Serialization (base64 encoded, single signature or MACed) SHALL be used as described in [RFC 7515, Section 7.1]. </p>
+<h4>
+<a id="user-content-37261-json-web-token-option" class="anchor" href="#37261-json-web-token-option" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.6.1 JSON Web Token Option</h4>
+<p>An Authorization Client that claims the JSON Web Token Option SHALL be able to incorporate a JWT as access token defined in Section 3.71.6.3 in the HTTP Basic Authorization header using. If JWS signature is used, the JWS Compact Serialization (base64 encoded, single signature or MACed) SHALL be used as described in [RFC 7515, Section 7.1].</p>
 <p>A Resource Server that supports the JSON Web Token Option SHALL be able to accept and understand a JWT token as defined in Section 3.71.6.3.</p>
-<h4 id="37262-saml-token-option">3.72.6.2 SAML Token Option<a class="headerlink" href="#37262-saml-token-option" title="Permanent link"></a></h4>
+<h4>
+<a id="user-content-37262-saml-token-option" class="anchor" href="#37262-saml-token-option" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.6.2 SAML Token Option</h4>
 <p>An Authorization Client that supports the SAML Token Option SHALL be able to incorporate a XUA compliant SAML 2.0 Assertion (see ITI TF-2b: 3.40.4.1.2 Message Semantics) as access token. The SAML assertion shall be encoded as specified in Security Assertion Markup Language (SAML) 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants [RFC 7522, Section 2.1] rules and included in the HTTP Basic Authorization header with type <em>IHE-SAML</em>.</p>
 <p>A Resource Server that supports the SAML Token Option SHALL be able to accept and understand a SAML assertion that complies with the XUA specification as the access token for requests.</p>
-<h3 id="3727-expected-actions">3.72.7 Expected Actions<a class="headerlink" href="#3727-expected-actions" title="Permanent link"></a></h3>
-<p>The Authorization Client SHALL incorporate the access token to Resource Server requests in the HTTP Basic Authorization header. </p>
-<p>The Resource Server SHALL validate the access token and ensure that it has not expired. The Resource Server SHALL verify, that the claims conveyed in the access token match the transaction type and data (E.g., verify that the patient_id attribute of the access token corresponds to the patient_id of the resource request). </p>
-<p>If the authorization grant scope is restricted, the Resource Server SHALL verify, that the scope covers the transaction to the requested resource [OAuth 2.1, Section 7]. </p>
+<h3>
+<a id="user-content-3727-expected-actions" class="anchor" href="#3727-expected-actions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.7 Expected Actions</h3>
+<p>The Authorization Client SHALL incorporate the access token to Resource Server requests in the HTTP Basic Authorization header.</p>
+<p>The Resource Server SHALL validate the access token and ensure that it has not expired. The Resource Server SHALL verify, that the claims conveyed in the access token match the transaction type and data (E.g., verify that the patient_id attribute of the access token corresponds to the patient_id of the resource request).</p>
+<p>If the authorization grant scope is restricted, the Resource Server SHALL verify, that the scope covers the transaction to the requested resource [OAuth 2.1, Section 7].</p>
 <p>In addition, the Resource Server SHALL enforce the access policies set in the specific environment by matching the information from the access token and the transaction data to the access policies.</p>
 <p>If the token verification, scope matching or the access policy enforcement fails, the Resource Server SHALL respond a HTTP 401 (Unauthorized) error.</p>
-<h3 id="3728-message-examples">3.72.8 Message examples<a class="headerlink" href="#3728-message-examples" title="Permanent link"></a></h3>
-<h4 id="37281-json-web-token-option">3.72.8.1 JSON Web Token Option<a class="headerlink" href="#37281-json-web-token-option" title="Permanent link"></a></h4>
-<p>A non normative example of the access token incorporation to a RESTful transaction is as follows: </p>
-<div class="codehilite"><pre>GET /example/url/to/resource/location 
+<h3>
+<a id="user-content-3728-message-examples" class="anchor" href="#3728-message-examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.8 Message examples</h3>
+<h4>
+<a id="user-content-37281-json-web-token-option" class="anchor" href="#37281-json-web-token-option" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.8.1 JSON Web Token Option</h4>
+<p>A non normative example of the access token incorporation to a RESTful transaction is as follows:</p>
+<pre><code>GET /example/url/to/resource/location 
 HTTP/1.1
 Authorization: IHE-SAML fFBGRNJru1FQd\[...omitted for brevity...\]44AzqT3Zg
 Host: examplehost.com
-</pre></div>
-
-<h4 id="37282-saml-token-option">3.72.8.2 SAML Token Option<a class="headerlink" href="#37282-saml-token-option" title="Permanent link"></a></h4>
-<p>A non normative example of the access token incorporation to a RESTful transaction is as follows: </p>
-<div class="codehilite"><pre>GET /example/url/to/resource/location 
+</code></pre>
+<h4>
+<a id="user-content-37282-saml-token-option" class="anchor" href="#37282-saml-token-option" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.8.2 SAML Token Option</h4>
+<p>A non normative example of the access token incorporation to a RESTful transaction is as follows:</p>
+<pre><code>GET /example/url/to/resource/location 
 HTTP/1.1
 Authorization: IHE-SAML fFBGRNJru1FQd\[...omitted for brevity...\]44AzqT3Zg
 Host: examplehost.com
-</pre></div>
-
-<h3 id="3729-security-considerations">3.72.9 Security Considerations<a class="headerlink" href="#3729-security-considerations" title="Permanent link"></a></h3>
-<p>Authorization Client and Resource Server claiming compliance with this profile SHALL fulfill the security requirements defined in the OAuth Authorization Framework [OAuth 2.1], especially: </p>
+</code></pre>
+<h3>
+<a id="user-content-3729-security-considerations" class="anchor" href="#3729-security-considerations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.9 Security Considerations</h3>
+<p>Authorization Client and Resource Server claiming compliance with this profile SHALL fulfill the security requirements defined in the OAuth Authorization Framework [OAuth 2.1], especially:</p>
 <ul>
 <li>
 <p>All HTTP transaction must be secured by using TLS or equivalent transport security.</p>
 </li>
 <li>
-<p>Authorization Clients SHALL verify the identity of the Resource Server when making requests to protected resources, either by validating the TLS certificate chain [OAuth 2.1, Section 7.4.2] or by other reliable methods. </p>
+<p>Authorization Clients SHALL verify the identity of the Resource Server when making requests to protected resources, either by validating the TLS certificate chain [OAuth 2.1, Section 7.4.2] or by other reliable methods.</p>
 </li>
 </ul>
-<h4 id="37291-security-audit-considerations">3.72.9.1 Security Audit Considerations<a class="headerlink" href="#37291-security-audit-considerations" title="Permanent link"></a></h4>
+<h4>
+<a id="user-content-37291-security-audit-considerations" class="anchor" href="#37291-security-audit-considerations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.9.1 Security Audit Considerations</h4>
 <p>When an ATNA Audit message needs to be generated by the Resource Server and the user is authenticated by way of a JWT Token, the ATNA Audit message <strong>UserName</strong> element shall record the JWT Token information using the following encoding:</p>
-<p><strong>alias"\&lt;"user"@"issuer">"</strong></p>
-<p>where:
--   <strong>alias</strong> SHALL match the JWT token&rsquo;s &ldquo;aud&rdquo; parameter
--   <strong>user</strong> SHALL match the JWT token&rsquo;s &ldquo;sub&rdquo; parameter
--   <strong>issuer</strong> SHALL match the JWT token&rsquo;s &ldquo;iss&rdquo; parameter</p>
+<p><strong>alias"&lt;"user"@"issuer"&gt;"</strong></p>
+<p>where:</p>
+<ul>
+<li>
+<strong>alias</strong> SHALL match the JWT token's "aud" parameter</li>
+<li>
+<strong>user</strong> SHALL match the JWT token's "sub" parameter</li>
+<li>
+<strong>issuer</strong> SHALL match the JWT token's "iss" parameter</li>
+</ul>
 <p>When an ATNA Audit message needs to be generated by the Resource Server and the user is authenticated by way of a SAML Token, the ATNA Audit message <strong>UserName</strong> element shall record the SAML token information using the following encoding:</p>
-<p><strong>alias"\&lt;"user"@"issuer">"</strong></p>
-<p>where:
--   <strong>alias</strong> SHALL match the optional string within the SAML Assertion's Subject element SPProvidedID attribute
--   <strong>user</strong> SHALL match the required content of the SAML Assertion's Subject element
--   <strong>issuer</strong> SHALL match the X-Assertion Provider entity ID contained with the content of SAML Assertion's Issuer element</p></article></body></html>
+<p><strong>alias"&lt;"user"@"issuer"&gt;"</strong></p>
+<p>where:</p>
+<ul>
+<li>
+<strong>alias</strong> SHALL match the optional string within the SAML Assertion's Subject element SPProvidedID attribute</li>
+<li>
+<strong>user</strong> SHALL match the required content of the SAML Assertion's Subject element</li>
+<li>
+<strong>issuer</strong> SHALL match the X-Assertion Provider entity ID contained with the content of SAML Assertion's Issuer element</li>
+</ul>
+</article></body></html>

@@ -853,19 +853,18 @@ The Authorization Client, Authorization Server, and Resource Server SHALL suppor
 
 - *subject\_name* (OPTIONAL): The user's name as String.
 
-- *subject\_organization\_id* (OPTIONAL): Unique identifier of the user's organization as String. 
+- *subject\_organization\_id* (OPTIONAL): Unique identifier of the user's organization. It's value SHOULD be an URI, i.e., an URL or an OID in URN notation.  
 
-- *subject\_organization* (OPTIONAL): Name or description of the user's organization as String. 
+- *subject\_organization* (OPTIONAL): Name or description of the user's organization. 
 
 - *subject\_role* (OPTIONAL): Coded value indicating the user's role. If present, the value SHALL be formatted as FHIR Coding data type.   
+- *purpose\_of\_use* (OPTIONAL): Purpose of use for the request. If a coded value is used, the value SHALL be formatted as FHIR Coding data type.   
 
-- *purpose\_of\_use* (OPTIONAL): Purpose of use for the request. If a coded value is used, the value SHALL be formatted as FHIR Coding data type, otherwise as String.   
+- *home\_community\_id* (OPTIONAL): Home community ID where the request originated. It's value SHOULD be an OID in URN notation. 
 
-- *home\_community\_id* (OPTIONAL): Home community ID where the request originated as String. 
+- *national\_provider\_identifier* (OPTIONAL): A unique identifier issued to health care providers by their national authority. 
 
-- *national\_provider\_identifier* (OPTIONAL): A unique identifier issued to health care providers by their national authority as String. 
-
-- *person\_id* (OPTIONAL): Patient ID, Citizen ID, or other similar public identifier as String.
+- *person\_id* (OPTIONAL): Patient ID, Citizen ID, or other similar public identifier.
 
 
 The above claims SHALL be wrapped in an "extensions" object with key 'ihe\_iua' and a JSON value object containing the claims, as such
@@ -903,11 +902,11 @@ Table 3.71.6.1.1-1: JWT claims of the IUA extension and corresponding XUA Assert
 
 In a environment which uses the IHE BPPC profile for documenting the consent, the Authorization Client, Authorization Server, and Resource Server SHALL support the following extension parameter: 
 
-- *patient\_id*: Patient ID related to the Patient Privacy Policy Identifier as String or URL.
+- *patient\_id*: Patient ID related to the Patient Privacy Policy Identifier. It's value SHOULD be the patient identifier in CX syntax or as URL. 
 
-- *doc\_id*: Patient Privacy Policy Acknowledgment Document as String or URL. 
+- *doc\_id*: Patient Privacy Policy Acknowledgment Document. It's value SHOULD be an URN or URL.
 
-- *acp*: Patient Privacy Policy Identifier as String or URL.
+- *acp*: Patient Privacy Policy Identifier.
 
 If present, the claims SHALL be wrapped in an "extensions" object with key 'ihe\_bppc' and a JSON value object containing the claims, as such
 
