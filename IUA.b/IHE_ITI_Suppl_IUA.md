@@ -1018,16 +1018,16 @@ JWS Payload:
         "resource_id": "urn:uuid:1.2.3.4",
         "subject_role": [
           {
-            "system": "2.16.840.1.113883.6.1",
-            "code": "28570-0",
-            "display": "ProcedureNote"
+            "system": "2.16.840.1.113883.6.96",
+            "code": "46255001",
+            "display": "Pharmacist"
           }
         ],
         "purpose_of_use": [
           {
-            "system": "2.16.840.1.113883.6.2",
-            "code": "99-0",
-            "display": "Social Worker"
+            "system": "1.0.14265.1",
+            "code": "12",
+            "display": "Law Enforcement"
           }
         ]
       }
