@@ -368,11 +368,14 @@ Table 34.2-1: IUA - Actors and Options
 An actor from this profile SHALL implement the required transactions and/or content modules in this profile ***in addition to*** all of the transactions required for the grouped actor (Column 2).
 
 
+Table 34.3-1: Required Actor Groupings
+
+
   |IUA Actor            |Actor to be grouped with   |Reference                    |Content Bindings Reference
   |----                 |-----                      |-----                        |-----                      
-  |Authorization Server |Time Client                |ITI TF-1:7 Consistent Time   |                           
-  |Resource Server      |Time Client                |ITI TF-1:7 Consistent Time   |                           
-  |Authorization Client |                           |                             |                           
+  |Authorization Server |Time Client                |ITI TF-1:7 Consistent Time   | --                          
+  |Resource Server      |Time Client                |ITI TF-1:7 Consistent Time   | --                          
+  |Authorization Client | --                        | --                          | --                          
 
 
 ## 34.4 IUA Overview
