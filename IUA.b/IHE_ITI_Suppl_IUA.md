@@ -1171,7 +1171,7 @@ The Authorization Client SHALL incorporate the access token in the authorization
 
 #### 3.72.6.1 JSON Web Token Option
 
-An Authorization Client that claims the JSON Web Token Option SHALL be able to incorporate a JWT as access token defined in Section 3.71.6.3 in the HTTP Basic Authorization header using. If JWS signature is used, the JWS Compact Serialization (base64 encoded, single signature or MACed) SHALL be used as described in [RFC 7515, Section 7.1]. 
+An Authorization Client that claims the JSON Web Token Option SHALL be able to incorporate a JWT access token defined in Section 3.71.6.3 in the HTTP Basic Authorization header with type *Bearer*. If JWS signature is used, the JWS Compact Serialization (base64 encoded, single signature or MACed) SHALL be used as described in [RFC 7515, Section 7.1]. 
 
 A Resource Server that supports the JSON Web Token Option SHALL be able to accept and understand a JWT token as defined in Section 3.71.6.3.
 
@@ -1197,18 +1197,18 @@ If the token verification, scope matching or the access policy enforcement fails
 
 #### 3.72.8.1 JSON Web Token Option
 
-A non normative example of the access token incorporation to a RESTful transaction is as follows: 
+A non normative example of the JWT access token incorporation to a RESTful transaction is as follows: 
 
 ```
 GET /example/url/to/resource/location 
 HTTP/1.1
-Authorization: IHE-SAML fFBGRNJru1FQd\[...omitted for brevity...\]44AzqT3Zg
+Authorization: Bearer vGHTPOJzh3QFd\[...omitted for brevity...\]99bhgT8Ya
 Host: examplehost.com
 ```
 
 #### 3.72.8.2 SAML Token Option
 
-A non normative example of the access token incorporation to a RESTful transaction is as follows: 
+A non normative example of the SAML 2.0 access token incorporation to a RESTful transaction is as follows: 
 
 ```
 GET /example/url/to/resource/location 

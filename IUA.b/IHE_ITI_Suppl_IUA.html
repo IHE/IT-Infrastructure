@@ -2142,7 +2142,7 @@ end
 <p>The Authorization Client SHALL incorporate the access token in the authorization header of the HTTP request.</p>
 <h4>
 <a id="user-content-37261-json-web-token-option" class="anchor" href="#37261-json-web-token-option" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.6.1 JSON Web Token Option</h4>
-<p>An Authorization Client that claims the JSON Web Token Option SHALL be able to incorporate a JWT as access token defined in Section 3.71.6.3 in the HTTP Basic Authorization header using. If JWS signature is used, the JWS Compact Serialization (base64 encoded, single signature or MACed) SHALL be used as described in [RFC 7515, Section 7.1].</p>
+<p>An Authorization Client that claims the JSON Web Token Option SHALL be able to incorporate a JWT access token defined in Section 3.71.6.3 in the HTTP Basic Authorization header with type <em>Bearer</em>. If JWS signature is used, the JWS Compact Serialization (base64 encoded, single signature or MACed) SHALL be used as described in [RFC 7515, Section 7.1].</p>
 <p>A Resource Server that supports the JSON Web Token Option SHALL be able to accept and understand a JWT token as defined in Section 3.71.6.3.</p>
 <h4>
 <a id="user-content-37262-saml-token-option" class="anchor" href="#37262-saml-token-option" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.6.2 SAML Token Option</h4>
@@ -2159,15 +2159,15 @@ end
 <a id="user-content-3728-message-examples" class="anchor" href="#3728-message-examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.8 Message examples</h3>
 <h4>
 <a id="user-content-37281-json-web-token-option" class="anchor" href="#37281-json-web-token-option" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.8.1 JSON Web Token Option</h4>
-<p>A non normative example of the access token incorporation to a RESTful transaction is as follows:</p>
+<p>A non normative example of the JWT access token incorporation to a RESTful transaction is as follows:</p>
 <pre><code>GET /example/url/to/resource/location 
 HTTP/1.1
-Authorization: IHE-SAML fFBGRNJru1FQd\[...omitted for brevity...\]44AzqT3Zg
+Authorization: Bearer vGHTPOJzh3QFd\[...omitted for brevity...\]99bhgT8Ya
 Host: examplehost.com
 </code></pre>
 <h4>
 <a id="user-content-37282-saml-token-option" class="anchor" href="#37282-saml-token-option" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.8.2 SAML Token Option</h4>
-<p>A non normative example of the access token incorporation to a RESTful transaction is as follows:</p>
+<p>A non normative example of the SAML 2.0 access token incorporation to a RESTful transaction is as follows:</p>
 <pre><code>GET /example/url/to/resource/location 
 HTTP/1.1
 Authorization: IHE-SAML fFBGRNJru1FQd\[...omitted for brevity...\]44AzqT3Zg
