@@ -965,7 +965,7 @@ For example:
 If coded values are used as scope parameter (e.g., purpose of use), it's values SHALL be formatted as FHIR Coding data type, e.g., as 
 
 ```
-purpose_of_use:[{"system":"2.16.840.1.113883.6.2","code":"99-0","display":"Social Worker"}]
+purpose_of_use:[{"system":"1.0.14265.1","code":"12","display":"Law Enforcement"}]
 ```  
 
 Note: The Authorization Server MAY ignore the scope requested by the Authorization Client or restrict it, based on the Authorization Server policy or the user's authorization grant. 
