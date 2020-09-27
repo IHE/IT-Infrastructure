@@ -298,7 +298,7 @@ Note: An analogy of the segregation of duties for access control between the Aut
 
 This profile relies on the OAuth 2.1 Authorization Framework. Since the original publication of OAuth 2.0 in 2012, several new RFCs have been published that add or remove functionality from the core specification. Version 2.1 of the OAuth Authorization Framework consolidates and simplifies the most commonly used features and best practices of OAuth 2.0.
 
-![IUA Actor Diagram](media/1.1_IUA-actor-diagram.png)
+![IUA Actor Diagram](media/1.2_IUA-actor-diagram.png)
 
 Figure 34.1-1: IUA Actor Diagram
 
