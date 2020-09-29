@@ -255,7 +255,7 @@ Add the following actors to the IHE Technical Frameworks General Introduction li
 
 |Actor                |Definition
 |-----                |----------
-|Authorization Client |A client that presents access tokens as part of transactions.
+|Authorization Client |A client that retrive access tokens and presents them as part of transactions.
 |Authorization Server |A server that provides access tokens to requesting clients.
 |Resource Server      |A server that provides services that need authorization.
 
@@ -423,7 +423,8 @@ A healthcare professional uses a server hosted web application to access a patie
 
 A healthcare professional uses a single page web application to access a patients electronic health record (EHR) using RESTful transactions. At initial startup the app registers with the Authorization Server using a dynamic client registration protocol. When accessing a view on the EHR, the steps follow the same steps as in the web application use case above.   
 
-A clinical monitor managed by the hospital system administrators access a patients EHR using RESTful transactions in the hospital LAN. At installation time, clinical monitor has been registered at the Authorization Server with client ID and client authentication method (e.g. client secret) by the system administrator and a contracts (policies) have been deposited at the Authorization Server and Resource Server(s) authorizing access to the EHR. Before accessing patient EHR data, the clinical monitor requests an access token from the Authorization Server using the client credential grant type. The clinical monitor incorporates the access token to the RESTful transactions to access EHR data and documents stored in the EHR Resource Server(s).         
+A clinical monitor managed by the hospital system administrators access a patients EHR using RESTful transactions in the hospital LAN. At installation time, clinical monitor has been registered at the Authorization Server with client ID and client authentication method (e.g. client secret) by the system administrator and a contracts (policies) have been deposited at the Authorization Server and Resource Server(s) authorizing access to the EHR. Before accessing patient EHR data, the clinical monitor requests an access token from the Authorization Server using the client credential grant type. The clinical monitor incorporates the access token to the RESTful transactions to access EHR data and documents stored in the EHR Resource Server(s).      
+   
 A patient uses a native app on her mobile device to access data from her electronic health record (EHR) using RESTful transactions via the Internet. At first startup the app registers with the Authorization Server using a dynamic client registration protocol. When accessing a view on the EHR, the native app is redirected to the EHR Authorization Server, which authenticates the patient either by presenting the views to enter the authentication factors (e.g. username, password and 2nd factor) or by delegating to an Identity Provider (IdP). After user authentication, the Authorization Server performs the necessary steps to authorize the native app to access to the EHR data by explicit user consent. When authorized, the native app retrieves an access token which authorizes the app to request and retrieve the EHR data from the Resource Server(s) on behalf of the patient.
 
 #### 34.4.2.2 Delegation
