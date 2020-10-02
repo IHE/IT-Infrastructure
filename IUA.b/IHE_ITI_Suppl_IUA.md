@@ -212,8 +212,6 @@ Similar issues arise with:
 
 -   IT administrators prefer a common method to authorize use of in house web applications and access to in house resources.
 
--   IT administrators are more willing to run their own internal authentication and authorization servers, but want to use off the shelf software and want the option to outsource these services. They are more likely to separate authentication from authorization than end user systems. Authentication issues are closely related to HR activities like hiring and firing. Authorization issues are related to patient and work assignments. These are controlled by different parts of the organization and have different process dependencies.
-
 -   Providers and Specialists have authorization needs for dealing with other organizations and need to deal with many resource services.
 
 -   Granting subset access to specialized provider. E.g., read access to cardiac info to physical therapy organization, forbidding access to other sensitive health data.
