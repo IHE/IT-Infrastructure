@@ -96,7 +96,7 @@ The current version of the IHE Technical Framework can be found at: [http://www.
 
 [3.71.1 Scope](#user-content-3711-scope)
 
-[3.71.2 Actor Roles](#user-content-3712-actor-role)
+[3.71.2 Actor Roles](#user-content-3712-actor-roles)
 
 [3.71.3 Referenced Standards](#user-content-3713-referenced-standards)
 
@@ -139,7 +139,7 @@ The current version of the IHE Technical Framework can be found at: [http://www.
 
 [3.72.1 Scope](#user-content-3721-scope)
 
-[3.72.2 Actor Roles](#user-content-3722-use-case-roles)
+[3.72.2 Actor Roles](#user-content-3722-actor-roles)
 
 [3.72.3 Referenced Standards](#user-content-3723-referenced-standards)
 
@@ -483,7 +483,7 @@ This profile is scoped to the *Authorization Code* and *Client Credential* grant
 
 This transaction SHALL be used by Authorization Client actors to retrieve an OAuth 2.1 compliant access token defined in Section 3.71.6 Message Semantics of this profile.
 
-### 3.71.2 Use Case Roles
+### 3.71.2 Actor Roles
 
 This profile defines the following actors and roles:
 
@@ -1105,7 +1105,7 @@ Where:
 This transaction is used to incorporate authorization information to HTTP RESTful transactions. 
 
 
-### 3.72.2 Use Case Roles
+### 3.72.2 Actor Roles
 
 Table 3.72.2-1: Actor Roles
 

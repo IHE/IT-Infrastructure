@@ -779,7 +779,7 @@ pre {
 <p><a href="#user-content-volume-2----transactions">Volume 2 -- Transactions 18</a></p>
 <p><a href="#user-content-371-get-authorization-token">3.71 Get Authorization Token</a></p>
 <p><a href="#user-content-3711-scope">3.71.1 Scope</a></p>
-<p><a href="#user-content-3712-use-case-roles">3.71.2 Use Case Roles</a></p>
+<p><a href="#user-content-3712-actor-roles">3.71.2 Actor Roles</a></p>
 <p><a href="#user-content-3713-referenced-standards">3.71.3 Referenced Standards</a></p>
 <p><a href="#user-content-3714-messages">3.71.4 Messages</a></p>
 <p><a href="#user-content-37141-get-authorization-token-request">3.71.4.1 Get Authorization Token Request</a></p>
@@ -800,7 +800,7 @@ pre {
 <p><a href="#user-content-37191-security-audit-considerations">3.71.9.1 Security Audit Considerations</a></p>
 <p><a href="#user-content-372-incorporate-authorization-token">3.72 Incorporate Authorization Token</a></p>
 <p><a href="#user-content-3721-scope">3.72.1 Scope</a></p>
-<p><a href="#user-content-3722-use-case-roles">3.72.2 Use Case Roles</a></p>
+<p><a href="#user-content-3722-actor-roles">3.72.2 Actor Roles</a></p>
 <p><a href="#user-content-3723-referenced-standards">3.72.3 Referenced Standards</a></p>
 <p><a href="#user-content-37231-related-ihe-profiles">3.72.3.1 Related IHE Profiles</a></p>
 <p><a href="#user-content-3724-interaction-diagram">3.72.4 Interaction Diagram</a></p>
@@ -861,9 +861,6 @@ pre {
 </li>
 <li>
 <p>IT administrators prefer a common method to authorize use of in house web applications and access to in house resources.</p>
-</li>
-<li>
-<p>IT administrators are more willing to run their own internal authentication and authorization servers, but want to use off the shelf software and want the option to outsource these services. They are more likely to separate authentication from authorization than end user systems. Authentication issues are closely related to HR activities like hiring and firing. Authorization issues are related to patient and work assignments. These are controlled by different parts of the organization and have different process dependencies.</p>
 </li>
 <li>
 <p>Providers and Specialists have authorization needs for dealing with other organizations and need to deal with many resource services.</p>
@@ -1042,7 +1039,6 @@ pre {
 <p>Resource Server SHALL declare support for IUA in the <a href="http://hl7.org/fhir/R4/http.html#capabilities" rel="nofollow">capabilities</a> endpoint using the element <a href="http://hl7.org/fhir/R4/capabilitystatement.html" rel="nofollow"><strong>CapabilityStatement.rest.security.</strong></a> and the code "IUA" at system canonical URL "<a href="http://profiles.ihe.net/fhir/ihe.securityTypes/CodeSystem/securityTypes" rel="nofollow">http://profiles.ihe.net/fhir/ihe.securityTypes/CodeSystem/securityTypes</a>".</p>
 </li>
 </ol>
-<p>TODO: do we need a different code for SAML token vs JWT token?</p>
 <h2>
 <a id="user-content-342-iua-actor-options" class="anchor" href="#342-iua-actor-options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.2 IUA Actor Options</h2>
 <p>The <strong>SAML Token Option</strong> enables integration of environments that use both, SAML access token and the OAuth authorization infrastructure. All actors SHALL support the JSON Web Token option and MAY support the SAML Token option.</p>
@@ -1233,7 +1229,7 @@ pre {
 <a id="user-content-3711-scope" class="anchor" href="#3711-scope" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.1 Scope</h3>
 <p>This transaction SHALL be used by Authorization Client actors to retrieve an OAuth 2.1 compliant access token defined in Section 3.71.6 Message Semantics of this profile.</p>
 <h3>
-<a id="user-content-3712-use-case-roles" class="anchor" href="#3712-use-case-roles" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.2 Use Case Roles</h3>
+<a id="user-content-3712-actor-roles" class="anchor" href="#3712-actor-roles" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.71.2 Actor Roles</h3>
 <p>This profile defines the following actors and roles:</p>
 <p>Table 3.71.2-1: Actor Roles</p>
 <table>
@@ -2071,7 +2067,7 @@ Pragma: no-cache
 <a id="user-content-3721-scope" class="anchor" href="#3721-scope" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.1 Scope</h3>
 <p>This transaction is used to incorporate authorization information to HTTP RESTful transactions.</p>
 <h3>
-<a id="user-content-3722-use-case-roles" class="anchor" href="#3722-use-case-roles" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.2 Use Case Roles</h3>
+<a id="user-content-3722-actor-roles" class="anchor" href="#3722-actor-roles" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.2 Actor Roles</h3>
 <p>Table 3.72.2-1: Actor Roles</p>
 <table>
 <thead>
