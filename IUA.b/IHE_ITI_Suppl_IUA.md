@@ -96,7 +96,7 @@ The current version of the IHE Technical Framework can be found at: [http://www.
 
 [3.71.1 Scope](#user-content-3711-scope)
 
-[3.71.2 Use Case Roles](#user-content-3712-use-case-roles)
+[3.71.2 Actor Roles](#user-content-3712-actor-role)
 
 [3.71.3 Referenced Standards](#user-content-3713-referenced-standards)
 
@@ -139,7 +139,7 @@ The current version of the IHE Technical Framework can be found at: [http://www.
 
 [3.72.1 Scope](#user-content-3721-scope)
 
-[3.72.2 Use Case Roles](#user-content-3722-use-case-roles)
+[3.72.2 Actor Roles](#user-content-3722-use-case-roles)
 
 [3.72.3 Referenced Standards](#user-content-3723-referenced-standards)
 
@@ -342,8 +342,6 @@ Notes:
 2. In general, Resource Servers perform additional access control decisions and may restrict responses even for transactions authorized by the Authorization Server.
 
 3. Resource Server SHALL declare support for IUA in the [capabilities](http://hl7.org/fhir/R4/http.html#capabilities) endpoint using the element [**CapabilityStatement.rest.security.**](http://hl7.org/fhir/R4/capabilitystatement.html) and the code "IUA" at system canonical URL "http://profiles.ihe.net/fhir/ihe.securityTypes/CodeSystem/securityTypes".
-
-TODO: do we need a different code for SAML token vs JWT token?
 
 
 ## 34.2 IUA Actor Options
