@@ -266,6 +266,7 @@ Add the following transactions to the IHE Technical Frameworks General Introduct
 |-----------                                |----------
 |Incorporate Authorization Token \[ITI-72\] |Add an access token to a transaction.
 |Get Authorization Token \[ITI-71\]         |A transaction that is used to request and obtain an access token for use in Authorized transactions.
+|Token Introspection \[ITI-102\]            |A transaction that is used to obtain the details given a access token.
 
 
 # Volume 1 -- Profiles
@@ -308,8 +309,13 @@ Table 34.1-1: IUA Profile - Actors and Transactions
 |----                 |----                             |---        	|-----          
 |Authorization Client |Incorporate Authorization Token  |R          	|Section 3.72
 |                     |Get Authorization Token          |O          	|Section 3.71
+|                     |Token Introspection              |O          	|Section 3.102
 |Authorization Server |Get Authorization Token          |R          	|Section 3.71
+|                     |Token Introspection              |C  Note 1  	|Section 3.102
 |Resource Server      |Incorporate Authorization Token  |R          	|Section 3.72
+|                     |Token Introspection              |C  Note 1  	|Section 3.102
+
+Note 1: Mandatory when the Token Introspection Option is declared.
 
 ### 34.1.1 Actor Descriptions and Actor Profile Requirements
 
@@ -323,15 +329,21 @@ The Authorization Client performs the network transactions and user interactions
 
 -   Get Authorization Token: In this case, the Authorization Client actor interacts with an Authorization Server to obtain a token that indicates HTTP RESTful transactions for a particular kind of service and device are authorized by the user. This may include interactions with the user for authentication purposes.
 
+-   Token Introspection: This transaction to be used with Token Introspection Option Option.  In this case, the Authorization Client actor receives an opaque token from the Authorization Server, and may interact with an Authorization Server to obtain the details of that opaque token.
+
 -   An Authorization Client SHOULD query the [capabilities](http://hl7.org/fhir/R4/http.html#capabilities) endpoint on the Resource Server to determine if the Resource Server supports IUA. The element [**CapabilityStatement.rest.security.**](http://hl7.org/fhir/R4/capabilitystatement.html) will be populated with the code "IUA" at system canonical URL "http://profiles.ihe.net/fhir/ihe.securityTypes/CodeSystem/securityTypes". 
 
 #### 34.1.1.2 Authorization Server
 
 The Authorization Server provides access tokens to requesting clients. In IUA, the Authorization Server uses an authenticated user identity, the requested HTTP RESTful service URL, and other information to determine whether HTTP RESTful transactions are authorized. If authorized, the Authorization Server provides an access token which authorizes the client to retrieve data and documents from the Resource Server.  
 
+The Authorization Server will return a JWT token normally, but when Token Introspection option is used the token will be opaque. When Token Introspection option is used the Authorization Server SHALL provide the ITI-102 Token Introspection transaction service.
+
 #### 34.1.1.3 Resource Server
 
 The Resource Server provides services to access protected resources that need authorization. In IUA the Resource Server accepts a HTTP RESTful transaction request with an incorporated access token. It evaluates the access token to verify that the Authorization Server has authorized the transaction. The Resource Server must enforce this authorization and may perform additional authorization decisions that are specific to the requested service. The Resource Server may then allow the transaction to proceed, subject to access control constraints that may also be in place.
+
+The Resource Server declaring the Token Introspection option SHALL have the ability to process JWT tokens and opaque tokens. When an opaque token is provided in the Incorporate Authorization Token transaction, the Resource Server can use the Token Introspection transaction to obtain the details of that opaque token from the Authorization Server.
 
 Notes:
 
@@ -346,17 +358,23 @@ Notes:
 
 The **SAML Token Option** enables integration of environments that use both, SAML access token and the OAuth authorization infrastructure. All actors SHALL support the JSON Web Token option and MAY support the SAML Token option.
 
+The **JWT Token Option** uses JSON Web Token encoding of the Token issued by the Authorization Server. The JSON Web Token constraints are defined in [Volume 2: 3.71.6.1 JSON Web Token](#37161-json-web-token)
+
+The **Token Introspection Option** uses an opaque token, and uses the ITI-102 Token Introspection transaction to convert an opaque token into the [Volume 2: 3.71.6.1 JSON Web Token](#37161-json-web-token) encoding. The opaque token is smaller so as to be more efficient to communicate, but does require the Token Introspection transaction to get the details. These tradeoffs are sometimes an advantage.
 
 Table 34.2-1: IUA - Actors and Options
 
-| IUA Actor            | Option             |Optionality
-|----------------------|--------------------|----------	
-| Authorization Client | JWT Token          |R    		
-|                      | SAML Token         |O    		
-| Authorization Server | JWT Token         	|R    		
-|                      | SAML Token			|O          
-| Resource Server      | JWT Token 			|R    		
-|                      | SAML Token         |O    		        
+| IUA Actor            | Option              |Optionality
+|----------------------|---------------------|----------	
+| Authorization Client | JWT Token           |R    		
+|                      | SAML Token          |O    		
+|                      | Token Introspection |O    		
+| Authorization Server | JWT Token           |R    		
+|                      | SAML Token          |O          
+|                      | Token Introspection |O    		
+| Resource Server      | JWT Token           |R    		
+|                      | SAML Token          |O    		
+|                      | Token Introspection |O    		
 
 
 ## 34.3 IUA Required Actor Groupings
@@ -372,7 +390,6 @@ Table 34.3-1: Required Actor Groupings
   |Authorization Server |Time Client                |ITI TF-1:7 Consistent Time   | --                          
   |Resource Server      |Time Client                |ITI TF-1:7 Consistent Time   | --                          
   |Authorization Client | --                        | --                          | --                          
-
 
 ## 34.4 IUA Overview
 
@@ -393,6 +410,8 @@ The term "authorization" and "access control" are used colloquially for a variet
 ### 34.4.1.2 Terminology
 
 This profile uses the terms "access token", "refresh token", "authorization server", "resource server", "authorization endpoint", "authorization request", "authorization response", "token endpoint", "grant type", "access token request", and "access token response" as defined by The OAuth 2.1 Authorization Framework [OAuth 2.1]. 
+
+TODO: Is Introspection and opaque token defined somewhere???
 
 The OAuth 2.1 Authorization Framework uses the term "resource owner" for the user an authorized client may access data on behalf of. Typically in health related environments a healthcare professional access patients or organization related data (resources) for which the healthcare professional is not the "legal owner" but may access according to the access policies of the environment. To avoid any misunderstandings related to the OAuth term "resource owner" a the "legal owner", this profile uses the term "user" instead.
 
@@ -446,6 +465,8 @@ IUA does not address issues around issuing and revoking client\_ids. OAuth 2.1 r
 Usually Authorization Server publish web forms where system administrators and users can apply for a client_ID. OAuth 2.1 defines a mechanism for dynamically registering clients with authorization servers, by defining a set of desired client metadata values to be made available to the authorization servers [OAuth 2.1, Section 2].  
 
 The Authorization Server will have an administratively managed list of approved client\_ids for accepted clients. This list will be updated as new clients are approved or existing clients are removed. An access token will not be issued for unapproved clients. This assumes that the client\_id management will deal with these security considerations in a manner similar to the certificate management assumptions made for secure communication transactions.
+
+TODO: Is there some security considerations advantage to JWT vs SAML vs Introspection???
 
 # 34.6 IUA Cross Profile Considerations
 
@@ -1241,3 +1262,87 @@ where:
 -   **alias** SHALL match the optional string within the SAML Assertion\'s Subject element SPProvidedID attribute
 -   **user** SHALL match the required content of the SAML Assertion\'s Subject element
 -   **issuer** SHALL match the X-Assertion Provider entity ID contained with the content of SAML Assertion\'s Issuer element
+
+
+**Add Section 3.102**
+
+# 3.102 Token Introspection
+
+This transaction is used by Authorization Client actors and Resource Server actors to obtain an OAuth 2.1 compliant JWT encoded form of an opaque access token.
+
+### 3.102.1 Scope
+
+This transaction may be used by Authorization Client actors and Resource Server actors to retrieve an OAuth 2.1 compliant JWT encoded form of an opaque access token.
+
+### 3.102.2 Actor Roles
+
+This profile defines the following actors and roles:
+
+Table 3.102.2-1: Actor Roles
+
+|Actor                  |Role                                                           |
+|-------                |-----                                                          |
+|Authorization Client   | Introspection Requester    |
+|Resource Server        | Introspection Requester....|
+|Authorization Server   | Introspection Responder    |
+
+### 3.102.3 Referenced Standards
+
+TODO need specific references for this transaction
+
+This transaction relies on standards defined in the following documents and the references therein: 
+
+- *OAuth 2.1*: The OAuth 2.1 Authorization Framework, published as draft-ietf-oauth-v2-1-00, July 30, 2020.
+
+- *JWT Access Token*: JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens, published as draft-ietf-oauth-access-token-jwt-07, April 2020.
+
+- *RFC 7519*: JSON Web Token (JWT), May 2015.  
+
+- *RFC 7522*: Security Assertion Markup Language (SAML) 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants, May 2015. 
+
+- *RFC 7515*: JSON Web Signature (JWS), May 2015. 
+
+- *RFC 7518*: JSON Web Algorithms (JWA), May 2015. 
+
+- *HEART scopes*: Health Relationship Trust Profile for Fast Healthcare Interoperability Resources (FHIR) OAuth 2.0 Scopes, July 2018. 
+
+
+#### 3.102.4.1 Token Introspection Request
+
+Used to request the details of an opaque token.
+
+##### 3.102.4.1.1 Trigger Events
+
+Introspection Requester has an opaque token and needs the details.
+
+##### 3.102.4.1.2 Message Semantics
+
+OAuth blah blah introspection transaction is used
+
+##### 3.102.4.1.3 Expected Actions
+
+#### 3.102.4.2 Token Introspection Response
+
+Used to return the details of a requested opaque token. This may be success or may be an error code.
+
+##### 3.102.4.2.1 Trigger Events
+
+The details of an opaque token are ready.
+
+##### 3.102.4.2.2 Message Semantics
+
+OAuth blah blah introspection transaction is used
+
+The JSON Web Token encoding are defined in [Volume 2: 3.71.6.1 JSON Web Token](#37161-json-web-token)
+
+##### 3.102.4.2.3 Expected Actions
+
+The Introspection Requester uses the details returned for some application specific means.
+
+### 3.102.5 Security Considerations
+
+something useful should be said
+
+#### 3.102.5.1 Security Audit Considerations
+
+some audit events should be recorded
