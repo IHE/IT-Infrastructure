@@ -6,8 +6,7 @@
 
 **Technical Framework Supplement**
 
-**Internet User Authorization\
-(IUA)**
+**Internet User Authorization (IUA)**
 
 **Trial Implementation**
 
