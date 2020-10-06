@@ -734,8 +734,7 @@ pre {
 <p><a href="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/IHE-logo.jpeg" target="_blank" rel="noopener noreferrer"><img src="/Users/msmock/Documents/GitHub/IT-Infrastructure/IUA.b/media/IHE-logo.jpeg" alt="IHE_LOGO_for_tf-docs" style="max-width:100%;"></a></p>
 <p><strong>IHE ITI</strong></p>
 <p><strong>Technical Framework Supplement</strong></p>
-<p><strong>Internet User Authorization<br>
-(IUA)</strong></p>
+<p><strong>Internet User Authorization (IUA)</strong></p>
 <p><strong>Trial Implementation</strong></p>
 <p>Date: August 17, 2020</p>
 <p>Author: ITI Technical Committee</p>
@@ -747,7 +746,7 @@ pre {
 <p>This supplement describes changes to the existing technical framework documents.</p>
 <p>"Boxed" instructions like the sample below indicate to the Volume Editor how to integrate the relevant section(s) into the relevant Technical Framework volume.</p>
 <p><strong>Amend Section X.X by the following:</strong></p>
-<p>Where the amendment adds text, make the added text <strong>[bold underline]{.underline}</strong>. Where the amendment removes text, make the removed text <strong><del>bold strikethrough</del></strong>. When entire new sections are added, introduce with editor's instructions to "add new text" or similar, which for readability are not bolded or underlined.</p>
+<p>Where the amendment adds text, make the added text <strong><ins>bold underline</ins></strong>. Where the amendment removes text, make the removed text <strong><del>bold strikethrough</del></strong>. When entire new sections are added, introduce with editor's instructions to "add new text" or similar, which for readability are not bolded or underlined.</p>
 <p>General information about IHE can be found at: <a href="http://www.ihe.net/" rel="nofollow">http://www.ihe.net</a>.</p>
 <p>Information about the IHE IT Infrastructure domain can be found at: <a href="http://www.ihe.net/IHE_Domains/" rel="nofollow">http://www.ihe.net/IHE_Domains</a>.</p>
 <p>Information about the structure of IHE Technical Frameworks and Supplements can be found at: <a href="http://www.ihe.net/IHE_Process/" rel="nofollow">http://www.ihe.net/IHE_Process</a> and <a href="http://www.ihe.net/Profiles/" rel="nofollow">http://www.ihe.net/Profiles</a>.</p>
@@ -833,8 +832,8 @@ pre {
 </li>
 </ul>
 <p>The HTTP RESTful services may include user driven browser activity, downloaded applications, and automatic devices. The existing IHE ITI XUA Profile fills these needs for the SOAP transport based transactions. The existing IHE ITI EUA Profile fills these needs for various different transports within a single enterprise environment, including HTTP RESTful transports.</p>
-<p>The Basic Patient Privacy Consent (BPPC) Profile is associated with this profile and these other existing profile. BPPC covers the legal and administrative needs for consent documentation and associating the patient consent with policy documentation. This profile includes the ability to associate the electronic authorizations with the patient agreements and organizational policies.</p>
-<p>It is important to understand that IUA is not a substitute for the administrative activities (such as withdrawing consent), policy setting, and other activities that BPPC documents. Greater integration of this authorization with third party authorization and consent documentation profiles, such as those found in the IHE BPPC Profile, are a future effort. This profile starts with just the basic authorization activities.</p>
+<p>The Basic Patient Privacy Consent (BPPC) Profile is associated with this profile and these other existing profile. BPPC covers the legal and administrative needs for consent documentation and associating the patient consent with policy documentation. The BPPC profile includes the ability to associate the electronic authorizations with the patient agreements and organizational policies.</p>
+<p>It is important to understand that IUA is not a substitute for the administrative activities (such as withdrawing consent), policy setting, and other activities that BPPC documents provide. Greater integration of this authorization with third party authorization and consent documentation profiles, such as those found in the IHE BPPC Profile, are a future effort. This profile starts with just the basic authorization activities.</p>
 <p>The administrative actions needed to establish an authorization server for IUA is not covered by these profile. These activities depend upon the operational needs, organizational and privacy policies that apply to a particular deployment.</p>
 <h3>
 <a id="user-content-background-on-the-problem-environment" class="anchor" href="#background-on-the-problem-environment" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Background on the problem environment</h3>
@@ -945,6 +944,10 @@ pre {
 <td>Get Authorization Token [ITI-71]</td>
 <td>A transaction that is used to request and obtain an access token for use in Authorized transactions.</td>
 </tr>
+<tr>
+<td>Token Introspection [ITI-102]</td>
+<td>A transaction that is used to obtain the details given a access token.</td>
+</tr>
 </tbody>
 </table>
 <h1>
@@ -991,10 +994,22 @@ pre {
 <td>Section 3.71</td>
 </tr>
 <tr>
+<td></td>
+<td>Token Introspection</td>
+<td>O</td>
+<td>Section 3.102</td>
+</tr>
+<tr>
 <td>Authorization Server</td>
 <td>Get Authorization Token</td>
 <td>R</td>
 <td>Section 3.71</td>
+</tr>
+<tr>
+<td></td>
+<td>Token Introspection</td>
+<td>C  Note 1</td>
+<td>Section 3.102</td>
 </tr>
 <tr>
 <td>Resource Server</td>
@@ -1002,8 +1017,15 @@ pre {
 <td>R</td>
 <td>Section 3.72</td>
 </tr>
+<tr>
+<td></td>
+<td>Token Introspection</td>
+<td>C  Note 1</td>
+<td>Section 3.102</td>
+</tr>
 </tbody>
 </table>
+<p>Note 1: Mandatory when the Token Introspection Option is declared.</p>
 <h3>
 <a id="user-content-3411-actor-descriptions-and-actor-profile-requirements" class="anchor" href="#3411-actor-descriptions-and-actor-profile-requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.1.1 Actor Descriptions and Actor Profile Requirements</h3>
 <p>The IUA actors are expected to be grouped with other actors that perform HTTP RESTful transactions. Grouping an Authorization Client with another actor means that this other actor will provide an access token as part of the HTTP transaction to a HTTP RESTful server. It may perform the Get Authorization [ITI-71] transaction to obtain the access token. The corresponding HTTP RESTful server should be grouped with the Resource Server actor to indicate that the server can perform access control.</p>
@@ -1018,15 +1040,20 @@ pre {
 <p>Get Authorization Token: In this case, the Authorization Client actor interacts with an Authorization Server to obtain a token that indicates HTTP RESTful transactions for a particular kind of service and device are authorized by the user. This may include interactions with the user for authentication purposes.</p>
 </li>
 <li>
+<p>Token Introspection: This transaction to be used with Token Introspection Option Option.  In this case, the Authorization Client actor receives an opaque token from the Authorization Server, and may interact with an Authorization Server to obtain the details of that opaque token.</p>
+</li>
+<li>
 <p>An Authorization Client SHOULD query the <a href="http://hl7.org/fhir/R4/http.html#capabilities" rel="nofollow">capabilities</a> endpoint on the Resource Server to determine if the Resource Server supports IUA. The element <a href="http://hl7.org/fhir/R4/capabilitystatement.html" rel="nofollow"><strong>CapabilityStatement.rest.security.</strong></a> will be populated with the code "IUA" at system canonical URL "<a href="http://profiles.ihe.net/fhir/ihe.securityTypes/CodeSystem/securityTypes" rel="nofollow">http://profiles.ihe.net/fhir/ihe.securityTypes/CodeSystem/securityTypes</a>".</p>
 </li>
 </ul>
 <h4>
 <a id="user-content-34112-authorization-server" class="anchor" href="#34112-authorization-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.1.1.2 Authorization Server</h4>
 <p>The Authorization Server provides access tokens to requesting clients. In IUA, the Authorization Server uses an authenticated user identity, the requested HTTP RESTful service URL, and other information to determine whether HTTP RESTful transactions are authorized. If authorized, the Authorization Server provides an access token which authorizes the client to retrieve data and documents from the Resource Server.</p>
+<p>The Authorization Server will return a JWT token normally, but when Token Introspection option is used the token will be opaque. When Token Introspection option is used the Authorization Server SHALL provide the ITI-102 Token Introspection transaction service.</p>
 <h4>
 <a id="user-content-34113-resource-server" class="anchor" href="#34113-resource-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.1.1.3 Resource Server</h4>
 <p>The Resource Server provides services to access protected resources that need authorization. In IUA the Resource Server accepts a HTTP RESTful transaction request with an incorporated access token. It evaluates the access token to verify that the Authorization Server has authorized the transaction. The Resource Server must enforce this authorization and may perform additional authorization decisions that are specific to the requested service. The Resource Server may then allow the transaction to proceed, subject to access control constraints that may also be in place.</p>
+<p>The Resource Server declaring the Token Introspection option SHALL have the ability to process JWT tokens and opaque tokens. When an opaque token is provided in the Incorporate Authorization Token transaction, the Resource Server can use the Token Introspection transaction to obtain the details of that opaque token from the Authorization Server.</p>
 <p>Notes:</p>
 <ol>
 <li>
@@ -1036,12 +1063,14 @@ pre {
 <p>In general, Resource Servers perform additional access control decisions and may restrict responses even for transactions authorized by the Authorization Server.</p>
 </li>
 <li>
-<p>Resource Server SHALL declare support for IUA in the <a href="http://hl7.org/fhir/R4/http.html#capabilities" rel="nofollow">capabilities</a> endpoint using the element <a href="http://hl7.org/fhir/R4/capabilitystatement.html" rel="nofollow"><strong>CapabilityStatement.rest.security.</strong></a> and the code "IUA" at system canonical URL "<a href="http://profiles.ihe.net/fhir/ihe.securityTypes/CodeSystem/securityTypes" rel="nofollow">http://profiles.ihe.net/fhir/ihe.securityTypes/CodeSystem/securityTypes</a>".</p>
+<p>Resource Server SHALL declare support for IUA in the <a href="http://hl7.org/fhir/R4/http.html#capabilities" rel="nofollow">capabilities</a> endpoint using the element <a href="http://hl7.org/fhir/R4/capabilitystatement.html" rel="nofollow"><strong>CapabilityStatement.rest.security.service</strong></a> and the code "IUA" at system canonical URL "<a href="http://profiles.ihe.net/fhir/ihe.securityTypes/CodeSystem/securityTypes" rel="nofollow">http://profiles.ihe.net/fhir/ihe.securityTypes/CodeSystem/securityTypes</a>".</p>
 </li>
 </ol>
 <h2>
 <a id="user-content-342-iua-actor-options" class="anchor" href="#342-iua-actor-options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.2 IUA Actor Options</h2>
 <p>The <strong>SAML Token Option</strong> enables integration of environments that use both, SAML access token and the OAuth authorization infrastructure. All actors SHALL support the JSON Web Token option and MAY support the SAML Token option.</p>
+<p>The <strong>JWT Token Option</strong> uses JSON Web Token encoding of the Token issued by the Authorization Server. The JSON Web Token constraints are defined in <a href="#37161-json-web-token">Volume 2: 3.71.6.1 JSON Web Token</a></p>
+<p>The <strong>Token Introspection Option</strong> uses an opaque token, and uses the ITI-102 Token Introspection transaction to convert an opaque token into the <a href="#37161-json-web-token">Volume 2: 3.71.6.1 JSON Web Token</a> encoding. The opaque token is smaller so as to be more efficient to communicate, but does require the Token Introspection transaction to get the details. These tradeoffs are sometimes an advantage.</p>
 <p>Table 34.2-1: IUA - Actors and Options</p>
 <table>
 <thead>
@@ -1063,6 +1092,11 @@ pre {
 <td>O</td>
 </tr>
 <tr>
+<td></td>
+<td>Token Introspection</td>
+<td>O</td>
+</tr>
+<tr>
 <td>Authorization Server</td>
 <td>JWT Token</td>
 <td>R</td>
@@ -1073,6 +1107,11 @@ pre {
 <td>O</td>
 </tr>
 <tr>
+<td></td>
+<td>Token Introspection</td>
+<td>O</td>
+</tr>
+<tr>
 <td>Resource Server</td>
 <td>JWT Token</td>
 <td>R</td>
@@ -1080,6 +1119,11 @@ pre {
 <tr>
 <td></td>
 <td>SAML Token</td>
+<td>O</td>
+</tr>
+<tr>
+<td></td>
+<td>Token Introspection</td>
 <td>O</td>
 </tr>
 </tbody>
@@ -1143,7 +1187,7 @@ pre {
 <h3>
 <a id="user-content-34412-terminology" class="anchor" href="#34412-terminology" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.4.1.2 Terminology</h3>
 <p>This profile uses the terms "access token", "refresh token", "authorization server", "resource server", "authorization endpoint", "authorization request", "authorization response", "token endpoint", "grant type", "access token request", and "access token response" as defined by The OAuth 2.1 Authorization Framework [OAuth 2.1].</p>
-<p>The OAuth 2.1 Authorization Framework uses the term "resource owner" for the user an authorized client may access data on behalf of. Typically in health related environments a healthcare professional access patients or organization related data (resources) for which the healthcare professional is not the "legal owner" but may access according to the access policies of the environment. To avoid any misunderstandings related to the OAuth term "resource owner" a the "legal owner", this profile uses the term "user" instead.</p>
+<p>The OAuth 2.1 Authorization Framework uses the term "resource owner" for the user an authorized client may access data on behalf of. Typically in health related environments a healthcare professional access patients or organization related data (resources) for which the healthcare professional is not the "legal owner" but may access according to the access policies of the environment. To avoid any misunderstandings related to the OAuth term "resource owner" and the term "legal owner", this profile uses the term "user" instead.</p>
 <p>In accordance with the definitions in the OAuth 2.1 Authorization Framework [OAuth 2.1] this profile distinguishes confidential clients and public clients as follows:</p>
 <ul>
 <li>
@@ -1189,6 +1233,7 @@ pre {
 <p>IUA does not address issues around issuing and revoking client_ids. OAuth 2.1 relies upon the client_id for client identification and authorization. OAuth 2.1 does not further define how client_ids are managed.</p>
 <p>Usually Authorization Server publish web forms where system administrators and users can apply for a client_ID. OAuth 2.1 defines a mechanism for dynamically registering clients with authorization servers, by defining a set of desired client metadata values to be made available to the authorization servers [OAuth 2.1, Section 2].</p>
 <p>The Authorization Server will have an administratively managed list of approved client_ids for accepted clients. This list will be updated as new clients are approved or existing clients are removed. An access token will not be issued for unapproved clients. This assumes that the client_id management will deal with these security considerations in a manner similar to the certificate management assumptions made for secure communication transactions.</p>
+<p>TODO: Is there some security considerations advantage to JWT vs SAML vs Introspection???</p>
 <h1>
 <a id="user-content-346-iua-cross-profile-considerations" class="anchor" href="#346-iua-cross-profile-considerations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>34.6 IUA Cross Profile Considerations</h1>
 <p>The XUA profile provides equivalent functionality for SOAP based transactions. Both profiles, XUA and IUA define a transaction to incorporate a token into transactions accessing protected data. Both profiles have much in common, but also some remarkable differences:</p>
@@ -1475,7 +1520,7 @@ redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb&amp;
 code_challenge=6fdkQaPm51l13DSukcAH3Mdx7_ntecHYd1vi3n0hMZY&amp;
 code_challenge_method=S256&amp;
 resource=https%3A%2F%2Frs.example.com%2F
-&amp;scope=scope_1%20scope_2%20scope_N 
+&amp;scope=scope_1%20scope_2%20scope_N
 HTTP/1.1
 Host: server.example.com
 </code></pre>
@@ -1516,7 +1561,7 @@ Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
 Content-Type: application/x-www-form-urlencoded
 
 grant_type=authorization_code
-&amp;code=SplxlOBeZQQYbYS6WxSbIA 
+&amp;code=SplxlOBeZQQYbYS6WxSbIA
 &amp;redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb
 &amp;code_verifier=3641a2d12d66101249cdf7a79c000c1f8c05d2aafcf14bf146497bed
 </code></pre>
@@ -2156,7 +2201,7 @@ end
 <h4>
 <a id="user-content-37281-json-web-token-option" class="anchor" href="#37281-json-web-token-option" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.8.1 JSON Web Token Option</h4>
 <p>A non normative example of the JWT access token incorporation to a RESTful transaction is as follows:</p>
-<pre><code>GET /example/url/to/resource/location 
+<pre><code>GET /example/url/to/resource/location
 HTTP/1.1
 Authorization: Bearer vGHTPOJzh3QFd\[...omitted for brevity...\]99bhgT8Ya
 Host: examplehost.com
@@ -2164,7 +2209,7 @@ Host: examplehost.com
 <h4>
 <a id="user-content-37282-saml-token-option" class="anchor" href="#37282-saml-token-option" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.72.8.2 SAML Token Option</h4>
 <p>A non normative example of the SAML 2.0 access token incorporation to a RESTful transaction is as follows:</p>
-<pre><code>GET /example/url/to/resource/location 
+<pre><code>GET /example/url/to/resource/location
 HTTP/1.1
 Authorization: IHE-SAML fFBGRNJru1FQd\[...omitted for brevity...\]44AzqT3Zg
 Host: examplehost.com
@@ -2204,4 +2249,94 @@ Host: examplehost.com
 <li>
 <strong>issuer</strong> SHALL match the X-Assertion Provider entity ID contained with the content of SAML Assertion's Issuer element</li>
 </ul>
+<p><strong>Add Section 3.102</strong></p>
+<h1>
+<a id="user-content-3102-token-introspection" class="anchor" href="#3102-token-introspection" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.102 Token Introspection</h1>
+<p>This transaction is used by Authorization Client actors and Resource Server actors to obtain an OAuth 2.1 compliant JWT encoded form of an opaque access token.</p>
+<h3>
+<a id="user-content-31021-scope" class="anchor" href="#31021-scope" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.102.1 Scope</h3>
+<p>This transaction may be used by Authorization Client actors and Resource Server actors to retrieve an OAuth 2.1 compliant JWT encoded form of an opaque access token.</p>
+<h3>
+<a id="user-content-31022-actor-roles" class="anchor" href="#31022-actor-roles" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.102.2 Actor Roles</h3>
+<p>This profile defines the following actors and roles:</p>
+<p>Table 3.102.2-1: Actor Roles</p>
+<table>
+<thead>
+<tr>
+<th>Actor</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Authorization Client</td>
+<td>Introspection Requester</td>
+</tr>
+<tr>
+<td>Resource Server</td>
+<td>Introspection Requester....</td>
+</tr>
+<tr>
+<td>Authorization Server</td>
+<td>Introspection Responder</td>
+</tr>
+</tbody>
+</table>
+<h3>
+<a id="user-content-31023-referenced-standards" class="anchor" href="#31023-referenced-standards" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.102.3 Referenced Standards</h3>
+<p>TODO need specific references for this transaction</p>
+<p>This transaction relies on standards defined in the following documents and the references therein:</p>
+<ul>
+<li>
+<p><em>OAuth 2.1</em>: The OAuth 2.1 Authorization Framework, published as draft-ietf-oauth-v2-1-00, July 30, 2020.</p>
+</li>
+<li>
+<p><em>JWT Access Token</em>: JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens, published as draft-ietf-oauth-access-token-jwt-07, April 2020.</p>
+</li>
+<li>
+<p><em>RFC 7519</em>: JSON Web Token (JWT), May 2015.</p>
+</li>
+<li>
+<p><em>RFC 7522</em>: Security Assertion Markup Language (SAML) 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants, May 2015.</p>
+</li>
+<li>
+<p><em>RFC 7515</em>: JSON Web Signature (JWS), May 2015.</p>
+</li>
+<li>
+<p><em>RFC 7518</em>: JSON Web Algorithms (JWA), May 2015.</p>
+</li>
+<li>
+<p><em>HEART scopes</em>: Health Relationship Trust Profile for Fast Healthcare Interoperability Resources (FHIR) OAuth 2.0 Scopes, July 2018.</p>
+</li>
+</ul>
+<h4>
+<a id="user-content-310241-token-introspection-request" class="anchor" href="#310241-token-introspection-request" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.102.4.1 Token Introspection Request</h4>
+<p>Used to request the details of an opaque token.</p>
+<h5>
+<a id="user-content-3102411-trigger-events" class="anchor" href="#3102411-trigger-events" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.102.4.1.1 Trigger Events</h5>
+<p>Introspection Requester has an opaque token and needs the details.</p>
+<h5>
+<a id="user-content-3102412-message-semantics" class="anchor" href="#3102412-message-semantics" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.102.4.1.2 Message Semantics</h5>
+<p>OAuth blah blah introspection transaction is used</p>
+<h5>
+<a id="user-content-3102413-expected-actions" class="anchor" href="#3102413-expected-actions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.102.4.1.3 Expected Actions</h5>
+<h4>
+<a id="user-content-310242-token-introspection-response" class="anchor" href="#310242-token-introspection-response" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.102.4.2 Token Introspection Response</h4>
+<p>Used to return the details of a requested opaque token. This may be success or may be an error code.</p>
+<h5>
+<a id="user-content-3102421-trigger-events" class="anchor" href="#3102421-trigger-events" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.102.4.2.1 Trigger Events</h5>
+<p>The details of an opaque token are ready.</p>
+<h5>
+<a id="user-content-3102422-message-semantics" class="anchor" href="#3102422-message-semantics" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.102.4.2.2 Message Semantics</h5>
+<p>OAuth blah blah introspection transaction is used</p>
+<p>The JSON Web Token encoding are defined in <a href="#37161-json-web-token">Volume 2: 3.71.6.1 JSON Web Token</a></p>
+<h5>
+<a id="user-content-3102423-expected-actions" class="anchor" href="#3102423-expected-actions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.102.4.2.3 Expected Actions</h5>
+<p>The Introspection Requester uses the details returned for some application specific means.</p>
+<h3>
+<a id="user-content-31025-security-considerations" class="anchor" href="#31025-security-considerations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.102.5 Security Considerations</h3>
+<p>something useful should be said</p>
+<h4>
+<a id="user-content-310251-security-audit-considerations" class="anchor" href="#310251-security-audit-considerations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.102.5.1 Security Audit Considerations</h4>
+<p>some audit events should be recorded</p>
 </article></body></html>
