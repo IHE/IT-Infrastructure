@@ -31,7 +31,7 @@ This supplement describes changes to the existing technical framework documents.
 
 **Amend Section X.X by the following:**
 
-Where the amendment adds text, make the added text **[bold underline]{.underline}**. Where the amendment removes text, make the removed text **~~bold strikethrough~~**. When entire new sections are added, introduce with editor's instructions to "add new text" or similar, which for readability are not bolded or underlined.
+Where the amendment adds text, make the added text **<ins>bold underline</ins>**. Where the amendment removes text, make the removed text **~~bold strikethrough~~**. When entire new sections are added, introduce with editor's instructions to "add new text" or similar, which for readability are not bolded or underlined.
 
 General information about IHE can be found at: [http://www.ihe.net](http://www.ihe.net/).
 
