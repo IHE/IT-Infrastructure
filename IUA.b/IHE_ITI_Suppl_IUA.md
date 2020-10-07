@@ -248,7 +248,7 @@ The Authorization Client performs the network transactions and user interactions
 
 -   Incorporate Authorization Token: In this case the access token has already been obtained and is communicated as part of the HTTP RESTful transaction for some other profile or service. This token indicates that the HTTP RESTful transaction has been authorized by the Authorization Server according to the user's consent if applicable.
 
--   An Authorization Client SHOULD query the [capabilities](http://hl7.org/fhir/R4/http.html#capabilities) endpoint on a Resource Servers supporting a FHIR-based endpoint to determine if the Resource Server supports IUA. The element [**CapabilityStatement.rest.security.**](http://hl7.org/fhir/R4/capabilitystatement.html) will be populated with the code "IUA" at system canonical URL "http://profiles.ihe.net/fhir/ihe.securityTypes/CodeSystem/securityTypes".
+-   An Authorization Client SHOULD query the [capabilities](http://hl7.org/fhir/R4/http.html#capabilities) endpoint on a Resource Server supporting a FHIR-based endpoint to determine if the Resource Server supports IUA. The element [**CapabilityStatement.rest.security.**](http://hl7.org/fhir/R4/capabilitystatement.html) will be populated with the code "IUA" at system canonical URL "http://profiles.ihe.net/fhir/ihe.securityTypes/CodeSystem/securityTypes".
 
 #### 34.1.1.2 Authorization Server
 
@@ -542,7 +542,7 @@ The Authorization Client actors SHALL present its client id and credentials in a
 
 A non-normative example of the access token request with client authentication using the *client_id* and *client_secret* in the HTTP Authorization header, MAY be as follows:
 
-```
+```http
 POST /token HTTP/1.1
 Host: server.example.com
 Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
@@ -625,7 +625,7 @@ The Authorization Client actor directs the user-agent to make a HTTP GET request
 
 A non-normative example of the authorization request is as follows:
 
-```
+```http
 GET /authorize?response_type=code&
 client_id=s6BhdRkqt3&
 state=xyz&
@@ -644,7 +644,7 @@ If the access request is granted (by the user or some other access policy), the 
 
 - *state* (REQUIRED): An unguessable value used by the client to track the state between the authorization request and the callback.
 
-```
+```http
 HTTP/1.1 302 Found
 Location: https://client.example.com/cb?code=SplxlOBeZQQYbYS6WxSbIA&state=xyz
 ```
@@ -663,7 +663,7 @@ The Authorization Client SHALL use the *authorization code* in an access token r
 
 A non-normative example of the access token request with client authentication using the *client_id* and *client_secret* in the HTTP Authorization header, MAY be as follows:
 
-```
+```http
 POST /token HTTP/1.1
 Host: server.example.com
 Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
@@ -728,7 +728,7 @@ The Authorization Server SHALL include the HTTP *Cache-Control* response header 
 
 A non-normative example of the access token response is as follows:
 
-```
+```http
 HTTP/1.1 200 OK
 Content-Type: application/json
 Cache-Control: no-store
@@ -803,7 +803,7 @@ The Authorization Client, Authorization Server, and Resource Server SHALL suppor
 
 The above claims SHALL be wrapped in an "extensions" object with key 'ihe\_iua' and a JSON value object containing the claims, as such
 
-```
+```json
 "extensions" : {  
   "ihe_iua" : {  
     "subject_name": "Dr. John Smith",
@@ -844,7 +844,7 @@ In a environment which uses the IHE BPPC profile for documenting the consent, th
 
 If present, the claims SHALL be wrapped in an "extensions" object with key 'ihe\_bppc' and a JSON value object containing the claims, as such
 
-```
+```json
 "extensions" : {  
   "ihe_bppc" : {  
     "patient_id": "543797436^^^&amp;1.2.840.113619.6.197&amp;ISO",
@@ -869,7 +869,7 @@ Table 3.71.6.1.2-1: JWT claims of the BPPC extension and corresponding XUA Asser
 The following is a non-normative example of JWT access token:
 
 JOSE Header:
-```
+```json
 {
 "typ": "IUA-JWT",
 "alg": "HS256"
@@ -877,7 +877,7 @@ JOSE Header:
 ```
 
 JWS Payload:
-```
+```json
 {
     "iss": "urn:tiani-spirit:sts",
     "sub": "b3ca1045-aa8b-42f9-9fd9-e0cbf5cb90a7",
@@ -1054,9 +1054,8 @@ The Authorization Client SHALL incorporate the access token as received from the
 
 A non normative example of the access token incorporation to a RESTful transaction is as follows:
 
-```
-GET /example/url/to/resource/location
-HTTP/1.1
+```http
+GET /example/url/to/resource/location HTTP/1.1
 Authorization: Bearer vGHTPOJzh3QFd\[...omitted for brevity...\]99bhgT8Ya
 Host: example.com
 ```
@@ -1208,7 +1207,7 @@ The Resource Server MUST securely identify himself towards the authorization ser
 
 A non-normative example of an introspection request is (using a Bearer HTTP Authorization header), MAY be as follows:
 
-```
+```http
 POST /introspect HTTP1.1
 Host: server.example.com
 Authorization: Bearer 23410913-abewfq.123483
