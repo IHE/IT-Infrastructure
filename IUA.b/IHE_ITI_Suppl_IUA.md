@@ -685,7 +685,9 @@ The Authorization Server upon receiving a Get Token Request SHALL validate the f
 
 The scope parameter incorporated in the token requests SHALL be used to restrict authorization grants to specific actions (e.g., restrict authorization to specific resources to read-only) and to convey claims, which at runtime are known to the Authorization Client only (e.g., if the user claims a breaking-the-glass access in a emergency situation). The Authorization Server MAY refuse token requests that mention scope values that are unknown to the Authorization Server.
 
-If provided, the Authorization Server SHALL evaluate any resource values provided as part of the token request procedure. The Authorization Server SHALL execute policies to detect wether the client has access to the indicated resource. Moreover, it SHALL restrict the audience of the generated access token to the indicated Resource Server.
+Authorization Servers SHOULD minimize the list of identifiers in the audience claim to a minimum to avoid token misuse by unintended parties.
+
+The Authorization Client is RECOMMENDED to provide a resource value to limit usability of the requested token to the intended resource server. If provided, the Authorization Server SHALL evaluate any resource values provided as part of the token request procedure. The Authorization Server SHALL execute policies to detect wether the client has access to the indicated resource.  If the Authorization Client presented a resource value in the token request, the Authorization Servers MUST limit the list of resource server identifiers in the audience claim to only those that are essential to interact with the specified resource (typically only the resource server itself).
 
 If the request is valid, all access policy criteria are met the Authorization Server SHALL respond with the access token response as outlined in section [3.71.4.2 Get Authorization Token Response](#37142-get-authorization-token-response).
 
@@ -765,7 +767,7 @@ In the JSON Web Token option the access token is defined as JSON object with the
 
 - *sub* (REQUIRED): If known, unique identifier of the user; the *client_id* otherwise [JWT Access Token, Section 2.2].  
 
-- *aud* (REQUIRED): Single valued identifier of the Resource Server api endpoint to be accessed [JWT Access Token, Section 2.2]. This parameter SHALL match the *resource* parameter claimed by the Authorization Client.
+- *aud* (REQUIRED): An array of identifier strings for the Resource Server endpoints to be accessed [JWT Access Token, Section 2.2]. In the special case when the JWT has one audience, the "aud" value MAY be a single case-sensitive string.
 
 - *jti* (REQUIRED): A unique identifier for the JWT access token [JWT Access Token, Section 2.2].
 
@@ -809,7 +811,7 @@ The above claims SHALL be wrapped in an "extensions" object with key 'ihe\_iua' 
     "subject_name": "Dr. John Smith",
     "subject_organization": "Central Hospital",
     "subject_organization_id": "urn:oid:1.2.3.4",
-    ...  
+    "other_value": "..."  
   }  
 }
 ```
@@ -850,7 +852,7 @@ If present, the claims SHALL be wrapped in an "extensions" object with key 'ihe\
     "patient_id": "543797436^^^&amp;1.2.840.113619.6.197&amp;ISO",
     "doc_id": "urn:oid:1.2.3.xxx",
     "acp": "urn:oid:1.2.3.yyyy",
-    ...  
+    "other_value": "..."    
   }  
 }
 ```
@@ -885,7 +887,7 @@ JWS Payload:
     "exp": 1438251487,
     "nbf": 1438251187,
     "iat": 1438251187,
-    "scope": user/*.read user/*.write,    
+    "scope": "user/*.read user/*.write",    
     "extensions" : {  
       "ihe_iua" : {  
         "subject_name": "Dr. John Smith",
