@@ -740,7 +740,7 @@ Pragma: no-cache
 {
   "token_type": "Bearer",
   "access_token": "2YotnFZFEjr1zCsicMWpAA",
-  "scope": scope_1 scope_2 ... scope_M
+  "scope": "scope_1 scope_2 ... scope_M",
   "expires_in": 3600,
   "refresh_token": "tGzv3JOkF0XG5Qx2TlKWIA",
   "example_parameter": "example_value"
