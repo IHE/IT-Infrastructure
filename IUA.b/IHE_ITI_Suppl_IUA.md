@@ -422,7 +422,7 @@ The SAML and JWT grants from RFC7522 and RFC7523 MAY be used in federation scena
 
 Both the RFC7522 and RFC7523 require the existence of a public key infrastructure. The operational aspects of such infrastructure are beyond the scope of this specification.
 
-This profile is scoped to the *Authorization Code* and *Client Credential* grant types. To claim compliance with this profile, the Authorization Server actor SHALL support the *Authorization Code* and *Client Credential* grant type and MAY support the *Device Authorization*, *SAML Client or User Assertions* or other OAuth 2.1 extension grant types.   
+This profile is scoped to the *Authorization Code* and *Client Credential* grant types. To claim compliance with this profile, the Authorization Server actor SHALL support the *Authorization Code* and *Client Credential* grant type and MAY support the *Device Authorization*, *SAML Client or User Assertions*, *JSON Web Token (JWT) Grants* or other OAuth 2.1 extension grant types.   
 
 ### 3.71.1 Scope
 
@@ -626,15 +626,16 @@ The Authorization Client actor directs the user-agent to make a HTTP GET request
 A non-normative example of the authorization request is as follows:
 
 ```http
-GET /authorize?response_type=code&
-client_id=s6BhdRkqt3&
-state=xyz&
-redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb&
-code_challenge=6fdkQaPm51l13DSukcAH3Mdx7_ntecHYd1vi3n0hMZY&
-code_challenge_method=S256&
-resource=https%3A%2F%2Frs.example.com%2F
-&scope=scope_1%20scope_2%20scope_N
-HTTP/1.1
+GET /authorize?
+  response_type=code
+  &client_id=s6BhdRkqt3
+  &state=xyz
+  &redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb
+  &code_challenge=6fdkQaPm51l13DSukcAH3Mdx7_ntecHYd1vi3n0hMZY
+  &code_challenge_method=S256
+  &resource=https%3A%2F%2Frs.example.com%2F
+  &scope=scope_1%20scope_2%20scope_N
+  HTTP/1.1
 Host: server.example.com
 ```
 
@@ -673,6 +674,7 @@ grant_type=authorization_code
 &code=SplxlOBeZQQYbYS6WxSbIA
 &redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb
 &code_verifier=3641a2d12d66101249cdf7a79c000c1f8c05d2aafcf14bf146497bed
+
 ```
 
 ##### 3.71.4.1.3 Expected Actions
@@ -1210,7 +1212,7 @@ The Resource Server MUST securely identify himself towards the authorization ser
 A non-normative example of an introspection request is (using a Bearer HTTP Authorization header), MAY be as follows:
 
 ```http
-POST /introspect HTTP1.1
+POST /introspect HTTP/1.1
 Host: server.example.com
 Authorization: Bearer 23410913-abewfq.123483
 Accept: application/json
