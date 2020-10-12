@@ -266,6 +266,7 @@ Add the following transactions to the IHE Technical Frameworks General Introduct
 |Incorporate Authorization Token \[ITI-72\] |Add an access token to a transaction.
 |Get Authorization Token \[ITI-71\]         |A transaction that is used to request and obtain an access token for use in Authorized transactions.
 |Introspect Token \[ITI-102\]               |A transaction that is used to obtain the state and claims associated with an access token.
+|Get Authorization Server Metadata \[ITI-103\]               |A transaction that is used to obtain metadata about a Authorization Server such as endpoint locations and signing key material
 
 
 # Volume 1 -- Profiles
@@ -304,15 +305,18 @@ Table 34.1-1 lists the transactions for each actor directly involved in the IUA 
 
 Table 34.1-1: IUA Profile - Actors and Transactions
 
-|Actors               |Transactions                     |Optionality	|Reference      
-|----                 |----                             |---        	|-----          
-|Authorization Client |Incorporate Authorization Token  |R          	|Section 3.72
-|                     |Get Authorization Token          |O          	|Section 3.71
-|Authorization Server |Get Authorization Token          |R          	|Section 3.71
-|                     |Introspect Token                 |C  Note 1  	|Section 3.102
-|Resource Server      |Incorporate Authorization Token  |R          	|Section 3.72
-|                     |Get Authorization Token          |C  Note 1   	|Section 3.71
-|                     |Introspect Token                 |C  Note 1  	|Section 3.102
+|Actors               |Transactions                      |Optionality	|Reference      
+|----                 |----                              |---        	|-----          
+|Authorization Client |Incorporate Authorization Token   |R          	|Section 3.72
+|                     |Get Authorization Token           |O          	|Section 3.71
+|                     |Get Authorization Server Metadata |O           |Section 3.103
+|Authorization Server |Get Authorization Token           |R          	|Section 3.71
+|                     |Introspect Token                  |C  Note 1  	|Section 3.102
+|                     |Get Authorization Server Metadata |O           |Section 3.103
+|Resource Server      |Incorporate Authorization Token   |R          	|Section 3.72
+|                     |Get Authorization Token           |C  Note 1   |Section 3.71
+|                     |Introspect Token                  |C  Note 1  	|Section 3.102
+|                     |Get Authorization Server Metadata |O           |Section 3.103
 
 Note 1: Mandatory when the Token Introspection Option is declared.
 
@@ -324,6 +328,8 @@ The IUA actors are expected to be grouped with other actors that perform HTTP RE
 
 The Authorization Client performs the network transactions and user interactions needed to obtain an access token and to attach that token to transactions to indicate that the transactions are authorized. An Authorization Client in IUA supports the following associated transactions:
 
+-   Get Authorization Server Metadata: In this case the Authorization Client actor interacts with the Authorization Server to obtain configuration metadata required for the further authorization steps such as Authorization endpoint locations and supported authorization grant types.
+
 -   Get Authorization Token: In this case, the Authorization Client actor interacts with an Authorization Server to obtain a token that indicates HTTP RESTful transactions for a particular kind of service and device are authorized by the user. This may include interactions with the user for authentication purposes.
 
 -   Incorporate Authorization Token: In this case the access token has already been obtained and is communicated as part of the HTTP RESTful transaction for some other profile or service. This token indicates that the HTTP RESTful transaction has been authorized by the Authorization Server according to the user's consent.
@@ -334,13 +340,19 @@ The Authorization Client performs the network transactions and user interactions
 
 The Authorization Server provides access tokens to requesting clients. In IUA, the Authorization Server uses an authenticated user identity, the requested HTTP RESTful service URL, and other information to determine whether HTTP RESTful transactions are authorized. If authorized, the Authorization Server provides an access token which authorizes the client to retrieve data and documents from the Resource Server.  
 
+Authorization Servers declaring the Authorization Server Metadata option SHALL provide a metadata endpoint that provides configuration information to Authorization Client and Resource Servers. This information includes endpoint locations, supported authentication grants and signing key materials. This information greatly simplifies the configuration of those Authorization Clients and Resource Servers.
+
 Authorization Servers declaring the Token Introspection option SHALL provide an endpoint usable by Resource Servers to validate and evaluate the access token. With this option, the Authorization Server MAY provide other token formats than JWT or SAML. Using this option, the token can be treated as an opaque data construct for Resource Servers. When Token Introspection option is used the Authorization Server SHALL provide the ITI-102 Token Introspection transaction service.
+
+
 
 #### 34.1.1.3 Resource Server
 
 The Resource Server provides services to access protected resources that need authorization. In IUA the Resource Server accepts a HTTP RESTful transaction request with an incorporated access token. It evaluates the access token to verify that the Authorization Server has authorized the transaction. The Resource Server must enforce this authorization and may perform additional authorization decisions that are specific to the requested service. The Resource Server may then allow the transaction to proceed, subject to access control constraints that may also be in place.
 
-The Resource Server declaring the Token Introspection option SHALL have the ability to use the Token Introspection transaction to obtain the details of the token from the Authorization Server. This transaction can be used by the Resource Server when it is uncertain about the format of the token (JWT, SAML, or opaque), or when it wants to re-evaluate the authorization policy. To be able to invoke the introspection endpoint, the Resource Server must authenticate iteself. It SHOULD obtain a access token of its own from the Authorization Server for this purpose through transaction ITI-72.
+Resource Servers declaring the Authorization Server Metadata option SHALL have the means to be configured by interacting with an Authorization Server metadata endpoint. The obtained configuration information includes endpoint locations, token format, and signing key materials. This information simplifies the configuration of a Resource Server by allowing the majority of this information to be requested from an Authorization Server.
+
+The Resource Server declaring the Token Introspection option SHALL have the ability to use the Token Introspection transaction to obtain the details of the token from the Authorization Server. This transaction can be used by the Resource Server when it is uncertain about the format of the token (JWT, SAML, or opaque), or when it wants to re-evaluate the authorization policy. To be able to invoke the introspection endpoint, the Resource Server must authenticate itself. It SHOULD obtain a access token of its own from the Authorization Server for this purpose through transaction ITI-72.
 
 Notes:
 
@@ -353,23 +365,27 @@ Notes:
 
 ## 34.2 IUA Actor Options
 
+The **Authorization Server Metadata option** enables automated configuration of Resource Servers and Authorization Clients by enabling them to pull configuration metadata directly from the Authorization Server.
+
 The **SAML Token Option** enables integration of environments that use both, SAML access token and the OAuth authorization infrastructure. All actors SHALL support the JSON Web Token option and MAY support the SAML Token option.
 
 The **JWT Token Option** uses JSON Web Token encoding of the Token issued by the Authorization Server. The JSON Web Token constraints are defined in [Volume 2: 3.71.6.1 JSON Web Token](#37161-json-web-token)
 
-The **Token Introspection Option** uses the ITI-102 Token Introspection transaction to convert a token into the [Volume 2: 3.71.6.1 JSON Web Token](#37161-json-web-token) encoding. Token introspection allows for custom token formats and re-evaluation of tokens after commission (enabling features like token revocation), at the cost of intrespection calls to the authorization server.
+The **Token Introspection Option** uses the ITI-102 Token Introspection transaction to convert a token into the [Volume 2: 3.71.6.1 JSON Web Token](#37161-json-web-token) encoding. Token introspection allows for custom token formats and re-evaluation of tokens after commission (enabling features like token revocation), at the cost of introspection calls to the authorization server.
 
 Table 34.2-1: IUA - Actors and Options
 
-| IUA Actor            | Option              |Optionality
-|----------------------|---------------------|----------
-| Authorization Server | JWT Token           |R    		
-|                      | SAML Token          |O          
-|                      | Token Introspection |O    		
-| Resource Server      | JWT Token           |R    		
-|                      | SAML Token          |O    		
-|                      | Token Introspection |O    		
-
+| IUA Actor            | Option                        |Optionality
+|----------------------|-------------------------------|----------
+| Authorization Client | Authorization Server Metadata |O    		
+| Authorization Server | JWT Token                     |R    		
+|                      | SAML Token                    |O          
+|                      | Token Introspection           |O    		
+|                      | Authorization Server Metadata |O    		
+| Resource Server      | JWT Token                     |R    		
+|                      | SAML Token                    |O    		
+|                      | Token Introspection           |O    		
+|                      | Authorization Server Metadata |O
 
 ## 34.3 IUA Required Actor Groupings
 
@@ -540,7 +556,12 @@ This transaction relies on standards defined in the following documents and the 
 Figure 3.71.4-1: Basic Process of the Authorization Token Request and Incorporate Authorization Token transaction
 
 ```
-\@startuml
+\@startuml basic-flow
+
+group Get Authorization Server Metadata (optional) [ITI-103]
+AuthorizationClient -> AuthorizationServer : Get Authorization Server Metadata
+AuthorizationClient <- AuthorizationServer : configuration metadata
+end
 
 group Get Authorization Token \[ITI-71\]
 AuthorizationClient -> AuthorizationServer : Authorization Request
@@ -557,18 +578,20 @@ end
 
 Main Flow:
 
-1.  The Authorization Client authenticates to the Authorization Sever and provides claims related to the intended request to access protected resources of the Resource Server.
+1.  (Optional) The Authorization fetches the metadata document from the Authorization Server to detect the relevant authorization endpoints and supported grant types.
 
-2.  The Authorization Server authenticates the client, validates the claims against the user consent and generates an access token that authorizes the Authorization Client actor to request the protected resources from the Resource Server.
+2.  The Authorization Client authenticates to the Authorization Sever and provides claims related to the intended request to access protected resources of the Resource Server.
 
-3. The Authorization Server incorporates the access token to the requests of the protected resources to the Resource Server.
+3.  The Authorization Server authenticates the client, validates the claims against any user consent and generates an access token that authorizes the Authorization Client actor to request the protected resources from Resource Servers.
 
-4. The Resource Server evaluates the access token and the resource request and enforces the access policies. This may involve an additional token introspection request towards the Authorization Server if the Introspection Option is used.
+4. The Authorization Server incorporates the access token to the requests of the protected resources to Resource Servers.
+
+5. The Resource Server evaluates the access token and the resource request and enforces the access policies. This may involve an additional token introspection request towards the Authorization Server if the Introspection Option is used.
 
 
 #### 3.71.4.1 Get Authorization Token Request
 
-The Get Authorization Token Request is perfomed by an Authorization Client or Resource Server (in case of the Introspect option) to obtain an access token to be used in further communication. The sequence of HTTP(S) requests to perform an Get Authorization Token transaction depends on the grant type (type of credentials) chosen.
+The Get Authorization Token Request is performed by an Authorization Client or Resource Server (in case of the Introspect option) to obtain an access token to be used in further communication. The sequence of HTTP(S) requests to perform an Get Authorization Token transaction depends on the grant type (type of credentials) chosen.
 
 This profile currently supports two types of grants:
 * OAuth2 Client Credential grant
@@ -581,7 +604,7 @@ This profile currently supports two types of grants:
 Figure 3.71.4.1.1-1: Sequence of HTTP requests in the client credential grant type.
 
 ```
-@startuml
+@startuml client-credential-grant
 
 participant "Authorization Client" as Client
 participant "Authorization Server" as AuthzServer
@@ -600,6 +623,8 @@ autonumber stop
 ```
 
 The Authorization Client actor requests an access token using client credentials (or other supported means of authentication). This grant type SHALL be used by confidential clients only [OAuth 2.1, Section 4.2].
+
+The Authorization Client actor claiming the Authorization Server Metadata option SHALL use the "token_endpoint" URL from the Authorization Server Metadata Document to obtain the access token.
 
 The Authorization Client actor makes a HTTP(s) POST request to the token endpoint with the following parameters in the HTTP request entity-body [OAuth 2.1, Section 4.2.2]:
 
@@ -633,7 +658,7 @@ grant_type=client_credentials
 Figure 3.71.4.1.1-1: Sequence of HTTP requests in the client authorization code grant type.
 
 ```
-@startuml
+@startuml authorization-code-grant
 
 actor User
 
@@ -678,6 +703,8 @@ autonumber stop
 
 This grant type SHALL be used by confidential, credential and public clients, if the explicit consent of the user is required to authorize the Authorization Client to access data on behalf of the user.
 
+The Authorization Client actor claiming the Authorization Server Metadata option SHALL use the "authorization_endpoint" URL from the Authorization Server Metadata Document to redirect the User-Agent.
+
 The Authorization Client actor directs the user-agent to make a HTTP GET request to the authorization endpoint with the following parameters using the "application/x-www-form-urlencoded" format [OAuth 2.1, Section 4.1.1.3]:
 
 - *response_type* (REQUIRED): The value must be *code*.
@@ -711,7 +738,11 @@ HTTP/1.1
 Host: server.example.com
 ```
 
-If the access request is granted (by the user or some other access policy), the Authorization Server issues an authorization code. The Authorization server SHALL direct the user agent to the Authorization Clients redirect URI with the authorization response parameter in the *application/x-www-form-urlencoded* format. The response parameter SHALL be as follows:
+If the access request is granted (by the user or some other access policy), the Authorization Server issues an authorization code. 
+
+The Authorization Client actor claiming the Authorization Server Metadata option SHALL use the "token_endpoint" URL from the Authorization Server Metadata Document to obtain the access token.
+
+The Authorization server SHALL direct the user agent to the Authorization Clients redirect URI with the authorization response parameter in the *application/x-www-form-urlencoded* format. The response parameter SHALL be as follows:
 
 - *code* (REQUIRED): The authorization code generated by the Authorization Server.  
 
@@ -1090,29 +1121,47 @@ XUA Cross-Enterprise User Assertion -- Attribute Extension
 
 ### 3.72.4 Interaction Diagram
 
-![simple-iauth](./media/basic-flow.png)
+![simple-iauth](media/incorporate-token.png)
 
 Figure 3.72.4-1: Process flow for Incorporate Authorization Token
 Transaction
 
 ```
-\@startuml  
-group Get Authorization Token \[ITI-71\]   
-AuthorizationClient -\> AuthorizationServer : Authorization Request  
-AuthorizationClient \<- AuthorizationServer : Authorization Response \+ Authorization Token  
+@startuml incorporate-token
+
+participant "Authorization Client" as client
+participant "Resource Server" as rs
+participant "Authorization Server" as as
+
+group (optional) Get Authorization Server Metadata (ITI-103)
+    rs -> as : Metadata request
+    as --> rs: metadata
+end
+
+group Incorporate Authorization Token (ITI-72)
+
+client -> rs : Resource Request + Access Token
+
+alt JWT or SAML token
+  rs -> rs: validate token
+
+else introspect token
+    rs -> as : Introspect Token (ITI-102)
+    as --> rs: token claims
+end
+
+client <-- rs : Resource Response  
 end  
-group Incorporate Authorization Token \[ITI-72\]  
-AuthorizationClient -\> ResourceServer : Resource Request + Authorization Token  
-AuthorizationClient \<- ResourceServer : Resource Response  
-end  
-\@enduml
+@enduml
 ```
 
 Main Flow:
 
 1.  The Authorization Client actor sends a resource request to a Resource Server, together with the access token. The token is opaque to the Authorization Client
 
-2.  The Resource Server makes an access control decision based upon the information from the access token and the transaction details. It may provide access to the resource, a subset of the resource, or reject the request in total.
+1. The Resource Server identifies the format of the token, validates the token, and obtains the claims associated with the token. To this end it may use the authorization server metadata, such as signing keys (for JWT or SAML tokens), or the introspect endpoint location.
+
+1.  The Resource Server makes an access control decision based upon the information from the access token and the transaction details. It may provide access to the resource, a subset of the resource, or reject the request in total.
 
 This transaction works in conjunction with other HTTP RESTful transaction. It extends the transaction by adding information to the HTTP request for that HTTP RESTful transaction.
 
@@ -1134,7 +1183,7 @@ Host: examplehost.com
 ```
 
 ### 3.72.7 Expected Actions
-The Resource Server SHALL be able to determine the token format (JWT, SAML or other) through inspection of the access token value or otherwise. When the Resource Server is not able to process the token format (through local verification or introspection) it MUST respond with HTTP 401 (Unauthorized).
+The Resource Server SHALL be able to determine the token format (JWT, SAML or other) through evaluating the "access_token_format" value in the Authorization Server Metadata document (see ITI-103), inspection of the access token value, or otherwise. When the Resource Server is not able to process the token format (through local verification or introspection) it MUST respond with HTTP 401 (Unauthorized).
 
 The Resource Server SHALL validate or introspect the access token and ensure that it has not expired. 
 
@@ -1151,11 +1200,17 @@ If the token verification, scope matching or the access policy enforcement fails
 #### 3.72.7.2 JSON Web Token Option
 A Resource Server that claims conformance to the JSON Web Token Option SHALL be able to interpret and validate the access token as a JWT Token as defined in Section 3.71.4.2.2.
 
+A Resource Server that claims conformance to the Authorization Server Metadata Option SHALL use the keys published through the Authorization Server Metadata Document for validating the JWT token's signature.
+
 #### 3.72.7.3 SAML Token Option
 A Resource Server that claims conformance to the SAML Token Option SHALL be able to interpret and validate the access token as a XUA compliant SAML Assertion as defined in Section 3.71.4.2.3.
 
+A Resource Server that claims conformance to the Authorization Server Metadata Option SHALL use the keys published through the Authorization Server Metadata Document for validating the SAML token's signature.
+
 #### 3.72.7.4 Introspect Token Option
 A Resource Server that claims conformance to the Token Introspection Option SHALL be able to interact with the Authorization Server using transaction ITI-103 as described in section 3.102 to validate the access token and obtain the related claims.
+
+A Resource Server that claims conformance to the Authorization Server Metadata Option SHALL use the introspection endpoint published through the Authorization Server Metadata Document for validating the token and obtaining the related claims.
 
 ### 3.72.9 Security Considerations
 
@@ -1227,7 +1282,7 @@ From the perspective of the Authorization Client there is no difference, but the
 Figure 3.102.4-1: ITI-102 Introspect Diagram
 
 ```
-@startuml  
+@startuml introspect 
 
 participant "Authorization Client" as Client
 participant "Resource Server" as ResourceServer
@@ -1236,12 +1291,17 @@ participant "Authorization Server" as AuthzServer
 autonumber 0 1 "<b>[00]"
 autoactivate on
 
+group (optional) Get Authorization Server Metadata (ITI-103)
+    ResourceServer -> AuthzServer : Metadata request
+    AuthzServer --> ResourceServer: metadata
+end
+
 group Get Authorization Token [ITI-71]   
 Client -> AuthzServer : Authorization Request  
-Client <-- AuthzServer : Authorization Response + Client Access Token  
+Client <-- AuthzServer : Authorization Response (incl. Client Access Token)  
 
 ResourceServer -> AuthzServer : Authorization Request  
-ResourceServer <-- AuthzServer : Authorization Response + RS Access Token  
+ResourceServer <-- AuthzServer : Authorization Response (incl. RS Access Token)  
 end
 
 group Incorporate Authorization Token [ITI-72]  
@@ -1261,16 +1321,19 @@ autonumber stop
 ```
 
 General flow:
-* [00-03] The Authorization Client as well as the Resource Server independently obtain their access tokens from the Authorization Server. The Resource Server requires this token to invoke the introspection endpoint.
-* [04] The Authorization Client will invoke a Resource Server endpoint embedding the access token in the request.
-* [05-06] The Resource Server obtains the authorization claims associated with the token from the Authorization Server by invoking the introspect endpoint. This step may be omitted if the Resource Server has a cached introspect response value for the access token.
-* [07] The Resource Server will evaluate the token claims, enforce any access control policies and return the requested resources to the Authorization Client.
+* [00-01] Optionally, the Resource Server obtains a metadata document from the Authorization Server, providing the introspect endpoint location. 
+* [02-05] The Authorization Client as well as the Resource Server independently obtain their access tokens from the Authorization Server. The Resource Server requires this token to invoke the introspection endpoint.
+* [06] The Authorization Client will invoke a Resource Server endpoint embedding the access token in the request.
+* [07-08] The Resource Server obtains the authorization claims associated with the token from the Authorization Server by invoking the introspect endpoint. This step may be omitted if the Resource Server has a cached introspect response value for the access token.
+* [09] The Resource Server will evaluate the token claims, enforce any access control policies and return the requested resources to the Authorization Client.
 
 #### 3.102.4.1 Token Introspection Request
 
 The Resource Server Actor SHALL perform a HTTP POST request to the introspect endpoint with the following parameters using the "application/x-www-form-urlencoded" format [RFC7662]:
 
 * *token (REQUIRED)* : The string value of the token. This is the "access_token" value returned from the token endpoint defined in OAuth 2.1 [OAuth2.1, Section 5.1]. 
+
+A Resource Server stating conformance to the Authorization Server Metadata Option SHALL use the introspect endpoint as contained in the Authorization Server's metadata document.
 
 The Token Introspection Request MUST be protected through TLS. 
 
@@ -1358,3 +1421,121 @@ Resource Server and Authorization Server claiming compliance with this option SH
 #### 3.102.5.1 Security Audit Considerations
 
 Resource Servers SHALL use the introspection results as authorization claims when formulating audit messages, as specified in section [3.72.9](#3729-security-considerations).
+
+
+**Add Section 3.103**
+
+## 3.103 Get Authorization Server Metadata
+
+This transaction is used by Authorization Client actors and Resource Server actors to obtain an metadata about an Authorization Server such as endpoint locations and references to key stores required to validate (token) signatures.
+
+### 3.103.1 Scope
+
+This transaction is used by Authorization Client actors and Resource Server actors to obtain an metadata about an Authorization Server such as endpoint locations and references to key stores required to validate (token) signatures.
+
+### 3.103.2 Actor Roles
+
+This profile defines the following actors and roles:
+
+Table 3.103.2-1: Actor Roles
+
+|Actor                  |Role                                                           |
+|-------                |-----                                                          |
+|Authorization Client   | Metadata Requester    |
+|Resource Server        | Metadata Requester |
+|Authorization Server   | Metadata Provider|
+
+### 3.103.3 Referenced Standards
+
+This transaction relies on standards defined in the following documents and the references therein: 
+
+- *OAuth 2.1*: The OAuth 2.1 Authorization Framework, published as draft-ietf-oauth-v2-1-00, July 30, 2020.
+
+- *RFC 8414*: OAuth 2.0 Authorization Server Metadata, June 2018
+
+- *OpenID Connect Discovery*: OpenID Connect Discovery 1.0 incorporating errata set 1, November 2014
+
+- *RFC 7517*:  JSON Web Key (JWK), May 2015
+
+
+### 3.103.4 Messages
+
+#### 3.103.4.1 Authorization Server Metadata Request
+
+Used to request the metadata document of an Authorization Server
+
+##### 3.103.4.1.1 Trigger Events
+
+An Authorization Client or Resource Server wants to learn about Authorization Server endpoint locations, key material required for signature validation or other relevant authorization data.
+
+##### 3.103.4.1.2 Message Semantics
+
+The client issues a HTTP GET request to the well-known metadata endpoint associated with Authorization Server. 
+
+There are various ways of formulating this endpoint as described in [RFC 8414, section 3.1], and [OpenID Connect Discovery, section 4]. Authorization Servers are RECOMMENDED to follow one of these procedures, but MAY choose a different well-known endpoint location mechanism.
+
+A non-normative example of such a request using [RFC8414] may look like:
+
+```http
+GET /.well-known/oauth-authorization-server/tenant1 HTTP/1.1
+Host: example.com
+```
+
+The manner in which the Authorization Clients or Resource Server are configured with the Authorization Server metadata endpoint locations is beyond the scope of this transaction.
+
+
+##### 3.103.4.1.3 Expected Actions
+
+Upon receiving a metadata request, the Authorization Server should respond with the metadata document as described in section [3.103.4.2](#310342-authorization-server-metadata-response). 
+
+Implementations supporting multi-tenancy MUST respond with different metadata documents for different tenants, providing at least a different issuer value.
+
+Requests for metadata for non-existing tenants MUST result in a HTTP 401 (not found) response.
+
+#### 3.103.4.2 Authorization Server Metadata Response
+
+The response is a set of claims about the authorization server's configuration, including all necessary endpoints and public key information.
+
+##### 3.103.4.2.1 Trigger Events
+
+The Authorization Server Metadata Response message is returned as response to a valid Authorization Server Metadata Request.
+
+##### 3.103.4.2.2 Message Semantics
+
+The response is a set of claims about the authorization server's configuration, including all necessary endpoints and public key location information.
+
+The response MUST be structured as a plain JSON document.
+
+The document MUST be structured according to the rules set forth in [RFC8414, Section 2], with the additional constraints:
+
+* *issuer (REQUIRED)*: The authorization server's issuer identifier, which is a URL that uses the "https" scheme and has no query or fragment components. The URL MUST use the "https" scheme. The URL MUST contain the domain name of of the URL at which the metadata document can be retrieved. The URL MUST contain any path elements referring to a tenant. Other path elements, such as those referring to the document location (e.g., ".well-known" or "openid-configuration") SHOULD be omitted. E.g., a valid issuer associated with a metadata document retrievable at `https://example.com/.well-known/oauth-authorization-server/tenant1` would be `https://example.com/tenant1`.
+* *authorization_endpoint (REQUIRED)*: Authorization Server Authorization endpoint as used for the "authorization code" flow.
+* *token_endpoint (REQUIRED)*: Authorization Server Authorization token endpoint location
+* jwks_uri (CONDITIONAL). URL of the authorization server's JWK Set [RFC7517, Section 5] document. Authorization Server supporting the JWT Token or SAML token options MUST provide this claim to communicate the public keys that can be used to verify JWT token or SAML token signatures.
+* *scopes_supported (OPTIONAL)*: The list of scopes supported by the Authorization Server. Note that IUA itself does not define the scopes of the transactions. Authorization Servers MAY opt to publish a subset of the scopes usable.
+* *response_types_supported (REQUIRED)*: As the implicit grant flow is not supported in OAuth2.1, the response types SHOULD NOT include the value "token". Authorization Servers MUST include the response type "code". Authorization Servers supporting [OpenId Connect] or other standards MAY include other token types, such as "id_token".
+* *grant_types_supported (REQUIRED)*: A JSON array listing the type of grants supported toward the token endpoint. The list MUST include the values "client_credentials", and "authorization_code". Authorization Servers supporting refresh tokens MUST include "refresh-token". Authorization Servers supporting the JWT grant MUST include "urn:ietf:params:oauth:grant-type:jwt-bearer". Authorization servers supporting the SAML grant MUST include "urn:ietf:params:oauth:grant-type:saml2-bearer". Authorization Servers supporting other types of grants SHOULD provide additional values to this list representing those grant types.
+* *token_endpoint_auth_methods_supported (OPTIONAL)*: JSON array containing a list of client authentication methods supported by this token endpoint. When provided, this list MUST include "client_secret_basic".
+* *introspection_endpoint (CONDITIONAL)*: URL of the authorization server's OAuth 2.0 introspection endpoint. This claim MUST be provided by Authorization Servers supporting the Token Introspection Option.
+* *introspection_endpoint_auth_methods_supported (CONDITIONAL)*: JSON array containing a list of client authentication methods supported by the introspection endpoint. This claim MUST be provided by Authorization Servers supporting the Token Introspection Option. As the introspect option mandates support for resource server bearer access tokens, this claim MUST include the "Bearer" value. Other authentication methods (e.g., "client_secret_basic") are allowed when supported by the Authorization Server.
+
+In addition to the claims provided in [RFC8414] Authorization Servers SHOULD provide the following claim:
+
+* *access_token_format (OPTIONAL)*:  JSON string defining the format of the access token as provided by the Authorization Server. This allows Resource Servers to learn about methods of verification. Authorization Server supporting the JWT options MUST set this claim value to "ihe-jwt". Authorization Server supporting the SAML Option MUST set this claim value to "ihe-saml". Authorization Servers providing tokens that are non-parseable MUST set this value to "opaque". Authorization Servers supporting access tokens in other structured formats MAY use alternative format identifiers.
+
+
+##### 3.103.4.2.3 Expected Actions
+
+The Authorization Client or Resource Servers requesting the metadata document SHALL use the endpoint locations from the metadata document in their interactions with the Authorization Server.
+
+The Authorization Client or Resource Servers requesting the metadata document SHOULD use the JWK values retrieved from the jwks_uri endpoint published in the metadata document for validating JWT and/or SAML tokens.
+
+Resource Servers requesting the metadata document SHOULD use the "access_token_format" claim to determine the method of token validation and usage (e.g. interpret and validate access token as JWT structure).
+
+### 3.103.5 Security Considerations
+
+All security considerations as described in [RFC8414, Section 6.2] MUST be implemented.
+
+*Note:* The issuer claim value of the metadata document is not-necessarily the same as the isser claim value associated with access-tokens. The issuer value in the metadata document refers to the source of the metadocument itself. This document may point to an token endpoint at a server other than the metadata document server. The issuer claim associated with the access token should refer to the server that implements the token endpoint.
+
+As the metadata document is intended to support the authorization processes, there is no need to provide client credentials towards the metadata endpoint. To prevent unnessary disclosure of credentials, the Authorization Server Metadata Request MUST NOT include and credentials from the Authorization Client or Resource Server.
