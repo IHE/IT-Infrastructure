@@ -28,7 +28,8 @@ This supplement describes changes to the existing technical framework documents.
 
 "Boxed" instructions like the sample below indicate to the Volume Editor how to integrate the relevant section(s) into the relevant Technical Framework volume.
 
-**Amend Section X.X by the following:**
+| **Editor please Amend Section X.X by the following:**  |
+|--------------------------------------------------------|
 
 Where the amendment adds text, make the added text **<ins>bold underline</ins>**. Where the amendment removes text, make the removed text **~~bold strikethrough~~**. When entire new sections are added, introduce with editor's instructions to "add new text" or similar, which for readability are not bolded or underlined.
 
@@ -42,130 +43,46 @@ The current version of the IHE Technical Framework can be found at: [http://www.
 
 **CONTENTS**
 
-[Introduction to this Supplement](#user-content-introduction-to-this-supplement)
+[Introduction to this Supplement](#introduction-to-this-supplement)
 
-[Problem Statement](#user-content-problem-statement)
+[Problem Statement](#problem-statement)
 
-[Background on the problem environment](#user-content-background-on-the-problem-environment)
+[Background on the problem environment](#background-on-the-problem-environment)
 
-[Open Issues and Question](#user-content-open-issues-and-question)
+[Open Issues and Question](#open-issues-and-question)
 
-[Closed Issues](#user-content-closed-issues)
+[Closed Issues](#closed-issues)
 
-[General Introduction](#user-content-general-introduction)
+[General Introduction](#general-introduction)
 
-[Volume 1 -- Profiles](#_Toc428776517)
+[Volume 1 -- Profiles](#volume-1----profiles)
 
-[34 IUA Profile](#user-content-34-iua-profile)
+[34 IUA Profile](#34-iua-profile)
 
-[34.1 IUA Actors, Transactions, and Content Modules](#user-content-341-iua-actors-transactions-and-content-modules)
+[34.1 IUA Actors, Transactions, and Content Modules](#341-iua-actors-transactions-and-content-modules)
 
-[34.1.1 Actor Descriptions and Actor Profile Requirements](#user-content-3411-actor-descriptions-and-actor-profile-requirements)
+[34.1.1 Actor Descriptions and Actor Profile Requirements](#3411-actor-descriptions-and-actor-profile-requirements)
 
-[34.1.1.1 Authorization Client](#user-content-34111-authorization-client)
+[34.2 IUA Actor Options](#342-iua-actor-options)
 
-[34.1.1.2 Authorization Server](#user-content-34112-authorization-server)
+[34.3 IUA Required Actor Groupings](#343-iua-required-actor-groupings)
 
-[34.1.1.3 Resource Server](#user-content-34113-resource-server)
+[34.4 IUA Overview](#344-iua-overview)
 
-[34.2 IUA Actor Options](#user-content-342-iua-actor-options)
+[34.5 IUA Security Considerations](#345-iua-security-considerations)
 
-[34.3 IUA Required Actor Groupings](#user-content-343-iua-required-actor-groupings)
-
-[34.4 IUA Overview](#user-content-344-iua-overview)
-
-[34.4.1 Concepts](#user-content-3441-concepts)
-
-[34.4.1.2 Terminology](#user-content-3412-terminology)
-
-[34.4.2 Use Cases](#user-content-3442-use-cases)
-
-[34.4.2.1 Authorization](#user-content-34421-authorization)
-
-[34.4.2.2 Delegation](#user-content-34422-delegation)
-
-[34.5 IUA Security Considerations](#user-content-345-iua-security-considerations)
-
-[34.6 IUA Cross Profile Considerations](#user-content-346-iua-cross-profile-considerations)
+[34.6 IUA Cross Profile Considerations](#346-iua-cross-profile-considerations)
 
 
-[Volume 2 -- Transactions 18](#user-content-volume-2----transactions)
+[Volume 2 -- Transactions 18](#volume-2----transactions)
 
-[3.71 Get Authorization Token](#user-content-371-get-authorization-token)
+[3.71 Get Authorization Token](#371-get-authorization-token)
 
-[3.71.1 Scope](#user-content-3711-scope)
+[3.72 Incorporate Authorization Token](#372-incorporate-authorization-token)
 
-[3.71.2 Actor Roles](#user-content-3712-actor-roles)
+[3.102 Introspect Token](#3102-introspect-token)
 
-[3.71.3 Referenced Standards](#user-content-3713-referenced-standards)
-
-[3.71.4 Messages](#user-content-3714-messages)
-
-[3.71.4.1 Get Authorization Token Request](#user-content-37141-get-authorization-token-request)
-
-[3.71.4.1.1 Client Credential grant type](#user-content-371411-client-credential-grant-type)
-
-[3.71.4.1.2 Authorization Code grant type](#user-content-371412-authorization-code-grant-type)
-
-[3.71.5 Trigger Events](#user-content-3715-trigger-events)
-
-[3.71.6 Message Semantics](#user-content-3716-message-semantics)
-
-[3.71.6.1 JSON Web Token](#user-content-37161-json-web-token)
-
-[3.71.6.1.1 JWT IUA extension](#user-content-371611-jwt-iua-extension)
-
-[3.71.6.1.2 JWT BPPC extension](#user-content-371612-jwt-bppc-extension)
-
-[3.71.6.2 SAML Token](#user-content-37162-saml-token)
-
-[3.71.6.3 Scope Parameter](#user-content-37163-scope-parameter)
-
-[3.71.7 Expected Actions](#user-content-3717-expected-actions)
-
-[3.71.7.1 Client Credential grant type](#user-content-37171-client-credential-grant-type)
-
-[3.71.7.2 Authorization Code grant type](#user-content-37172-authorization-code-grant-type)
-
-[3.71.8 Message Examples](#user-content-3718-message-examples)
-
-[3.71.9 Security Considerations](#user-content-3719-security-considerations)
-
-[3.71.9.1 Security Audit Considerations](#user-content-37191-security-audit-considerations)
-
-
-[3.72 Incorporate Authorization Token](#user-content-372-incorporate-authorization-token)
-
-[3.72.1 Scope](#user-content-3721-scope)
-
-[3.72.2 Actor Roles](#user-content-3722-actor-roles)
-
-[3.72.3 Referenced Standards](#user-content-3723-referenced-standards)
-
-[3.72.3.1 Related IHE Profiles](#user-content-37231-related-ihe-profiles)
-
-[3.72.4 Interaction Diagram](#user-content-3724-interaction-diagram)
-
-[3.72.5 Trigger Events](#user-content-3725-trigger-events)
-
-[3.72.6 Message Semantics](#user-content-3726-message-semantics)
-
-[3.72.6.1 JSON Web Token Option](#user-content-37261-json-web-token-option)
-
-[3.72.6.2 SAML Token Option](#user-content-37262-saml-token-option)
-
-[3.72.7 Expected Actions](#user-content-3727-expected-actions)
-
-[3.72.8 Message Examples](#user-content-3728-message-examples)
-
-[3.72.8.1 JSON Web Token Option](#user-content-37281-json-web-token-option)
-
-[3.72.8.2 SAML Token Option](#user-content-37282-saml-token-option)
-
-[3.72.9 Security Considerations](#user-content-3729-security-considerations)
-
-[3.72.9.1 Security Audit Considerations](#user-content-37291-security-audit-considerations)
-
+TODO: minimal but complete table of contents
 
 # Introduction to this Supplement
 
@@ -244,11 +161,14 @@ None
 
 # General Introduction
 
-Update the following Appendices to the General Introduction as indicated below. Note that these are not appendices to Volume but rather to the General Introduction.
+| **Editor please Update the following Appendices to the General Introduction as indicated below. Note that these are not appendices to Volume but rather to the General Introduction.**  |
+|------------------------------|
 
 **Appendix A - Actor Summary Definitions**
 
-Add the following actors to the IHE Technical Frameworks General Introduction list of actors:
+| **Editor please Add the following actors to the IHE Technical Frameworks General Introduction list of actors:** |
+|------------------------------|
+
 
 |Actor                |Definition
 |-----                |----------
@@ -259,7 +179,9 @@ Add the following actors to the IHE Technical Frameworks General Introduction li
 
 **Appendix B - Transaction Summary Definitions**
 
-Add the following transactions to the IHE Technical Frameworks General Introduction list of Transactions:
+| **Editor please Add the following transactions to the IHE Technical Frameworks General Introduction list of Transactions:**  |
+|------------------------------|
+
 
 |Transaction                                |Definition
 |-----------                                |----------
@@ -269,6 +191,9 @@ Add the following transactions to the IHE Technical Frameworks General Introduct
 
 
 # Volume 1 -- Profiles
+
+|  **Editor please add the following section 34 to Volume 1** |
+|------------------------------|
 
 # 34 IUA Profile
 
@@ -479,7 +404,9 @@ The SAML token option in IUA enables an Authorization Client actor to incorporat
 
 # Volume 2 -- Transactions
 
-**Add Section 3.71**
+| **Editor please Add Section 3.71**  |
+|------------------------------|
+
 
 ## 3.71 Get Authorization Token
 
@@ -1054,7 +981,9 @@ Where:
 
 
 
-**Add Section 3.72**
+| **Editory please Add Section 3.72**  |
+|------------------------------|
+
 
 ## 3.72 Incorporate Authorization Token
 
@@ -1186,7 +1115,9 @@ where:
 -   **issuer** SHALL match the X-Assertion Provider entity ID contained with the content of SAML Assertion\'s Issuer element
 
 
-**Add Section 3.102**
+| **Editory please Add Section 3.102** |
+|------------------------------|
+
 
 ## 3.102 Introspect Token
 Token introspection defines a protocol that allows resource servers to query the authorization server to determine the set of metadata for a given token that was presented to them by an Authorization Client. This metadata includes whether or not the token is currently active (or if it has expired or otherwise been revoked) and the authorization context in which the token was granted.
