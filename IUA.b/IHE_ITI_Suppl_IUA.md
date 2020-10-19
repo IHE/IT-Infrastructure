@@ -1363,7 +1363,7 @@ The token being introspected may be opaque to the Resource Server. It may be for
 
 ##### 3.102.4.1.3 Expected Actions
 
-Upon receiving the introspect request, the Authorization Server MUST evaluate the resource server access to the introspect endpoint. In accordance to ITI-72, when access to the introspect endpoint is allowed, the Authorizatin Server MUST return HTTP 401 (Not Authorized).
+Upon receiving the introspect request, the Authorization Server MUST evaluate the resource server access to the introspect endpoint. In accordance to ITI-72, when access to the introspect endpoint is allowed, the Authorization Server MUST return HTTP 401 (Not Authorized).
 
 The Authorization Server SHALL:
 * Validate the structure and authenticity of the token to be introspected
@@ -1423,7 +1423,8 @@ Resource Server and Authorization Server claiming compliance with this option SH
 Resource Servers SHALL use the introspection results as authorization claims when formulating audit messages, as specified in section [3.72.9](#3729-security-considerations).
 
 
-**Add Section 3.103**
+| **Editory please Add Section 3.103** |
+|------------------------------|
 
 ## 3.103 Get Authorization Server Metadata
 
@@ -1459,6 +1460,26 @@ This transaction relies on standards defined in the following documents and the 
 
 
 ### 3.103.4 Messages
+The Get Authorization Server Metadata transaction consists of a single request and response initiated by an Authorization Client or Resource Server as depicted in the diagram below:
+
+![ITI-103 Get Authorization Server Metadata Diagram](media/get-authorization-server-metadata.png)
+
+Figure 3.103.4-1: ITI-103 Get Authorization Server Metadata Diagram
+
+```plantuml
+@startuml get-authorization-server-metadata
+
+participant "Authorization Client\nor\nResource Server" as Client
+participant "Authorization Server" as AuthzServer
+
+autonumber 0 1 "<b>[00]"
+autoactivate on
+
+Client -> AuthzServer: Authorization Server Metadata Request
+Client <-- AuthzServer: Authorization Server Metadata Response
+
+@enduml
+```
 
 #### 3.103.4.1 Authorization Server Metadata Request
 
@@ -1521,7 +1542,7 @@ The document MUST be structured according to the rules set forth in [RFC8414, Se
 
 In addition to the claims provided in [RFC8414] Authorization Servers SHOULD provide the following claim:
 
-* *access_token_format (OPTIONAL)*:  JSON string defining the format of the access token as provided by the Authorization Server. This allows Resource Servers to learn about methods of verification. Authorization Server supporting the JWT options MUST set this claim value to "ihe-jwt". Authorization Server supporting the SAML Option MUST set this claim value to "ihe-saml". Authorization Servers providing tokens that are non-parseable MUST set this value to "opaque". Authorization Servers supporting access tokens in other structured formats MAY use alternative format identifiers.
+* *access_token_format (OPTIONAL)*:  JSON string defining the format of the access token as provided by the Authorization Server. This allows Resource Servers to learn about methods of verification. Authorization Server supporting the JWT options MUST set this claim value to "ihe-jwt". Authorization Server supporting the SAML Option MUST set this claim value to "ihe-saml". Authorization Servers providing tokens that are non-parsable MUST set this value to "opaque". Authorization Servers supporting access tokens in other structured formats MAY use alternative format identifiers.
 
 
 ##### 3.103.4.2.3 Expected Actions
@@ -1536,6 +1557,6 @@ Resource Servers requesting the metadata document SHOULD use the "access_token_f
 
 All security considerations as described in [RFC8414, Section 6.2] MUST be implemented.
 
-*Note:* The issuer claim value of the metadata document is not-necessarily the same as the isser claim value associated with access-tokens. The issuer value in the metadata document refers to the source of the metadocument itself. This document may point to an token endpoint at a server other than the metadata document server. The issuer claim associated with the access token should refer to the server that implements the token endpoint.
+*Note:* The issuer claim value of the metadata document is not-necessarily the same as the issuer claim value associated with access-tokens. The issuer value in the metadata document refers to the source of the metadata document itself. This document may point to an token endpoint at a server other than the metadata document server. The issuer claim associated with the access token should refer to the server that implements the token endpoint.
 
-As the metadata document is intended to support the authorization processes, there is no need to provide client credentials towards the metadata endpoint. To prevent unnessary disclosure of credentials, the Authorization Server Metadata Request MUST NOT include and credentials from the Authorization Client or Resource Server.
+As the metadata document is intended to support the authorization processes, there is no need to provide client credentials towards the metadata endpoint. To prevent unnecessary disclosure of credentials, the Authorization Server Metadata Request MUST NOT include and credentials from the Authorization Client or Resource Server.
