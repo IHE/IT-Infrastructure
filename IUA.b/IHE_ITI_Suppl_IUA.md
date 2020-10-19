@@ -28,7 +28,8 @@ This supplement describes changes to the existing technical framework documents.
 
 "Boxed" instructions like the sample below indicate to the Volume Editor how to integrate the relevant section(s) into the relevant Technical Framework volume.
 
-**Amend Section X.X by the following:**
+| **Editor please Amend Section X.X by the following:**  |
+|--------------------------------------------------------|
 
 Where the amendment adds text, make the added text **<ins>bold underline</ins>**. Where the amendment removes text, make the removed text **~~bold strikethrough~~**. When entire new sections are added, introduce with editor's instructions to "add new text" or similar, which for readability are not bolded or underlined.
 
@@ -86,6 +87,7 @@ The current version of the IHE Technical Framework can be found at: [http://www.
 
 <!-- /TOC -->
 
+TODO: minimal but complete table of contents
 
 # Introduction to this Supplement
 
@@ -164,11 +166,14 @@ None
 
 # General Introduction
 
-Update the following Appendices to the General Introduction as indicated below. Note that these are not appendices to Volume but rather to the General Introduction.
+| **Editor please Update the following Appendices to the General Introduction as indicated below. Note that these are not appendices to Volume but rather to the General Introduction.**  |
+|------------------------------|
 
 **Appendix A - Actor Summary Definitions**
 
-Add the following actors to the IHE Technical Frameworks General Introduction list of actors:
+| **Editor please Add the following actors to the IHE Technical Frameworks General Introduction list of actors:** |
+|------------------------------|
+
 
 |Actor                |Definition
 |-----                |----------
@@ -179,7 +184,9 @@ Add the following actors to the IHE Technical Frameworks General Introduction li
 
 **Appendix B - Transaction Summary Definitions**
 
-Add the following transactions to the IHE Technical Frameworks General Introduction list of Transactions:
+| **Editor please Add the following transactions to the IHE Technical Frameworks General Introduction list of Transactions:**  |
+|------------------------------|
+
 
 |Transaction                                |Definition
 |-----------                                |----------
@@ -189,6 +196,9 @@ Add the following transactions to the IHE Technical Frameworks General Introduct
 
 
 # Volume 1 -- Profiles
+
+|  **Editor please add the following section 34 to Volume 1** |
+|------------------------------|
 
 # 34 IUA Profile
 
@@ -398,7 +408,9 @@ The SAML token option in IUA enables an Authorization Client actor to incorporat
 
 # Volume 2 -- Transactions
 
-**Add Section 3.71**
+| **Editor please Add Section 3.71**  |
+|------------------------------|
+
 
 ## 3.71 Get Authorization Token
 
@@ -991,7 +1003,9 @@ Where:
 
 
 
-**Add Section 3.72**
+| **Editory please Add Section 3.72**  |
+|------------------------------|
+
 
 ## 3.72 Incorporate Authorization Token
 
@@ -1117,7 +1131,9 @@ where:
 -   **issuer** SHALL match the X-Assertion Provider entity ID contained with the content of SAML Assertion\'s Issuer element
 
 
-**Add Section 3.102**
+| **Editory please Add Section 3.102** |
+|------------------------------|
+
 
 ## 3.102 Introspect Token
 Token introspection defines a protocol that allows Resource Servers to query the Authorization Server to determine the set of claims for a given token that was presented to them by an Authorization Client. These claims include whether or not the token is currently active (or if it has expired or otherwise been revoked) and the authorization context in which the token was granted.
