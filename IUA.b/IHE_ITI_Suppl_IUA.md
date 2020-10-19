@@ -43,47 +43,24 @@ The current version of the IHE Technical Framework can be found at: [http://www.
 
 **CONTENTS**
 
-<!-- TOC depthFrom:1 depthTo:3 -->
+<!-- TOC depthFrom:1 depthTo:2 -->
 
 - [Introduction to this Supplement](#introduction-to-this-supplement)
-        - [Problem Statement](#problem-statement)
-        - [Background on the problem environment](#background-on-the-problem-environment)
 - [Open Issues and Question](#open-issues-and-question)
 - [Closed Issues](#closed-issues)
 - [General Introduction](#general-introduction)
 - [Volume 1 -- Profiles](#volume-1----profiles)
 - [34 IUA Profile](#34-iua-profile)
     - [34.1 IUA Actors, Transactions, and Content Modules](#341-iua-actors-transactions-and-content-modules)
-        - [34.1.1 Actor Descriptions and Actor Profile Requirements](#3411-actor-descriptions-and-actor-profile-requirements)
     - [34.2 IUA Actor Options](#342-iua-actor-options)
     - [34.3 IUA Required Actor Groupings](#343-iua-required-actor-groupings)
     - [34.4 IUA Overview](#344-iua-overview)
-        - [34.4.1 Concepts](#3441-concepts)
-        - [34.4.2 Use Cases](#3442-use-cases)
-- [34.5 IUA Security Considerations](#345-iua-security-considerations)
-- [34.6 IUA Cross Profile Considerations](#346-iua-cross-profile-considerations)
+    - [34.5 IUA Security Considerations](#345-iua-security-considerations)
+    - [34.6 IUA Cross Profile Considerations](#346-iua-cross-profile-considerations)
 - [Volume 2 -- Transactions](#volume-2----transactions)
     - [3.71 Get Authorization Token](#371-get-authorization-token)
-        - [3.71.1 Scope](#3711-scope)
-        - [3.71.2 Actor Roles](#3712-actor-roles)
-        - [3.71.3 Referenced Standards](#3713-referenced-standards)
-        - [3.71.4 Messages](#3714-messages)
-        - [3.71.5 Security Considerations](#3715-security-considerations)
     - [3.72 Incorporate Authorization Token](#372-incorporate-authorization-token)
-        - [3.72.1 Scope](#3721-scope)
-        - [3.72.2 Actor Roles](#3722-actor-roles)
-        - [3.72.3 Referenced Standards](#3723-referenced-standards)
-        - [3.72.4 Interaction Diagram](#3724-interaction-diagram)
-        - [3.72.5 Trigger Events](#3725-trigger-events)
-        - [3.72.6 Message Semantics](#3726-message-semantics)
-        - [3.72.7 Expected Actions](#3727-expected-actions)
-        - [3.72.8 Security Considerations](#3728-security-considerations)
     - [3.102 Introspect Token](#3102-introspect-token)
-        - [3.102.1 Scope](#31021-scope)
-        - [3.102.2 Actor Roles](#31022-actor-roles)
-        - [3.102.3 Referenced Standards](#31023-referenced-standards)
-        - [3.102.4 Messages](#31024-messages)
-        - [3.102.5 Security Considerations](#31025-security-considerations)
 
 <!-- /TOC -->
 
@@ -377,7 +354,7 @@ Users may delegate authority to:
 
 Revocation of delegation needs to be clearly specified by policy. Revocation may be removal of rights because of swapping devices. Expiration, re-authorization, etc. also need to be covered. Revocation is not just a response to breaches and failures. Revocation is a normal response to changes in people, equipment, and relationships.
 
-# 34.5 IUA Security Considerations
+## 34.5 IUA Security Considerations
 
 IUA uses OAuth 2.1 which contains references to security analyses. There are also a variety of analyses available in the public literature. This profile does not introduce new considerations to those analyses. We have not identified any new healthcare related issues.
 
@@ -394,7 +371,7 @@ An access token will not be issued for unapproved clients. This assumes that the
 The Authorization Server will typically have an administratively managed list of approved resource servers. The list of resource servers is used in access control decisions to determine if a client has access to a resource server. These access control decisions take place when an access token is created, are associated with the access token, and may be re-evaluated when an access token is introspected. Introspection is initiated by a resource server just prior to servicing a client request. Introspection can therefore can be used to signal token revocation, or provide resource server specific authorization results (such as a limited view on the authorized scopes). 
  
 
-# 34.6 IUA Cross Profile Considerations
+## 34.6 IUA Cross Profile Considerations
 
 The XUA profile provides equivalent functionality for SOAP based transactions. Both profiles, XUA and IUA define a transaction to incorporate a token into transactions accessing protected data. Both profiles have much in common, but also some remarkable differences:
 
