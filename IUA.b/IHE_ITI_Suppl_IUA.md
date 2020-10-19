@@ -64,8 +64,6 @@ The current version of the IHE Technical Framework can be found at: [http://www.
 
 <!-- /TOC -->
 
-TODO: minimal but complete table of contents
-
 # Introduction to this Supplement
 
 ### Problem Statement
