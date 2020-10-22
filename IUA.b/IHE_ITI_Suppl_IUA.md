@@ -233,7 +233,7 @@ The Authorization Client performs the network transactions and user interactions
 
 -   Incorporate Authorization Token: In this case the access token has already been obtained and is communicated as part of the HTTP RESTful transaction for some other profile or service. This token indicates that the HTTP RESTful transaction has been authorized by the Authorization Server according to the user's consent if applicable.
 
--   An Authorization Client SHOULD query the [capabilities](http://hl7.org/fhir/R4/http.html#capabilities) endpoint on a Resource Server supporting a FHIR-based endpoint to determine if the Resource Server supports IUA. The element [**CapabilityStatement.rest.security.**](http://hl7.org/fhir/R4/capabilitystatement.html) will be populated with the code "IUA" at system canonical URL "http://profiles.ihe.net/fhir/ihe.securityTypes/CodeSystem/securityTypes".
+-   When the Incorporate Authorization Token is to be used with a FHIR server, An Authorization Client SHOULD query the [capabilities](http://hl7.org/fhir/R4/http.html#capabilities) endpoint on the Resource Server to determine if the Resource Server supports IUA. The element [**CapabilityStatement.rest.security.service**](http://hl7.org/fhir/R4/capabilitystatement.html) will be populated with the code "IUA" at system canonical URL "http://profiles.ihe.net/fhir/ihe.securityTypes/CodeSystem/securityTypes".
 
 #### 34.1.1.2 Authorization Server
 
@@ -253,7 +253,7 @@ Notes:
 
 2. In general, Resource Servers perform additional access control decisions and may restrict responses even for transactions authorized by the Authorization Server.
 
-3. Resource Server exposing FHIR-based interface(s) SHALL declare support for IUA in the [capabilities](http://hl7.org/fhir/R4/http.html#capabilities) endpoint using the element [**CapabilityStatement.rest.security.service**](http://hl7.org/fhir/R4/capabilitystatement.html) and the code "IUA" at system canonical URL "http://profiles.ihe.net/fhir/ihe.securityTypes/CodeSystem/securityTypes".
+3. When the Incorporate Authorization Token is to be used with a FHIR server, Resource Server SHALL declare support for IUA in the [capabilities](http://hl7.org/fhir/R4/http.html#capabilities) endpoint using the element [**CapabilityStatement.rest.security.service**](http://hl7.org/fhir/R4/capabilitystatement.html) and the code "IUA" at system canonical URL "http://profiles.ihe.net/fhir/ihe.securityTypes/CodeSystem/securityTypes".
 
 
 ## 34.2 IUA Actor Options
@@ -1279,4 +1279,73 @@ Resource Server and Authorization Server claiming compliance with this option SH
 
 #### 3.102.5.1 Security Audit Considerations
 
-Resource Servers SHALL use the introspection results as authorization claims when formulating audit messages, as specified in section [3.72.8](#3728-security-considerations).
+Resource Servers SHALL use the introspection results as authorization claims when formulating audit messages, as specified in section [3.72.9](#3729-security-considerations).
+
+| **Editor: Please add the following to MHD Volume 1: section 33.5 MHD Security Considerations**                      |
+|------------------------------------------------|
+
+### 33.5.1 Use with IUA Profile
+
+IUA profile provides support for user authentication, app authentication, and authorization decisinos. When MHD actors are grouped with IUA actors there are additional securty and privacy functionality enabled by this grouping. There are additional requirements and functionality enabled through scope definitinos that are transaction specific. See the Security Considerations sections of the MHD defined transactions for guidance on scope definition when grouped with IUA actors.
+
+| **Editor: Please add the following to MHD Volume 1: section 33.6 MHD Cross Profile Considerations**                      |
+|------------------------------------------------|
+
+### 33.6.4 Use with IUA Profile
+
+IUA profile provides support for user authentication, app authentication, and authorization decisinos. When MHD actors are grouped with IUA actors there are additional securty and privacy functionality enabled by this grouping. There are additional requirements and functionality enabled through scope definitinos that are transaction specific. See the Security Considerations sections of the MHD defined transactions for guidance on scope definition when grouped with IUA actors.
+
+| **Editor: Please add the following to MHD Volume 2: section 3.65.5 Security Considerations**                      |
+|------------------------------------------------|
+
+#### 3.65.5.2 Use with IUA Profile
+
+IUA profile provides support for user authentication, app authentication, and authorization decisinos. When MHD actors are grouped with IUA actors there are additional securty and privacy functionality enabled by this grouping. There are additional requirements and functionality enabled through scope definitinos that are transaction specific.
+
+A MHD Document Source when grouped with an IUA Authorization Client, shall request [ITI-71] the following scope from the IUA Authorization Server to enable the MHD [ITI-65] transaction authorizing token [ITI-72].  The MHD Document Responder when grouped with an IUA Resource Server shall require [ITI-72] Incorporate Authorization Token in all [ITI-65] Provide Document Bundle, shall enforce the authorization decision in the token, and may further enforce policies beyond those made by the Authorization Server such as consent or business rules.
+
+scope: "ITI-65"
+
+This scope request authorizes the full ITI-66 transaction. This scope implicitly request is requesting patient specific Create/Update for DocumentManifest, DocumentReference, List, and Binary. Further scope refinement is allowed in realm or project specific situations, these additional scopes would be in addition to the scope defined here. 
+
+| **Editor: Please add the following to MHD Volume 2: section 3.66.5 Security Considerations**                      |
+|------------------------------------------------|
+
+#### 3.66.5.2 Use with IUA Profile
+
+IUA profile provides support for user authentication, app authentication, and authorization decisinos. When MHD actors are grouped with IUA actors there are additional securty and privacy functionality enabled by this grouping. There are additional requirements and functionality enabled through scope definitinos that are transaction specific.
+
+A MHD Document Consumer when grouped with an IUA Authorization Client, shall request [ITI-71] the following scope from the IUA Authorization Server to enable the MHD [ITI-66] transaction authorizing token [ITI-72]. The MHD Document Responder when grouped with an IUA Resource Server shall require [ITI-72] Incorporate Authorization Token in all [ITI-66] Find Document Manifests requests, shall enforce the authorization decision in the token, and may further enforce policies beyond those made by the Authorization Server such as consent or business rules. 
+
+scope: "ITI-66"
+
+This scope request authorizes the full [ITI-66] transaction. This scope implicitly request is requesting patient specific Search/Read for DocumentManifest resources as defined in [ITI-66]. Further scope refinement is allowed in realm or project specific situations, these additional scopes would be in addition to the scope defined here. 
+
+| **Editor: Please add the following to MHD Volume 2: section 3.67.5 Security Considerations**                      |
+|------------------------------------------------|
+
+#### 3.67.5.2 Use with IUA Profile
+
+IUA profile provides support for user authentication, app authentication, and authorization decisinos. When MHD actors are grouped with IUA actors there are additional securty and privacy functionality enabled by this grouping. There are additional requirements and functionality enabled through scope definitinos that are transaction specific.
+
+A MHD Document Consumer when grouped with an IUA Authorization Client, shall request [ITI-71] the following scope from the IUA Authorization Server to enable the MHD [ITI-67] transaction authorizing token [ITI-72]. The MHD Document Responder when grouped with an IUA Resource Server shall require [ITI-72] Incorporate Authorization Token in all [ITI-67] Find Document References requests, shall enforce the authorization decision in the token, and may further enforce policies beyond those made by the Authorization Server such as consent or business rules. 
+
+scope: "ITI-67"
+
+This scope request authorizes the full [ITI-67] transaction. This scope implicitly request is requesting patient specific Search/Read for DocumentReference resources as defined in [ITI-67]. Further scope refinement is allowed in realm or project specific situations, these additional scopes would be in addition to the scope defined here. 
+
+| **Editor: Please add the following to MHD Volume 2: section 3.68.5 Security Considerations**                      |
+|------------------------------------------------|
+
+#### 3.68.5.2 Use with IUA Profile
+
+IUA profile provides support for user authentication, app authentication, and authorization decisinos. When MHD actors are grouped with IUA actors there are additional securty and privacy functionality enabled by this grouping. There are additional requirements and functionality enabled through scope definitinos that are transaction specific.
+
+A MHD Document Consumer when grouped with an IUA Authorization Client, shall request [ITI-71] the following scope from the IUA Authorization Server to enable the MHD [ITI-68] transaction authorizing token [ITI-72]. The MHD Document Responder when grouped with an IUA Resource Server shall require [ITI-72] Incorporate Authorization Token in all [ITI-68] Retrieve Document requests, shall enforce the authorization decision in the token, and may further enforce policies beyond those made by the Authorization Server such as consent or business rules. 
+
+scope: "ITI-68"
+
+This scope request authorizes the full [ITI-68] transaction. This scope implicitly request is requesting patient specific Read for Binary resources as defined in [ITI-68]. Further scope refinement is allowed in realm or project specific situations, these additional scopes would be in addition to the scope defined here. 
+
+
+
