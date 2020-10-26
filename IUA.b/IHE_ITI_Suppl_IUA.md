@@ -62,6 +62,7 @@ The current version of the IHE Technical Framework can be found at: [http://www.
     - [3.72 Incorporate Authorization Token](#372-incorporate-authorization-token)
     - [3.102 Introspect Token](#3102-introspect-token)
     - [3.103 Get Authorization Server Metadata](#3103-get-authorization-server-metadata)
+- [33 MHD Profile](#33-mhd-profile)
 
 <!-- /TOC -->
 
@@ -477,17 +478,17 @@ Figure 3.71.4-1: Basic Process of the Authorization Token Request and Incorporat
 ```plantuml
 @startuml basic-flow
 
-group Get Authorization Server Metadata (optional) [ITI-103]
+group Get Authorization Server Metadata (ITI-103)
 AuthorizationClient -> AuthorizationServer : Get Authorization Server Metadata
-AuthorizationClient <- AuthorizationServer : configuration metadata
+AuthorizationClient <-- AuthorizationServer : configuration metadata
 end
 
-group Get Authorization Token [ITI-71]
+group Get Authorization Token (ITI-71)
 AuthorizationClient -> AuthorizationServer : Authorization Request
 AuthorizationClient <-- AuthorizationServer : Authorization Response + Authorization Token
 end
 
-group Incorporate Authorization Token [ITI-72]
+group Incorporate Authorization Token (ITI-72)
 AuthorizationClient -> ResourceServer : Resource Request + Authorization Token
 AuthorizationClient <-- ResourceServer : Resource Response
 end
@@ -512,7 +513,7 @@ Main Flow:
 
 The Get Authorization Token Request is performed by an Authorization Client or Resource Server (in case of the Introspect option) to obtain an access token to be used in further communication. The sequence of HTTP(S) requests to perform an Get Authorization Token transaction depends on the grant type (type of credentials) chosen.
 
-This profile currently supports two types of grants:
+This profile currently requires support for two types of grants:
 * OAuth2 Client Credential grant
 * Authorization Code grant
 
@@ -527,13 +528,12 @@ Figure 3.71.4.1.1-1: Sequence of HTTP requests in the client credential grant ty
 
 participant "Authorization Client" as Client
 participant "Authorization Server" as AuthzServer
-participant "Resource Server" as ResourceServer
 
 autonumber 0 1 "<b>[00]"
 
-group Get Authorization Token [ITI-71]
+group Get Authorization Token (ITI-71) [Client Credentials Grant]
 Client -> AuthzServer: Access Token Request
-AuthzServer -> Client: Access Token Response
+AuthzServer --> Client: Access Token Response
 end
 
 autonumber stop
@@ -584,38 +584,24 @@ actor User
 participant "User Agent" as UserAgent
 participant "Authorization Client" as Client
 participant "Authorization Server" as AuthzServer
-participant "Resource Server" as ResourceServer
 
 autonumber 0 1 "<b>[00]"
 
-User -> UserAgent: Access resource
-UserAgent -> Client: Access resource
+group Get Authorization Token (ITI-71) [Authorization Code Grant]
+Client -> UserAgent: Redirect to Authorization Server \n(authorization request incl requested scopes, resource, etc.)
+UserAgent -> AuthzServer: authorization request
 
-group Get Authorization Token [ITI-71]
-Client -> UserAgent: Redirect (authorization request)
+note over User, AuthzServer
+  Authorization Server determines access based on
+  user authentication, consent and/or other policies.
+end note
 
-UserAgent -> AuthzServer: Authorization Request
+AuthzServer -> UserAgent: Redirect to Client \n(authorization response with Authorization Code)
+UserAgent -> Client: authorization response
 
-group User Authentication
-AuthzServer -> AuthzServer: Authenticate User
-AuthzServer -> AuthzServer: User consent
+Client -> AuthzServer: Token Request \n(client credentials + Authorization Code)
+AuthzServer --> Client: Access Token Response (access token)
 end
-
-AuthzServer -> UserAgent: Redirect (authorization response)
-UserAgent -> Client: Callback (authorization response)
-Client -> AuthzServer: Access Token Request
-AuthzServer -> Client: Access Token Response
-end
-
-group Incorporate Authorization Token [ITI-72]
-Client -> ResourceServer: Access protected resource
-ResourceServer -> Client: Return result
-end
-
-Client -> UserAgent: Display result
-UserAgent -> User : Show result
-
-autonumber stop
 
 @enduml
 ```
@@ -662,7 +648,7 @@ If the access request is granted (by the user or some other access policy), the 
 
 The Authorization Client actor claiming the Authorization Server Metadata option SHALL use the "token_endpoint" URL from the Authorization Server Metadata Document to obtain the access token.
 
-The Authorization server SHALL direct the user agent to the Authorization Clients redirect URI with the authorization response parameter in the *application/x-www-form-urlencoded* format. The response parameter SHALL be as follows:
+The Authorization server SHALL redirect the user agent to the Authorization Clients redirect URI with the authorization response parameter in the *application/x-www-form-urlencoded* format. The response parameter SHALL be as follows:
 
 - *code* (REQUIRED): The authorization code generated by the Authorization Server.  
 
@@ -712,7 +698,7 @@ The scope parameter incorporated in the token requests SHALL be used to restrict
 
 Authorization Servers SHOULD minimize the list of identifiers in the audience claim to a minimum to avoid token misuse by unintended parties.
 
-The Authorization Client is RECOMMENDED to provide a resource value to limit usability of the requested token to the intended resource server. If provided, the Authorization Server SHALL evaluate any resource values provided as part of the token request procedure. The Authorization Server SHALL execute policies to detect wether the client has access to the indicated resource.  If the Authorization Client presented a resource value in the token request, the Authorization Servers MUST limit the list of resource server identifiers in the audience claim to only those that are essential to interact with the specified resource (typically only the resource server itself).
+The Authorization Client is RECOMMENDED to provide a resource value to limit usability of the requested token to the intended resource server. If provided, the Authorization Server SHOULD evaluate any resource values provided as part of the token request procedure. The Authorization Server SHOULD execute policies to detect wether the client has access to the indicated resource.  If the Authorization Client presented a resource value in the token request, the Authorization Servers MUST limit the list of resource server identifiers in the audience claim to only those that are essential to interact with the specified resource (typically only the resource server itself).
 
 If the request is valid, all access policy criteria are met the Authorization Server SHALL respond with the access token response as outlined in section [3.71.4.2 Get Authorization Token Response](#37142-get-authorization-token-response).
 
@@ -804,13 +790,12 @@ In the JSON Web Token option the access token is defined as JSON object with the
 
 - *iat* (OPTIONAL): The issuing date in Numeric Date format [JWT, Section 4.1.6].  
 
-
 The JWT access token MAY contain other parameter or extensions depending on the implementation details.
 
 
 ###### 3.71.4.2.2.1 JWT IUA extension
 
-The Authorization Client, Authorization Server, and Resource Server SHALL support the following extensions to the JWT access token:
+The Authorization Server and Resource Server SHALL support the following extensions to the JWT access token:
 
 - *subject\_name* (OPTIONAL): The user's name as String.
 
@@ -826,7 +811,6 @@ The Authorization Client, Authorization Server, and Resource Server SHALL suppor
 - *national\_provider\_identifier* (OPTIONAL): A unique identifier issued to health care providers by their national authority.
 
 - *person\_id* (OPTIONAL): Patient ID, Citizen ID, or other similar public identifier.
-
 
 The above claims SHALL be wrapped in an "extensions" object with key 'ihe\_iua' and a JSON value object containing the claims, as such
 
@@ -861,7 +845,7 @@ Table 3.71.6.1.1-1: JWT claims of the IUA extension and corresponding XUA Assert
 
 ###### 3.71.4.2.2.2 JWT BPPC extension
 
-In a environment which uses the IHE BPPC profile for documenting the consent, the Authorization Client, Authorization Server, and Resource Server SHALL support the following extension parameter:
+In an environment which uses the IHE BPPC profile for documenting the consent, the Authorization Client, Authorization Server, and Resource Server SHALL support the following extension parameter:
 
 - *patient\_id*: Patient ID related to the Patient Privacy Policy Identifier. It's value SHOULD be the patient identifier in CX syntax or as URL.
 
@@ -949,7 +933,7 @@ In accordance to [RFC7522, Section 2.2], the value of the access token contains 
 ##### 3.71.4.2.3 Token Introspection Option
 Implementations relying on Token Introspection option are not restricted in the access token format. This format MAY be different from the JWT or SAML tokens as described in section [3.71.4.2.2](#371422-json-web-token-option) and [3.71.4.2.3](#371423-saml-token-option). 
 
-*Note:* using this option, the access token MAY be formatted as an opaque identifier without further (security sensitive) content. In such cases, the Authorization Server MUST have means to retrieve and communicate the associated claims during token introspection (for details see the ITI-103 transaction.)
+*Note:* using this option, the access token MAY be formatted as an opaque identifier without further (security sensitive) content. In such cases, the Authorization Server MUST have means to retrieve and communicate the associated claims during token introspection (for details see transaction ITI-103.)
 
 ### 3.71.5 Security Considerations
 
@@ -1014,7 +998,7 @@ Where:
 
 
 
-| **Editory please Add Section 3.72**  |
+| **Editor please Add Section 3.72**  |
 |------------------------------|
 
 
@@ -1133,13 +1117,13 @@ A Resource Server that claims conformance to the SAML Token Option SHALL be able
 A Resource Server that claims conformance to the Authorization Server Metadata Option SHALL use the keys published through the Authorization Server Metadata Document for validating the SAML token's signature.
 
 #### 3.72.7.4 Introspect Token Option
-A Resource Server that claims conformance to the Token Introspection Option SHALL be able to interact with the Authorization Server using transaction ITI-103 as described in section 3.102 to validate the access token and obtain the related claims.
+A Resource Server that claims conformance to the Token Introspection Option SHALL be able to interact with the Authorization Server using transaction ITI-102 as described in section [3.102](#3102-introspect-token) to validate the access token and obtain the related claims.
 
 A Resource Server that claims conformance to the Authorization Server Metadata Option SHALL use the introspection endpoint published through the Authorization Server Metadata Document for validating the token and obtaining the related claims.
 
 ### 3.72.8 Security Considerations
 
-Authorization Client and Resource Server claiming compliance with this profile SHALL fulfill the security requirements defined in the OAuth Authorization Framework [OAuth 2.1], especially:
+Authorization Clients and Resource Servers claiming compliance with this profile SHALL fulfill the security requirements defined in the OAuth Authorization Framework [OAuth 2.1], especially:
 
 - All HTTP transaction must be secured by using TLS or equivalent transport security.
 
@@ -1208,7 +1192,7 @@ From the perspective of the Authorization Client there is no difference, but the
 
 Figure 3.102.4-1: ITI-102 Introspect Diagram
 
-```
+```plantuml
 @startuml introspect 
 
 participant "Authorization Client" as Client
@@ -1223,7 +1207,7 @@ group (optional) Get Authorization Server Metadata (ITI-103)
     AuthzServer --> ResourceServer: metadata
 end
 
-group Get Authorization Token [ITI-71]   
+group Get Authorization Token (ITI-71)
 Client -> AuthzServer : Authorization Request  
 Client <-- AuthzServer : Authorization Response (incl. Client Access Token)  
 
@@ -1231,10 +1215,10 @@ ResourceServer -> AuthzServer : Authorization Request
 ResourceServer <-- AuthzServer : Authorization Response (incl. RS Access Token)  
 end
 
-group Incorporate Authorization Token [ITI-72]  
+group Incorporate Authorization Token (ITI-72)  
 Client -> ResourceServer : Resource Request + Client Access Token
 
-group Introspect Token [ITI-102]  
+group Introspect Token (ITI-102)  
 ResourceServer -> AuthzServer : Introspection Request + RS Access Token + Client Access Token  
 ResourceServer <-- AuthzServer : Introspection Response
 end
@@ -1327,7 +1311,7 @@ The Resource Server MAY cache introspection results for a given access token in 
 
 ### 3.102.5 Security Considerations
 
-Resource Server and Authorization Server claiming compliance with this option SHALL fulfill the security requirements defined in RFC7662, especially
+Resource Server and Authorization Server claiming compliance with this option SHALL fulfill the security requirements defined in [RFC7662], especially
 
 - All HTTP transaction must be secured by using TLS or equivalent transport security.
 
@@ -1490,7 +1474,7 @@ As the metadata document is intended to support the authorization processes, the
 
 | **Editor: Please add the following to MHD Volume 1: section 33.5 MHD Security Considerations**                      |
 |------------------------------------------------|
-## MHD Profile
+# 33 MHD Profile
 
 ### 33.5.1 Use with IUA Profile
 
