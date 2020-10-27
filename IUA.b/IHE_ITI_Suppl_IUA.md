@@ -122,7 +122,7 @@ Second, this profile is operating in an environment where access consents are ma
 
 # Open Issues and Question
 
-- **Issue 2**: This profile supports three ways of obtaining the claims associated with access tokens. JWT tokens and SAML tokens have the claims embedded, the introspect option allows the claims to be retrieved through an API call to the Authorization Server. In the current specification, all methods are optional with the requirement that conforming Authorization and Resource Servers must support at least one of them. This may make actors incompatible as they may be conforming to different options. The open question is if the JWT or Introspect option (or both) is to be made mandatory. 
+- **Issue 11**: This profile supports three ways of obtaining the claims associated with access tokens. JWT tokens and SAML tokens have the claims embedded, the introspect option allows the claims to be retrieved through an API call to the Authorization Server. In the current specification, all methods are optional with the requirement that conforming Authorization and Resource Servers must support at least one of them. This may make actors incompatible as they may be conforming to different options. The open question is if the JWT or Introspect option (or both) is to be made mandatory. 
 
   Projects relying on JWT-based tokens will find introspection superfluous, introducing unnecessary conformance and operational requirements. 
   
@@ -136,6 +136,8 @@ Second, this profile is operating in an environment where access consents are ma
 # Closed Issues
 
 - **Issue 1**: At this time, the method for assignment of client_id is not included in the profile. Registration of clients is a significant operational and security problem that is being postponed until there is more experience with problems in the field and reasonable solutions. In the field there are a variety of methods being tried. Many depend upon physical distribution methods or out of band communications to manage the authentication problems.
+
+-- **Issue 2**: This profile does support access token in JWT format and SAML 2.0 Assertions compliant with the XUA profile requirements. An operational environment must ensure, that access tokens are understood by the authorization and resource servers. The Bearer Token option of earlier versions of the profile has been removed, since it does not specify the access token format and attributes used and was thus not interoperable by design.  
 
 - **Issue 3**: Audit messages are only defined for clients that are also Secure Applications. There is no defined auditing for other clients.
 
