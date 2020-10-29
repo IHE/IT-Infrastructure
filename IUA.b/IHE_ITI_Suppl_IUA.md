@@ -895,14 +895,14 @@ JWS Payload:
     "exp": 1438251487,
     "nbf": 1438251187,
     "iat": 1438251187,
-    "scope": "user/*.read user/*.write",    
+    "scope": "ITI-68",    
     "extensions" : {  
       "ihe_iua" : {  
         "subject_name": "Dr. John Smith",
         "subject_organization": "Central Hospital",
         "subject_organization_id": "urn:oid:1.2.3.4",
         "home_community_id": "urn:oid:1.2.3.4.5.6.7.8",
-        "resource_id": "urn:uuid:1.2.3.4",
+        "person_id": "urn:uuid:1.2.3.4",
         "subject_role": [
           {
             "system": "2.16.840.1.113883.6.96",
