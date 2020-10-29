@@ -1429,7 +1429,7 @@ Upon receiving a metadata request, the Authorization Server SHOULD respond with 
 
 Implementations supporting multi-tenancy MUST respond with different metadata documents for different tenants, providing at least a different issuer value.
 
-Requests for metadata for non-existing tenants MUST result in a HTTP 401 (not found) response.
+Requests for metadata for non-existing tenants MUST result in a HTTP 404 (not found) response.
 
 #### 3.103.4.2 Authorization Server Metadata Response
 
@@ -1447,7 +1447,7 @@ The response MUST be structured as a plain JSON document.
 
 The document MUST be structured according to the rules set forth in [RFC8414, Section 2], with the additional constraints:
 
-* *issuer (REQUIRED)*: The Authorization Server's issuer identifier, which is a URL that uses the "https" scheme and has no query or fragment components. The URL MUST use the "https" scheme. The URL MUST contain the domain name of of the URL at which the metadata document can be retrieved. The URL MUST contain any path elements referring to a tenant. Other path elements, such as those referring to the document location (e.g., ".well-known" or "openid-configuration") SHOULD be omitted. E.g., a valid issuer associated with a metadata document retrievable at `https://example.com/.well-known/oauth-authorization-server/tenant1` would be `https://example.com/tenant1`.
+* *issuer (REQUIRED)*: The Authorization Server's issuer identifier, which is a URL that uses the "https" scheme and has no query or fragment components. The URL MUST use the "https" scheme. The URL MUST contain the domain name of the URL at which the metadata document can be retrieved. The URL MUST contain any path elements referring to a tenant. Other path elements, such as those referring to the document location (e.g., ".well-known" or "openid-configuration") SHOULD be omitted. E.g., a valid issuer associated with a metadata document retrievable at `https://example.com/.well-known/oauth-authorization-server/tenant1` would be `https://example.com/tenant1`.
 * *authorization_endpoint (REQUIRED)*: Authorization Server Authorization endpoint as used for the "authorization code" flow.
 * *token_endpoint (REQUIRED)*: Authorization Server Authorization token endpoint location
 * jwks_uri (CONDITIONAL). URL of the Authorization Server's JWK Set [RFC7517, Section 5] document. Authorization Server supporting the JWT Token or SAML token options MUST provide this claim to communicate the public keys that can be used to verify JWT token or SAML token signatures.
