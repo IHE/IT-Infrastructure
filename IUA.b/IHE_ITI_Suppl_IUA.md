@@ -122,8 +122,17 @@ Second, this profile is operating in an environment where access consents are ma
 
 # Open Issues and Question
 
-None
+- **Issue 11**: This profile supports three ways of obtaining the claims associated with access tokens. JWT tokens and SAML tokens have the claims embedded, the introspect option allows the claims to be retrieved through an API call to the Authorization Server. In the current specification, all methods are optional with the requirement that conforming Authorization and Resource Servers must support at least one of them. This may make actors incompatible as they may be conforming to different options. The open question is if the JWT or Introspect option (or both) is to be made mandatory. 
 
+  Projects relying on JWT-based tokens will find introspection superfluous, introducing unnecessary conformance and operational requirements. 
+  
+  In other projects the benefits of introspection are preferred, among which:
+  * token format independence: resource servers delegate token processing, allowing them to handle any (JWT, SAML or custom) token format among which opaque token identifiers,
+  * last-minute policy determination including token revocation schemes, and 
+  * client/server specific policy decision communication
+
+  Community feedback on this topic is requested. A discussion is ongoing in the IHE ITI-Infrastructure Github repository [here](https://github.com/IHE/IT-Infrastructure/issues/90) and [here](https://github.com/IHE/IT-Infrastructure/issues/106).
+  
 # Closed Issues
 
 - **Issue 1**: At this time, the method for assignment of client_id is not included in the profile. Registration of clients is a significant operational and security problem that is being postponed until there is more experience with problems in the field and reasonable solutions. In the field there are a variety of methods being tried. Many depend upon physical distribution methods or out of band communications to manage the authentication problems.
@@ -271,7 +280,7 @@ Notes:
 
 
 ## 34.2 IUA Actor Options
-All actors SHALL support the JSON Web Token option and MAY support the SAML Token option or Token Introspection Option.
+Resource Server and Authorization Server actors SHALL support at least one of the following three options: the JSON Web Token option, the SAML Token option or the Token Introspection Option. The Authorization Client is not and does not need to be aware of the token processing options.
 
 The **Authorization Server Metadata option** enables automated configuration of Resource Servers and Authorization Clients by enabling them to pull configuration metadata directly from the Authorization Server.
 
@@ -286,16 +295,16 @@ Table 34.2-1: IUA - Actors and Options
 | IUA Actor            | Option                        |Optionality
 |----------------------|-------------------------------|----------
 | Authorization Client | Authorization Server Metadata |O    		
-| Authorization Server | JWT Token                     |R    		
-|                      | SAML Token                    |O          
-|                      | Token Introspection           |O    		
+| Authorization Server | JWT Token                     |O  Note 1  		
+|                      | SAML Token                    |O  Note 1        
+|                      | Token Introspection           |O  Note 1  		
 |                      | Authorization Server Metadata |O    		
-| Resource Server      | JWT Token                     |R    		
-|                      | SAML Token                    |O    		
-|                      | Token Introspection           |O    		
+| Resource Server      | JWT Token                     |O  Note 1  		
+|                      | SAML Token                    |O  Note 1  		
+|                      | Token Introspection           |O  Note 1  		
 |                      | Authorization Server Metadata |O
 
-*Note:* The Authorization Client is not and does not need to be aware of the token processing options.
+*Note 1:* Authorization Server or Resource Server actors MUST declare at least one of the following options: JWT Token, SAML, or Token Introspection.
 
 ## 34.3 IUA Required Actor Groupings
 
@@ -727,7 +736,7 @@ If the access token request is valid and authorized, the Authorization Server re
 
 - *token_type* (REQUIRED): The value of the parameter SHALL be *Bearer*.
 
-- *access_token* (REQUIRED): The access token as JSON Web Token or SAML 2.0 assertion as described below.
+- *access_token* (REQUIRED): A JSON string containing the access token. The format of the access token string depends on the supported JWT Token, SAML Token or Introspect Token options.
 
 - *scope* (REQUIRED): The scope granted by the Authorization Server.
 
@@ -759,7 +768,7 @@ Pragma: no-cache
 ##### 3.71.4.2.2 JSON Web Token Option
 The OAuth2 specifications does not indicate the structure of the access token. Actors conforming to the JSON Web Token Option SHALL support access tokens formatted as signed JWT Tokens.
 
-The Authorization Server actors SHALL support signed JWT token as specified in JSON Web Signature [RFC 7515]. If signed, the JWS Compact Serialization (base64 encoded, with single signature or MACed) SHALL be used as described in [RFC 7515, Section 7.1].
+JWT token SHALL be signed as specified in JSON Web Signature [RFC 7515]. If signed, the JWS Compact Serialization (base64 encoded, with single signature or MACed) SHALL be used as described in [RFC 7515, Section 7.1].
 
 Any actor that supports this transaction MAY support the JWE (unsigned but encrypted) alternative of the JWT token.
 
@@ -845,7 +854,7 @@ Table 3.71.6.1.1-1: JWT claims of the IUA extension and corresponding XUA Assert
 
 ###### 3.71.4.2.2.2 JWT BPPC extension
 
-In an environment which uses the IHE BPPC profile for documenting the consent, the Authorization Client, Authorization Server, and Resource Server SHALL support the following extension parameter:
+In an environment which uses the IHE BPPC profile for documenting the consent, the Authorization Server and Resource Server SHALL support the following extension parameter:
 
 - *patient\_id*: Patient ID related to the Patient Privacy Policy Identifier. It's value SHOULD be the patient identifier in CX syntax or as URL.
 
@@ -933,7 +942,7 @@ In accordance to [RFC7522, Section 2.2], the value of the access token contains 
 ##### 3.71.4.2.3 Token Introspection Option
 Implementations relying on Token Introspection option are not restricted in the access token format. This format MAY be different from the JWT or SAML tokens as described in section [3.71.4.2.2](#371422-json-web-token-option) and [3.71.4.2.3](#371423-saml-token-option). 
 
-*Note:* using this option, the access token MAY be formatted as an opaque identifier without further (security sensitive) content. In such cases, the Authorization Server MUST have means to retrieve and communicate the associated claims during token introspection (for details see transaction ITI-103.)
+*Note:* using this option, the access token MAY be formatted as an opaque identifier without further (security sensitive) content. In such cases, the Authorization Server MUST have means to retrieve and communicate the associated claims during token introspection (for details see transaction ITI-103)
 
 ### 3.71.5 Security Considerations
 
@@ -1112,7 +1121,7 @@ A Resource Server that claims conformance to the JSON Web Token Option SHALL be 
 A Resource Server that claims conformance to the Authorization Server Metadata Option SHALL use the keys published through the Authorization Server Metadata Document for validating the JWT token's signature.
 
 #### 3.72.7.3 SAML Token Option
-A Resource Server that claims conformance to the SAML Token Option SHALL be able to interpret and validate the access token as a XUA compliant SAML Assertion as defined in Section 3.71.4.2.3.
+A Resource Server that claims conformance to the SAML Token Option SHALL be able to interpret and validate the access token as a XUA compliant SAML Assertion as defined in Section [3.71.4.2.3](#371423-saml-token-option).
 
 A Resource Server that claims conformance to the Authorization Server Metadata Option SHALL use the keys published through the Authorization Server Metadata Document for validating the SAML token's signature.
 
@@ -1453,7 +1462,7 @@ The document MUST be structured according to the rules set forth in [RFC8414, Se
 
 In addition to the claims provided in [RFC8414] Authorization Servers SHOULD provide the following claim:
 
-* *access_token_format (OPTIONAL)*:  JSON string defining the format of the access token as provided by the Authorization Server. This allows Resource Servers to learn about methods of verification. Authorization Server supporting the JWT options MUST set this claim value to "ihe-jwt". Authorization Server supporting the SAML Option MUST set this claim value to "ihe-saml". Authorization Servers providing tokens that are non-parsable MUST set this value to "opaque". Authorization Servers supporting access tokens in other structured formats MAY use alternative format identifiers.
+* *access_token_format (OPTIONAL)*:  JSON string defining the format of the access token as provided by the Authorization Server. This allows Resource Servers to learn about methods of verification. Authorization Server actors supporting the JWT Token option MUST set this claim value to "ihe-jwt". Authorization Server actors supporting the SAML Token Option MUST set this claim value to "ihe-saml". Authorization Servers providing tokens that are non-parsable MUST set this value to "opaque". Authorization Servers supporting access tokens in other structured formats MAY use alternative format identifiers.
 
 
 ##### 3.103.4.2.3 Expected Actions
