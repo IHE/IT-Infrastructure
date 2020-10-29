@@ -126,7 +126,7 @@ None
 
 # Closed Issues
 
-- **Issue 1**: At this time, the method for assignment of client_id is not included in the profile. Registration of clients is a significant operational and security problem that is being postponed until there is more experience with problems in the field and reasonable solutions. In the field there are a variety of methods being tried. Many depend upon physical distribution methods or out of band communications to manage the authentication problems.
+- **Issue 1**: At this time, the method for assignment of client identifiers is not included in the profile. Registration of clients is a significant operational and security problem that is being postponed until there is more experience with problems in the field and reasonable solutions. In the field there are a variety of methods being tried. Many depend upon physical distribution methods or out of band communications to manage the authentication problems.
 
 - **Issue 2**: This profile does support access token in JWT format and SAML 2.0 Assertions compliant with the XUA profile requirements. An operational environment must ensure, that access tokens are understood by the authorization and Resource Servers. The Bearer Token option of earlier versions of the profile has been removed, since it does not specify the access token format and attributes used and was thus not interoperable by design.  
 
@@ -186,7 +186,7 @@ The IUA Profile adds authorization information to HTTP RESTful transactions. The
 
 The actors in the IUA Profile manage the tokens used for authorization of access to HTTP RESTful services based on the flows and transactions defined in the OAuth 2.1 Authorization Framework [OAuth 2.1]. Authorization Clients interact with the Authorization Server to retrieve access tokens and incorporate them into HTTP RESTful transactions to authorize access to resources on the Resource Servers.
 
-The OAuth 2.1 Authorization Framework requires client identification, which may be based on a *client_id* parameter [OAuth 2.1, Section 2.2]. Depending on the grant type, the use of the *client_id* MAY be required. For example the *Authorization Code* grant type requires the use of the *client_id* for client identification [OAuth 2.1, Section 4.1], while the *Client Credential* grant type does not [OAuth 2.1, Section 4.2].
+The OAuth 2.1 Authorization Framework requires client identification, which may be based on a *client\_id* parameter [OAuth 2.1, Section 2.2]. Depending on the grant type, the use of the *client\_id* MAY be required. For example the *Authorization Code* grant type requires the use of the *client\_id* for client identification [OAuth 2.1, Section 4.1], while the *Client Credential* grant type does not [OAuth 2.1, Section 4.2].
 
 The OAuth 2.1 Authorization Framework also requires client authentication for confidential and credential clients [OAuth 2.1, Section 2.3]. It recommends the use of to use asymmetric (public-key based) methods for client authentication [OAuth 2.1, Section 9.1], but allows other suitable HTTP based authentication schemes matching the security policy of the Authorization Server [OAuth 2.1, Section 2.3.2].
 
@@ -250,7 +250,6 @@ The Authorization Server provides access tokens to requesting clients. In IUA, t
 Authorization Servers declaring the Authorization Server Metadata option SHALL provide a metadata endpoint that provides configuration information to Authorization Client and Resource Servers. This information includes endpoint locations, supported authentication grants and signing key materials. This information greatly simplifies the configuration of those Authorization Clients and Resource Servers.
 
 Authorization Servers declaring the Token Introspection option SHALL provide an endpoint usable by Resource Servers to validate and evaluate the access token. With this option, the Authorization Server MAY provide other token formats than JWT or SAML. Using this option, the token can be treated as an opaque data construct for Resource Servers. When Token Introspection option is used the Authorization Server SHALL provide the ITI-102 Token Introspection transaction service.
-
 
 
 #### 34.1.1.3 Resource Server
@@ -351,11 +350,11 @@ In accordance with the definitions in the OAuth 2.1 Authorization Framework [OAu
 
 This profile applies to use cases where a user authorizes an client application to access health data on behalf of the user using OAuth. Beyond other, relevant use cases are:   
 
-A healthcare professional uses a server hosted web application to access a patient's electronic health record (EHR) using RESTful transactions. The web application has been registered beforehand at the Authorization Server with client ID and client authentication method (e.g. client secret) by a system administrator. When accessing a view on the EHR, the browser is redirected to the EHR Authorization Server. The Authorization Server authenticates the healthcare professional either by presenting the views to enter the authentication factors (e.g. username, password and 2nd factor) or by redirecting to an Identity Provider (IdP). This step may be omitted, if the browser already has an authenticated session (e.g. session cookie). After user authentication, the Authorization Server performs the necessary steps to authorize the web application access to the EHR data with application specific scope, either by contract or by explicit consent given by the healthcare professional. When authorized, the web application retrieves an access token which authorizes it to request and retrieve the EHR data from the Resource Server(s) with an application specific scope on behalf of the healthcare professional.
+A healthcare professional uses a server hosted web application to access a patient's electronic health record (EHR) using RESTful transactions. The web application has been registered beforehand at the Authorization Server with client identifier and client authentication method (e.g. client secret) by a system administrator. When accessing a view on the EHR, the browser is redirected to the EHR Authorization Server. The Authorization Server authenticates the healthcare professional either by presenting the views to enter the authentication factors (e.g. username, password and 2nd factor) or by redirecting to an Identity Provider (IdP). This step may be omitted, if the browser already has an authenticated session (e.g. session cookie). After user authentication, the Authorization Server performs the necessary steps to authorize the web application access to the EHR data with application specific scope, either by contract or by explicit consent given by the healthcare professional. When authorized, the web application retrieves an access token which authorizes it to request and retrieve the EHR data from the Resource Server(s) with an application specific scope on behalf of the healthcare professional.
 
 A healthcare professional uses a single page web application to access a patients electronic health record (EHR) using RESTful transactions. At initial startup the app registers with the Authorization Server using a dynamic client registration protocol. When accessing a view on the EHR, the steps follow the same steps as in the web application use case above.   
 
-A clinical monitor managed by the hospital system administrators access a patients EHR using RESTful transactions in the hospital LAN. At installation time, clinical monitor has been registered at the Authorization Server with client ID and client authentication method (e.g. client secret) by the system administrator and a contracts (policies) have been deposited at the Authorization Server and Resource Server(s) authorizing access to the EHR with application specific scope. Before accessing patient EHR data, the clinical monitor requests an access token from the Authorization Server (e.g. using the client credential grant type). The clinical monitor incorporates the access token to the RESTful transactions to access EHR data and documents stored in the EHR Resource Server(s) with an application specific scope.   
+A clinical monitor managed by the hospital system administrators access a patients EHR using RESTful transactions in the hospital LAN. At installation time, clinical monitor has been registered at the Authorization Server with client identifier and client authentication method (e.g. client secret) by the system administrator and a contracts (policies) have been deposited at the Authorization Server and Resource Server(s) authorizing access to the EHR with application specific scope. Before accessing patient EHR data, the clinical monitor requests an access token from the Authorization Server (e.g. using the client credential grant type). The clinical monitor incorporates the access token to the RESTful transactions to access EHR data and documents stored in the EHR Resource Server(s) with an application specific scope.   
 
 A patient uses a native app on her mobile device to access data from her electronic health record (EHR) using RESTful transactions via the Internet. At first startup the app registers with the Authorization Server using a dynamic client registration protocol. When accessing a view on the EHR, the native app is redirected to the EHR Authorization Server, which authenticates the patient either by presenting the views to enter the authentication factors (e.g. username, password and 2nd factor) or by delegating to an Identity Provider (IdP). After user authentication, the Authorization Server performs the necessary steps to authorize the native app to access to the EHR data with application specific scope by explicit user consent. When authorized, the native app retrieves an access token which authorizes the app to request and retrieve the EHR data from the Resource Server(s) with an application specific scope on behalf of the patient.
 
@@ -382,7 +381,7 @@ For confidential clients this profiles requires client authentication using clie
 
 IUA does not address issues around issuing and revoking client\_ids. OAuth 2.1 relies upon the client\_id for client identification and authorization. OAuth 2.1 does not further define how client\_ids are managed.
 
-Usually Authorization Server publish web forms where system administrators and users can apply for a client_ID. OAuth 2.1 defines a mechanism for dynamically registering clients with Authorization Servers, by defining a set of desired client metadata values to be made available to the Authorization Servers [OAuth 2.1, Section 2].  
+Usually Authorization Server publish web forms where system administrators and users can apply for a client\_id. OAuth 2.1 defines a mechanism for dynamically registering clients with Authorization Servers, by defining a set of desired client metadata values to be made available to the Authorization Servers [OAuth 2.1, Section 2].  
 
 The Authorization Server will have an administratively managed list of approved client\_ids for accepted clients. This list will be updated as new clients are approved or existing clients are removed. An access token will not be issued for unapproved clients. This assumes that the client\_id management will deal with these security considerations in a manner similar to the certificate management assumptions made for secure communication transactions.
 
@@ -543,7 +542,7 @@ autonumber stop
 
 The Authorization Client actor requests an access token using client credentials (or other supported means of authentication). This grant type SHALL be used by confidential clients only [OAuth 2.1, Section 4.2].
 
-The Authorization Client actor claiming the Authorization Server Metadata option SHALL use the "token_endpoint" URL from the Authorization Server Metadata Document to obtain the access token.
+The Authorization Client actor claiming the Authorization Server Metadata option SHALL use the *token_endpoint* URL from the Authorization Server Metadata Document to obtain the access token.
 
 The Authorization Client actor makes a HTTP(s) POST request to the token endpoint with the following parameters in the HTTP request entity-body [OAuth 2.1, Section 4.2.2]:
 
@@ -555,7 +554,7 @@ The Authorization Client actor makes a HTTP(s) POST request to the token endpoin
 
 The request SHALL use the *application/x-www-form-urlencoded* format with a character encoding of UTF-8 [OAuth 2.1, Section 4.4.2].
 
-The Authorization Client actors SHALL present its client id and credentials in a HTTP Basic Authentication Header to the Authorization Server.
+The Authorization Client actors SHALL present its client\_id and client\_secret in a HTTP Basic Authentication Header to the Authorization Server.
 
 A non-normative example of the access token request with client authentication using the *client_id* and *client_secret* in the HTTP Authorization header, MAY be as follows:
 
@@ -633,7 +632,7 @@ A non-normative example of the authorization request is as follows:
 ```http
 GET /authorize?
   response_type=code
-  &client_id=s6BhdRkqt3
+  &client\_id=s6BhdRkqt3
   &state=xyz
   &redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb
   &code_challenge=6fdkQaPm51l13DSukcAH3Mdx7_ntecHYd1vi3n0hMZY
@@ -646,8 +645,6 @@ Host: server.example.com
 
 If the access request is granted (by the user or some other access policy), the Authorization Server issues an authorization code. 
 
-The Authorization Client actor claiming the Authorization Server Metadata option SHALL use the "token_endpoint" URL from the Authorization Server Metadata Document to obtain the access token.
-
 The Authorization Server SHALL redirect the user agent to the Authorization Clients redirect URI with the authorization response parameter in the *application/x-www-form-urlencoded* format. The response parameter SHALL be as follows:
 
 - *code* (REQUIRED): The authorization code generated by the Authorization Server.  
@@ -659,7 +656,11 @@ HTTP/1.1 302 Found
 Location: https://client.example.com/cb?code=SplxlOBeZQQYbYS6WxSbIA&state=xyz
 ```
 
-The Authorization Client SHALL use the *authorization code* in an access token request to retrieve an access token and token metadata from the Authorization Server. It makes a HTTP POST request to the token endpoint with the following parameters in the HTTP request entity-body [OAuth 2.1, Section 4.1.3]:   
+The Authorization Client SHALL use the *authorization code* in an access token request to retrieve an access token and token metadata from the Authorization Server.
+
+The Authorization Client actor claiming the Authorization Server Metadata option SHALL use the "token_endpoint" URL from the Authorization Server Metadata Document to obtain the access token.
+
+It makes a HTTP POST request to the token endpoint with the following parameters in the HTTP request entity-body [OAuth 2.1, Section 4.1.3]:   
 
 - *grant_type* (REQUIRED): The value SHALL be "authorization_code".
 
@@ -667,11 +668,11 @@ The Authorization Client SHALL use the *authorization code* in an access token r
 
 - *redirect_uri* (REQUIRED): The redirect URI of the Authorization Client callback. The value SHALL match the redirect URI the Authorization Client is registered at the Authorization Server and the value of the *redirect_uri*, if presented in the authorization request.
 
-- *client_id* (REQUIRED): The client ID the Authorization Client is registered with at the Authorization Server, if no othe authentication scheme is used for client authentication.
+- *client\_id* (REQUIRED): The client identifier the Authorization Client is registered with at the Authorization Server, if no other authentication scheme is used for client authentication.
 
 - *code_verifier*: The original code verifier string. REQUIRED, if the "code_challenge" parameter was used in the authorization request. SHALL NOT be used otherwise.
 
-A non-normative example of the access token request with client authentication using the *client_id* and *client_secret* in the HTTP Authorization header, MAY be as follows:
+A non-normative example of the access token request with client authentication using the *client\_id* and *client_secret* in the HTTP Authorization header, MAY be as follows:
 
 ```http
 POST /token HTTP/1.1
@@ -698,7 +699,7 @@ The scope parameter incorporated in the token requests SHALL be used to restrict
 
 Authorization Servers SHOULD minimize the list of identifiers in the audience claim to a minimum to avoid token misuse by unintended parties.
 
-The Authorization Client is RECOMMENDED to provide a resource value to limit usability of the requested token to the intended Resource Server. If provided, the Authorization Server SHOULD evaluate any resource values provided as part of the token request procedure. The Authorization Server SHOULD execute policies to detect wether the client has access to the indicated resource.  If the Authorization Client presented a resource value in the token request, the Authorization Servers MUST limit the list of Resource Server identifiers in the audience claim to only those that are essential to interact with the specified resource (typically only the Resource Server itself).
+The Authorization Client is RECOMMENDED to provide a resource value to limit usability of the requested token to the intended Resource Server. If provided, the Authorization Server SHOULD evaluate any resource values provided as part of the token request procedure. The Authorization Server SHOULD execute policies to detect wether the client has access to the indicated resource. If the Authorization Client presented a resource value in the token request, the Authorization Servers MUST limit the list of Resource Server identifiers in the audience claim to only those that are essential to interact with the specified resource (typically only the Resource Server itself).
 
 If the request is valid, all access policy criteria are met the Authorization Server SHALL respond with the access token response as outlined in section [3.71.4.2 Get Authorization Token Response](#37142-get-authorization-token-response).
 
@@ -706,7 +707,7 @@ If the authorization request is invalid, the Authorization Server SHALL react as
 
 ###### 3.71.4.1.3.1 Client Credential grant type
 
-The Authorization Server SHALL authenticate the Authorization Client using it's client id and credential as communicated in the HTTP Authorization header.
+The Authorization Server SHALL authenticate the Authorization Client using it's client identifier and secret as communicated in the HTTP Authorization header.
 
 The Authorization Server SHALL verify the access token request as described in [OAuth 2.1, Section 4.2.2]
 
@@ -776,7 +777,7 @@ In the JSON Web Token option the access token is defined as JSON object with the
 
 - *iss* (REQUIRED): A single valued string identifying the instance which issued the access token (e.g.,the Authorization Server) [JWT Access Token, Section 2.2].
 
-- *sub* (REQUIRED): If known, unique identifier of the user; the *client_id* otherwise [JWT Access Token, Section 2.2].  
+- *sub* (REQUIRED): If known, unique identifier of the user; the *client\_id* otherwise [JWT Access Token, Section 2.2].  
 
 - *aud* (REQUIRED): An array of identifier strings for the Resource Server endpoints to be accessed [JWT Access Token, Section 2.2]. In the special case when the JWT has one audience, the "aud" value MAY be a single case-sensitive string.
 
@@ -806,11 +807,11 @@ The Authorization Server and Resource Server SHALL support the following extensi
 - *subject\_role* (OPTIONAL): Coded value indicating the user's role. If present, the value SHALL be formatted as FHIR Coding data type.   
 - *purpose\_of\_use* (OPTIONAL): Purpose of use for the request. If a coded value is used, the value SHALL be formatted as FHIR Coding data type.   
 
-- *home\_community\_id* (OPTIONAL): Home community ID where the request originated. It's value SHOULD be an OID in URN notation.
+- *home\_community\_id* (OPTIONAL): Home community identifier where the request originated. It's value SHOULD be an OID in URN notation.
 
 - *national\_provider\_identifier* (OPTIONAL): A unique identifier issued to health care providers by their national authority.
 
-- *person\_id* (OPTIONAL): Patient ID, Citizen ID, or other similar public identifier.
+- *person\_id* (OPTIONAL): Patient identifier, Citizen identifier, or other similar public identifier.
 
 The above claims SHALL be wrapped in an "extensions" object with key 'ihe\_iua' and a JSON value object containing the claims, as such
 
@@ -847,7 +848,7 @@ Table 3.71.6.1.1-1: JWT claims of the IUA extension and corresponding XUA Assert
 
 In an environment which uses the IHE BPPC profile for documenting the consent, the Authorization Client, Authorization Server, and Resource Server SHALL support the following extension parameter:
 
-- *patient\_id*: Patient ID related to the Patient Privacy Policy Identifier. It's value SHOULD be the patient identifier in CX syntax or as URL.
+- *patient\_id*: Patient identifier related to the Patient Privacy Policy Identifier. It's value SHOULD be the patient identifier in CX syntax or as URL.
 
 - *doc\_id*: Patient Privacy Policy Acknowledgment Document. It's value SHOULD be an URN or URL.
 
@@ -1147,7 +1148,7 @@ When an ATNA Audit message needs to be generated by the Resource Server and the 
 where:
 -   **alias** SHALL match the optional string within the SAML Assertion\'s Subject element SPProvidedID attribute
 -   **user** SHALL match the required content of the SAML Assertion\'s Subject element
--   **issuer** SHALL match the X-Assertion Provider entity ID contained with the content of SAML Assertion\'s Issuer element
+-   **issuer** SHALL match the X-Assertion Provider entity identifier contained with the content of SAML Assertion\'s Issuer element
 
 
 | **Editor please Add Section 3.102** |
