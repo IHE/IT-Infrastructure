@@ -1107,6 +1107,8 @@ In addition, the Resource Server SHALL enforce the access policies set in the sp
 
 If the token verification, scope matching or the access policy enforcement fails, the Resource Server SHALL respond a HTTP 401 (Unauthorized) error.
 
+Authorization Clients receiving a HTTP 401 (Unauthorized) error SHOULD NOT retry the request with the same token. An Authorization Client SHOULD reformulate the request or obtain a new token from the Authorization Server before retrying.
+
 #### 3.72.7.1 JSON Web Token Option
 A Resource Server that claims conformance to the JSON Web Token Option SHALL be able to interpret and validate the access token as a JWT Token as defined in Section [3.71.4.2.2](#371422-json-web-token-option).
 
@@ -1240,14 +1242,14 @@ General flow:
 * [00-01] Optionally, the Resource Server obtains a metadata document from the Authorization Server, providing the introspect endpoint location. 
 * [02-05] The Authorization Client as well as the Resource Server independently obtain their access tokens from the Authorization Server. The Resource Server requires this token to invoke the introspection endpoint.
 * [06] The Authorization Client will invoke a Resource Server endpoint embedding the access token in the request.
-* [07-08] The Resource Server obtains the authorization claims associated with the token from the Authorization Server by invoking the introspect endpoint. This step MAY be omitted if the Resource Server has a cached introspect response value for the access token.
+* [07-08] The Resource Server obtains the authorization claims associated with the token from the Authorization Server by invoking the introspect endpoint. This step MAY be omitted if the Resource Server has a cached introspect response value for the access token (including responses where the *active* field was set to false).
 * [09] The Resource Server will evaluate the token claims, enforce any access control policies and return the requested resources to the Authorization Client.
 
 #### 3.102.4.1 Token Introspection Request
 
 The Resource Server Actor SHALL perform a HTTP POST request to the introspect endpoint with the following parameters using the "application/x-www-form-urlencoded" format [RFC7662]:
 
-* *token (REQUIRED)* : The string value of the token. This is the "access_token" value returned from the token endpoint defined in OAuth 2.1 [OAuth2.1, Section 5.1]. 
+* *token (REQUIRED)* : The string value of the token. This is the Authorization Client's access\_token as received in the Authorization header in the request towards the Resource Server as defined in transaction ITI-72. 
 
 A Resource Server stating conformance to the Authorization Server Metadata Option SHALL use the introspect endpoint as contained in the Authorization Server's metadata document.
 
@@ -1297,7 +1299,7 @@ Used to return the active state and authorization claims related to the token.
 
 ##### 3.102.4.2.1 Trigger Events
 
-The Authorization has formulated a access policy decision for the introspected access token.
+The Authorization has formulated an access policy decision for the introspected access token.
 
 ##### 3.102.4.2.2 Message Semantics
 
