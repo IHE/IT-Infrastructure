@@ -454,7 +454,7 @@ This transaction relies on standards defined in the following documents and the 
 
 - *OAuth 2.1*: The OAuth 2.1 Authorization Framework, published as draft-ietf-oauth-v2-1-00, July 30, 2020.
 
-- *JWT Access Token*: JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens, published as draft-ietf-oauth-access-token-jwt-07, April 2020.
+- *JWT Access Token*: JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens, published as draft-ietf-oauth-access-token-jwt-10, September 2020.
 
 - *RFC 7519*: JSON Web Token (JWT), May 2015.  
 
@@ -550,7 +550,7 @@ The Authorization Client actor makes a HTTP(s) POST request to the token endpoin
 
 - *scope* (OPTIONAL): The scope claimed by the Authorization Client.
 
-The request SHALL use the *application/x-www-form-urlencoded* format with a character encoding of UTF-8 [OAuth 2.1, Section 4.4.2].
+The request SHALL use the *application/x-www-form-urlencoded* format with a character encoding of UTF-8 [OAuth 2.1, Section 4.2.2].
 
 The Authorization Client actors SHALL present its client\_id and client\_secret in a HTTP Basic Authentication Header to the Authorization Server.
 
@@ -777,17 +777,19 @@ In the JSON Web Token option the access token is defined as JSON object with the
 
 - *sub* (REQUIRED): If known, unique identifier of the user; the *client\_id* otherwise [JWT Access Token, Section 2.2].  
 
+- *client_id* (REQUIRED): identifier of the client for which the token is issued. [JWT Access Token, Section 2.2]
+
 - *aud* (REQUIRED): An array of identifier strings for the Resource Server endpoints to be accessed [JWT Access Token, Section 2.2]. In the special case when the JWT has one audience, the "aud" value MAY be a single case-sensitive string.
 
 - *jti* (REQUIRED): A unique identifier for the JWT access token [JWT Access Token, Section 2.2].
 
-- *exp* (REQUIRED): Expiration time of the token in Numeric Date format [JWT, Section 4.1.4].
+- *exp* (REQUIRED): Expiration time of the token in Numeric Date format [JWT Access Token, Section 2.2].
 
 - *scope* (REQUIRED): The scope granted by the Authorization Server [JWT Access Token, Section 2.2.3].   
 
 - *nbf* (OPTIONAL): The earliest time in Numeric Date format the token SHALL be accepted [JWT, Section 4.1.5].  
 
-- *iat* (OPTIONAL): The issuing date in Numeric Date format [JWT, Section 4.1.6].  
+- *iat* (REQUIRED): The issuing date in Numeric Date format [JWT Access Token, Section 2.2].  
 
 The JWT access token MAY contain other parameter or extensions depending on the implementation details.
 
