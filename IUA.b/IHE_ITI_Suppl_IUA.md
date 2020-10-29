@@ -235,9 +235,9 @@ The IUA actors are expected to be grouped with other actors that perform HTTP RE
 
 The Authorization Client performs the network transactions and user interactions needed to obtain an access token and to attach that token to transactions to indicate that the transactions are authorized. An Authorization Client in IUA supports the following associated transactions:
 
--   Get Authorization Server Metadata: In this case the Authorization Client actor interacts with the Authorization Server to obtain configuration metadata required for the further authorization steps such as Authorization endpoint locations and supported authorization grant types.
+-   Get Authorization Server Metadata: In this case the Authorization Client interacts with the Authorization Server to obtain configuration metadata required for the further authorization steps such as Authorization endpoint locations and supported authorization grant types.
 
--   Get Authorization Token: In this case, the Authorization Client actor interacts with an Authorization Server to obtain a token that indicates HTTP RESTful transactions for a particular kind of service and device are authorized by the user. This MAY include interactions with the user for authentication purposes.
+-   Get Authorization Token: In this case, the Authorization Client interacts with an Authorization Server to obtain a token that indicates HTTP RESTful transactions for a particular kind of service and device are authorized by the user. This MAY include interactions with the user for authentication purposes.
 
 -   Incorporate Authorization Token: In this case the access token has already been obtained and is communicated as part of the HTTP RESTful transaction for some other profile or service. With this token the Authorization Client indicates that the HTTP RESTful transaction has been authorized by the Authorization Server. The Resource Server will validate the client's token with associated claims and enforce configured access policies before serving the request.
 
@@ -262,7 +262,7 @@ The Resource Server declaring the Token Introspection option SHALL have the abil
 
 Notes:
 
-1. The Resource Server and Authorization Server actors MAY be grouped into an integrated product together with user authentication, access control, and other services.
+1. The Resource Servers and Authorization Servers MAY be grouped into an integrated product together with user authentication, access control, and other services.
 
 2. In general, Resource Servers perform additional access control decisions and MAY restrict responses even for transactions authorized by the Authorization Server.
 
@@ -398,7 +398,7 @@ The XUA profile provides equivalent functionality for SOAP based transactions. B
 
 - While XUA supports SAML 2 Assertions only, the IUA profile supports access token in JWT, SAML 2.0 Assertion or custom formats (in case the Introspect option is implemented).  
 
-The SAML token option in IUA enables an Authorization Client actor to incorporate access token originally retrieved and issued from a XUA X-Assertion Provider and use it in the Incorporate Authorization Token [ITI-72] transaction, when accessing protected data from a Resource Server via RESTful transactions.   
+The SAML token option in IUA enables an Authorization Client to incorporate access token originally retrieved and issued from a XUA X-Assertion Provider and use it in the Incorporate Authorization Token [ITI-72] transaction, when accessing protected data from a Resource Server via RESTful transactions.   
 
 # Volume 2 -- Transactions
 
@@ -408,7 +408,7 @@ The SAML token option in IUA enables an Authorization Client actor to incorporat
 
 ## 3.71 Get Authorization Token
 
-This transaction is used by Authorization Client actors to obtain an OAuth 2.1 compliant access token for use in a RESTful transaction to access data from a Resource Server actor.
+This transaction is used by Authorization Clients to obtain an OAuth 2.1 compliant access token for use in a RESTful transaction to access data from a Resource Server.
 
 The OAuth 2.1 Authorization Framework [OAuth 2.1, Section 4] defines the following authorization grant types:
 
@@ -428,11 +428,11 @@ The SAML and JWT grants from RFC7522 and RFC7523 MAY be used in federation scena
 
 Both the RFC7522 and RFC7523 require the existence of a public key infrastructure. The operational aspects of such infrastructure are beyond the scope of this specification.
 
-This profile is scoped to the *Authorization Code* and *Client Credential* grant types. To claim compliance with this profile, the Authorization Server actor SHALL support the *Authorization Code* and *Client Credential* grant type and MAY support the *Device Authorization*, *SAML Client or User Assertions*, *JSON Web Token (JWT) Grants* or other OAuth 2.1 extension grant types.   
+This profile is scoped to the *Authorization Code* and *Client Credential* grant types. To claim compliance with this profile, the Authorization Server SHALL support the *Authorization Code* and *Client Credential* grant type and MAY support the *Device Authorization*, *SAML Client or User Assertions*, *JSON Web Token (JWT) Grants* or other OAuth 2.1 extension grant types.   
 
 ### 3.71.1 Scope
 
-This transaction SHALL be used by Authorization Client actors to retrieve an OAuth 2.1 compliant access token defined in [Section 3.71.4.2 Get Authorization Token Response](#37142-get-authorization-token-response) of this profile.
+This transaction SHALL be used by Authorization Clients to retrieve an OAuth 2.1 compliant access token defined in [Section 3.71.4.2 Get Authorization Token Response](#37142-get-authorization-token-response) of this profile.
 
 ### 3.71.2 Actor Roles
 
@@ -499,7 +499,7 @@ Main Flow:
 
 2.  The Authorization Client authenticates to the Authorization Sever and (optionally) provides claims related to the intended request to access protected resources of the Resource Server.
 
-3.  The Authorization Server authenticates the client, validates the claims against any policy rules (such as user consent) and generates an access token that authorizes the Authorization Client actor to request the protected resources from Resource Servers.
+3.  The Authorization Server authenticates the client, validates the claims against any policy rules (such as user consent) and generates an access token that authorizes the Authorization Client to request the protected resources from Resource Servers.
 
 4. The Authorization Server incorporates the access token to the requests of the protected resources to Resource Servers.
 
@@ -538,11 +538,11 @@ autonumber stop
 @enduml
 ```
 
-The Authorization Client actor requests an access token using client credentials (or other supported means of authentication). This grant type SHALL be used by confidential clients only [OAuth 2.1, Section 4.2].
+The Authorization Client requests an access token using client credentials (or other supported means of authentication). This grant type SHALL be used by confidential clients only [OAuth 2.1, Section 4.2].
 
 The Authorization Client actor claiming the Authorization Server Metadata option SHALL use the *token_endpoint* URL from the Authorization Server Metadata Document to obtain the access token.
 
-The Authorization Client actor makes a HTTP(s) POST request to the token endpoint with the following parameters in the HTTP request entity-body [OAuth 2.1, Section 4.2.2]:
+The Authorization Client makes a HTTP(s) POST request to the token endpoint with the following parameters in the HTTP request entity-body [OAuth 2.1, Section 4.2.2]:
 
 - *grant_type* (REQUIRED): The value of the parameter SHALL be *client_credentials*.
 
@@ -552,7 +552,7 @@ The Authorization Client actor makes a HTTP(s) POST request to the token endpoin
 
 The request SHALL use the *application/x-www-form-urlencoded* format with a character encoding of UTF-8 [OAuth 2.1, Section 4.2.2].
 
-The Authorization Client actors SHALL present its client\_id and client\_secret in a HTTP Basic Authentication Header to the Authorization Server.
+The Authorization Clients SHALL present its client\_id and client\_secret in a HTTP Basic Authentication Header to the Authorization Server.
 
 A non-normative example of the access token request with client authentication using the *client_id* and *client_secret* in the HTTP Authorization header, MAY be as follows:
 
@@ -607,7 +607,7 @@ This grant type SHALL be used by confidential, credential and public clients, if
 
 The Authorization Client actor claiming the Authorization Server Metadata option SHALL use the "authorization_endpoint" URL from the Authorization Server Metadata Document to redirect the User-Agent.
 
-The Authorization Client actor directs the user-agent to make a HTTP GET request to the authorization endpoint with the following parameters using the "application/x-www-form-urlencoded" format [OAuth 2.1, Section 4.1.1.3]:
+The Authorization Client directs the user-agent to make a HTTP GET request to the authorization endpoint with the following parameters using the "application/x-www-form-urlencoded" format [OAuth 2.1, Section 4.1.1.3]:
 
 - *response_type* (REQUIRED): The value MUST be *code*.
 
@@ -734,7 +734,7 @@ If the access token request is valid and authorized, the Authorization Server re
 
 - *refresh_token* (OPTIONAL): A token provided by the Authorization Server which can be used by the Authorization Client to obtain new access tokens using the same authorization grant.  
 
-The access token response MAY contain other parameter or extensions depending on the implementation details of the Authorization Server actor [OAuth 2.1, Section 4.2.3].
+The access token response MAY contain other parameter or extensions depending on the implementation details of the Authorization Server [OAuth 2.1, Section 4.2.3].
 
 The Authorization Server SHALL include the HTTP *Cache-Control* response header field with value *no-store* and the *Pragma* response header field value *no-cache* to the access token response [OAuth 2.1, Section 4.2.3].
 
@@ -1068,7 +1068,7 @@ end
 
 Main Flow:
 
-1.  The Authorization Client actor sends a resource request to a Resource Server, together with the access token. The token is opaque to the Authorization Client
+1.  The Authorization Client sends a resource request to a Resource Server, together with the access token. The token is opaque to the Authorization Client
 
 1. The Resource Server identifies the format of the token, validates the token, and obtains the claims associated with the token. To this end it MAY use the Authorization Server metadata, such as signing keys (for JWT or SAML tokens), or the introspect endpoint location.
 
@@ -1168,7 +1168,7 @@ Additionally, token introspection is carried out in the context of a particular 
 
 ### 3.102.1 Scope
 
-This transaction SHALL be used by Resource Server actors to request an OAuth2.1 compliant bearer token evaluation from an Authorization Server.
+This transaction SHALL be used by Resource Servers to request an OAuth2.1 compliant bearer token evaluation from an Authorization Server.
 
 ### 3.102.2 Actor Roles
 
@@ -1346,11 +1346,11 @@ Resource Servers SHALL use the introspection results as authorization claims whe
 
 ## 3.103 Get Authorization Server Metadata
 
-This transaction is used by Authorization Client actors and Resource Server actors to obtain an metadata about an Authorization Server such as endpoint locations and references to key stores required to validate (token) signatures.
+This transaction is used by Authorization Clients and Resource Servers to obtain metadata about an Authorization Server such as endpoint locations and references to key stores required to validate (token) signatures.
 
 ### 3.103.1 Scope
 
-This transaction is used by Authorization Client actors and Resource Server actors to obtain an metadata about an Authorization Server such as endpoint locations and references to key stores required to validate (token) signatures.
+This transaction is used by Authorization Clients and Resource Servers to obtain metadata about an Authorization Server such as endpoint locations and references to key stores required to validate (token) signatures.
 
 ### 3.103.2 Actor Roles
 
