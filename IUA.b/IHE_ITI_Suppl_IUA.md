@@ -10,7 +10,7 @@
 
 **Trial Implementation**
 
-Date: October 26, 2020
+Date: October 29, 2020
 
 Author: ITI Technical Committee
 
@@ -122,16 +122,7 @@ Second, this profile is operating in an environment where access consents are ma
 
 # Open Issues and Question
 
-- **Issue 11**: This profile supports three ways of obtaining the claims associated with access tokens. JWT tokens and SAML tokens have the claims embedded, the introspect option allows the claims to be retrieved through an API call to the Authorization Server. In the current specification, all methods are optional with the requirement that conforming Authorization and Resource Servers must support at least one of them. This may make actors incompatible as they may be conforming to different options. The open question is if the JWT or Introspect option (or both) is to be made mandatory. 
-
-  Projects relying on JWT-based tokens will find introspection superfluous, introducing unnecessary conformance and operational requirements. 
-  
-  In other projects the benefits of introspection are preferred, among which:
-  * token format independence: resource servers delegate token processing, allowing them to handle any (JWT, SAML or custom) token format among which opaque token identifiers,
-  * last-minute policy determination including token revocation schemes, and 
-  * client/server specific policy decision communication
-
-  Community feedback on this topic is requested. A discussion is ongoing in the IHE ITI-Infrastructure Github repository [here](https://github.com/IHE/IT-Infrastructure/issues/90) and [here](https://github.com/IHE/IT-Infrastructure/issues/106).
+None
   
 # Closed Issues
 
