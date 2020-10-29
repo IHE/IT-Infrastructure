@@ -137,7 +137,7 @@ Second, this profile is operating in an environment where access consents are ma
 
 - **Issue 1**: At this time, the method for assignment of client_id is not included in the profile. Registration of clients is a significant operational and security problem that is being postponed until there is more experience with problems in the field and reasonable solutions. In the field there are a variety of methods being tried. Many depend upon physical distribution methods or out of band communications to manage the authentication problems.
 
--- **Issue 2**: This profile does support access token in JWT format and SAML 2.0 Assertions compliant with the XUA profile requirements. An operational environment must ensure, that access tokens are understood by the authorization and resource servers. The Bearer Token option of earlier versions of the profile has been removed, since it does not specify the access token format and attributes used and was thus not interoperable by design.  
+- **Issue 2**: This profile does support access token in JWT format and SAML 2.0 Assertions compliant with the XUA profile requirements. An operational environment must ensure, that access tokens are understood by the authorization and resource servers. The Bearer Token option of earlier versions of the profile has been removed, since it does not specify the access token format and attributes used and was thus not interoperable by design.  
 
 - **Issue 3**: Audit messages are only defined for clients that are also Secure Applications. There is no defined auditing for other clients.
 
@@ -280,7 +280,7 @@ Notes:
 
 
 ## 34.2 IUA Actor Options
-Resource Server and Authorization Server actors SHALL support at least one of the following three options: the JSON Web Token option, the SAML Token option or the Token Introspection Option.
+Resource Server and Authorization Server actors SHALL support at least one of the following three options: the JSON Web Token option, the SAML Token option or the Token Introspection Option. The Authorization Client is not and does not need to be aware of the token processing options.
 
 The **Authorization Server Metadata option** enables automated configuration of Resource Servers and Authorization Clients by enabling them to pull configuration metadata directly from the Authorization Server.
 
@@ -305,8 +305,6 @@ Table 34.2-1: IUA - Actors and Options
 |                      | Authorization Server Metadata |O
 
 *Note 1:* Authorization Server or Resource Server actors MUST declare at least one of the following options: JWT Token, SAML, or Token Introspection.
-
-*Note 2:* The Authorization Client is not and does not need to be aware of the token processing options.
 
 ## 34.3 IUA Required Actor Groupings
 
@@ -738,7 +736,7 @@ If the access token request is valid and authorized, the Authorization Server re
 
 - *token_type* (REQUIRED): The value of the parameter SHALL be *Bearer*.
 
-- *access_token* (REQUIRED): The access token as JSON Web Token or SAML 2.0 assertion as described below.
+- *access_token* (REQUIRED): A JSON string containing the access token. The format of the access token string depends on the supported JWT Token, SAML Token or Introspect Token options.
 
 - *scope* (REQUIRED): The scope granted by the Authorization Server.
 
@@ -856,7 +854,7 @@ Table 3.71.6.1.1-1: JWT claims of the IUA extension and corresponding XUA Assert
 
 ###### 3.71.4.2.2.2 JWT BPPC extension
 
-In an environment which uses the IHE BPPC profile for documenting the consent, the Authorization Client, Authorization Server, and Resource Server SHALL support the following extension parameter:
+In an environment which uses the IHE BPPC profile for documenting the consent, the Authorization Server and Resource Server SHALL support the following extension parameter:
 
 - *patient\_id*: Patient ID related to the Patient Privacy Policy Identifier. It's value SHOULD be the patient identifier in CX syntax or as URL.
 
@@ -944,7 +942,7 @@ In accordance to [RFC7522, Section 2.2], the value of the access token contains 
 ##### 3.71.4.2.3 Token Introspection Option
 Implementations relying on Token Introspection option are not restricted in the access token format. This format MAY be different from the JWT or SAML tokens as described in section [3.71.4.2.2](#371422-json-web-token-option) and [3.71.4.2.3](#371423-saml-token-option). 
 
-*Note:* using this option, the access token MAY be formatted as an opaque identifier without further (security sensitive) content. In such cases, the Authorization Server MUST have means to retrieve and communicate the associated claims during token introspection (for details see transaction ITI-103.)
+*Note:* using this option, the access token MAY be formatted as an opaque identifier without further (security sensitive) content. In such cases, the Authorization Server MUST have means to retrieve and communicate the associated claims during token introspection (for details see transaction ITI-103)
 
 ### 3.71.5 Security Considerations
 
