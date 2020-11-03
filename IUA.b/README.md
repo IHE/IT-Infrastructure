@@ -1,10 +1,10 @@
 # IUA work item
 
-Improve IUA based on lessons-learned 
+Improve IUA based on lessons-learned
 
 ## Working Process
 
-* Bi-Weekly meeting on ititech calendar 
+* Bi-Weekly meeting on ititech calendar
 * Ballot plan for two phase ballot. First to be minimal corrections where there is problems. Second to focus on new features or more involved clarifications.
 * using github issues for all changes big or small
 * using kanban board for managing tasks https://github.com/IHE/IT-Infrastructure/projects/1
@@ -14,6 +14,16 @@ Improve IUA based on lessons-learned
 
 
 ## Breaking changes
+
+* Reworked the Use Cases section and added decriptions of the use cases from the user perspective.
+
+* Reworked the text descriptions to establish the borders between authentication, authorization and policy enforcement. 
+
+* Established options to the Get Authorization Token transaction to distinguish authorization code and client credential flow.
+
+* Added support for OAuth public clients and aligned the profile with the latest OAuth 2.1 draft specification.
+
+* Established UDAP extensions to improve the structure of JWT and reworked the examples.  
 
 * Replacement of the "Bearer" option with "Token Introspection" option. This option utilizes OAuth2 Introspect (RFC 7662). This option allows Resources Servers to deal with any token format (JWT/SAML/other) by obtaining the claims associated with an access token through an introspect API offered by the Authorization Server.
 
@@ -33,7 +43,7 @@ Improve IUA based on lessons-learned
 
 * Aligned the profile with the latest standards such as OAuth 2.1, OpenId Connect, JWT, OAuth2 Introspect.
 
-* Resource field in token request has become optional for client, should be supported by authorization server. 
+* Resource field in token request has become optional for client, should be supported by authorization server.
 
 * Removal of references to FHIR/Heart scopes. IUA is now scope definition agnostic. Scopes to be added to REST/FHIR based IHE profiles.
 
@@ -44,4 +54,3 @@ Improve IUA based on lessons-learned
 * Improved profiling of OAuth2 interactions providing clarity on request/response data requirements and semantics.
 
 * Support for alternative authorization grants (e.g. client jwt_grants). Not mandatory to be supported by an Authorization Server
-
