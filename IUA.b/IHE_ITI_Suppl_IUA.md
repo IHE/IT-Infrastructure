@@ -123,6 +123,8 @@ Second, this profile is operating in an environment where access consents are ma
 # Open Issues and Question
 
 - **Issue 11**: IUA does not define scopes at all, therefore IUA is not in conflict with SMART-on-FHIR. However this supplement includes updates to MHD and does define a Scope for use with MHD transactions. This definition today does not use SMART pattern, but does not forbid SMART scopes too. IHE requests comments on the IUA, MHD, and SMART-on-FHIR scope harmonization. 
+
+- **Issue 12**: Given that the IUA Resource Server is grouped with some other IHE defined actor, and that actor has audit logging requirements; IUA does not need to give a defined audit event for success. IUA does impose adding an AuditEvent.entity to that audit even defined in the other profile. But this should be explained well enough for the reader to understand already. IHE requests comments on a need to define in IUA an AuditEvent specific to a Resource Server that is enforcing a DENY. This AuditEvent would be used when the Resource Server prevented the transaction from reaching the grouped Profile (e.g. MHD Document Responder). This AuditEvent would cover reasons for DENY that are thus not specific to the content of the grouped transaction. Reasons such as: Missing Token, Token validation failure, Token expiration, Scope mismatch, IUA required attributes missing, etc. The expectation is that we can leverage some codes from OAuth.
   
 # Closed Issues
 
