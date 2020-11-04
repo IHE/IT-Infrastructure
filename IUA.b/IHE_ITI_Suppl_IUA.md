@@ -122,7 +122,7 @@ Second, this profile is operating in an environment where access consents are ma
 
 # Open Issues and Question
 
-None
+- **Issue 11**: IUA does not define scopes at all, therefore IUA is not in conflict with SMART-on-FHIR. However this supplement includes updates to MHD and does define a Scope for use with MHD transactions. This definition today does not use SMART pattern, but does not forbid SMART scopes too. IHE requests comments on the IUA, MHD, and SMART-on-FHIR scope harmonization. 
   
 # Closed Issues
 
