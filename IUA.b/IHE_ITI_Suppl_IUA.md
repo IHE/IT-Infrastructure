@@ -6,7 +6,7 @@
 
 **Technical Framework Supplement**
 
-**Internet User Authorization (IUA)**
+**Internet User Authorization (IUA)** with updates to MHD and ATNA.
 
 **Trial Implementation**
 
@@ -1547,6 +1547,34 @@ An MHD Document Consumer when grouped with an IUA Authorization Client, SHALL re
 scope: "ITI-68"
 
 This scope request authorizes the full [ITI-68] transaction. This scope implicitly requests patient specific Read for Binary resources as defined in [ITI-68]. Further scope refinement is allowed in realm or project specific situations, these additional scopes would be in addition to the scope defined here. 
+
+
+
+| **Editor: Please add rows to the following to ATNA Volume 1: section 9.2 ATNA Actor Options table**                      |
+| add row after "STX WS-Security" for both Secure Node and Secure Application                                              |
+|------------------------------------------------|
+ 
+ "STX: HTTPS IUA" | ITI TF-1:9.2.6.7
+ 
+ | **Editor: Please add section 9.2.6.7 as follows**      |
+ |--------------------------------------------------------|
+ 
+#### 9.2.6.7 STX: HTTPS IUA
+The system will utilize server side authenticated TLS (also known as https) to authenticate the server to the client and provide communications integrity and encryption. The system will utilize the IUA Profile to authenticate the client application to the server (IUA Resource Server). See ITI TF-2a: 3.19.6.6.
+
+| **Editor: Please add the following section to Volume 2 as follows**    |
+|------------------------------------------------------------------------|
+
+#### 3.19.6.6 STX: HTTPS IUA 
+
+This configuration utilizes server side authenticated TLS (also known as https) to authenticate the server to the client and provide communications integrity and encryption; and the IUA Profile to authenticate the client application to the server (IUA Resource Server). 
+
+The ATNA Local Secure Node shall be grouped with an IUA Authorization Client. The ATNA Remove Secure Node shall be grouped with an IUA Resource Server.
+ 
+* TLS shall be server side authenticated, and may be client authenticated
+* TLS shall be compliant with BCP195
+* Local Secure Node shall reject connections that are not https, and may enforce other policies
+* Remote Secure Node shall reject connections that do not carry a valid IUA token, and may enforce other policies
 
 
 
