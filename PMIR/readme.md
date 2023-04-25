@@ -1,3 +1,5 @@
-this folder stores documents related to PRIM supplement
+This folder is historic. The current PMIR is authored in a dedicated repo
+https://github.com/IHE/ITI.PMIR
 
-YouTube video recording of anouncement of Public Comment https://www.youtube.com/watch?v=VDT9Ujlyp44
+and published https://profiles.ihe.net/ITI/PMIR
+ 

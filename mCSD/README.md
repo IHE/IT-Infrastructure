@@ -1,3 +1,4 @@
-## Public Comments
-### April 2019 
-Resolved public comments:  https://docs.google.com/spreadsheets/d/1klji5Tl82CkddGHWhTZihuxQCp5-J-F9wExsadj_tiQ/edit?usp=sharing
+This folder is historic. The current mCSD is authored in a dedicated repo
+https://github.com/IHE/ITI.mCSD
+
+and published https://profiles.ihe.net/ITI/mCSD
