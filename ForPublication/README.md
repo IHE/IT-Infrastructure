@@ -1,3 +1,6 @@
+Word documents for published works are here:
+https://drive.google.com/drive/u/0/folders/1WTHmopm5TC0omqvC2TjIlzskrIF2cArh
+
 Final Text CPs are here:
 https://drive.google.com/drive/u/0/folders/1hsevv-tLKB8iMrM1IsAvzGvSONyO2ag9
 
